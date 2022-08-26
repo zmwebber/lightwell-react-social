@@ -40,9 +40,9 @@ function YouMightLike() {
 						<h5 className="username">Username</h5>
 					</div>
 				</div>
-			</div>
-			<div className="follow-button">
-				<CustomButton type="submit">Follow</CustomButton>
+				<div className="follow-button">
+					<CustomButton type="submit">Follow</CustomButton>
+				</div>
 			</div>
 			<footer className="show-more">
 				<h5>Show more</h5>

@@ -14,17 +14,16 @@
 
 .items {
     display: flex;
-    align-items: center;
     
 }
 
 .yml-header {
     color: white;
+    padding-left: 30px;
 }
 
 .profile-picture {
-    height: 25%;
-    width: 25%;
+    height: 100px;
     clip-path: circle();
     
 }
@@ -34,7 +33,9 @@
 }
 
 .follow-button {
-    
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
 }
 
 .username {
@@ -43,6 +44,6 @@
 
 .show-more {
     color: rgb(48, 61, 235);
-    /* position: relative; */
+    padding-left: 30px;
     
 }

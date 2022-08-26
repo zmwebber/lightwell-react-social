@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import "./components/NavbarComponent/navBarStyle.css";
-import "./components/YouMightLikeComponent/youMightLikeCard.css";
-import YouMightLike from "./components/YouMightLikeComponent/YouMightLike";
-import NavBar from "./components/NavbarComponent/NavBar";
+import "../../components/NavbarComponent/navBarStyle.css";
+import "../../components/YouMightLikeComponent/youMightLikeCard.css";
+import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
+import NavBar from "../../components/NavbarComponent/NavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
