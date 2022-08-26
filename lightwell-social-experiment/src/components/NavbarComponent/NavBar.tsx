@@ -24,64 +24,82 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { styled } from "@mui/system";
+import { Button } from "@mui/material";
 
-//TODO: Make a styled nav button for reusability
-//TODO: Align Text next to icon (baseline / )
+// TODO: Make text bigger
+// TODO: Give space between text and icon
+
+const CustomNavLink: any = styled(NavLink)({
+	color: "white",
+	textDecoration: "none",
+	display: "flex",
+	flexWrap: "wrap",
+	margin: "10px",
+});
+
+const TweetButton: any = styled(Button)`
+	font-weight: bold;
+	border-radius: 20px;
+	padding: 8px 18px;
+	shape = RoundedCornerShape(
+		50,50,50,50
+	);
+	
+`;
 
 export default function NavBar() {
 	return (
 		<div className="navbar">
 			<ul className="icons">
-				<li className="home">
-					<NavLink to="/" style={{ color: "white", textDecoration: "none" }}>
-						<HomeOutlinedIcon /> <span>Home</span>
-					</NavLink>
+				<li>
+					<CustomNavLink to="/">
+						<HomeOutlinedIcon /> Home
+					</CustomNavLink>
 				</li>
 
 				<li>
-					<NavLink
-						to="/explore"
-						style={{ color: "white", textDecoration: "none" }}
-					>
+					<CustomNavLink to="/explore">
 						<TagOutlinedIcon /> Explore
-					</NavLink>
+					</CustomNavLink>
 				</li>
 
 				<li>
-					<NavLink to="/notifications" style={{ color: "white" }}>
+					<CustomNavLink to="/notifications">
 						<NotificationsNoneOutlinedIcon /> Notifications
-					</NavLink>
+					</CustomNavLink>
 				</li>
 
 				<li>
-					<NavLink to="/messages" style={{ color: "white" }}>
-						<EmailOutlinedIcon />
-					</NavLink>
+					<CustomNavLink to="/messages">
+						<EmailOutlinedIcon /> Messages
+					</CustomNavLink>
 				</li>
 
 				<li>
-					<NavLink to="/bookmarks" style={{ color: "white" }}>
-						<BookmarkBorderOutlinedIcon />
-					</NavLink>
+					<CustomNavLink to="/bookmarks">
+						<BookmarkBorderOutlinedIcon /> Bookmarks
+					</CustomNavLink>
 				</li>
 
 				<li>
-					<NavLink to="/lists" style={{ color: "white" }}>
-						<ListAltOutlinedIcon />
-					</NavLink>
+					<CustomNavLink to="/lists">
+						<ListAltOutlinedIcon /> Lists
+					</CustomNavLink>
 				</li>
 
 				<li>
-					<NavLink to="/profile" style={{ color: "white" }}>
-						<PermIdentityOutlinedIcon />
-					</NavLink>
+					<CustomNavLink to="/profile">
+						<PermIdentityOutlinedIcon /> Profile
+					</CustomNavLink>
 				</li>
 
 				<li>
-					<NavLink to="/more" style={{ color: "white" }}>
-						<PendingOutlinedIcon />
-					</NavLink>
+					<CustomNavLink to="/more">
+						<PendingOutlinedIcon /> More
+					</CustomNavLink>
 				</li>
+				<TweetButton variant="contained">Tweet</TweetButton>
 			</ul>
 		</div>
 	);

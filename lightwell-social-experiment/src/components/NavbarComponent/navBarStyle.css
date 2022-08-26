@@ -9,8 +9,11 @@
 
 ul {
     list-style-type: none;
-    
 }
+
+/* li {
+    font-size: 1.3rem;
+} */
 
 .icons{
    display: flex;
@@ -18,23 +21,3 @@ ul {
    flex-direction: column;
 }
 
-.home > p {
-    display: flex;
-    align-items: baseline;
- 
-}
-
-.home {
-    display: flex;
-    align-items: baseline;
-}
-
-.home > a {
-    display: flex;
-    align-items: baseline;
-
-}
-
-.home > a > image {
-    padding-top: 16px;
-}
