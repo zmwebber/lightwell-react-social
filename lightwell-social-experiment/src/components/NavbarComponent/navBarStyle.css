@@ -2,7 +2,10 @@
     column-span: 3;
     color: gray;
     
-    
+    display: flex;
+        position: fixed;
+        left: 1vw;
+        top: 10vh;
 }
 
 ul {
@@ -11,7 +14,6 @@ ul {
 }
 
 .icons{
-   color: "secondary";
    display: flex;
    justify-content: space-between;
    flex-direction: column;

@@ -10,6 +10,10 @@
     background: rgba(0, 0, 255, 0.548);
     flex-direction: column;
     justify-content: space-around;
+    
+    position: fixed;
+    right: 1vw;
+    top: 10vh;
 }
 
 .items {
