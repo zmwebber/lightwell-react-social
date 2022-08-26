@@ -1,5 +1,5 @@
 .yml-card-contents {
-    height: 100px;
+    height: 80px;
     width: 480px;
     display: flex;
 }
@@ -7,18 +7,18 @@
 .yml-card {
     width: 25%;
     display: flex;
-    background: rgba(0, 0, 255, 0.548);
+    background: rgba(8, 1, 100, 0.548);
     flex-direction: column;
     justify-content: space-around;
-    
     position: fixed;
     right: 1vw;
     top: 10vh;
+    border-radius: 20px;
 }
 
 .items {
     display: flex;
-    
+    align-items: center;
 }
 
 .yml-header {
@@ -27,23 +27,26 @@
 }
 
 .profile-picture {
-    height: 100px;
+    display: flex;
+    height: 60px;
     clip-path: circle();
     
-}
-
-.real-name {
-    color: white;
 }
 
 .follow-button {
     display: flex;
     align-items: center;
-    padding-left: 50px;
+    padding-left: 120px;
 }
 
 .username {
     color: rgb(192, 187, 187);
+    margin: 2px;
+}
+
+.real-name {
+    color: white;
+    margin: 2px;
 }
 
 .show-more {

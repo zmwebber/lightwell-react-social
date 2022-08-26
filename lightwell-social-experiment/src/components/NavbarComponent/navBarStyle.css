@@ -1,11 +1,10 @@
 .navbar {
     column-span: 3;
     color: gray;
-    
     display: flex;
-        position: fixed;
-        left: 1vw;
-        top: 10vh;
+    position: fixed;
+    left: 1vw;
+    top: 10vh;
 }
 
 ul {
