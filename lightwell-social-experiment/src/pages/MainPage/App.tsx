@@ -5,12 +5,16 @@ import "../../components/YouMightLikeComponent/youMightLikeCard.css";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import NavBar from "../../components/NavbarComponent/NavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Profile from "../../components/ProfileComponent/Profile";
+import "../../components/ProfileComponent/profileStyle.css";
 
 function App() {
 	return (
 		<div>
 			<YouMightLike />
+
 			<Router>
+				<Profile />
 				<NavBar />
 				<Routes>
 					<Route path="/" />

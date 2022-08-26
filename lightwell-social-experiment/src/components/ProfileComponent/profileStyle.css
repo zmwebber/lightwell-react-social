@@ -1,0 +1,18 @@
+.profile-container {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    background: rgba(223, 255, 78, 0.548);
+    flex-direction: column;
+    position: fixed;
+    left: 20vw;
+    top: 15vh;
+    border-radius: 20px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    
+    
+}
