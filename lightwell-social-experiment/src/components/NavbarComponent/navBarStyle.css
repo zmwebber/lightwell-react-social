@@ -1,0 +1,39 @@
+.navbar {
+    column-span: 3;
+    color: gray;
+    
+    
+}
+
+ul {
+    list-style-type: none;
+    
+}
+
+.icons{
+   color: "secondary";
+   display: flex;
+   justify-content: space-between;
+   flex-direction: column;
+}
+
+.home > p {
+    display: flex;
+    align-items: baseline;
+ 
+}
+
+.home {
+    display: flex;
+    align-items: baseline;
+}
+
+.home > a {
+    display: flex;
+    align-items: baseline;
+
+}
+
+.home > a > image {
+    padding-top: 16px;
+}

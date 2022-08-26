@@ -1,0 +1,48 @@
+.yml-card-contents {
+    height: 100px;
+    width: 480px;
+    display: flex;
+}
+
+.yml-card {
+    width: 25%;
+    display: flex;
+    background: rgba(0, 0, 255, 0.548);
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.items {
+    display: flex;
+    align-items: center;
+    
+}
+
+.yml-header {
+    color: white;
+}
+
+.profile-picture {
+    height: 25%;
+    width: 25%;
+    clip-path: circle();
+    
+}
+
+.real-name {
+    color: white;
+}
+
+.follow-button {
+    
+}
+
+.username {
+    color: rgb(192, 187, 187);
+}
+
+.show-more {
+    color: rgb(48, 61, 235);
+    /* position: relative; */
+    
+}
