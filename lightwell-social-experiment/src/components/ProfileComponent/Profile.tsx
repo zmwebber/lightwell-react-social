@@ -4,6 +4,7 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
+import image from "../../Images/corgi.jpg";
 
 const FollowingButton: any = styled(Button)`
 	font-weight: bold;
@@ -17,16 +18,21 @@ const FollowingButton: any = styled(Button)`
 
 function Profile() {
 	return (
-		<div className="profile-container">
-			<div className="profile" style={{ color: "white" }}>
-				Profile
+		<div>
+			<div className="background">
+				<img src={image} className="profile-image" alt="profile-pic" />
 			</div>
-			<div className="notification-bar">
-				<PendingOutlinedIcon />
-				<NotificationAddOutlinedIcon />
-				<FollowingButton variant="contained">
-					Follow ? Following
-				</FollowingButton>
+			<div className="profile-container">
+				<div className="profile" style={{ color: "white" }}>
+					Profile
+				</div>
+				<div className="notification-bar">
+					<PendingOutlinedIcon />
+					<NotificationAddOutlinedIcon />
+					<FollowingButton variant="contained">
+						Follow ? Following
+					</FollowingButton>
+				</div>
 			</div>
 		</div>
 	);

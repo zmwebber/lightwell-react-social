@@ -2,17 +2,39 @@
     width: 50%;
     height: 50%;
     display: flex;
-    background: rgba(223, 255, 78, 0.548);
+    background: rgb(183, 251, 251);
     flex-direction: column;
     position: fixed;
     left: 20vw;
     top: 15vh;
     border-radius: 20px;
+    align-items: flex-end;
+    justify-content: center;
+    
 }
+
+
 
 .profile {
     display: flex;
     align-items: center;
     
+}
+
+.background {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    /* background-size: "cover"; */
+    position: fixed;
+    left: 20vw;
+    
+    
+    justify-content: center;
+}
+
+.notification-bar {
+    display: flex;
+    align-items: center;
     
 }
