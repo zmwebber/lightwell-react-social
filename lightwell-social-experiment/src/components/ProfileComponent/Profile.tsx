@@ -5,6 +5,9 @@ import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutl
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
 import image from "../../Images/corgi.jpg";
+import CardLoop from "../CardComponent/CardLoop";
+import data from "../../testData.json";
+import { DataArray } from "@mui/icons-material";
 
 const FollowingButton: any = styled(Button)`
 	font-weight: bold;
@@ -34,8 +37,13 @@ function Profile() {
 					</FollowingButton>
 				</div>
 			</div>
+			<div>
+				<CardLoop/>
+				<Button onClick={() => <CardLoop></CardLoop>}>More Cards?</Button>
+			</div>
 		</div>
 	);
 }
+
 
 export default Profile;

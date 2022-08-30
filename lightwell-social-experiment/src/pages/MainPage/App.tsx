@@ -9,6 +9,7 @@ import Profile from "../../components/ProfileComponent/Profile";
 import "../../components/ProfileComponent/profileStyle.css";
 //import Notifications  from "./NotificationPage/Notifications";
 import { NotificationPage } from "../Notifications/NotificationPage";
+import CardContainer  from "../../components/CardComponent/CardContainer";
 
 function App() {
 	return (
