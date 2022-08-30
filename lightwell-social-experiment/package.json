@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "db": "node Database.js",
+    "db": "nodemon Database.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
