@@ -1,5 +1,4 @@
 .navbar {
-    column-span: 3;
     color: gray;
     display: flex;
     position: fixed;

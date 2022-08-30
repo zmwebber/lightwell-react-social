@@ -9,40 +9,29 @@ import Profile from "../../components/ProfileComponent/Profile";
 import "../../components/ProfileComponent/profileStyle.css";
 //import Notifications  from "./NotificationPage/Notifications";
 import { NotificationPage } from "../Notifications/NotificationPage";
+import HomePage from "../HomePage/HomePage";
+import Explore from "../../components/ExploreComponent/Explore";
 
 function App() {
 	return (
 		<div>
-			<BrowserRouter>
-				<YouMightLike />
-				<Profile />
-				<NavBar />
-				<Routes>
-					<Route path="/notifications" element={<NotificationPage />} />
-					<Route path="/" />
-					<Route path="/explore" />
-					<Route path="/messages" />
-					<Route path="/bookmarks" />
-					<Route path="/lists" />
-					<Route path="/profile" />
-					<Route path="/more" />
-				</Routes>
-			</BrowserRouter>
+			{/* <YouMightLike />
+			<Profile />
+			Card Component Goes Here */}
+
+			<NavBar />
+			<Routes>
+				<Route path="/notifications" element={<NotificationPage />} />
+				<Route path="/" element={<HomePage />} />
+				<Route path="/explore" element={<Explore />} />
+				<Route path="/messages" />
+				<Route path="/bookmarks" />
+				<Route path="/lists" />
+				<Route path="/profile" />
+				<Route path="/more" />
+			</Routes>
 		</div>
 	);
 }
-
-// {
-// 	/* <BrowserRouter>
-// 	<Navbar />
-// 	<div className="container">
-// 		<Routes>
-// 			<Route path="/catfact" element={<CatFactComponent />} />
-// 			<Route path="/weather" element={<WeatherComponent />} />
-// 			<Route path="/" element={<Counter />} />
-// 		</Routes>
-// 	</div>
-// </BrowserRouter>; */
-// }
 
 export default App;

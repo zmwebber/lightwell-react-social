@@ -1,12 +1,13 @@
 .profile-container {
     width: 50%;
-    height: 50%;
+    height: 60%;
     display: flex;
     background: rgb(183, 251, 251);
     flex-direction: column;
     position: fixed;
     left: 20vw;
-    top: 15vh;
+    right: 20vw;
+    
     border-radius: 20px;
     align-items: flex-end;
     justify-content: center;
@@ -21,13 +22,18 @@
     
 }
 
-.background {
-    width: 50%;
-    height: 50%;
+.banner {
+    /* width: 50%;
+    height: 50%; */
     display: flex;
+    /* width: 350px;
+    height: 600px; */
     /* background-size: "cover"; */
-    position: fixed;
+    justify-content: left;
+    align-items: center;
     left: 20vw;
+    /* background-position: -950px 0; */
+    /* background-size: 650px 100%; */
     
     
     justify-content: center;
@@ -38,3 +44,4 @@
     align-items: center;
     
 }
+

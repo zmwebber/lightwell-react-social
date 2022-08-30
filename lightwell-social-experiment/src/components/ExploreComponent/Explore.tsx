@@ -1,11 +1,11 @@
 import React from "react";
 
-function NotificationComponent() {
+function Explore() {
 	return (
 		<div className="title" style={{ color: "white" }}>
-			Notification Page
+			Explore Page
 		</div>
 	);
 }
 
-export default NotificationComponent;
+export default Explore;

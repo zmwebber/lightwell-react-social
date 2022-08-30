@@ -19,10 +19,10 @@ const FollowingButton: any = styled(Button)`
 function Profile() {
 	return (
 		<div>
-			<div className="background">
-				<img src={image} className="profile-image" alt="profile-pic" />
-			</div>
-			<div className="profile-container">
+			<div className="profile-container" style={{ backgroundImage: image }}>
+				<div className="banner">
+					<img src={image} className="profile-image" alt="profile-pic" />
+				</div>
 				<div className="profile" style={{ color: "white" }}>
 					Profile
 				</div>
