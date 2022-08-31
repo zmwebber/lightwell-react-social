@@ -1,0 +1,33 @@
+.home-page {
+    height: 100%;
+    position: relative;
+
+}
+
+.navbar-position {
+    width: 20%;
+    position: relative;
+}
+
+.profile-position{
+    width: 47%;
+    position: relative;
+}
+
+.yml-position {
+    width: 30%;
+    position: relative;
+    margin: 10px;
+}
+
+/* #window {
+    float: left;
+    height: 100%;
+} */
+
+#component {
+    position: relative;
+    float: left;
+    height: 100%;
+
+}

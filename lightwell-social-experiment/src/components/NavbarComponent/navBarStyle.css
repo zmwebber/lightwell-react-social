@@ -1,9 +1,10 @@
 .navbar {
-    color: gray;
-    display: flex;
-    position: fixed;
-    left: 1vw;
+    color: #ffffff;
+    /* display: flex;
+    position: fixed; */
+    left: 0vw;
     top: 10vh;
+    
 }
 
 ul {

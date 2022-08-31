@@ -10,7 +10,7 @@ import "../../components/ProfileComponent/profileStyle.css";
 //import Notifications  from "./NotificationPage/Notifications";
 import { NotificationPage } from "../Notifications/NotificationPage";
 import HomePage from "../HomePage/HomePage";
-import Explore from "../../components/ExploreComponent/Explore";
+import { ExplorePage } from "../ExplorePage/ExplorePage";
 
 function App() {
 	return (
@@ -19,11 +19,10 @@ function App() {
 			<Profile />
 			Card Component Goes Here */}
 
-			<NavBar />
 			<Routes>
 				<Route path="/notifications" element={<NotificationPage />} />
 				<Route path="/" element={<HomePage />} />
-				<Route path="/explore" element={<Explore />} />
+				<Route path="/explore" element={<ExplorePage />} />
 				<Route path="/messages" />
 				<Route path="/bookmarks" />
 				<Route path="/lists" />

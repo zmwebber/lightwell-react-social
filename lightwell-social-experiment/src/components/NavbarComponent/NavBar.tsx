@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -10,6 +10,7 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
+import Form from "../FormComponent/Form";
 import Notifications from "../NotificationPage/NotificationComponent";
 
 // TODO: Make text bigger
@@ -27,6 +28,7 @@ const TweetButton: any = styled(Button)`
 	font-weight: bold;
 	border-radius: 20px;
 	padding: 8px 18px;
+	width: 120px;
 	shape = RoundedCornerShape(
 		50,50,50,50
 	);
@@ -34,6 +36,13 @@ const TweetButton: any = styled(Button)`
 `;
 
 export default function NavBar() {
+	const [showTweet, setShowTweet] = useState(false);
+
+	const showForm = () => {
+		console.log("clicked");
+		setShowTweet(!showTweet);
+	};
+
 	return (
 		<div className="navbar">
 			<ul className="icons">
@@ -84,7 +93,11 @@ export default function NavBar() {
 						<PendingOutlinedIcon /> More
 					</CustomNavLink>
 				</li>
-				<TweetButton variant="contained">Tweet</TweetButton>
+				<TweetButton variant="contained" onClick={() => showForm()}>
+					Tweet
+				</TweetButton>
+
+				<div className="tweet-form">{showTweet === true && <Form />}</div>
 			</ul>
 		</div>
 	);

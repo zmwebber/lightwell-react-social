@@ -5,12 +5,12 @@
 }
 
 .yml-card {
-    width: 25%;
+    width: 90%;
     display: flex;
     background: rgba(8, 1, 100, 0.548);
     flex-direction: column;
     justify-content: space-around;
-    position: fixed;
+    
     right: 1vw;
     top: 10vh;
     border-radius: 20px;
