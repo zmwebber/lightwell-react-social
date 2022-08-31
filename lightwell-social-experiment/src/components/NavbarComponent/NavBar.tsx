@@ -10,8 +10,8 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
-import Form from "../FormComponent/Form";
-import Notifications from "../NotificationPage/NotificationComponent";
+import Form from "../TweetFormComponent/TweetForm";
+//import Notifications from "../NotificationPage/NotificationComponent";
 
 // TODO: Make text bigger
 // TODO: Give space between text and icon
