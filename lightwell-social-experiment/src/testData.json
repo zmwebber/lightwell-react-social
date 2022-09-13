@@ -5,35 +5,40 @@
 			"cardTitle" : "First Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png"
+			"cardImage" : "./logo512.png",
+			"profileLink": "https://www.google.com/"
         },
         {
             "profilePic": "S",
 			"cardTitle" : "Second Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png"
+			"cardImage" : "./logo512.png",
+			"profileLink": "https://www.google.com/"
         },
         {
             "profilePic": "S",
 			"cardTitle" : "Thrid Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png"
+			"cardImage" : null,
+			"profileLink": "https://www.google.com/"
         },
         {
             "profilePic": "S",
 			"cardTitle" : "Fourth Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png"
+			"cardImage" : "./logo512.png",
+			"profileLink": "https://www.google.com/"
         },
         {
             "profilePic": "S",
 			"cardTitle" : "Fifth Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png"
+			"cardImage" : "./logo512.png",
+			"profileLink": "https://www.google.com/"
         }
     ]
 }

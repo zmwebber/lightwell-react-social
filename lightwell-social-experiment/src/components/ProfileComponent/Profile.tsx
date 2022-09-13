@@ -39,7 +39,7 @@ function Profile() {
 			</div>
 			<div>
 				<CardLoop/>
-				<Button onClick={() => <CardLoop></CardLoop>}>More Cards?</Button>
+				<Button onClick={() => <CardLoop></CardLoop>}>More Cards</Button>
 			</div>
 		</div>
 	);
