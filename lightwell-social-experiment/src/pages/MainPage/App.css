@@ -1,28 +1,56 @@
-.App {
-  text-align: center;
+.app {
+  display: flex;
+  height: 100vh;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.App-logo {
+body {
+  --twitterColor: #50b7f5;
+  --twitterBackground: #e6ecf0;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+a {
+  color: inherit;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
 .App-header {
-  background-color: gray;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
-}
+  color: black;
+} */
 
-.App-link {
+/* .App-link {
   color: #61dafb;
-}
-
-body {
-  background-color: gray;
-}
-
+} */

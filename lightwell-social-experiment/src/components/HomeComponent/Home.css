@@ -1,0 +1,20 @@
+.homePage{
+    flex: 0.4;
+    border-right: 1px solid var(--twitterBackground);
+    margin-top: -20px;
+    min-width: fit-content;
+    overflow-y: scroll;
+}
+
+.homePage::-webkit-scrollbar {
+    display: none;
+}
+
+.homeHeader{
+    position: sticky;
+    top: 0;
+    background-color: white;
+    border: 1px solid var(--twitterBackground);
+    padding: 15px 20px;
+    z-index: 150;
+}

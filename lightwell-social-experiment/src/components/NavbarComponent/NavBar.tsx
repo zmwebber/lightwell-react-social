@@ -11,32 +11,55 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
 import Notifications from "../NotificationPage/NotificationComponent";
+import TwitterIcon from '@mui/icons-material/Twitter';
+import NavBarOption from "./NavBarOption";
+import "./navBarStyle.css";
 
 // TODO: Make text bigger
 // TODO: Give space between text and icon
 
-const CustomNavLink: any = styled(NavLink)({
-	color: "white",
-	textDecoration: "none",
-	display: "flex",
-	flexWrap: "wrap",
-	margin: "10px",
-});
-
-const TweetButton: any = styled(Button)`
-	font-weight: bold;
-	border-radius: 20px;
-	padding: 8px 18px;
-	shape = RoundedCornerShape(
-		50,50,50,50
-	);
-	
-`;
+// const CustomNavLink: any = styled(NavLink)({
+// 	color: "black",
+// 	textDecoration: "none",
+// 	display: "flex",
+// 	flexWrap: "wrap",
+// 	margin: "10px",
+// });
 
 export default function NavBar() {
 	return (
 		<div className="navbar">
-			<ul className="icons">
+			<TwitterIcon className="twitterIcon"/>
+			<NavLink to="/">
+			<NavBarOption active Icon={HomeOutlinedIcon} text="Home"/>
+			</NavLink>
+			<NavLink to="/explore">
+			<NavBarOption Icon={TagOutlinedIcon} text="Explore"/>
+			</NavLink>
+			<NavLink to="/notifications">
+			<NavBarOption Icon={NotificationsNoneOutlinedIcon} text="Notifications"/>
+			</NavLink>
+			<NavLink to="/messages">
+			<NavBarOption Icon={EmailOutlinedIcon} text="Messages"/>
+			</NavLink >
+			<NavLink to="/bookmarks">
+			<NavBarOption Icon={BookmarkBorderOutlinedIcon} text="Bookmarks"/>
+			</NavLink >
+			<NavLink to="/lists">
+			<NavBarOption Icon={ListAltOutlinedIcon} text="Lists"/>
+			</NavLink >
+			<NavLink to="/profile">
+			<NavBarOption Icon={PermIdentityOutlinedIcon} text="Profile"/>
+			</NavLink>
+			<NavLink to="/more">
+				<NavBarOption Icon={PendingOutlinedIcon} text="More"/>
+			</NavLink>
+			
+			<Button variant="outlined" className="navbarButton" fullWidth>Tweet</Button>
+			{/* <ul className="icons">
+				<li>
+					<TwitterIcon />
+				</li>
 				<li>
 					<CustomNavLink to="/">
 						<HomeOutlinedIcon /> Home
@@ -85,7 +108,7 @@ export default function NavBar() {
 					</CustomNavLink>
 				</li>
 				<TweetButton variant="contained">Tweet</TweetButton>
-			</ul>
+			</ul> */}
 		</div>
 	);
 }

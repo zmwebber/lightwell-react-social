@@ -1,16 +1,14 @@
-import * as React from 'react';
-import PopperUnstyled from '@mui/base/PopperUnstyled';
-import ClickAwayListener from '@mui/base/ClickAwayListener';
-import { styled } from '@mui/joy/styles';
-import MenuList from '@mui/joy/MenuList';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import Edit from '@mui/icons-material/Edit';
+import MoreVert from '@mui/icons-material/MoreVert';
+import IconButton from '@mui/joy/IconButton';
+import ListDivider from '@mui/joy/ListDivider';
+import ListItemDecorator from '@mui/joy/ListItemDecorator';
+import Menu from '@mui/joy/Menu';
 import MenuItem from '@mui/joy/MenuItem';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import * as React from 'react';
 
-const Popup = styled(PopperUnstyled)({
-  zIndex: 1000,
-});
-
-export default function TwitterCardMenuList() {
+export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
@@ -20,50 +18,45 @@ export default function TwitterCardMenuList() {
     setAnchorEl(null);
   };
 
-  const handleListKeyDown = (event: any) => {
-    if (event.key === 'Tab') {
-      setAnchorEl(null);
-    } else if (event.key === 'Escape' && anchorEl != null) {
-      setAnchorEl(null);
-    }
-  };
-
   return (
     <div>
-      <MoreVertIcon
-        id="composition-button"
+      <IconButton
+        id="positioned-demo-button"
+        aria-controls={open ? 'positioned-demo-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        variant="outlined"
+        color="neutral"
         onClick={handleClick}
-        sx={{ borderRadius: 0 }}
       >
-      </MoreVertIcon>
-      <Popup
-        role={undefined}
-        id="composition-menu"
-        open={open}
+        <MoreVert />
+      </IconButton>
+      <Menu
+        id="positioned-demo-menu"
         anchorEl={anchorEl}
-        disablePortal
-        modifiers={[
-          {
-            name: 'offset',
-            options: {
-              offset: [0, 4],
-            },
-          },
-        ]}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="positioned-demo-button"
+        placement="bottom-end"
       >
-        <ClickAwayListener onClickAway={handleClose}>
-          <MenuList
-            variant="outlined"
-            onKeyDown={handleListKeyDown}
-            sx={{ boxShadow: 'md', bgcolor: 'background.body' }}
-          >
-            <MenuItem onClick={handleClose}>Not Interested in this Tweet</MenuItem>
-            <MenuItem onClick={handleClose}>Unfollow</MenuItem>
-            <MenuItem onClick={handleClose}>Block</MenuItem>
-            <MenuItem onClick={handleClose}>Report</MenuItem>
-          </MenuList>
-        </ClickAwayListener>
-      </Popup>
+        <MenuItem onClick={handleClose}>
+          <ListItemDecorator>
+            <Edit />
+          </ListItemDecorator>{' '}
+          Edit post
+        </MenuItem>
+        <MenuItem disabled onClick={handleClose}>
+          <ListItemDecorator />
+          Draft post
+        </MenuItem>
+        <ListDivider />
+        <MenuItem onClick={handleClose} variant="soft" color="danger">
+          <ListItemDecorator sx={{ color: 'inherit' }}>
+            <DeleteForever />
+          </ListItemDecorator>{' '}
+          Delete
+        </MenuItem>
+      </Menu>
     </div>
   );
 }
