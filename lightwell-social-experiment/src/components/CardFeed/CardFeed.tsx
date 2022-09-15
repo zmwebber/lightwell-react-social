@@ -6,7 +6,7 @@ import CardLoop from '../CardComponent/CardLoop'
 function CardFeed() {
   return (
     <div>
-        <CardLoop></CardLoop>
+      <CardLoop></CardLoop>
     </div>
   )
 }

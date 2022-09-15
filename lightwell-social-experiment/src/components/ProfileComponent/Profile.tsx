@@ -1,13 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import { styled } from "@mui/system";
+import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import { Button } from "@mui/material";
+import { styled } from "@mui/system";
 import image from "../../Images/corgi.jpg";
-import CardLoop from "../CardComponent/CardLoop";
-import data from "../../testData.json";
-import { DataArray } from "@mui/icons-material";
 
 const FollowingButton: any = styled(Button)`
 	font-weight: bold;

@@ -22,12 +22,12 @@ export default function TwitterCardMenuList() {
     Todo:
     Add functionality to edit and delete button when crud operations are added to DB
   */
-  const onClickEdit = (event:any) => {
+  const onClickEdit = (event: any) => {
     console.log("This will edit at some point");
     setAnchorEl(null);
   }
 
-  const onClickDelete = (event:any) => {
+  const onClickDelete = (event: any) => {
     console.log("This will delete at some point");
     setAnchorEl(null);
   }

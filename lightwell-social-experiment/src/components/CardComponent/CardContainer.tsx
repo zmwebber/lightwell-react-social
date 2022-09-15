@@ -10,10 +10,9 @@ import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 // import '../App.css';
+import { useState } from 'react';
 import './CardContainer.css';
 import TwitterCardMenuList from './TwitterCardMenuList';
-import React, { useState } from 'react';
-import { copyFileSync } from 'fs';
 
 
 function CardContainer(props: any) {
@@ -24,12 +23,12 @@ function CardContainer(props: any) {
   /*
     Todo:Add like toggle ability with DB when DB functionality is implemented
   */
-  function onClickLike(){
-    if(isLiked != true){
+  function onClickLike() {
+    if (isLiked != true) {
       setIsLiked(!isLiked);
       setLikeCount(likeCount + 1);
     }
-    else{
+    else {
       setIsLiked(!isLiked);
       setLikeCount(likeCount - 1);
     }
@@ -69,7 +68,7 @@ function CardContainer(props: any) {
             alt="React Logo"
           /> : null}
           <CardActions disableSpacing>
-            <IconButton aria-label="like" className= {`${isLiked && 'heartIconActive'}`} onClick={onClickLike}>
+            <IconButton aria-label="like" className={`${isLiked && 'heartIconActive'}`} onClick={onClickLike}>
               {likeCount}<FavoriteIcon />
             </IconButton>
             <IconButton aria-label="share">

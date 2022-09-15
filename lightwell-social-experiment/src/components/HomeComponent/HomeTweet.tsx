@@ -1,10 +1,5 @@
-import UploadIcon from '@mui/icons-material/Upload';
-import { Avatar, Button } from '@mui/material';
-import { red } from '@mui/material/colors';
-import { useState } from 'react';
-import './HomeTweet.css';
-import React from 'react';
 import TweetBox from '../TweetComponents/TweetBox';
+import './HomeTweet.css';
 
 
 function HomeTweet() {
@@ -15,7 +10,7 @@ function HomeTweet() {
 
   return (
     <div className="homeTweet">
-        <TweetBox/>
+      <TweetBox />
     </div>
   )
 }

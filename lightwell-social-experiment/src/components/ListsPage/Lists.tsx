@@ -3,7 +3,7 @@ import React from 'react'
 function Lists() {
   return (
     <div>
-        <h2>Lists</h2>
+      <h2>Lists</h2>
     </div>
 
   )

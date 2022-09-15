@@ -1,17 +1,13 @@
-import { NavLink } from "react-router-dom";
-import React from "react";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import { styled } from "@mui/system";
-import { Button } from "@mui/material";
-import Notifications from "../NotificationPage/NotificationComponent";
+import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import TwitterIcon from '@mui/icons-material/Twitter';
+import { NavLink } from "react-router-dom";
 import NavBarOption from "./NavBarOption";
 import "./navBarStyle.css";
 import TweetButton from "./TweetButton";
@@ -61,8 +57,8 @@ export default function NavBar() {
 			<NavLink to="/more">
 				<NavBarOption Icon={PendingOutlinedIcon} text="More" />
 			</NavLink>
-			
-			<TweetButton/>
+
+			<TweetButton />
 			{/* <ul className="icons">
 				<li>
 					<TwitterIcon />
