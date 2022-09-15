@@ -8,7 +8,7 @@ import Menu from '@mui/joy/Menu';
 import MenuItem from '@mui/joy/MenuItem';
 import * as React from 'react';
 
-export default function PositionedMenu() {
+export default function TwitterCardMenuList() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
@@ -17,6 +17,20 @@ export default function PositionedMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  /*
+    Todo:
+    Add functionality to edit and delete button when crud operations are added to DB
+  */
+  const onClickEdit = (event:any) => {
+    console.log("This will edit at some point");
+    setAnchorEl(null);
+  }
+
+  const onClickDelete = (event:any) => {
+    console.log("This will delete at some point");
+    setAnchorEl(null);
+  }
 
   return (
     <div>
@@ -39,18 +53,14 @@ export default function PositionedMenu() {
         aria-labelledby="positioned-demo-button"
         placement="bottom-end"
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={onClickEdit}>
           <ListItemDecorator>
             <Edit />
           </ListItemDecorator>{' '}
           Edit post
         </MenuItem>
-        <MenuItem disabled onClick={handleClose}>
-          <ListItemDecorator />
-          Draft post
-        </MenuItem>
         <ListDivider />
-        <MenuItem onClick={handleClose} variant="soft" color="danger">
+        <MenuItem onClick={onClickDelete} variant="soft" color="danger">
           <ListItemDecorator sx={{ color: 'inherit' }}>
             <DeleteForever />
           </ListItemDecorator>{' '}

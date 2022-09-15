@@ -14,6 +14,7 @@ function CardLoop() {
 						cardDescriptions={item.cardDescriptions}
 						cardImage={item.cardImage}
 						profileLink={item.profileLink}
+						isLiked={item.isLiked}
 					/>
 				)
 			})}

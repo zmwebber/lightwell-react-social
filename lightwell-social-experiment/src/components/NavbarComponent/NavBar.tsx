@@ -14,7 +14,14 @@ import Notifications from "../NotificationPage/NotificationComponent";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import NavBarOption from "./NavBarOption";
 import "./navBarStyle.css";
+import TweetButton from "./TweetButton";
 
+// Commented out code is old navbar replaced it to try to make it more compact and tried to removed redunant stuff. Saved old code in comment below.
+// TODO: Fix size of navbar horizontally
+// TODO: Fix button looking weird (May not be looking weird but does to me)
+// TODO: Have tweet button pop up overlay with a same stuff as HomeTweet and have it go away on click outside of the box or on submit
+
+// Johns Comments -
 // TODO: Make text bigger
 // TODO: Give space between text and icon
 
@@ -29,33 +36,33 @@ import "./navBarStyle.css";
 export default function NavBar() {
 	return (
 		<div className="navbar">
-			<TwitterIcon className="twitterIcon"/>
+			<TwitterIcon className="twitterIcon" />
 			<NavLink to="/">
-			<NavBarOption active Icon={HomeOutlinedIcon} text="Home"/>
+				<NavBarOption active Icon={HomeOutlinedIcon} text="Home" />
 			</NavLink>
 			<NavLink to="/explore">
-			<NavBarOption Icon={TagOutlinedIcon} text="Explore"/>
+				<NavBarOption Icon={TagOutlinedIcon} text="Explore" />
 			</NavLink>
 			<NavLink to="/notifications">
-			<NavBarOption Icon={NotificationsNoneOutlinedIcon} text="Notifications"/>
+				<NavBarOption Icon={NotificationsNoneOutlinedIcon} text="Notifications" />
 			</NavLink>
 			<NavLink to="/messages">
-			<NavBarOption Icon={EmailOutlinedIcon} text="Messages"/>
+				<NavBarOption Icon={EmailOutlinedIcon} text="Messages" />
 			</NavLink >
 			<NavLink to="/bookmarks">
-			<NavBarOption Icon={BookmarkBorderOutlinedIcon} text="Bookmarks"/>
+				<NavBarOption Icon={BookmarkBorderOutlinedIcon} text="Bookmarks" />
 			</NavLink >
 			<NavLink to="/lists">
-			<NavBarOption Icon={ListAltOutlinedIcon} text="Lists"/>
+				<NavBarOption Icon={ListAltOutlinedIcon} text="Lists" />
 			</NavLink >
 			<NavLink to="/profile">
-			<NavBarOption Icon={PermIdentityOutlinedIcon} text="Profile"/>
+				<NavBarOption Icon={PermIdentityOutlinedIcon} text="Profile" />
 			</NavLink>
 			<NavLink to="/more">
-				<NavBarOption Icon={PendingOutlinedIcon} text="More"/>
+				<NavBarOption Icon={PendingOutlinedIcon} text="More" />
 			</NavLink>
 			
-			<Button variant="outlined" className="navbarButton" fullWidth>Tweet</Button>
+			<TweetButton/>
 			{/* <ul className="icons">
 				<li>
 					<TwitterIcon />
