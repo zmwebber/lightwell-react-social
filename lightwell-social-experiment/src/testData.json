@@ -5,7 +5,7 @@
 			"cardTitle" : "First Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png",
+			"cardImage" : "https://dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
 			"profileLink": "https://www.google.com/",
 			"isLiked": false
         },
@@ -14,7 +14,7 @@
 			"cardTitle" : "Second Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png",
+			"cardImage" : "https://dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
 			"profileLink": "https://www.google.com/",
 			"isLiked": false
         },
@@ -32,7 +32,7 @@
 			"cardTitle" : "Fourth Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png",
+			"cardImage" : "https://dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
 			"profileLink": "https://www.google.com/",
 			"isLiked": false
         },
@@ -41,7 +41,7 @@
 			"cardTitle" : "Fifth Card",
 			"cardDate" : "September 14, 2016",
 			"cardDescriptions" : "This is a test card for the twitter page",
-			"cardImage" : "./logo512.png",
+			"cardImage" : "https://dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
 			"profileLink": "https://www.google.com/",
 			"isLiked": false
         }

@@ -65,7 +65,7 @@ function CardContainer(props: any) {
           {props.cardImage != null ? <CardMedia
             component="img"
             height="400"
-            image={props.cardImage || null}
+            src={props.cardImage || null}
             alt="React Logo"
           /> : null}
           <CardActions disableSpacing>
