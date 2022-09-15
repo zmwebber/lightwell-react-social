@@ -16,7 +16,7 @@ const FollowingButton: any = styled(Button)`
 
 function Profile() {
 	return (
-		<div>
+		<>
 			<div className="background">
 				<img src={image} className="profile-image" alt="profile-pic" />
 			</div>
@@ -36,7 +36,7 @@ function Profile() {
 				<CardLoop/>
 				<Button onClick={() => <CardLoop></CardLoop>}>More Cards</Button>
 			</div> */}
-		</div>
+		</>
 	);
 }
 

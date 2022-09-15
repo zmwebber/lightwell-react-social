@@ -1,36 +1,31 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useState } from 'react';
-import Modal from 'react-modal';
+import Modal from '@mui/material/Modal';
 import TweetBox from '../TweetComponents/TweetBox';
 import "./TweetButton.css";
 
 // Todo: Add tweetMenuClick functionality
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: '40%',
-        bottom: 'auto',
-        marginRight: '-20%',
-        transform: 'translate(-50%, -110%)',
-    },
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
 };
+
 
 function TweetButton() {
 
-    let subtitle: any;
     const [modalIsOpen, setIsOpen] = useState(false);
 
     const openModal = () => {
-        console.log("test")
         setIsOpen(true);
-    }
-
-    const afterOpenModal = () => {
-        // references are now sync'd and can be accessed.
-        subtitle.style.color = '#f00';
     }
 
     const closeModal = () => {
@@ -38,19 +33,20 @@ function TweetButton() {
     }
 
     return (
-        <div>
+        <>
             <Button onClick={openModal} variant="outlined" className="navbarButton" fullWidth>Tweet</Button>
             <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
+                open={modalIsOpen}
+                onClose={closeModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
             >
-                <CloseIcon onClick={closeModal} />
-                <TweetBox />
+                <Box sx={style}>
+                    <CloseIcon onClick={closeModal} />
+                    <TweetBox />
+                </Box>
             </Modal>
-        </div>
+        </>
     )
 }
 

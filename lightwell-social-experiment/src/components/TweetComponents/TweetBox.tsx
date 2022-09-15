@@ -28,11 +28,8 @@ function TweetBox() {
       <div className="tempImageUrl">
         <input onChange={(e) => setTwitterImage(e.target.value)} value={twitterImage} placeholder="Temporary Image URL Input" type="text" />
       </div>
-      <label htmlFor="file-upload" className="custom-file-upload">
-        <UploadIcon></UploadIcon> Image Upload
-      </label>
       <input id="file-upload" type="file" name="tweetImage" accept="image/png, image/gif, image/jpeg"></input>
-      <Button onClick={sendTwitter} className='homeTweetButton'>Tweet</Button>
+      <input type="submit" value="Tweet" onSubmit={sendTwitter} className='homeTweetButton'/>
     </form>
   )
 }

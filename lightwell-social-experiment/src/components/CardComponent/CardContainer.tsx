@@ -34,6 +34,12 @@ function CardContainer(props: any) {
     }
   }
 
+  //Todo: add share button functionality
+
+  function onClickShare() {
+    console.log("Test");
+  }
+
   return (
     <div className="cardContainer">
       <p className="App-header">
@@ -71,7 +77,7 @@ function CardContainer(props: any) {
             <IconButton aria-label="like" className={`${isLiked && 'heartIconActive'}`} onClick={onClickLike}>
               {likeCount}<FavoriteIcon />
             </IconButton>
-            <IconButton aria-label="share">
+            <IconButton aria-label="share" onClick={onClickShare}>
               <ShareIcon />
             </IconButton>
           </CardActions>

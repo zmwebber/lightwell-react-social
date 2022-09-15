@@ -33,7 +33,7 @@ export default function TwitterCardMenuList() {
   }
 
   return (
-    <div>
+    <>
       <IconButton
         id="positioned-demo-button"
         aria-controls={open ? 'positioned-demo-menu' : undefined}
@@ -67,6 +67,6 @@ export default function TwitterCardMenuList() {
           Delete
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }
