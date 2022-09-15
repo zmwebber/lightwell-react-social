@@ -18,7 +18,7 @@ function TweetBox() {
   }
 
   return (
-    <form>
+    <form onSubmit={sendTwitter}>
       <div className="homeTweetInput">
         <Avatar sx={{ bgcolor: red[500] }}>
           S
@@ -28,8 +28,7 @@ function TweetBox() {
       <div className="tempImageUrl">
         <input onChange={(e) => setTwitterImage(e.target.value)} value={twitterImage} placeholder="Temporary Image URL Input" type="text" />
       </div>
-      <input id="file-upload" type="file" name="tweetImage" accept="image/png, image/gif, image/jpeg"></input>
-      <input type="submit" value="Tweet" onSubmit={sendTwitter} className='homeTweetButton'/>
+      <input type="submit" value="Tweet" className='homeTweetButton'/>
     </form>
   )
 }
