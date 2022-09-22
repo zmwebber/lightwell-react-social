@@ -9,7 +9,6 @@ import CardMedia from '@mui/material/CardMedia';
 import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-// import '../App.css';
 import { useState } from 'react';
 import './CardContainer.css';
 import TwitterCardMenuList from './TwitterCardMenuList';
@@ -43,7 +42,7 @@ function CardContainer(props: any) {
   return (
     <div className="cardContainer">
       <p className="App-header">
-        <Card sx={{ maxWidth: 1000, minWidth: 800 }} style={{ textAlign: "left" }}>
+        <Card sx={{ maxWidth: 1000, minWidth: 800 }} style={{ textAlign: "left" }} id={props.id}>
           <CardHeader
             avatar={
               <div className='avatarLink'>

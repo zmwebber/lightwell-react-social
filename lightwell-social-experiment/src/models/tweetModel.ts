@@ -1,21 +1,27 @@
-export class Tweet{
-    private id: number;
-    private profilePic: string;
-    private cardTitle: string;
-    private cardDate: string;
-    private cardDescription: string;
-    private cardImage: string;
-    private profileLink: string;
-    private isLiked: boolean;
+import actionTypes from "../redux/ducks/TweetActionType";
 
-    constructor(id:number, profilePic: string, cardTitle: string, cardDate: string, cardDescription: string, cardImage:string, profileLink: string, isLiked: boolean){
-        this.id = id;
-        this.profilePic = profilePic;
-        this.cardTitle = cardTitle;
-        this.cardDate = cardDate;
-        this.cardDescription = cardDescription;
-        this.cardImage = cardImage;
-        this.profileLink = profileLink;
-        this.isLiked = isLiked;
+export type Tweet = 
+    {
+     id: string;
+     profilePic: string;
+     cardTitle: string;
+     cardDate: string;
+     cardDescription: string;
+     cardImage: string | null;
+     profileLink: string;
+     isLiked: boolean;
     }
-}
+
+    export interface TweetLoading {
+        type: typeof actionTypes.TWEET_LOADING;
+    }
+
+    export interface TweetSuccess {
+        type: typeof actionTypes.TWEET_SUCCESS;
+        payload: Tweet;
+    }
+
+    export type TweetDispatchTypes =
+  | TweetLoading
+  | TweetSuccess;
+

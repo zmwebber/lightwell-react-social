@@ -6,7 +6,6 @@ import "../../components/ProfileComponent/profileStyle.css";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import "../../components/YouMightLikeComponent/youMightLikeCard.css";
 import "./App.css";
-//import Notifications  from "./NotificationPage/Notifications";
 import Bookmarks from "../../components/BookmarksPage/Bookmarks";
 import Explore from "../../components/ExplorePage/Explore";
 import Home from "../../components/HomeComponent/Home";
