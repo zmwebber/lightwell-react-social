@@ -1,12 +1,12 @@
 import React from 'react'
-import CardLoop from '../CardComponent/CardLoop'
+import CardContainer from '../CardComponent/CardContainer'
 
 // This may be redundant will remove if needed thought we could use this for both profile and home page
 
 function CardFeed() {
   return (
     <div>
-      <CardLoop></CardLoop>
+      <CardContainer></CardContainer>
     </div>
   )
 }
