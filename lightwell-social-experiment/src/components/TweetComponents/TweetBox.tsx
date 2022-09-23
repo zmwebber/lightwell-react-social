@@ -17,7 +17,7 @@ function TweetBox() {
     console.log(`Message: ${twitterMessage} and Image: ${twitterImage != "" ? twitterImage : null}`);
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     let date = new Date();
-    let currentTime = month[date.getMonth() + 1] + " " + date.getDate() + ", " + date.getFullYear(); 
+    let currentTime = month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear(); 
     dispatch(SuccessTweetRetrieval(
         { 
           id: "",
@@ -27,7 +27,8 @@ function TweetBox() {
           cardDescription: twitterMessage,
           cardImage: (twitterImage != "" ? twitterImage : null),
           profileLink: "google.com",
-          isLiked: false
+          isLiked: false,
+          likedCount: 0
         }
       ));
     setTwitterImage("");
@@ -37,7 +38,7 @@ function TweetBox() {
 
   return (
     <form onSubmit={sendTwitter}>
-      <div>
+      <div className="homeTweetInput">
         <input onChange={(e) => setTwitterTitle(e.target.value)} value={twitterTitle} placeholder="Title Here" type="text" />
       </div>
       <div className="homeTweetInput">
@@ -46,7 +47,7 @@ function TweetBox() {
         </Avatar>
         <input onChange={(e) => setTwitterMessage(e.target.value)} value={twitterMessage} placeholder="What's happening?" type="text" />
       </div>
-      <div className="tempImageUrl">
+      <div className="homeTweetInput">
         <input onChange={(e) => setTwitterImage(e.target.value)} value={twitterImage} placeholder="Temporary Image URL Input" type="text" />
       </div>
       <input type="submit" value="Tweet" className='homeTweetButton'/>

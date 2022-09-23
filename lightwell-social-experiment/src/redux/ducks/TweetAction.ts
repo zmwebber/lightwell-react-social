@@ -10,3 +10,12 @@ export function SuccessTweetRetrieval(payload: Tweet){
     payload.id = uuid();
     return ActionModel(actionTypes.TWEET_SUCCESS, payload);
 }
+export function OnLike(payload: string){
+  return ActionModel(actionTypes.TWEET_LIKE, payload);
+}
+export function OnDislike(payload: string){
+  return ActionModel(actionTypes.TWEET_DISLIKE, payload);
+}
+export function OnDelete(payload: string){
+  return ActionModel(actionTypes.TWEET_DELETE, payload);
+}

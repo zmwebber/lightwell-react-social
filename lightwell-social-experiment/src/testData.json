@@ -8,7 +8,8 @@
 			"cardDescriptions" : "This is a test card for the twitter page",
 			"cardImage" : "https://dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
 			"profileLink": "https://www.google.com/",
-			"isLiked": false
+			"isLiked": false,
+			"likedCount": 0
         },
         {
 			"id": "2",
@@ -18,7 +19,8 @@
 			"cardDescriptions" : "This is a test card for the twitter page",
 			"cardImage" : "https://dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
 			"profileLink": "https://www.google.com/",
-			"isLiked": false
+			"isLiked": false,
+			"likedCount": 0
         },
         {
 			"id": "3",
@@ -28,7 +30,8 @@
 			"cardDescriptions" : "This is a test card for the twitter page",
 			"cardImage" : null,
 			"profileLink": "https://www.google.com/",
-			"isLiked": false
+			"isLiked": false,
+			"likedCount": 0
         },
         {
 			"id": "4",
@@ -38,7 +41,8 @@
 			"cardDescriptions" : "This is a test card for the twitter page",
 			"cardImage" : "https://dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
 			"profileLink": "https://www.google.com/",
-			"isLiked": false
+			"isLiked": false,
+			"likedCount": 0
         },
         {
 			"id": "5",
@@ -48,7 +52,8 @@
 			"cardDescriptions" : "This is a test card for the twitter page",
 			"cardImage" : "https://dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
 			"profileLink": "https://www.google.com/",
-			"isLiked": false
+			"isLiked": false,
+			"likedCount": 0
         }
     ]
 }

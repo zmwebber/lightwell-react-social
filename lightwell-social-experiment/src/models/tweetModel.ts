@@ -10,7 +10,10 @@ export type Tweet =
      cardImage: string | null;
      profileLink: string;
      isLiked: boolean;
+     likedCount: number;
     }
+
+    
 
     export interface TweetLoading {
         type: typeof actionTypes.TWEET_LOADING;

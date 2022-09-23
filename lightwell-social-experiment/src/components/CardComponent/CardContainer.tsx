@@ -9,33 +9,40 @@ import CardMedia from '@mui/material/CardMedia';
 import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './CardContainer.css';
 import TwitterCardMenuList from './TwitterCardMenuList';
+import { useDispatch, useSelector } from "react-redux";
+import { RootStore } from "../../store";
+import {OnLike} from "../../redux/ducks/TweetAction";
 
 
 function CardContainer(props: any) {
 
-  const [likeCount, setLikeCount] = useState<number>(0);
+  // const tweetState = useSelector((state: RootStore) => state.tweetArray);
   const [isLiked, setIsLiked] = useState(props.isLiked);
+  const dispatch = useDispatch();
+  const tweetState = useSelector((state: RootStore) => state.tweetArray);
+  const tweetLikeCount = tweetState.tweet.filter((tweet) => tweet.id === props.cardId)[0].likedCount;
+  const [likeCount, setLikeCount] = useState<number | null>(null);
 
-  /*
-    Todo:Add like toggle ability with DB when DB functionality is implemented
-  */
-  function onClickLike() {
-    if (isLiked != true) {
-      setIsLiked(!isLiked);
-      setLikeCount(likeCount + 1);
+  useEffect(() => {
+    setLikeCount(tweetLikeCount)
+     },[tweetLikeCount])
+
+
+
+  function onClickLike(event: React.MouseEvent<HTMLElement>, id: string) {
+    if(event.button === 0){
+      dispatch(OnLike(id));
     }
-    else {
-      setIsLiked(!isLiked);
-      setLikeCount(likeCount - 1);
-    }
+    setLikeCount(tweetLikeCount);
   }
 
   //Todo: add share button functionality
 
   function onClickShare() {
+    navigator.clipboard.writeText("localhost:3000/" + props.cardId);
     console.log("Test");
   }
 
@@ -55,7 +62,9 @@ function CardContainer(props: any) {
             }
             action={
               <IconButton aria-label="options" >
-                <TwitterCardMenuList />
+                <TwitterCardMenuList 
+                  id = {props.cardId}
+                />
               </IconButton>
             }
             title={props.cardTitle}
@@ -73,7 +82,7 @@ function CardContainer(props: any) {
             alt="React Logo"
           /> : null}
           <CardActions disableSpacing>
-            <IconButton aria-label="like" className={`${isLiked && 'heartIconActive'}`} onClick={onClickLike}>
+            <IconButton aria-label="like" className={`${isLiked && 'heartIconActive'}`} onClick = {event => onClickLike(event, props.cardId)}>
               {likeCount}<FavoriteIcon />
             </IconButton>
             <IconButton aria-label="share" onClick={onClickShare}>
