@@ -1,0 +1,11 @@
+
+
+const actionTypes = {
+TWEET_LIKED: "TWEET_LIKED",
+TWEET_SENT_SUCCESS: "TWEET_SENT_SUCCESS",
+TWEET_DELETE: "TWEET_DELETE",
+TWEET_LOADING: "TWEET_LOADING",
+
+}
+
+export default actionTypes;
