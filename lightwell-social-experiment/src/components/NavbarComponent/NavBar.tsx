@@ -9,9 +9,9 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
-import { Button } from "@mui/material";
-import Form from "../TweetFormComponent/TweetForm";
-//import Notifications from "../NotificationPage/NotificationComponent";
+import { Button, Modal } from "@mui/material";
+import TweetForm from "../TweetFormComponent/TweetForm";
+//import { TwitterBlue } from "../../colorConstants";
 
 // TODO: Make text bigger
 // TODO: Give space between text and icon
@@ -29,19 +29,22 @@ const TweetButton: any = styled(Button)`
 	border-radius: 20px;
 	padding: 8px 18px;
 	width: 120px;
-	shape = RoundedCornerShape(
-		50,50,50,50
-	);
-	
+	color: "primary";
+	backgroundColor: "primary";
+	shape = RoundedCornerShape(50, 50, 50, 50);
 `;
 
 export default function NavBar() {
-	const [showTweet, setShowTweet] = useState(false);
+	// const [showTweet, setShowTweet] = useState(false);
 
-	const showForm = () => {
-		console.log("clicked");
-		setShowTweet(!showTweet);
-	};
+	// const showForm = () => {
+	// 	console.log("show tweet form");
+	// 	setShowTweet(!showTweet);
+	// };
+
+	const [open, setOpen] = useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 
 	return (
 		<div className="navbar">
@@ -93,11 +96,36 @@ export default function NavBar() {
 						<PendingOutlinedIcon /> More
 					</CustomNavLink>
 				</li>
-				<TweetButton variant="contained" onClick={() => showForm()}>
-					Tweet
-				</TweetButton>
 
-				<div className="tweet-form">{showTweet === true && <Form />}</div>
+				{/* <TweetButton variant="contained" onClick={() => showForm()}>
+					Tweet
+				</TweetButton> */}
+
+				{/* <div className="tweet-form">
+					{showTweet === true && (
+						<Modal
+							open={open}
+							onClose={handleClose}
+							aria-labelledby="parent-modal-title"
+							aria-describedby="parent-modal-description"
+						>
+							<TweetForm showTweet={showTweet} setShowTweet={setShowTweet} />
+						</Modal>
+					)}
+				</div> */}
+
+				<div className="tweet-form">
+					<TweetButton onClick={handleOpen}>TWEET</TweetButton>
+
+					<Modal
+						open={open}
+						onClose={handleClose}
+						className="modal"
+						//aria-describedby="parent-modal-description"
+					>
+						<TweetForm handleClose={handleClose} />
+					</Modal>
+				</div>
 			</ul>
 		</div>
 	);

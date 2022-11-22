@@ -1,5 +1,5 @@
 
-import actionTypes from "../redux/ducks/TweetActionTypes";
+import actionTypes from "../redux/ducks/tweetDuck/TweetActionTypes";
 
 
 export type Tweet = {

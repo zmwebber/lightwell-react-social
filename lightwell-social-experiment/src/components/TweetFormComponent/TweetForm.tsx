@@ -1,10 +1,10 @@
 import { Button, Input } from "@mui/material";
 import React, { useState } from "react";
-import { SentTweet } from "../../redux/ducks/TweetActions";
+import { SentTweet } from "../../redux/ducks/tweetDuck/TweetActions";
 import { useSelector, useDispatch } from "react-redux";
 import { Tweet } from "../../models/TweetModel";
 
-function TweetForm() {
+function TweetForm(props: any) {
 	const dispatch = useDispatch();
 
 	const [twitterTextContent, setTwitterTextContent] = useState("");
@@ -25,8 +25,8 @@ function TweetForm() {
 				picture: tweetPicture,
 			})
 		);
-		// setTwitterTextContent("");
 		e.target.reset();
+		props.handleClose();
 	};
 
 	return (
@@ -49,7 +49,7 @@ function TweetForm() {
 					style={{ color: "black" }}
 				/>
 				<Button type="submit" style={{ color: "white" }}>
-					TWEET
+					Send Tweet
 				</Button>
 			</form>
 		</div>

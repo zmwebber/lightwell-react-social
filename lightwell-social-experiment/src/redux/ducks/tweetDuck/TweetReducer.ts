@@ -1,5 +1,5 @@
 
-import { Tweet } from "../../models/TweetModel";
+import { Tweet } from "../../../models/TweetModel";
 import actionTypes from "./TweetActionTypes";
 
 interface DefaultStateI {
