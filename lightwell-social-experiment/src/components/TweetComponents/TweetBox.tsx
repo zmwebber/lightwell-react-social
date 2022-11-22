@@ -3,7 +3,7 @@ import { red } from '@mui/material/colors';
 import { useState } from 'react';
 import "./TweetBox.css";
 import { useDispatch, useSelector } from "react-redux";
-import { SuccessTweetRetrieval } from '../../redux/ducks/TweetAction';
+import { SuccessTweetRetrieval } from '../../redux/ducks/tweetDuck/TweetAction';
 
 function TweetBox() {
 

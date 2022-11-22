@@ -1,5 +1,5 @@
-import ActionModel from "../../models/ActionModel";
-import { Tweet } from "../../models/tweetModel";
+import ActionModel from "../../../models/ActionModel";
+import { Tweet } from "../../../models/tweetModel";
 import actionTypes from "./TweetActionType";
 import uuid from 'react-uuid';
 

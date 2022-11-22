@@ -2,12 +2,12 @@ import data from "../../testData.json";
 import CardLayout from "./Card";
 import './CardContainer.css';
 import { RootStore } from "../../store";
-import { LoadingTweetAction,  SuccessTweetRetrieval} from "../../redux/ducks/TweetAction";
+import { LoadingTweetAction,  SuccessTweetRetrieval} from "../../redux/ducks/tweetDuck/TweetAction";
 import {Tweet} from "../../models/tweetModel";
 import IActionModel from "../../interfaces/IActionModel";
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { twitterState } from "../../redux/ducks/TweetReducer";
+import { twitterState } from "../../redux/ducks/tweetDuck/TweetReducer";
 
 function CardContainer() {
 

@@ -1,7 +1,7 @@
-import { Tweet } from "../../models/tweetModel";
+import { Tweet } from "../../../models/tweetModel";
 import actionTypes from "./TweetActionType";
-import IActionModel from "../../interfaces/IActionModel";
-import data from "../../testData.json";
+import IActionModel from "../../../interfaces/IActionModel";
+import data from "../../../testData.json";
 
 function dataMap() {
   let dataArray: Tweet[] = [];

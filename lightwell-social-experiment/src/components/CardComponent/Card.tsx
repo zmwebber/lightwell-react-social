@@ -14,7 +14,7 @@ import './CardContainer.css';
 import TwitterCardMenuList from './TwitterCardMenuList';
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../store";
-import {OnDislike, OnLike} from "../../redux/ducks/TweetAction";
+import {OnDislike, OnLike} from "../../redux/ducks/tweetDuck/TweetAction";
 import { Alert, Collapse } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';

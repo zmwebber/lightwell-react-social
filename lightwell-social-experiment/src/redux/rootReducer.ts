@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import tweetReducer from "./ducks/TweetReducer";
+import tweetReducer from "./ducks/tweetDuck/TweetReducer";
 
 const RootReducer = combineReducers({
     tweetArray: tweetReducer,

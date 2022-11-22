@@ -9,7 +9,7 @@ import MenuItem from '@mui/joy/MenuItem';
 import * as React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../store";
-import {OnDelete} from "../../redux/ducks/TweetAction";
+import {OnDelete} from "../../redux/ducks/tweetDuck/TweetAction";
 
 export default function TwitterCardMenuList(props: any) {
   const tweetState = useSelector((state: RootStore) => state.tweetArray);
