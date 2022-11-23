@@ -4,7 +4,6 @@
 // FORM_FAIL should set status to failed? Not necessary
 
 import { Tweet } from "../../../models/TweetModel";
-import ActionModel from "../../../models/ActionModel";
 import actionTypes from "./TweetFormActionTypes";
 import {TweetFormSubmitted, TweetFormLoading} from "../../../models/TweetFormModel";
 

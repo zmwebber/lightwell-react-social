@@ -4,8 +4,9 @@ import {
 	tweetFormLoading,
 	tweetFormSubmitted,
 } from "../../redux/ducks/tweetFormDuck/TweetFormActions";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Tweet } from "../../models/TweetModel";
+import UUID from "react-uuid";
 
 function TweetForm(props: any) {
 	const dispatch = useDispatch();
@@ -15,9 +16,10 @@ function TweetForm(props: any) {
 
 	const tweetSuccess = (e: any) => {
 		e.preventDefault();
+
 		dispatch(
 			tweetFormSubmitted({
-				id: "",
+				id: UUID().toString(),
 				type: "",
 				textContent: twitterTextContent,
 				isLiked: false,
