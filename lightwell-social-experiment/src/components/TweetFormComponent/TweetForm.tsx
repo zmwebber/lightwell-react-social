@@ -1,6 +1,9 @@
 import { Button, Input } from "@mui/material";
 import React, { useState } from "react";
-import { SentTweet } from "../../redux/ducks/tweetDuck/TweetActions";
+import {
+	tweetFormLoading,
+	tweetFormSubmitted,
+} from "../../redux/ducks/tweetFormDuck/TweetFormActions";
 import { useSelector, useDispatch } from "react-redux";
 import { Tweet } from "../../models/TweetModel";
 
@@ -13,7 +16,7 @@ function TweetForm(props: any) {
 	const tweetSuccess = (e: any) => {
 		e.preventDefault();
 		dispatch(
-			SentTweet({
+			tweetFormSubmitted({
 				id: "",
 				type: "",
 				textContent: twitterTextContent,

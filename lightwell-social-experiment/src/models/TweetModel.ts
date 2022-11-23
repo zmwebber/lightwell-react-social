@@ -1,6 +1,4 @@
-
 import actionTypes from "../redux/ducks/tweetDuck/TweetActionTypes";
-
 
 export type Tweet = {
     id: string,
@@ -14,20 +12,53 @@ export type Tweet = {
     picture: string | null
 }
 
-export interface tweetDeleted {
-    type: typeof actionTypes.TWEET_DELETE;
+///////////////////////////////////////////////
+
+interface ITweetDeleted {
+    type: string;
+    payload: Tweet["id"];
 }
 
-export interface tweetLoading {
-    type: typeof actionTypes.TWEET_LOADING;
+export function TweetDeleted(
+    type: string,
+    payload: Tweet["id"]
+): ITweetDeleted {
+    return ({
+        type: type,
+        payload: payload
+    })
 }
 
-export interface tweetSent {
-    type: typeof actionTypes.TWEET_SENT_SUCCESS;
-    payload: Tweet;
+///////////////////////////////////////////////
+
+interface ITweetsLoading {
+    type: typeof actionTypes.TWEETS_LOADING;
+    payload: boolean;
 }
 
-export interface tweetLiked {
+export function TweetsLoading(
+    type: string,
+    payload: boolean
+): ITweetsLoading {
+    return ({
+        type: type,
+        payload: payload
+    })
+}
+
+///////////////////////////////////////////////
+
+interface ITweetLiked {
     type: typeof actionTypes.TWEET_LIKED;
-    payload: Tweet;
+    payload: Tweet["likedCount"];
+}
+
+export function TweetLiked(
+    type: string,
+    payload: Tweet["likedCount"]
+): ITweetLiked {
+    return ({
+        type: type,
+        payload: payload
+    })
 }

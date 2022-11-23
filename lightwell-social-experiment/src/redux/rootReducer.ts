@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import tweetReducer from "./ducks/tweetDuck/TweetReducer";
+import tweetFormReducer from "./ducks/tweetFormDuck/TweetFormReducer";
 
 const RootReducer = combineReducers({
-    tweetReducer: tweetReducer,
+    tweetFormReducer,
 });
 
 export default RootReducer;

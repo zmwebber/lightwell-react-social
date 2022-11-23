@@ -1,16 +1,15 @@
-import { Tweet } from "../../../models/TweetModel";
+import { Tweet, TweetDeleted, TweetLiked, TweetsLoading } from "../../../models/TweetModel";
 import actionTypes from "./TweetActionTypes";
-import { IActionModel } from "../../../models/IActionModel";
-import ActionModel from "../../../models/ActionModel";
+//import ActionModel from "../../../models/ActionModel";
 
-export function LoadingTweetAction() {
-    return actionTypes.TWEET_LOADING;
+export function loadingTweetsAction(payload:boolean) {
+    return TweetsLoading(actionTypes.TWEETS_LOADING, payload);
 }
 
-export function SentTweet(payload: Tweet) {
-    return ActionModel(actionTypes.TWEET_SENT_SUCCESS, payload);
+export function deleteTweet(payload:Tweet) {
+    return TweetDeleted(actionTypes.TWEET_DELETE, payload.id);
 }
 
-export function DeleteTweet(payload:Tweet){
-    return actionTypes.TWEET_DELETE, payload;
+export function tweetLiked(payload:Tweet) {
+    return TweetLiked(actionTypes.TWEET_LIKED, payload.likedCount);
 }

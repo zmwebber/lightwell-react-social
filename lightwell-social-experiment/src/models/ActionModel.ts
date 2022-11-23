@@ -1,4 +1,7 @@
-import { IActionModel } from "./IActionModel";
+interface IActionModel {
+    type: string,
+    payload: any
+}
 
 export default function ActionModel(
     type: string,
