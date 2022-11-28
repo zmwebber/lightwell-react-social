@@ -106,23 +106,6 @@ export default function NavBar() {
 					</CustomNavLink>
 				</li>
 
-				{/* <TweetButton variant="contained" onClick={() => showForm()}>
-					Tweet
-				</TweetButton> */}
-
-				{/* <div className="tweet-form">
-					{showTweet === true && (
-						<Modal
-							open={open}
-							onClose={handleClose}
-							aria-labelledby="parent-modal-title"
-							aria-describedby="parent-modal-description"
-						>
-							<TweetForm showTweet={showTweet} setShowTweet={setShowTweet} />
-						</Modal>
-					)}
-				</div> */}
-
 				<div className="tweet-form">
 					<TweetButton onClick={handleOpen}>TWEET</TweetButton>
 

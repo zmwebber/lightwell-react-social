@@ -20,26 +20,26 @@ function TweetForm(props: any) {
 		dispatch(
 			tweetFormSubmitted({
 				id: UUID().toString(),
-				type: "",
+				// type: "",
 				textContent: twitterTextContent,
 				isLiked: false,
 				name: "",
 				handle: "",
+				profilePicture: "",
 				date: "",
 				likedCount: 0,
-				picture: tweetPicture,
+				contentPicture: tweetPicture,
 			})
 		);
 		e.target.reset();
-		props.handleClose();
+
+		if (props.className == "Modal") {
+			props.handleClose();
+		}
 	};
 
 	return (
-		<div className="tweet-form">
-			<h1 className="title" style={{ color: "white" }}>
-				NEW FORM
-			</h1>
-
+		<div className="tweet-form" style={{ backgroundColor: "white" }}>
 			<form onSubmit={tweetSuccess}>
 				<input
 					onChange={(e) => setTweetPicture(e.target.value)}
@@ -49,7 +49,7 @@ function TweetForm(props: any) {
 					name="tweet"
 					type="text"
 					id="tweet-content"
-					placeholder="Type here!"
+					placeholder="What's Happening?"
 					onChange={(e) => setTwitterTextContent(e.target.value)}
 					style={{ color: "black" }}
 				/>

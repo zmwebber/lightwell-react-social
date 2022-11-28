@@ -11,12 +11,11 @@ import { theme } from "./colorConstants";
 
 ReactDOM.render(
 	<ThemeProvider theme={theme}>
-		<BrowserRouter>
-			<Provider store={store}>
+		<Provider store={store}>
+			<BrowserRouter>
 				<App />
-			</Provider>
-		</BrowserRouter>
-		,
+			</BrowserRouter>
+		</Provider>
 	</ThemeProvider>,
 	document.getElementById("root")
 );

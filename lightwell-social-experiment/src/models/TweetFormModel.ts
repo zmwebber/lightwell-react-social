@@ -1,7 +1,7 @@
 import tweetFormActionTypes from "../redux/ducks/tweetFormDuck/TweetFormActionTypes";
 import { Tweet } from "./TweetModel";
 
-interface ITweetFormSubmitted {
+export interface ITweetFormSubmitted {
     type: string;
     payload: Tweet;
 }

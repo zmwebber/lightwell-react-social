@@ -2,14 +2,15 @@ import actionTypes from "../redux/ducks/tweetDuck/TweetActionTypes";
 
 export type Tweet = {
     id: string,
-    type: any,
+    // type: any,
     textContent: string,
     isLiked: boolean,
     name: string,
     handle: string,
+    profilePicture: string | null,
     date: string,
     likedCount: number,
-    picture: string | null
+    contentPicture: string | null
 }
 
 ///////////////////////////////////////////////
