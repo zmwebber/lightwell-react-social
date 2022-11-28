@@ -7,6 +7,8 @@ import {
 import { useDispatch } from "react-redux";
 import { Tweet } from "../../models/TweetModel";
 import UUID from "react-uuid";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 
 function TweetForm(props: any) {
 	const dispatch = useDispatch();
@@ -41,21 +43,25 @@ function TweetForm(props: any) {
 	return (
 		<div className="tweet-form" style={{ backgroundColor: "white" }}>
 			<form onSubmit={tweetSuccess}>
-				<input
-					onChange={(e) => setTweetPicture(e.target.value)}
-					placeholder="pic here"
-				/>
-				<input
-					name="tweet"
-					type="text"
-					id="tweet-content"
-					placeholder="What's Happening?"
-					onChange={(e) => setTwitterTextContent(e.target.value)}
-					style={{ color: "black" }}
-				/>
-				<Button type="submit" style={{ color: "white" }}>
-					Send Tweet
-				</Button>
+				<Grid container direction="column" className="container">
+					<Grid item>
+						<TextField
+							name="tweet"
+							type="text"
+							id="tweet-content"
+							placeholder="What's Happening?"
+							onChange={(e) => setTwitterTextContent(e.target.value)}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							onChange={(e) => setTweetPicture(e.target.value)}
+							placeholder="pic here"
+						/>
+					</Grid>
+
+					<Button type="submit">Send Tweet</Button>
+				</Grid>
 			</form>
 		</div>
 	);

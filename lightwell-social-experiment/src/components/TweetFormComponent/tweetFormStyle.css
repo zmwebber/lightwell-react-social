@@ -10,3 +10,6 @@
     border-radius: 5px;
 }
 
+.container {
+    border-bottom: solid gray;
+}

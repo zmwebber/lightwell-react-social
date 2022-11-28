@@ -1,3 +1,8 @@
 .tweet-card {
     color: white;
 }
+
+.profile-picture {
+    height: 5px;
+    width: 5px;
+}

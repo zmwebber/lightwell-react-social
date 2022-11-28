@@ -3,18 +3,23 @@
     /* display: flex;
     position: fixed; */
     left: 0vw;
-    top: 10vh;
-    
+    top: 10vh;   
 }
 
 ul {
     list-style-type: none;
 }
 
+li {
+    font-weight: 500;
+    font-size:large;
+}
+
 .icons{
    display: flex;
    justify-content: space-between;
    flex-direction: column;
+
 }
 
 .modal{
@@ -24,5 +29,4 @@ ul {
     max-height: 30%;
     display: flex;
     border-radius: "15px"
-
 }

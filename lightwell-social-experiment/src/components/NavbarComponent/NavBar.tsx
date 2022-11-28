@@ -37,12 +37,6 @@ const TweetButton: any = styled(Button)`
 `;
 
 export default function NavBar() {
-	// const [showTweet, setShowTweet] = useState(false);
-
-	// const showForm = () => {
-	// 	console.log("show tweet form");
-	// 	setShowTweet(!showTweet);
-	// };
 	const dispatch = useDispatch();
 
 	const [open, setOpen] = useState(false);
