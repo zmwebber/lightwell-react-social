@@ -109,7 +109,7 @@ export default function NavBar() {
 						className="modal"
 						//aria-describedby="parent-modal-description"
 					>
-						<TweetForm handleClose={handleClose} />
+						<TweetForm className="modal" handleClose={handleClose} />
 					</Modal>
 				</div>
 			</ul>

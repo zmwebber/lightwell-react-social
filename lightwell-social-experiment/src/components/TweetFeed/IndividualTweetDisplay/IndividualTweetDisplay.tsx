@@ -2,6 +2,7 @@
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../Images/default-profile-pic.jpeg";
 import React from "react";
+import { findByLabelText } from "@testing-library/react";
 
 function checkProfilePicture(tweet: Tweet) {
 	if (tweet.profilePicture == undefined || "") {
@@ -13,11 +14,22 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	checkProfilePicture(tweet);
 	return (
 		<>
-			<h1 style={{ backgroundColor: "white" }}>
-				<img className="profile-picture" src={tweet.profilePicture}></img>
-				{tweet.name} {tweet.handle} + time(19h)
-				{tweet.textContent}
-			</h1>
+			<div style={{ backgroundColor: "white" }}>
+				<div className="picture">
+					<img
+						className="profile-picture"
+						src={tweet.profilePicture}
+						style={{ width: "5vw", height: "5vh" }}
+					></img>
+				</div>
+
+				<div className="username-handle">
+					{tweet.name} {tweet.handle} + time(19h)
+				</div>
+
+				<div className="tweet-text">{tweet.textContent}</div>
+				<div className="tweet-likes">{tweet.likedCount}</div>
+			</div>
 		</>
 	);
 }

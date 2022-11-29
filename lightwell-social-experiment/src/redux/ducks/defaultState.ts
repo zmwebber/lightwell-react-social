@@ -1,11 +1,11 @@
 import { Tweet } from "../../models/TweetModel"
 
 export interface DefaultStateI {
-    tweet: Tweet[],
+    tweets: Tweet[],
     loading: boolean,
 }
 
-export const initialState = {
-    tweet: [],
-    loading: false,
+export const initialState: DefaultStateI = {
+    tweets: [],
+    loading: false
 }

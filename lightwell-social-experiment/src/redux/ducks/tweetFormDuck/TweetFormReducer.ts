@@ -12,8 +12,12 @@ export const tweetFormReducer = (state: DefaultStateI = initialState, action: IA
     const { type: actionType } = action;
     switch (actionType) {
         case tweetFormActionTypes.FORM_SUBMIT: {
+            const newState = state;
+            newState.tweets.concat(action.payload.tweet);
+            newState.loading = false;
+            state = newState;
             // return { tweets: state.tweet.concat(action.payload.tweet), loading: false }
-            return { tweets: [ initialState, action.payload.tweet ], loading: false }
+            return { state }
             //On FORM_SUBMIT -> add tweet to array.        
         }
         case tweetFormActionTypes.FORM_LOAD: {

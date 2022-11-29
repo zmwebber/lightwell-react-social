@@ -35,7 +35,7 @@ function TweetForm(props: any) {
 		);
 		e.target.reset();
 
-		if (props.className == "Modal") {
+		if (props.className == "modal") {
 			props.handleClose();
 		}
 	};
