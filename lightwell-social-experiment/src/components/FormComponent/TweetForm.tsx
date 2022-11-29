@@ -1,9 +1,8 @@
 import { Button, Input } from "@mui/material";
 import React, { useState } from "react";
 import {
-	tweetFormLoading,
-	tweetFormSubmitted,
-} from "../../redux/ducks/tweetFormDuck/TweetFormActions";
+	submit,
+} from "../../redux/ducks/post_duck/tweetFormSlice";
 import { useDispatch } from "react-redux";
 import { Tweet } from "../../models/TweetModel";
 import UUID from "react-uuid";
@@ -20,7 +19,7 @@ function TweetForm(props: any) {
 		e.preventDefault();
 
 		dispatch(
-			tweetFormSubmitted({
+			submit({
 				id: UUID().toString(),
 				// type: "",
 				textContent: twitterTextContent,

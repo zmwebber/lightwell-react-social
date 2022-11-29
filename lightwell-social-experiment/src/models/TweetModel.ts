@@ -1,4 +1,5 @@
-import actionTypes from "../redux/ducks/tweetDuck/TweetActionTypes";
+//import actionTypes from "../redux/ducks/tweetDuck/TweetActionTypes";
+//shouldnt have to do this -- lets talk about it -- Zac
 
 export type Tweet = {
     id: string,
@@ -13,53 +14,3 @@ export type Tweet = {
     contentPicture: string | null
 }
 
-///////////////////////////////////////////////
-
-interface ITweetDeleted {
-    type: string;
-    payload: Tweet["id"];
-}
-
-export function TweetDeleted(
-    type: string,
-    payload: Tweet["id"]
-): ITweetDeleted {
-    return ({
-        type: type,
-        payload: payload
-    })
-}
-
-///////////////////////////////////////////////
-
-interface ITweetsLoading {
-    type: typeof actionTypes.TWEETS_LOADING;
-    payload: boolean;
-}
-
-export function TweetsLoading(
-    type: string,
-    payload: boolean
-): ITweetsLoading {
-    return ({
-        type: type,
-        payload: payload
-    })
-}
-
-///////////////////////////////////////////////
-
-interface ITweetLiked {
-    type: typeof actionTypes.TWEET_LIKED;
-    payload: Tweet["likedCount"];
-}
-
-export function TweetLiked(
-    type: string,
-    payload: Tweet["likedCount"]
-): ITweetLiked {
-    return ({
-        type: type,
-        payload: payload
-    })
-}

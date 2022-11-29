@@ -1,8 +1,8 @@
 import React from "react";
 import NavBar from "../../components/NavbarComponent/NavBar";
 import Profile from "../../components/ProfileComponent/Profile";
-import TweetFeed from "../../components/TweetFeed/TweetFeed";
-import TweetForm from "../../components/TweetFormComponent/TweetForm";
+import TweetFeed from "../../components/FeedComponent/TweetFeed";
+import TweetForm from "../../components/FormComponent/TweetForm";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import "./homePageStyle.css";
 

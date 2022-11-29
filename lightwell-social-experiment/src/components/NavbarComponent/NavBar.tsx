@@ -10,9 +10,9 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
 import { Button, Modal } from "@mui/material";
-import TweetForm from "../TweetFormComponent/TweetForm";
+import TweetForm from "../FormComponent/TweetForm";
 import { useSelector, useDispatch } from "react-redux";
-import { tweetFormLoading } from "../../redux/ducks/tweetFormDuck/TweetFormActions";
+import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 //import { TwitterBlue } from "../../colorConstants";
 
 // TODO: Make text bigger
@@ -41,11 +41,11 @@ export default function NavBar() {
 
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => {
-		dispatch(tweetFormLoading(true));
+		dispatch(toggleLoading(true));
 		setOpen(true);
 	};
 	const handleClose = () => {
-		dispatch(tweetFormLoading(false));
+		dispatch(toggleLoading(false));
 		setOpen(false);
 	};
 

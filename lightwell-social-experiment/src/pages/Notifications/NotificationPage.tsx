@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../../components/NavbarComponent/NavBar";
-import Notifications from "../../components/NotificationPage/NotificationComponent";
+import Notifications from "../../components/NotificationComponent/NotificationComponent";
 
 export function NotificationPage() {
 	return (

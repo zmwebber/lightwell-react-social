@@ -1,6 +1,6 @@
 // This component needs to access the state's tweet array. It should loop through every tweet in the array to create the Feed
 import { Tweet } from "../../../models/TweetModel";
-import defaultProfilePic from "../../../Images/default-profile-pic.jpeg";
+import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import React from "react";
 import { findByLabelText } from "@testing-library/react";
 

@@ -4,7 +4,7 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
-import image from "../../Images/corgi.jpg";
+import image from "../../app/images/corgi.jpg";
 
 const FollowingButton: any = styled(Button)`
 	font-weight: bold;
