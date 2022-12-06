@@ -20,7 +20,10 @@
 
 .banner {
 
-   
+    height: 130px;
+
+    /* position: absolute;
+    clip: rect(0px, 60px, 200px, 0px); */
 
     /* width: 50%;
     height: 50%; */
@@ -40,12 +43,23 @@
 .notification-bar {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    padding-left: 10px;
 }
 
 
-.profile-image {
-    max-width: 100%;
-    object-fit: none;
+.banner > .profile-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+
+}
+
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    
 }

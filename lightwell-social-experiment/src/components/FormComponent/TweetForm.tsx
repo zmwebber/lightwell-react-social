@@ -1,13 +1,12 @@
 import { Button, Input } from "@mui/material";
 import React, { useState } from "react";
-import {
-	submit,
-} from "../../redux/ducks/post_duck/tweetFormSlice";
+import { submit } from "../../redux/ducks/post_duck/tweetFormSlice";
 import { useDispatch } from "react-redux";
 import { Tweet } from "../../models/TweetModel";
 import UUID from "react-uuid";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import "./tweetFormStyle.css";
 
 function TweetForm(props: any) {
 	const dispatch = useDispatch();
@@ -18,6 +17,7 @@ function TweetForm(props: any) {
 	const tweetSuccess = (e: any) => {
 		e.preventDefault();
 
+		// new tweet model. map properties to model. Submit with type + Tweet Model.
 		dispatch(
 			submit({
 				id: UUID().toString(),
@@ -26,7 +26,7 @@ function TweetForm(props: any) {
 				isLiked: false,
 				name: "",
 				handle: "",
-				profilePicture: "",
+				//profilePicture: "",
 				date: "",
 				likedCount: 0,
 				contentPicture: tweetPicture,

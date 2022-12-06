@@ -1,6 +1,12 @@
-.tweet-card {
+
+
+/* const styles = {
+    .tweet-card {
+            color: black;
+        }
+} */
+
+.tweet-card > .username-handle {
     color: white;
 }
-
-
 

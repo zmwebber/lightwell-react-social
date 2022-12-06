@@ -1,4 +1,5 @@
 import React from "react";
+import "./exploreStyle.css";
 
 function Explore() {
 	return (

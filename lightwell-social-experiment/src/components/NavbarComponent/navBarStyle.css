@@ -12,14 +12,15 @@ ul {
 
 li {
     font-weight: 500;
-    font-size:large;
+    font-size: large;
+    
 }
 
 .icons{
-   display: flex;
-   justify-content: space-between;
-   flex-direction: column;
-
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    color: black;
 }
 
 .modal{

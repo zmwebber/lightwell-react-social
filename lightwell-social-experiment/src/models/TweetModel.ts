@@ -8,7 +8,7 @@ export type Tweet = {
     isLiked: boolean,
     name: string,
     handle: string,
-    profilePicture: string | undefined,
+    profilePicture: string,
     date: string,
     likedCount: number,
     contentPicture: string | null

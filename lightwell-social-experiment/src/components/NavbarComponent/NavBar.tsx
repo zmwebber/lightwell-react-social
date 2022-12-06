@@ -13,6 +13,7 @@ import { Button, Modal } from "@mui/material";
 import TweetForm from "../FormComponent/TweetForm";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
+import "./navBarStyle.css";
 //import { TwitterBlue } from "../../colorConstants";
 
 // TODO: Make text bigger

@@ -2,10 +2,12 @@
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import React from "react";
-import { findByLabelText } from "@testing-library/react";
+//import "./individualTweetDisplayStyle.css";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { IconButton } from "@mui/material";
 
 function checkProfilePicture(tweet: Tweet) {
-	if (tweet.profilePicture == undefined || "") {
+	if (tweet.profilePicture === "") {
 		tweet.profilePicture = defaultProfilePic;
 	}
 }
@@ -14,21 +16,28 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	checkProfilePicture(tweet);
 	return (
 		<>
-			<div style={{ backgroundColor: "white" }}>
+			<div className="tweet-card">
 				<div className="picture">
-					<img
+					{/* <img
 						className="profile-picture"
 						src={tweet.profilePicture}
 						style={{ width: "5vw", height: "5vh" }}
-					></img>
+					></img> */}
 				</div>
 
-				<div className="username-handle">
+				<div className="username-handle" style={{ color: "white" }}>
 					{tweet.name} {tweet.handle} + time(19h)
 				</div>
 
-				<div className="tweet-text">{tweet.textContent}</div>
-				<div className="tweet-likes">{tweet.likedCount}</div>
+				<div className="tweet-text" style={{ color: "white" }}>
+					{tweet.textContent}
+				</div>
+				<div className="tweet-likes" style={{ color: "white" }}>
+					<IconButton>
+						<FavoriteBorderIcon style={{ color: "white" }} />
+					</IconButton>
+					{tweet.likedCount}
+				</div>
 			</div>
 		</>
 	);
