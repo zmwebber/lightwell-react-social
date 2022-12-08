@@ -21,7 +21,6 @@ const FollowingButton: any = styled(Button)`
 function Profile() {
 	return (
 		<div className="component">
-			{/* <div className="profile-container"> */}
 			<div className="banner">
 				<img src={image} className="profile-image" alt="banner-pic" />
 			</div>
@@ -38,7 +37,6 @@ function Profile() {
 					Follow ? Following
 				</FollowingButton>
 			</div>
-			{/* </div> */}
 		</div>
 	);
 }

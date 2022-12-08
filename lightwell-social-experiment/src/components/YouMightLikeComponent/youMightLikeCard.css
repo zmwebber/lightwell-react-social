@@ -2,6 +2,8 @@
     height: 80px;
     width: 480px;
     display: flex;
+    padding-left: 12px;
+    
 }
 
 .yml-card {
@@ -10,7 +12,6 @@
     background: rgba(8, 1, 100, 0.548);
     flex-direction: column;
     justify-content: space-around;
-    
     right: 1vw;
     top: 10vh;
     border-radius: 20px;
@@ -23,7 +24,7 @@
 
 .yml-header {
     color: white;
-    padding-left: 30px;
+    padding-left: 12px;
 }
 
 .profile-picture {
@@ -36,7 +37,7 @@
 .follow-button {
     display: flex;
     align-items: center;
-    padding-left: 190px;
+    padding-left: 100px;
 }
 
 .username {

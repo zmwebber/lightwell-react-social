@@ -13,14 +13,18 @@ ul {
 li {
     font-weight: 500;
     font-size: large;
-    
+    transition: .3s;
+}
+
+.icons:hover > :not(:hover){
+    opacity: .6;
 }
 
 .icons{
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    color: black;
+    
 }
 
 .modal{

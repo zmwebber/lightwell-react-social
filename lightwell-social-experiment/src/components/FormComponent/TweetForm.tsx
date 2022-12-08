@@ -12,7 +12,7 @@ function TweetForm(props: any) {
 	const dispatch = useDispatch();
 
 	const [twitterTextContent, setTwitterTextContent] = useState("");
-	const [tweetPicture, setTweetPicture] = useState("");
+	// const [tweetPicture, setTweetPicture] = useState("");
 
 	const tweetSuccess = (e: any) => {
 		e.preventDefault();
@@ -29,7 +29,7 @@ function TweetForm(props: any) {
 				//profilePicture: "",
 				date: "",
 				likedCount: 0,
-				contentPicture: tweetPicture,
+				contentPicture: "",
 			})
 		);
 		e.target.reset();
@@ -52,12 +52,12 @@ function TweetForm(props: any) {
 							onChange={(e) => setTwitterTextContent(e.target.value)}
 						/>
 					</Grid>
-					<Grid item>
+					{/* <Grid item>
 						<TextField
 							onChange={(e) => setTweetPicture(e.target.value)}
 							placeholder="pic here"
 						/>
-					</Grid>
+					</Grid> */}
 
 					<Button type="submit">Send Tweet</Button>
 				</Grid>

@@ -25,7 +25,7 @@ export const tweetFormSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.myTweets.push(action.payload);
+      state.myTweets.unshift(action.payload);
     },
     toggleLoading: (state, action: IActionModel) => {
       state.loading = action.payload;

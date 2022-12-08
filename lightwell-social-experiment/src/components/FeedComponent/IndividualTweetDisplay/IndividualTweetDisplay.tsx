@@ -1,10 +1,10 @@
 // This component needs to access the state's tweet array. It should loop through every tweet in the array to create the Feed
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
-import React from "react";
 //import "./individualTweetDisplayStyle.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { IconButton } from "@mui/material";
+import React, { useState } from "react";
 
 function checkProfilePicture(tweet: Tweet) {
 	if (tweet.profilePicture === "") {
@@ -12,7 +12,14 @@ function checkProfilePicture(tweet: Tweet) {
 	}
 }
 
+// TODO: Add responsive "Like" button that:
+// 1. changes color to red + fills in
+// 2. sets isLiked on Tweet property to TRUE
+// 3. increments the tweetCount on Tweet to +1, but never more than 1.
+
 export default function IndividualTweetDisplay(tweet: Tweet) {
+	// const [isLiked, setIsLiked] = useState(false);
+
 	checkProfilePicture(tweet);
 	return (
 		<>
