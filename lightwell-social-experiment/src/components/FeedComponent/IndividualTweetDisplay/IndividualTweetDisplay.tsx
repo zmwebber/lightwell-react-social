@@ -1,10 +1,18 @@
 // This component needs to access the state's tweet array. It should loop through every tweet in the array to create the Feed
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
-//import "./individualTweetDisplayStyle.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { IconButton } from "@mui/material";
 import React, { useState } from "react";
+import { DeleteOutlined } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { deleteTweet } from "../../../redux/ducks/post_duck/tweetFormSlice";
+// import {
+// 	deleteTweet,
+// 	submit,
+// } from "../../../redux/ducks/post_duck/tweetFormSlice";
+
+//import deleteTweet from "../../../redux/ducks/post_duck/tweetFormSlice";
 
 function checkProfilePicture(tweet: Tweet) {
 	if (tweet.profilePicture === "") {
@@ -19,6 +27,16 @@ function checkProfilePicture(tweet: Tweet) {
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	// const [isLiked, setIsLiked] = useState(false);
+
+	const dispatch = useDispatch();
+
+	const handleDelete = (tweet: Tweet) => {
+		dispatch(
+			deleteTweet({
+				tweet,
+			})
+		);
+	};
 
 	checkProfilePicture(tweet);
 	return (
@@ -44,6 +62,17 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						<FavoriteBorderIcon style={{ color: "white" }} />
 					</IconButton>
 					{tweet.likedCount}
+				</div>
+
+				<div>
+					<IconButton>
+						<DeleteOutlined
+							style={{ color: "white" }}
+							onClick={() => {
+								handleDelete(tweet);
+							}}
+						/>
+					</IconButton>
 				</div>
 			</div>
 		</>

@@ -17,11 +17,9 @@ function TweetForm(props: any) {
 	const tweetSuccess = (e: any) => {
 		e.preventDefault();
 
-		// new tweet model. map properties to model. Submit with type + Tweet Model.
 		dispatch(
 			submit({
 				id: UUID().toString(),
-				// type: "",
 				textContent: twitterTextContent,
 				isLiked: false,
 				name: "",
@@ -52,13 +50,6 @@ function TweetForm(props: any) {
 							onChange={(e) => setTwitterTextContent(e.target.value)}
 						/>
 					</Grid>
-					{/* <Grid item>
-						<TextField
-							onChange={(e) => setTweetPicture(e.target.value)}
-							placeholder="pic here"
-						/>
-					</Grid> */}
-
 					<Button type="submit">Send Tweet</Button>
 				</Grid>
 			</form>

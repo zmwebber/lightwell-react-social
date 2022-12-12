@@ -9,11 +9,12 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
-import { Button, Modal } from "@mui/material";
+import { Button, Modal, SvgIcon } from "@mui/material";
 import TweetForm from "../FormComponent/TweetForm";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import "./navBarStyle.css";
+import TwitterIcon from "@mui/icons-material/Twitter";
 //import { TwitterBlue } from "../../colorConstants";
 
 // TODO: Make text bigger
@@ -32,10 +33,18 @@ const TweetButton: any = styled(Button)`
 	border-radius: 20px;
 	padding: 8px 18px;
 	width: 120px;
-	color: "primary";
-	backgroundColor: "primary";
 	shape = RoundedCornerShape(50, 50, 50, 50);
 `;
+
+const TwitterButton = () => {
+	return (
+		<div>
+			<Button className="twitter-icon">
+				<SvgIcon component={TwitterIcon} />
+			</Button>
+		</div>
+	);
+};
 
 export default function NavBar() {
 	const dispatch = useDispatch();
@@ -53,6 +62,9 @@ export default function NavBar() {
 	return (
 		<div className="navbar">
 			<ul className="icons">
+				<li>
+					<CustomNavLink to="/">{TwitterButton()}</CustomNavLink>
+				</li>
 				<li>
 					<CustomNavLink to="/">
 						<HomeOutlinedIcon /> Home
@@ -102,7 +114,12 @@ export default function NavBar() {
 				</li>
 
 				<div className="tweet-form">
-					<TweetButton onClick={handleOpen}>TWEET</TweetButton>
+					<TweetButton
+						style={{ backgroundColor: "deepskyblue", color: "white" }}
+						onClick={handleOpen}
+					>
+						TWEET
+					</TweetButton>
 
 					<Modal
 						open={open}

@@ -3,6 +3,7 @@ import { RootState, AppThunk } from '../../../app/store';
 import { fetchCount } from '../../../app/functions/counterAPI';
 import { Tweet } from '../../../models/TweetModel';
 import { IActionModel } from '../../../models/ActionModel';
+import { Action } from '@remix-run/router';
 //import { useSelector } from 'react-redux';
 
 export interface TweetFormState {
@@ -30,10 +31,14 @@ export const tweetFormSlice = createSlice({
     toggleLoading: (state, action: IActionModel) => {
       state.loading = action.payload;
     },   
+    deleteTweet: (state, action: IActionModel) => {
+      const id = action.payload.tweet.id;
+      state.myTweets = state.myTweets.filter((tweet) => tweet.id !== id);
+    },
   },  
 });
 
-export const { submit, toggleLoading} = tweetFormSlice.actions;
+export const { submit, deleteTweet, toggleLoading } = tweetFormSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

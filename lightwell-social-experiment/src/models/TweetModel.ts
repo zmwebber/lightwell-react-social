@@ -11,6 +11,5 @@ export type Tweet = {
     profilePicture: string,
     date: string,
     likedCount: number,
-    contentPicture: string | null
+    contentPicture: string | null,
 }
-
