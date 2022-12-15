@@ -14,11 +14,11 @@ import { deleteTweet } from "../../../redux/ducks/post_duck/tweetFormSlice";
 
 //import deleteTweet from "../../../redux/ducks/post_duck/tweetFormSlice";
 
-function checkProfilePicture(tweet: Tweet) {
-	if (tweet.profilePicture === "") {
-		tweet.profilePicture = defaultProfilePic;
-	}
-}
+// function checkProfilePicture(tweet: Tweet) {
+// 	if (tweet.profilePicture === "") {
+// 		tweet.profilePicture = defaultProfilePic;
+// 	}
+// }
 
 // TODO: Add responsive "Like" button that:
 // 1. changes color to red + fills in
@@ -38,30 +38,33 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		);
 	};
 
-	checkProfilePicture(tweet);
+	//checkProfilePicture(tweet);
 	return (
 		<>
 			<div className="tweet-card">
 				<div className="picture">
-					{/* <img
+					<img
 						className="profile-picture"
-						src={tweet.profilePicture}
+						src={defaultProfilePic}
 						style={{ width: "5vw", height: "5vh" }}
-					></img> */}
+					></img>
 				</div>
 
 				<div className="username-handle" style={{ color: "white" }}>
-					{tweet.name} {tweet.handle} + time(19h)
+					{`user.name user.handle ${tweet.createdAt}`}
 				</div>
 
 				<div className="tweet-text" style={{ color: "white" }}>
-					{tweet.textContent}
+					{tweet.text}
 				</div>
 				<div className="tweet-likes" style={{ color: "white" }}>
 					<IconButton>
 						<FavoriteBorderIcon style={{ color: "white" }} />
-					</IconButton>
-					{tweet.likedCount}
+					</IconButton>					
+					<div className="tweet-like-count">
+						<span>{tweet.favorite_count.toString()}</span>
+					</div>
+
 				</div>
 
 				<div>

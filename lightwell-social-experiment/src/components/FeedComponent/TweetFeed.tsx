@@ -1,26 +1,52 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import type { } from 'redux-thunk/extend-redux';
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { getFeed } from "../../api/TweetApi";
 import { Tweet } from "../../models/TweetModel";
 import IndividualTweetDisplay from "./IndividualTweetDisplay/IndividualTweetDisplay";
-import "./tweetFeedStyle.css";
-import { TweetFormState } from "../../redux/ducks/post_duck/tweetFormSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { Link } from "react-router-dom";
+import { selectFeed, TweetFeedState } from "../../redux/ducks/feed_duck/tweetFeedSlice"
+import { useAppSelector } from "../../app/hooks/hooks";
 
-function TweetFeed(): any {
-	let myTweets = useSelector((state: RootState) => state.myTweets.myTweets);
-	return myTweets.map((sampleTweet) => {
-		return IndividualTweetDisplay(sampleTweet);
-	});
-}
+const TweetFeed = () => {
+	const store = useStore();
+	const feed = useAppSelector(selectFeed);
+	const dispatch = useDispatch();
 
-// function TweetFeed(props: any): any {
-// 	let sampleTweet = props.tweets;
-// 	return (
-// 		//<h1 style={{ color: "white" }}>TweetFeed Goes Here</h1>
-// 		sampleTweet.map((sampleTwee: Tweet) => {
-// 			return IndividualTweetDisplay(sampleTwee);
-// 		})
-// 	);
-// }
+	const initFetch = useCallback(() => {
+		dispatch(getFeed());
+	}, [dispatch])
+
+	useEffect(() => {
+		if (!feed.loading) {
+			initFetch();
+		}
+	}, [initFetch])
+
+
+
+	return (
+
+		<>
+			{!feed.loading &&			
+				feed.Tweets &&
+					feed.Tweets.map((tweet, index) => (
+						<div
+							className={
+								"tweet " + (index)
+							}
+							key={index}>
+							<IndividualTweetDisplay {...tweet} />
+						</div>
+					))			
+			}
+
+
+		</>
+
+	);
+};
 
 export default TweetFeed;
+
+

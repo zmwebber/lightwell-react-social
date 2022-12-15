@@ -4,6 +4,7 @@ import { fetchCount } from '../../../app/functions/counterAPI';
 import { Tweet } from '../../../models/TweetModel';
 import { IActionModel } from '../../../models/ActionModel';
 import { Action } from '@remix-run/router';
+import { addTweet } from '../../../api/TweetApi';
 //import { useSelector } from 'react-redux';
 
 export interface TweetFormState {
@@ -20,14 +21,7 @@ export const tweetFormSlice = createSlice({
   name: 'myTweets',
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
-  reducers: {
-    submit: (state, action: IActionModel) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.myTweets.unshift(action.payload);
-    },
+  reducers: {    
     toggleLoading: (state, action: IActionModel) => {
       state.loading = action.payload;
     },   
@@ -35,10 +29,19 @@ export const tweetFormSlice = createSlice({
       const id = action.payload.tweet.id;
       state.myTweets = state.myTweets.filter((tweet) => tweet.id !== id);
     },
-  },  
+  },
+  extraReducers: {
+    [addTweet.pending.type]: (state, action) => {
+      state.loading = true;
+  },
+    [addTweet.fulfilled.type]: (state, action) => {
+      state.loading = false
+      state.myTweets.unshift(action.payload);
+  },
+  }  
 });
 
-export const { submit, deleteTweet, toggleLoading } = tweetFormSlice.actions;
+export const { deleteTweet, toggleLoading } = tweetFormSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
