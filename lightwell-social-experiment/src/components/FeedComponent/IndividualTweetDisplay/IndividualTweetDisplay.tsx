@@ -7,6 +7,8 @@ import React, { useState } from "react";
 import { DeleteOutlined } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { deleteTweet } from "../../../redux/ducks/post_duck/tweetFormSlice";
+import Popover from "@mui/material/Popover";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 // import {
 // 	deleteTweet,
 // 	submit,
@@ -27,6 +29,16 @@ function checkProfilePicture(tweet: Tweet) {
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	// const [isLiked, setIsLiked] = useState(false);
+	const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+	const open = Boolean(isPopoverOpen);
+
+	const handleClick = (e: any) => {
+		setIsPopoverOpen(true);
+	};
+
+	const handleClose = () => {
+		setIsPopoverOpen(false);
+	};
 
 	const dispatch = useDispatch();
 
@@ -66,13 +78,29 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 				<div>
 					<IconButton>
-						<DeleteOutlined
-							style={{ color: "white" }}
-							onClick={() => {
-								handleDelete(tweet);
-							}}
-						/>
+						<MoreHorizIcon onClick={handleClick} />
 					</IconButton>
+					<Popover
+						open={open}
+						onClose={handleClose}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "right",
+						}}
+						transformOrigin={{
+							vertical: "top",
+							horizontal: "right",
+						}}
+					>
+						<IconButton>
+							<DeleteOutlined
+								style={{ color: "white" }}
+								onClick={() => {
+									handleDelete(tweet);
+								}}
+							/>
+						</IconButton>
+					</Popover>
 				</div>
 			</div>
 		</>
