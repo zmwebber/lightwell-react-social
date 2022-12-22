@@ -5,3 +5,9 @@
             color: black;
         }
 } */
+
+.MuiCardActions-spacing{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

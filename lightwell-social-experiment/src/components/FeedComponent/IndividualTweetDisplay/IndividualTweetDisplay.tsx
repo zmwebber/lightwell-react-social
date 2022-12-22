@@ -7,6 +7,27 @@ import React, { useState } from "react";
 import { DeleteOutlined } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { deleteTweet } from "../../../redux/ducks/post_duck/tweetFormSlice";
+
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import Avatar from "@mui/material/Avatar";
+import { IconButtonProps } from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { red } from "@mui/material/colors";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+
 // import {
 // 	deleteTweet,
 // 	submit,
@@ -40,44 +61,89 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	//checkProfilePicture(tweet);
 	return (
-		<>
-			<div className="tweet-card">
-				<div className="picture">
+		<Card>
+			<CardHeader
+				avatar={
 					<img
 						className="profile-picture"
+						alt="profile-pic"
 						src={defaultProfilePic}
 						style={{ width: "5vw", height: "5vh" }}
 					></img>
-				</div>
-
-				<div className="username-handle" style={{ color: "white" }}>
-					{`user.name user.handle ${tweet.createdAt}`}
-				</div>
-
-				<div className="tweet-text" style={{ color: "white" }}>
-					{tweet.text}
-				</div>
-				<div className="tweet-likes" style={{ color: "white" }}>
-					<IconButton>
-						<FavoriteBorderIcon style={{ color: "white" }} />
-					</IconButton>					
-					<div className="tweet-like-count">
-						<span>{tweet.favorite_count.toString()}</span>
-					</div>
-
-				</div>
-
-				<div>
-					<IconButton>
-						<DeleteOutlined
-							style={{ color: "white" }}
-							onClick={() => {
-								handleDelete(tweet);
-							}}
-						/>
+				}
+				action={
+					<IconButton aria-label="settings">
+						<MoreVertIcon />
 					</IconButton>
-				</div>
-			</div>
-		</>
+				}
+				title={`user.name user.handle ${tweet.createdAt}`}
+				subheader=""
+			/>
+			<CardMedia component="img" image={`${tweet.links}`} alt="media" />
+			<CardContent>
+				<Typography variant="body2">{tweet.text}</Typography>
+			</CardContent>
+
+			<CardActions disableSpacing={false}>
+				<IconButton>
+					<ChatBubbleOutlineRoundedIcon />
+				</IconButton>
+				<IconButton>
+					<RepeatIcon />
+				</IconButton>
+				<IconButton aria-label="add to favorites">
+					<FavoriteIcon />
+				</IconButton>
+				{/* <IconButton aria-label="share">
+					<ShareIcon />
+				</IconButton> */}
+				<IconButton>
+					<DeleteOutlineRoundedIcon
+						onClick={() => {
+							handleDelete(tweet);
+						}}
+					/>
+				</IconButton>
+			</CardActions>
+		</Card>
+
+		// <>
+		// 	<div className="tweet-card">
+		// 		<div className="picture">
+		// 			<img
+		// 				className="profile-picture"
+		// 				src={defaultProfilePic}
+		// 				style={{ width: "5vw", height: "5vh" }}
+		// 			></img>
+		// 		</div>
+
+		// 		<div className="username-handle" style={{ color: "white" }}>
+		// 			{`user.name user.handle ${tweet.createdAt}`}
+		// 		</div>
+
+		// 		<div className="tweet-text" style={{ color: "white" }}>
+		// 			{tweet.text}
+		// 		</div>
+		// 		<div className="tweet-likes" style={{ color: "white" }}>
+		// 			<IconButton>
+		// 				<FavoriteBorderIcon style={{ color: "white" }} />
+		// 			</IconButton>
+		// 			<div className="tweet-like-count">
+		// 				<span>{tweet.favorite_count.toString()}</span>
+		// 			</div>
+		// 		</div>
+
+		// 		<div>
+		// 			<IconButton>
+		// 				<DeleteOutlined
+		// 					style={{ color: "white" }}
+		// 					onClick={() => {
+		// 						handleDelete(tweet);
+		// 					}}
+		// 				/>
+		// 			</IconButton>
+		// 		</div>
+		// 	</div>
+		// </>
 	);
 }
