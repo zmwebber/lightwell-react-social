@@ -27,6 +27,7 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+//import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
 // import {
 // 	deleteTweet,
@@ -48,6 +49,7 @@ import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	// const [isLiked, setIsLiked] = useState(false);
+	const [settingsOpen, setSettingsOpen] = useState(false);
 
 	const dispatch = useDispatch();
 
@@ -59,7 +61,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		);
 	};
 
-	//checkProfilePicture(tweet);
+	// checkProfilePicture(tweet);
 	return (
 		<Card>
 			<CardHeader
@@ -79,12 +81,15 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				title={`user.name user.handle ${tweet.createdAt}`}
 				subheader=""
 			/>
-			<CardMedia component="img" image={`${tweet.links}`} alt="media" />
+			{tweet.links.url !== `` && tweet.links.url !== undefined && (
+				<CardMedia component="img" image={`${tweet.links.url}`} alt="media" />
+			)}
 			<CardContent>
 				<Typography variant="body2">{tweet.text}</Typography>
 			</CardContent>
 
-			<CardActions disableSpacing={false}>
+			{/**Wrap cardActions in a div? */}
+			<CardActions>
 				<IconButton>
 					<ChatBubbleOutlineRoundedIcon />
 				</IconButton>
@@ -106,44 +111,5 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				</IconButton>
 			</CardActions>
 		</Card>
-
-		// <>
-		// 	<div className="tweet-card">
-		// 		<div className="picture">
-		// 			<img
-		// 				className="profile-picture"
-		// 				src={defaultProfilePic}
-		// 				style={{ width: "5vw", height: "5vh" }}
-		// 			></img>
-		// 		</div>
-
-		// 		<div className="username-handle" style={{ color: "white" }}>
-		// 			{`user.name user.handle ${tweet.createdAt}`}
-		// 		</div>
-
-		// 		<div className="tweet-text" style={{ color: "white" }}>
-		// 			{tweet.text}
-		// 		</div>
-		// 		<div className="tweet-likes" style={{ color: "white" }}>
-		// 			<IconButton>
-		// 				<FavoriteBorderIcon style={{ color: "white" }} />
-		// 			</IconButton>
-		// 			<div className="tweet-like-count">
-		// 				<span>{tweet.favorite_count.toString()}</span>
-		// 			</div>
-		// 		</div>
-
-		// 		<div>
-		// 			<IconButton>
-		// 				<DeleteOutlined
-		// 					style={{ color: "white" }}
-		// 					onClick={() => {
-		// 						handleDelete(tweet);
-		// 					}}
-		// 				/>
-		// 			</IconButton>
-		// 		</div>
-		// 	</div>
-		// </>
 	);
 }

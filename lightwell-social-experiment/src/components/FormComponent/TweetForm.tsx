@@ -10,11 +10,15 @@ import { addTweet, getFeed } from "../../api/TweetApi";
 import { useAppSelector } from "../../app/hooks/hooks";
 import type {} from "redux-thunk/extend-redux";
 
+// @TODO: Data validation -- user shouldn't be allowed to insert empty string.
+// user shouldn't be allowed to submit a tweet of only spaces.
+// https://mongoosejs.com/docs/validation.html
+
 function TweetForm(props: any) {
 	const store = useStore();
 	const feed = useAppSelector(myTweets);
-
-	const [twitterTextContent, setTwitterTextContent] = useState("");
+	const [submitted, setSubmitted] = React.useState("");
+	const [tweetContent, setTweetContent] = useState("");
 	// const [tweetPicture, setTweetPicture] = useState("");
 	const [tweet, setTweet] = useState<Tweet>({
 		id: "",
@@ -45,22 +49,28 @@ function TweetForm(props: any) {
 	});
 	const tweetSuccess = (e: any) => {
 		e.preventDefault();
-		tweet.text = twitterTextContent;
-		tweet.createdAt = new Date();
-		const action = addTweet(tweet);
 
-		store
-			.dispatch(action)
-			.unwrap()
-			.then((response) => {
-				store.dispatch(getFeed());
-			})
-			.catch((error: any) => {
-				console.log(error);
-			});
-		e.target.reset();
+		if (tweetContent !== "") {
+			tweet.text = tweetContent;
+			tweet.createdAt = new Date();
+			const action = addTweet(tweet);
 
-		if (props.className == "modal") {
+			store
+				.dispatch(action)
+				.unwrap()
+				.then((response) => {
+					store.dispatch(getFeed());
+				})
+				.catch((error: any) => {
+					console.log(error);
+				});
+			e.target.reset();
+		}
+		if (tweetContent === "") {
+			setSubmitted("true");
+		}
+
+		if (props.className === "modal") {
 			props.handleClose();
 		}
 	};
@@ -77,7 +87,13 @@ function TweetForm(props: any) {
 							placeholder="What's Happening?"
 							fullWidth={true}
 							margin="normal"
-							onChange={(e) => setTwitterTextContent(e.target.value)}
+							onChange={(e) => setTweetContent(e.target.value)}
+							error={tweetContent === "" && submitted === "true"}
+							helperText={
+								tweetContent === "" && submitted === "true"
+									? "tweet text is required"
+									: ""
+							}
 						/>
 					</Grid>
 					<Button type="submit">Send Tweet</Button>
