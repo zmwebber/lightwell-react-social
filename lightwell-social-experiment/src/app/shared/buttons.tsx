@@ -49,8 +49,6 @@ export function FavoriteButton({ favorite_count, favorited }: favoriteCount) {
 function toggleIsFavorited({ favorite_count, favorited }: favoriteCount) {
 	// Tweet property tweet.favorited
 	console.log("favorite button pressed");
-	favorited = !favorited;
-	favorite_count = favorite_count + 1;
 
-	return favorite_count && favorited;
+	return favorite_count + 1 && !favorited;
 }

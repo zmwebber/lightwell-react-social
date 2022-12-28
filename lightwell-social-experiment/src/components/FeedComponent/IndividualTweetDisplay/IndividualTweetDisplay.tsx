@@ -120,13 +120,15 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							}}
 						>
 							<MenuItem>
-								<DeleteOutlineRoundedIcon
+								<Button
 									sx={{ color: "red" }}
+									startIcon={<DeleteOutlineRoundedIcon />}
 									onClick={() => {
 										handleDelete(tweet);
 									}}
-								/>
-								Delete
+								>
+									Delete
+								</Button>
 							</MenuItem>
 							<MenuItem onClick={handleClose}>Pin to your profile</MenuItem>
 							<MenuItem onClick={handleClose}>Change who can reply</MenuItem>
