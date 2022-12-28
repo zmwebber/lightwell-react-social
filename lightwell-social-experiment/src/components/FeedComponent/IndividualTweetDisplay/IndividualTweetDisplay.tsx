@@ -15,7 +15,6 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
 import { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
@@ -28,6 +27,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import { getFeed } from "../../../api/TweetApi";
+import timeCalculator from "../../../methods/timeConverter";
 
 // function checkProfilePicture(tweet: Tweet) {
 // 	if (tweet.profilePicture === "") {
@@ -62,9 +62,46 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			.catch((error: any) => {
 				console.log(error);
 			});
-
-		// refresh feed
 	};
+
+	// function convertMsToTime(milliseconds: number) {
+	// 	let seconds = Math.floor(milliseconds / 1000);
+	// 	let minutes = Math.floor(seconds / 60);
+	// 	let hours = Math.floor(minutes / 60);
+	// 	let days = Math.floor(hours / 24);
+	// 	let weeks = Math.floor(days / 7);
+	// 	let years = Math.floor(weeks / 52);
+
+	// 	seconds = seconds % 60;
+	// 	minutes = minutes % 60;
+
+	// 	if (years > 0) {
+	// 		return `${years}yr`;
+	// 	}
+	// 	if (days > 7 && days < 365) {
+	// 		return `${weeks}wks`;
+	// 	}
+	// 	if (days >= 1 && days < 7) {
+	// 		return `${days}d`;
+	// 	}
+	// 	if (minutes === 0 && hours === 0 && days === 0) {
+	// 		return `${seconds}s`;
+	// 	}
+	// 	if (hours === 0 && days === 0) {
+	// 		return `${minutes}m`;
+	// 	}
+	// 	if (hours > 0 && days < 1) {
+	// 		return `${hours}h`;
+	// 	}
+	// }
+
+	// function timeCalculator(tweetDate: Date) {
+	// 	const currentTime = new Date().valueOf();
+	// 	const tweetTime = new Date(tweetDate).valueOf();
+	// 	var timeDifference: number = currentTime - tweetTime;
+
+	// 	return convertMsToTime(timeDifference);
+	// }
 
 	// checkProfilePicture(tweet);
 	return (
@@ -84,7 +121,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						{/** TODO - MoreVertIcon onClick shows dropdownMenu component */}
 					</IconButton>
 				}
-				title={`user.name user.handle ${tweet.createdAt}`}
+				title={`user.name user.handle ` + timeCalculator(tweet.createdAt)}
 				subheader=""
 			/>
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
