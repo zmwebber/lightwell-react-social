@@ -1,3 +1,5 @@
+// https://bobbyhadz.com/blog/typescript-calculate-time-between-dates#:~:text=To%20calculate%20the%20time%20between,epoch%20an%20the%20given%20date.
+
 export default function timeCalculator(tweetDate: Date) {
 	const currentTime = new Date().valueOf();
 	const tweetTime = new Date(tweetDate).valueOf();
@@ -18,10 +20,10 @@ function convertMsToTime(milliseconds: number) {
 	minutes = minutes % 60;
 
 	if (years > 0) {
-		return `${years}yr`;
+		return `${years}y`;
 	}
 	if (days > 7 && days < 365) {
-		return `${weeks}wks`;
+		return `${weeks}w`;
 	}
 	if (days >= 1 && days < 7) {
 		return `${days}d`;
