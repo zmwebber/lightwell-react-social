@@ -1,8 +1,5 @@
-//import actionTypes from "../redux/ducks/tweetDuck/TweetActionTypes";
-//shouldnt have to do this -- lets talk about it -- Zac
-
-export type Tweet = {
-    id: string,
+import mongoose from 'mongoose';
+var Schema = mongoose.Schema({
     createdAt:  Date,
     user: String,
     text: String,
@@ -26,4 +23,6 @@ export type Tweet = {
     hashtags: {
         indicies: [Number],
         text: String
-}}
+    }
+});
+export default mongoose.model('Tweets', Schema);
