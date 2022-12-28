@@ -27,6 +27,8 @@ import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import { getFeed } from "../../../api/TweetApi";
 import timeCalculator from "../../../app/shared/timeConverter";
 import { Button } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import {
 	ReplyButton,
 	RetweetButton,
@@ -47,6 +49,16 @@ import {
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	// const [isLiked, setIsLiked] = useState(false);
 	//const [settingsOpen, setSettingsOpen] = useState(false);
+
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const open = Boolean(anchorEl);
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
 	const store = useStore();
 
 	const handleDelete = (tweet: Tweet) => {
@@ -81,10 +93,47 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					></img>
 				}
 				action={
-					<IconButton aria-label="settings">
-						<MoreVertIcon />
-						{/** TODO - MoreVertIcon onClick shows dropdownMenu component */}
-					</IconButton>
+					<div>
+						<IconButton
+							aria-label="settings"
+							id="demo-positioned-button"
+							aria-controls={open ? "demo-positioned-menu" : undefined}
+							aria-haspopup="true"
+							aria-expanded={open ? "true" : undefined}
+							onClick={handleClick}
+						>
+							<MoreVertIcon />
+						</IconButton>
+						<Menu
+							id="demo-positioned-menu"
+							aria-labelledby="demo-positioned-button"
+							anchorEl={anchorEl}
+							open={open}
+							onClose={handleClose}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "left",
+							}}
+							transformOrigin={{
+								vertical: "top",
+								horizontal: "left",
+							}}
+						>
+							<MenuItem>
+								<DeleteOutlineRoundedIcon
+									sx={{ color: "red" }}
+									onClick={() => {
+										handleDelete(tweet);
+									}}
+								/>
+								Delete
+							</MenuItem>
+							<MenuItem onClick={handleClose}>Pin to your profile</MenuItem>
+							<MenuItem onClick={handleClose}>Change who can reply</MenuItem>
+							<MenuItem onClick={handleClose}>Embed Tweet</MenuItem>
+							<MenuItem onClick={handleClose}>View Tweet Analytics</MenuItem>
+						</Menu>
+					</div>
 				}
 				title={`user.name user.handle ` + timeCalculator(tweet.createdAt)}
 				subheader=""
@@ -110,13 +159,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				{/* <IconButton aria-label="share">
 					<ShareIcon />
 				</IconButton> */}
-				<IconButton>
-					<DeleteOutlineRoundedIcon
-						onClick={() => {
-							handleDelete(tweet);
-						}}
-					/>
-				</IconButton>
 			</CardActions>
 		</Card>
 	);

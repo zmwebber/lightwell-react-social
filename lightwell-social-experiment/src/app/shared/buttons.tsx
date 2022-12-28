@@ -3,6 +3,7 @@ import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineR
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import tweetFeedSlice from "../../redux/ducks/feed_duck/tweetFeedSlice";
 
 interface replyCount {
 	reply_count: Number;
@@ -48,5 +49,7 @@ export function FavoriteButton({ favorite_count, favorited }: favoriteCount) {
 
 function toggleIsFavorited({ favorite_count, favorited }: favoriteCount) {
 	// Tweet property tweet.favorited
-	return !favorited;
+	console.log("favorite button pressed");
+	favorited = !favorited;
+	//favorite_count = favorite_count + 1;
 }
