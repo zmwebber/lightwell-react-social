@@ -4,7 +4,7 @@ import { fetchCount } from '../../../app/functions/counterAPI';
 import { Tweet } from '../../../models/TweetModel';
 import { IActionModel } from '../../../models/ActionModel';
 import { Action } from '@remix-run/router';
-import { addTweet, deleteTweet} from '../../../api/TweetApi';
+import { addTweet, deleteTweet, updateTweet} from '../../../api/TweetApi';
 
 export interface TweetFormState {
   myTweets: Tweet[];
@@ -23,7 +23,12 @@ export const tweetFormSlice = createSlice({
   reducers: {    
     toggleLoading: (state, action: IActionModel) => {
       state.loading = action.payload;
-    },   
+    },
+    updateTweet: (state, action: IActionModel) => {
+      const id: string = action.payload.id;
+      const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
+      favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
+    }  
     // deleteTweet: (state, action: IActionModel) => {
     //   const id = action.payload.tweet.id;
     //   console.log(myTweets);
@@ -36,14 +41,26 @@ export const tweetFormSlice = createSlice({
     },
     [addTweet.fulfilled.type]: (state, action) => {
       state.loading = false
-      state.myTweets.unshift(action.payload);
+      //state.myTweets.unshift(action.payload);
     },
     [deleteTweet.pending.type]: (state, action) => {
       state.loading = true;
     },
     [deleteTweet.fulfilled.type]: (state, action) => {
       state.loading = false;
-      state.myTweets = state.myTweets.filter((tweet) => tweet !== action.payload);
+    },
+    [updateTweet.pending.type]: (state, action) => {
+      state.loading = true;
+      // const id = action.payload.tweet.id;
+      // const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
+      // // favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
+      // favoritedTweet[0].favorited=true;
+    },
+    [updateTweet.fulfilled.type]: (state, action) => {
+      // const id: string = action.payload.id;
+      // const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
+      // favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
+      state.loading = false;
     },
   } 
 });

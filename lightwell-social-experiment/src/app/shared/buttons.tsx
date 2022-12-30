@@ -3,6 +3,11 @@ import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineR
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch, useStore } from "react-redux";
+import { getFeed } from "../../api/TweetApi";
+import { Tweet } from "../../models/TweetModel";
+import userFavorited from "../../redux/ducks/post_duck/tweetFormSlice";
+import { updateTweet } from "../../api/TweetApi";
 
 interface replyCount {
 	reply_count: number;
@@ -30,25 +35,38 @@ export function RetweetButton({ retweet_count }: retweetCount) {
 }
 
 interface favoriteCount {
-	favorite_count: number;
 	favorited: boolean;
+	favorite_count: number;
+	id: string;
 }
 
-export function FavoriteButton({ favorite_count, favorited }: favoriteCount) {
-	return (
-		<Button
-			onClick={() => {
-				toggleIsFavorited({ favorite_count, favorited });
-			}}
-			sx={{ color: favorited === true ? "red" : "grey" }}
-			startIcon={<FavoriteIcon />}
-		>{`${favorite_count}`}</Button>
-	);
-}
+// export function FavoriteButton(tweet: Tweet) {
+// 	return (
+// 		<Button
+// 			onClick={() => {
+// 				handleUpdate(tweet);
+// 			}}
+// 			sx={{ color: tweet.favorited === true ? "red" : "grey" }}
+// 			startIcon={<FavoriteIcon />}
+// 		>{`${tweet.favorite_count}`}</Button>
+// 	);
+// }
 
-function toggleIsFavorited({ favorite_count, favorited }: favoriteCount) {
-	// Tweet property tweet.favorited
-	console.log("favorite button pressed");
+// function ToggleIsFavorited(tweet: Tweet) {
+//     return(
 
-	return favorite_count + 1 && !favorited;
-}
+//         console.log("favorite button pressed");
+//         const store = useStore();
+
+//         const action = updateTweet(tweet);
+
+//         store
+// 		.dispatch(action)
+// 		.then(() => {
+//             store.dispatch(getFeed());
+// 		})
+// 		.catch((error: any) => {
+//             console.log(error);
+// 		});
+//         )
+//     }
