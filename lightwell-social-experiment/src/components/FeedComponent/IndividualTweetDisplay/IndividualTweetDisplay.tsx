@@ -28,6 +28,10 @@ import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ReplyButton, RetweetButton } from "../../../app/shared/buttons";
+import {
+	incrementFavorite,
+	decrementFavorite,
+} from "../../../redux/ducks/post_duck/tweetFormSlice";
 
 // function checkProfilePicture(tweet: Tweet) {
 // 	if (tweet.profilePicture === "") {
@@ -41,9 +45,6 @@ import { ReplyButton, RetweetButton } from "../../../app/shared/buttons";
 // 3. increments the tweetCount on Tweet to +1, but never more than 1.
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
-	//const [isFavorited, setIsFavorited] = useState(false);
-	//const [settingsOpen, setSettingsOpen] = useState(false);
-
 	const [editedTweet, setEditedTweet] = useState<Tweet>({
 		id: "",
 		createdAt: new Date(),
@@ -102,21 +103,38 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
-	const handleUpdate = (tweet: Tweet) => {
+	function adjustFavoriteCount(tweet: Tweet) {
+		if (tweet.favorited === false) {
+			store.dispatch(incrementFavorite(tweet));
+		} else if (tweet.favorited === true) {
+			store.dispatch(decrementFavorite(tweet));
+		}
+	}
+
+	const handleFavorited = (tweet: Tweet) => {
 		console.log("favorite button pressed");
 		const matchedTweet = state.feed.Tweets.filter(
 			(t: Tweet) => t.createdAt === tweet.createdAt
 		);
-		//matchedTweet[0].favorited = !matchedTweet[0].favorited;
 
 		editedTweet.id = matchedTweet[0]._id;
 		editedTweet.createdAt = matchedTweet[0].createdAt;
 		editedTweet.text = matchedTweet[0].text;
-		editedTweet.favorited = !matchedTweet[0].favorited;
+		editedTweet.favorited = matchedTweet[0].favorited;
 		editedTweet.truncated = matchedTweet[0].truncated;
-		editedTweet.favorite_count = editedTweet.favorited
-			? editedTweet.favorite_count + 1
-			: 0;
+		editedTweet.favorite_count = matchedTweet[0].favorite_count;
+		editedTweet.source = matchedTweet[0].source;
+		editedTweet.is_reply_status = matchedTweet[0].is_reply_status;
+		editedTweet.in_reply_to_status_id = matchedTweet[0].in_reply_to_status_id;
+		editedTweet.reply_count = matchedTweet[0].reply_count;
+		editedTweet.is_quote_status = matchedTweet[0].is_quote_status;
+		editedTweet.quoted_status_id = matchedTweet[0].quoted_status_id;
+		editedTweet.is_retweeted_status = matchedTweet[0].is_retweeted_status;
+		editedTweet.retweet_count = matchedTweet[0].retweet_count;
+		editedTweet.links = matchedTweet[0].links;
+		editedTweet.hashtags = matchedTweet[0].hashtags;
+
+		adjustFavoriteCount(editedTweet);
 
 		const action = updateTweet(editedTweet);
 
@@ -162,11 +180,11 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							onClose={handleClose}
 							anchorOrigin={{
 								vertical: "top",
-								horizontal: "left",
+								horizontal: "right",
 							}}
 							transformOrigin={{
 								vertical: "top",
-								horizontal: "left",
+								horizontal: "right",
 							}}
 						>
 							<MenuItem>
@@ -225,7 +243,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				> */}
 				<Button
 					onClick={() => {
-						handleUpdate(tweet);
+						handleFavorited(tweet);
 					}}
 					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
 					startIcon={<FavoriteIcon />}

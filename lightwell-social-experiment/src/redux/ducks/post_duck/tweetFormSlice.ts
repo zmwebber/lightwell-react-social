@@ -4,7 +4,7 @@ import { fetchCount } from '../../../app/functions/counterAPI';
 import { Tweet } from '../../../models/TweetModel';
 import { IActionModel } from '../../../models/ActionModel';
 import { Action } from '@remix-run/router';
-import { addTweet, deleteTweet, updateTweet} from '../../../api/TweetApi';
+import { addTweet, deleteTweet, updateTweet } from '../../../api/TweetApi';
 
 export interface TweetFormState {
   myTweets: Tweet[];
@@ -24,11 +24,19 @@ export const tweetFormSlice = createSlice({
     toggleLoading: (state, action: IActionModel) => {
       state.loading = action.payload;
     },
-    updateTweet: (state, action: IActionModel) => {
-      const id: string = action.payload.id;
-      const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
-      favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
-    }  
+    // updateTweet: (state, action: IActionModel) => {
+    //   const id: string = action.payload.id;
+    //   const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
+    //   favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
+    // },
+    incrementFavorite: (state, action: IActionModel) => {
+      action.payload.favorite_count += 1;
+      action.payload.favorited = true;
+    },
+    decrementFavorite: (state, action: IActionModel) => {
+      action.payload.favorite_count -= 1;
+      action.payload.favorited = false;
+    },
     // deleteTweet: (state, action: IActionModel) => {
     //   const id = action.payload.tweet.id;
     //   console.log(myTweets);
@@ -65,7 +73,7 @@ export const tweetFormSlice = createSlice({
   } 
 });
 
-export const { toggleLoading } = tweetFormSlice.actions;
+export const { toggleLoading, incrementFavorite, decrementFavorite } = tweetFormSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
