@@ -24,11 +24,6 @@ export const tweetFormSlice = createSlice({
     toggleLoading: (state, action: IActionModel) => {
       state.loading = action.payload;
     },
-    // updateTweet: (state, action: IActionModel) => {
-    //   const id: string = action.payload.id;
-    //   const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
-    //   favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
-    // },
     incrementFavorite: (state, action: IActionModel) => {
       action.payload.favorite_count += 1;
       action.payload.favorited = true;
@@ -37,11 +32,14 @@ export const tweetFormSlice = createSlice({
       action.payload.favorite_count -= 1;
       action.payload.favorited = false;
     },
-    // deleteTweet: (state, action: IActionModel) => {
-    //   const id = action.payload.tweet.id;
-    //   console.log(myTweets);
-    //   state.myTweets = state.myTweets.filter((tweet) => tweet.id !== id);
-    // },
+    incrementRetweet: (state, action: IActionModel) => {
+      action.payload.retweet_count += 1;
+      action.payload.is_retweeted_status = true;
+    },
+    decrementRetweet: (state, action: IActionModel) => {
+      action.payload.retweet_count -= 1;
+      action.payload.is_retweeted_status = false;
+    },
   },
   extraReducers: {
     [addTweet.pending.type]: (state, action) => {
@@ -73,7 +71,7 @@ export const tweetFormSlice = createSlice({
   } 
 });
 
-export const { toggleLoading, incrementFavorite, decrementFavorite } = tweetFormSlice.actions;
+export const { toggleLoading, incrementFavorite, decrementFavorite, incrementRetweet, decrementRetweet } = tweetFormSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

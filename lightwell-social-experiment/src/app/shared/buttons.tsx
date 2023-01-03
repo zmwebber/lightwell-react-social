@@ -21,25 +21,25 @@ export function ReplyButton({ reply_count }: replyCount) {
 	);
 }
 
-interface retweetCount {
-	retweet_count: number;
-}
+// interface retweetCount {
+// 	retweet_count: number;
+// }
 
-export function RetweetButton({ retweet_count }: retweetCount) {
-	return (
-		<Button
-			sx={{ color: "grey" }}
-			startIcon={<RepeatIcon />}
-		>{`${retweet_count}`}</Button>
-	);
-}
+// export function RetweetButton({ retweet_count }: retweetCount) {
+// 	return (
+// 		<Button
+// 			sx={{ color: "grey" }}
+// 			startIcon={<RepeatIcon />}
+// 		>{`${retweet_count}`}</Button>
+// 	);
+// }
 
-interface favoriteCount {
-	favorited: boolean;
-	favorite_count: number;
-	id: string;
-}
-
+// interface favoriteCount {
+// 	favorited: boolean;
+// 	favorite_count: number;
+// 	id: string;
+// }
+//
 // export function FavoriteButton(tweet: Tweet) {
 // 	return (
 // 		<Button

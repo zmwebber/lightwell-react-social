@@ -2,6 +2,7 @@
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import RepeatIcon from "@mui/icons-material/Repeat";
 import { IconButton } from "@mui/material";
 import React, { useState } from "react";
 import { DeleteOutlined, Reply } from "@mui/icons-material";
@@ -27,10 +28,12 @@ import timeCalculator from "../../../app/shared/timeConverter";
 import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { ReplyButton, RetweetButton } from "../../../app/shared/buttons";
+import { ReplyButton } from "../../../app/shared/buttons";
 import {
 	incrementFavorite,
 	decrementFavorite,
+	incrementRetweet,
+	decrementRetweet,
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
 
 // function checkProfilePicture(tweet: Tweet) {
@@ -38,11 +41,6 @@ import {
 // 		tweet.profilePicture = defaultProfilePic;
 // 	}
 // }
-
-// TODO: Add responsive "Like" button that:
-// 1. changes color to red + fills in
-// 2. sets isLiked on Tweet property to TRUE
-// 3. increments the tweetCount on Tweet to +1, but never more than 1.
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [editedTweet, setEditedTweet] = useState<Tweet>({
@@ -96,6 +94,50 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			.dispatch(action)
 			.unwrap()
 			.then((response) => {
+				store.dispatch(getFeed());
+			})
+			.catch((error: any) => {
+				console.log(error);
+			});
+	};
+
+	function adjustRetweetCount(tweet: Tweet) {
+		if (tweet.is_retweeted_status === false) {
+			store.dispatch(incrementRetweet(tweet));
+		} else if (tweet.is_retweeted_status === true) {
+			store.dispatch(decrementRetweet(tweet));
+		}
+	}
+	const handleRetweet = (tweet: Tweet) => {
+		console.log("retweet button pressed");
+		const matchedTweet = state.feed.Tweets.filter(
+			(t: Tweet) => t.createdAt === tweet.createdAt
+		);
+
+		editedTweet.id = matchedTweet[0]._id;
+		editedTweet.createdAt = matchedTweet[0].createdAt;
+		editedTweet.text = matchedTweet[0].text;
+		editedTweet.favorited = matchedTweet[0].favorited;
+		editedTweet.truncated = matchedTweet[0].truncated;
+		editedTweet.favorite_count = matchedTweet[0].favorite_count;
+		editedTweet.source = matchedTweet[0].source;
+		editedTweet.is_reply_status = matchedTweet[0].is_reply_status;
+		editedTweet.in_reply_to_status_id = matchedTweet[0].in_reply_to_status_id;
+		editedTweet.reply_count = matchedTweet[0].reply_count;
+		editedTweet.is_quote_status = matchedTweet[0].is_quote_status;
+		editedTweet.quoted_status_id = matchedTweet[0].quoted_status_id;
+		editedTweet.is_retweeted_status = matchedTweet[0].is_retweeted_status;
+		editedTweet.retweet_count = matchedTweet[0].retweet_count;
+		editedTweet.links = matchedTweet[0].links;
+		editedTweet.hashtags = matchedTweet[0].hashtags;
+
+		adjustRetweetCount(editedTweet);
+
+		const action = updateTweet(editedTweet);
+
+		store
+			.dispatch(action)
+			.then(() => {
 				store.dispatch(getFeed());
 			})
 			.catch((error: any) => {
@@ -215,32 +257,22 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				<Typography variant="body2">{tweet.text}</Typography>
 			</CardContent>
 
-			{/** @TODO: toggle favorite count */}
+			{/** @TODO: toggle reply count */}
+			{/* @TODO: retweet logic - what should happen when a user retweets? */}
+			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
 			<CardActions>
 				<ReplyButton reply_count={tweet.reply_count} />
 
-				<RetweetButton retweet_count={tweet.retweet_count} />
+				<Button
+					onClick={() => {
+						handleRetweet(tweet);
+					}}
+					sx={{
+						color: tweet.is_retweeted_status === true ? "#7EC542" : "grey",
+					}}
+					startIcon={<RepeatIcon />}
+				>{`${tweet.retweet_count}`}</Button>
 
-				{/* <FavoriteButton
-					favorited={tweet.favorited}
-					favorite_count={tweet.favorite_count}
-					id={tweet.id}
-					createdAt={tweet.createdAt}
-					user={tweet.user}
-					text={tweet.text}
-					source={tweet.source}
-					truncated={tweet.truncated}
-					is_reply_status={tweet.is_reply_status}
-					in_reply_to_status_id={tweet.in_reply_to_status_id}
-					reply_count={tweet.reply_count}
-					is_retweeted_status={tweet.is_retweeted_status}
-					in_reply_to_user_id={tweet.in_reply_to_user_id}
-					is_quote_status={tweet.is_quote_status}
-					quoted_status_id={tweet.quoted_status_id}
-					retweet_count={tweet.retweet_count}
-					links={tweet.links}
-					hashtags={tweet.hashtags}
-				> */}
 				<Button
 					onClick={() => {
 						handleFavorited(tweet);
@@ -248,7 +280,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
 					startIcon={<FavoriteIcon />}
 				>{`${tweet.favorite_count}`}</Button>
-				{/* </FavoriteButton> */}
 				{/** Why can't I pass the full tweet here? */}
 
 				{/* <IconButton aria-label="share">
