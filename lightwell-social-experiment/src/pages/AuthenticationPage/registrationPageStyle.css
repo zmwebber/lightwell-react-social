@@ -1,0 +1,35 @@
+.registration-page {
+    
+    display: flex;
+    flex-direction: row;
+    
+    
+}
+
+.navbar-position {
+    width: 15%;
+    position: relative;
+    order: 1;
+}
+
+
+.yml-position {
+    /* width: 30%;
+    position: relative;
+    margin: 10px; */
+    width: 25%;
+    order: 3;
+    padding-left: 25px;
+}
+
+.center {
+    order: 2;
+    flex-direction: column;
+    width: 65%;
+}
+
+
+
+#id {
+    flex-direction: column;
+}

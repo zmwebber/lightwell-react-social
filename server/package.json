@@ -16,6 +16,9 @@
     "express": "^4.18.2",
     "mongoose": "^6.8.0",
     "morgan": "^1.10.0",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "bcryptjs": "^2.4.3"
   }
 }
