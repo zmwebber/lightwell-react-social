@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/user.model')
+require('dotenv').config();
 import mongoose from 'mongoose';
 // @desc    Register new user
 // @route   POST /api/users/add
@@ -74,7 +75,7 @@ export const getMe = asyncHandler(async (req, res) => {
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
+    expiresIn: '30 days',
   })
 }
 
