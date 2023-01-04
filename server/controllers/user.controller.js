@@ -11,13 +11,13 @@ import mongoose from 'mongoose';
 export const registerUser = asyncHandler(async (req, res) => {
   const user = req.body
 
-  if (!user.name|| !user.email || !user.password) {
+  if (!user.name || !user.email || !user.password) {
     res.status(400)
     throw new Error('Please add all fields')
   }
 
   // Check if user exists
-  const userExists = await User.findOne({ email: user.email })  
+  const userExists = await User.findOne({ email: user.email })
 
   if (userExists) {
     res.status(400)
@@ -61,6 +61,20 @@ export const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id), //generate JWT
+      dateOfBirth: user.dateOfBirth,
+      createdAt: user.createdAt,
+      description: user.description,
+      url: user.url,
+      protected: user.protected,
+      followers_count: user.followers_count,
+      friends_count: user.friends_count,
+      listed_count: user.listed_count,
+      favorites_count: user.favorites_count,
+      verified: user.verified,
+      statuses_count: user.statuses_count,
+      profile_background_color: user.profile_background_color,
+      profile_background_image_url: user.profile_background_image_url,
+      profile_image_url: user.profile_image_url,
     })
   } else {
     res.status(400)
@@ -74,6 +88,9 @@ export const loginUser = asyncHandler(async (req, res) => {
 export const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user)
 })
+
+// Need method to update user information
+
 
 // Generate JWT
 const generateToken = (id) => {
