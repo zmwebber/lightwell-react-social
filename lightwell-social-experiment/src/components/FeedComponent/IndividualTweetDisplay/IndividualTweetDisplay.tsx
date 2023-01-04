@@ -1,26 +1,18 @@
 // This component needs to access the state's tweet array. It should loop through every tweet in the array to create the Feed
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { IconButton } from "@mui/material";
 import React, { useState } from "react";
-import { DeleteOutlined, Reply } from "@mui/icons-material";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useStore } from "react-redux";
 import { deleteTweet, updateTweet } from "../../../api/TweetApi";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import { getFeed } from "../../../api/TweetApi";
@@ -82,6 +74,27 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	const store = useStore();
 	const state: any = store.getState();
+	// @TODO: create mapping function
+	// https://codepen.io/GeorgeWL/pen/yLeGGMw
+
+	function setTweetForUpdate(tweet: any) {
+		editedTweet.id = tweet._id;
+		editedTweet.createdAt = tweet.createdAt;
+		editedTweet.text = tweet.text;
+		editedTweet.favorited = tweet.favorited;
+		editedTweet.truncated = tweet.truncated;
+		editedTweet.favorite_count = tweet.favorite_count;
+		editedTweet.source = tweet.source;
+		editedTweet.is_reply_status = tweet.is_reply_status;
+		editedTweet.in_reply_to_status_id = tweet.in_reply_to_status_id;
+		editedTweet.reply_count = tweet.reply_count;
+		editedTweet.is_quote_status = tweet.is_quote_status;
+		editedTweet.quoted_status_id = tweet.quoted_status_id;
+		editedTweet.is_retweeted_status = tweet.is_retweeted_status;
+		editedTweet.retweet_count = tweet.retweet_count;
+		editedTweet.links = tweet.links;
+		editedTweet.hashtags = tweet.hashtags;
+	}
 
 	const handleDelete = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
@@ -110,26 +123,14 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	}
 	const handleRetweet = (tweet: Tweet) => {
 		console.log("retweet button pressed");
+
 		const matchedTweet = state.feed.Tweets.filter(
 			(t: Tweet) => t.createdAt === tweet.createdAt
 		);
 
-		editedTweet.id = matchedTweet[0]._id;
-		editedTweet.createdAt = matchedTweet[0].createdAt;
-		editedTweet.text = matchedTweet[0].text;
-		editedTweet.favorited = matchedTweet[0].favorited;
-		editedTweet.truncated = matchedTweet[0].truncated;
-		editedTweet.favorite_count = matchedTweet[0].favorite_count;
-		editedTweet.source = matchedTweet[0].source;
-		editedTweet.is_reply_status = matchedTweet[0].is_reply_status;
-		editedTweet.in_reply_to_status_id = matchedTweet[0].in_reply_to_status_id;
-		editedTweet.reply_count = matchedTweet[0].reply_count;
-		editedTweet.is_quote_status = matchedTweet[0].is_quote_status;
-		editedTweet.quoted_status_id = matchedTweet[0].quoted_status_id;
-		editedTweet.is_retweeted_status = matchedTweet[0].is_retweeted_status;
-		editedTweet.retweet_count = matchedTweet[0].retweet_count;
-		editedTweet.links = matchedTweet[0].links;
-		editedTweet.hashtags = matchedTweet[0].hashtags;
+		setTweetForUpdate(matchedTweet[0]);
+
+		//setEditedTweet({ ...matchedTweet[0] });
 
 		adjustRetweetCount(editedTweet);
 
@@ -159,22 +160,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			(t: Tweet) => t.createdAt === tweet.createdAt
 		);
 
-		editedTweet.id = matchedTweet[0]._id;
-		editedTweet.createdAt = matchedTweet[0].createdAt;
-		editedTweet.text = matchedTweet[0].text;
-		editedTweet.favorited = matchedTweet[0].favorited;
-		editedTweet.truncated = matchedTweet[0].truncated;
-		editedTweet.favorite_count = matchedTweet[0].favorite_count;
-		editedTweet.source = matchedTweet[0].source;
-		editedTweet.is_reply_status = matchedTweet[0].is_reply_status;
-		editedTweet.in_reply_to_status_id = matchedTweet[0].in_reply_to_status_id;
-		editedTweet.reply_count = matchedTweet[0].reply_count;
-		editedTweet.is_quote_status = matchedTweet[0].is_quote_status;
-		editedTweet.quoted_status_id = matchedTweet[0].quoted_status_id;
-		editedTweet.is_retweeted_status = matchedTweet[0].is_retweeted_status;
-		editedTweet.retweet_count = matchedTweet[0].retweet_count;
-		editedTweet.links = matchedTweet[0].links;
-		editedTweet.hashtags = matchedTweet[0].hashtags;
+		setTweetForUpdate(matchedTweet[0]);
 
 		adjustFavoriteCount(editedTweet);
 
@@ -260,6 +246,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			{/** @TODO: toggle reply count */}
 			{/* @TODO: retweet logic - what should happen when a user retweets? */}
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
+
 			<CardActions>
 				<ReplyButton reply_count={tweet.reply_count} />
 
