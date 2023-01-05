@@ -9,21 +9,24 @@ import "./tweetFormStyle.css";
 import { addTweet, getFeed } from "../../api/TweetApi";
 import { useAppSelector } from "../../app/hooks/hooks";
 import type {} from "redux-thunk/extend-redux";
-
+import { useSelector } from 'react-redux';
+import { RootState } from "../../app/store";
 // @TODO: Data validation -- user shouldn't be allowed to insert empty string.
 // user shouldn't be allowed to submit a tweet of only spaces.
 // https://mongoosejs.com/docs/validation.html
 
 function TweetForm(props: any) {
 	const store = useStore();
+	const userState = useSelector((state : RootState) => state.user);
 	//const feed = useAppSelector(myTweets);
+	const userProfile = userState.profile;
 	const [submitted, setSubmitted] = React.useState("");
 	const [tweetContent, setTweetContent] = useState("");
 
-	const [tweet, setTweet] = useState<Tweet>({
-		id: "",
+	const [tweet, setTweet] = useState<Tweet>({	
+		_id: '',	
 		createdAt: new Date(),
-		user: "",
+		user: userProfile? JSON.stringify(userProfile) : '',
 		text: "",
 		source: "Twitter Clone Web App",
 		truncated: false,

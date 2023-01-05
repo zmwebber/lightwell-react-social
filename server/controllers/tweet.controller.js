@@ -11,7 +11,9 @@ return res.json({'success':true,'message':'Tweets fetched successfully',tweets})
   });
 }
 export const addTweet = (req,res) => {
+  delete req.body._id;
   const newTweet= new Tweets(req.body);
+  //strip _id from tweet, let mongo generate it.
   newTweet.save((err,tweet) => {
     if(err){
     return res.json({'success':false,'message':'addTweet error: ' + err});
@@ -20,7 +22,7 @@ return res.json({'success':true,'message':'Tweet added successfully',tweet});
   })
 }
 export const updateTweet = (req,res) => {
-    Tweets.findOneAndUpdate({ _id:req.body.id }, req.body, { new:true }, (err,tweet) => {
+    Tweets.findOneAndUpdate({ _id:req.body._id }, req.body, { new:true }, (err,tweet) => {
     if(err){
     return res.json({'success':false,'message':'updateTweet error','error':err});
     }
@@ -29,7 +31,7 @@ export const updateTweet = (req,res) => {
   })
 }
 export const getTweet = (req,res) => {
-    Tweets.find({_id:req.params.id}).exec((err,tweet) => {
+    Tweets.find({_id:req.params._id}).exec((err,tweet) => {
     if(err){
     return res.json({'success':false,'message':'getTweet error: ' + err});
     }
