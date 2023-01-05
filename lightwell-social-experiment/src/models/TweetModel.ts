@@ -2,7 +2,7 @@
 //shouldnt have to do this -- lets talk about it -- Zac
 
 export type Tweet = {
-    id: string,
+    _id?: string | null,
     createdAt:  Date,
     user: string,
     text: string,

@@ -28,10 +28,9 @@ const port = process.env.PORT || 5000;
 // connect to database
 mongoose.Promise = global.Promise;
 // Shared mongo database
-// mongoose.connect('mongodb+srv://twitter-clone:TwitterCloneAdmin!23@twitterclonecluster.ebs6r7m.mongodb.net/Social?retryWrites=true&w=majority');
-
+ mongoose.connect('mongodb+srv://twitter-clone:TwitterCloneAdmin!23@twitterclonecluster.ebs6r7m.mongodb.net/Social?retryWrites=true&w=majority');
+ //mongoose.connect('mongodb+srv://username:lbQL8fruhna37x6m@atlascluster.mx3cskk.mongodb.net/?retryWrites=true&w=majority')
 // add Source Map Support
-mongoose.connect('mongodb+srv://username:lbQL8fruhna37x6m@atlascluster.mx3cskk.mongodb.net/?retryWrites=true&w=majority')
 SourceMapSupport.install();
 app.use('/api', todoRoutes);
 app.use('/api', tweetRoutes);

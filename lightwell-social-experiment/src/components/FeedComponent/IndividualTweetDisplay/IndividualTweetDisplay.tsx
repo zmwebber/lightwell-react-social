@@ -36,7 +36,7 @@ import {
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [editedTweet, setEditedTweet] = useState<Tweet>({
-		id: "",
+		_id: null,
 		createdAt: new Date(),
 		user: "",
 		text: "",
@@ -78,7 +78,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	// https://codepen.io/GeorgeWL/pen/yLeGGMw
 
 	function setTweetForUpdate(tweet: any) {
-		editedTweet.id = tweet._id;
+		editedTweet._id = tweet._id;
 		editedTweet.createdAt = tweet.createdAt;
 		editedTweet.text = tweet.text;
 		editedTweet.favorited = tweet.favorited;
@@ -98,7 +98,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	const handleDelete = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
-			(t: Tweet) => t.createdAt === tweet.createdAt
+			(t: Tweet) => t._id === tweet._id
 		);
 
 		const action = deleteTweet(matchedTweet[0]._id);
@@ -125,7 +125,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		console.log("retweet button pressed");
 
 		const matchedTweet = state.feed.Tweets.filter(
-			(t: Tweet) => t.createdAt === tweet.createdAt
+			(t: Tweet) => t._id === tweet._id
 		);
 
 		setTweetForUpdate(matchedTweet[0]);
@@ -157,7 +157,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const handleFavorited = (tweet: Tweet) => {
 		console.log("favorite button pressed");
 		const matchedTweet = state.feed.Tweets.filter(
-			(t: Tweet) => t.createdAt === tweet.createdAt
+			(t: Tweet) => t._id === tweet._id
 		);
 
 		setTweetForUpdate(matchedTweet[0]);
