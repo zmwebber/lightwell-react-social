@@ -40,7 +40,7 @@ export const deleteTweet = createAsyncThunk(
 export const updateTweet = createAsyncThunk(
     "tweets/put",
     async (tweet: any) => {
-        const id = tweet.id;
+        const id = tweet._id;
         try {
             console.log(`You are attempting to update this tweet. ID: ${id}`)  
             await API.put(`/tweets/${id}`, tweet);
