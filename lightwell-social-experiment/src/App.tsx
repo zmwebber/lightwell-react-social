@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { NotificationPage } from "./pages/Notifications/NotificationPage";
 import HomePage from "./pages/HomePage/HomePage";
 import { ExplorePage } from "./pages/ExplorePage/ExplorePage";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
 import './App.css';
 import RegistrationPage from './pages/AuthenticationPage/RegistrationPage';
 
@@ -21,6 +22,7 @@ function App() {
 				<Route path="/profile" />
 				<Route path="/more" element={<Counter/>}/>
 				<Route path="/signup" element={<RegistrationPage/>}/>
+				<Route path="/login" element={<LoginPage/>}/>
 			</Routes>
     </div>
   );
