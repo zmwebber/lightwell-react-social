@@ -2,10 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import type { } from 'redux-thunk/extend-redux';
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { getFeed } from "../../api/TweetApi";
-import { Tweet } from "../../models/TweetModel";
 import IndividualTweetDisplay from "./IndividualTweetDisplay/IndividualTweetDisplay";
-import { Link } from "react-router-dom";
-import { selectFeed, TweetFeedState } from "../../redux/ducks/feed_duck/tweetFeedSlice"
+import { selectFeed, TweetFeedState } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
 
 const TweetFeed = () => {
@@ -23,10 +21,7 @@ const TweetFeed = () => {
 		}
 	}, [initFetch])
 
-
-
 	return (
-
 		<>
 			{!feed.loading &&			
 				feed.Tweets &&
@@ -40,10 +35,7 @@ const TweetFeed = () => {
 						</div>
 					))			
 			}
-
-
 		</>
-
 	);
 };
 

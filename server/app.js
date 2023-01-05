@@ -8,6 +8,7 @@ import SourceMapSupport from 'source-map-support';
 // import routes
 import todoRoutes from './routes/todo.server.route';
 import tweetRoutes from './routes/tweet.route';
+import userRoutes from './routes/users.route';
 // define our app using express
 const app = express();
 // allow-cors
@@ -34,6 +35,7 @@ mongoose.connect('mongodb+srv://username:lbQL8fruhna37x6m@atlascluster.mx3cskk.m
 SourceMapSupport.install();
 app.use('/api', todoRoutes);
 app.use('/api', tweetRoutes);
+app.use('/api', userRoutes);
 app.get('/', (req,res) => {
   return res.end('Api working');
 })

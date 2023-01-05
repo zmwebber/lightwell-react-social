@@ -4,7 +4,7 @@
 export type Tweet = {
     id: string,
     createdAt:  Date,
-    user: string,
+    user: string,  // need to have access to name/handle for each tweet
     text: string,
     source: string,
     truncated: boolean,
