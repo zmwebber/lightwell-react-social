@@ -79,6 +79,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	function setTweetForUpdate(tweet: any) {
 		editedTweet._id = tweet._id;
+		editedTweet.user = tweet.user;
 		editedTweet.createdAt = tweet.createdAt;
 		editedTweet.text = tweet.text;
 		editedTweet.favorited = tweet.favorited;
