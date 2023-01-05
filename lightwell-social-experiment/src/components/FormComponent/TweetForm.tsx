@@ -16,10 +16,10 @@ import type {} from "redux-thunk/extend-redux";
 
 function TweetForm(props: any) {
 	const store = useStore();
-	const feed = useAppSelector(myTweets);
+	//const feed = useAppSelector(myTweets);
 	const [submitted, setSubmitted] = React.useState("");
 	const [tweetContent, setTweetContent] = useState("");
-	// const [tweetPicture, setTweetPicture] = useState("");
+
 	const [tweet, setTweet] = useState<Tweet>({
 		id: "",
 		createdAt: new Date(),
@@ -66,6 +66,7 @@ function TweetForm(props: any) {
 				});
 			e.target.reset();
 		}
+
 		if (tweetContent === "") {
 			setSubmitted("true");
 		}
@@ -91,7 +92,7 @@ function TweetForm(props: any) {
 							error={tweetContent === "" && submitted === "true"}
 							helperText={
 								tweetContent === "" && submitted === "true"
-									? "tweet text is required"
+									? "Text is required"
 									: ""
 							}
 						/>

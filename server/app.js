@@ -15,6 +15,7 @@ const app = express();
 app.use(function(req,res,next){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 })
 // configure app
@@ -26,8 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 const port = process.env.PORT || 5000;
 // connect to database
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://twitter-clone:TwitterCloneAdmin!23@twitterclonecluster.ebs6r7m.mongodb.net/Social?retryWrites=true&w=majority');
+// Shared mongo database
+// mongoose.connect('mongodb+srv://twitter-clone:TwitterCloneAdmin!23@twitterclonecluster.ebs6r7m.mongodb.net/Social?retryWrites=true&w=majority');
+
 // add Source Map Support
+mongoose.connect('mongodb+srv://username:lbQL8fruhna37x6m@atlascluster.mx3cskk.mongodb.net/?retryWrites=true&w=majority')
 SourceMapSupport.install();
 app.use('/api', todoRoutes);
 app.use('/api', tweetRoutes);

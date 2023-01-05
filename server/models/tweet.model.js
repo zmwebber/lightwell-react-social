@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+// https://mongoosejs.com/docs/guide.html
 var Schema = mongoose.Schema({
     createdAt: Date,
     user: String,

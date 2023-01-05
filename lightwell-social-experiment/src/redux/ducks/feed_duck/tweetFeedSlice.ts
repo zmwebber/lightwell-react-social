@@ -24,7 +24,7 @@ const tweetFeedSlice = createSlice({
       }, 
     extraReducers: (builder) =>{
         builder
-        .addCase(getFeed.fulfilled, (state, action) =>{
+        .addCase(getFeed.fulfilled, (state, action: IActionModel) =>{
             state.loading = false;
             state.Tweets = action.payload;
         })
