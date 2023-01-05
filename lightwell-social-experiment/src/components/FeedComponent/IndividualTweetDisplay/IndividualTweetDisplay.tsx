@@ -77,26 +77,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	// @TODO: create mapping function
 	// https://codepen.io/GeorgeWL/pen/yLeGGMw
 
-	function setTweetForUpdate(tweet: any) {
-		editedTweet._id = tweet._id;
-		editedTweet.user = tweet.user;
-		editedTweet.createdAt = tweet.createdAt;
-		editedTweet.text = tweet.text;
-		editedTweet.favorited = tweet.favorited;
-		editedTweet.truncated = tweet.truncated;
-		editedTweet.favorite_count = tweet.favorite_count;
-		editedTweet.source = tweet.source;
-		editedTweet.is_reply_status = tweet.is_reply_status;
-		editedTweet.in_reply_to_status_id = tweet.in_reply_to_status_id;
-		editedTweet.reply_count = tweet.reply_count;
-		editedTweet.is_quote_status = tweet.is_quote_status;
-		editedTweet.quoted_status_id = tweet.quoted_status_id;
-		editedTweet.is_retweeted_status = tweet.is_retweeted_status;
-		editedTweet.retweet_count = tweet.retweet_count;
-		editedTweet.links = tweet.links;
-		editedTweet.hashtags = tweet.hashtags;
-	}
-
 	const handleDelete = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
 			(t: Tweet) => t._id === tweet._id
@@ -129,9 +109,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			(t: Tweet) => t._id === tweet._id
 		);
 
-		setTweetForUpdate(matchedTweet[0]);
-
-		//setEditedTweet({ ...matchedTweet[0] });
+		const editedTweet = { ...matchedTweet[0] };
 
 		adjustRetweetCount(editedTweet);
 
@@ -161,7 +139,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			(t: Tweet) => t._id === tweet._id
 		);
 
-		setTweetForUpdate(matchedTweet[0]);
+		const editedTweet = { ...matchedTweet[0] };
 
 		adjustFavoriteCount(editedTweet);
 
