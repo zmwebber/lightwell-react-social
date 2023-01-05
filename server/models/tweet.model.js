@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema({
-    createdAt:  Date,
+    createdAt: Date,
     user: String,
     text: String,
     source: String,
