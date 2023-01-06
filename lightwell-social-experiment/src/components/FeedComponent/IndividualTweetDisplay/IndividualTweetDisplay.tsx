@@ -35,34 +35,6 @@ import {
 // }
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
-	const [editedTweet, setEditedTweet] = useState<Tweet>({
-		_id: null,
-		createdAt: new Date(),
-		user: "",
-		text: "",
-		source: "Twitter Clone Web App",
-		truncated: false,
-		is_reply_status: false,
-		in_reply_to_status_id: "",
-		in_reply_to_user_id: "",
-		reply_count: 0,
-		is_quote_status: false,
-		quoted_status_id: "",
-		is_retweeted_status: false,
-		retweet_count: 0,
-		favorite_count: 0,
-		favorited: false,
-		links: {
-			indicies: [0],
-			url: "",
-			text: "",
-		},
-		hashtags: {
-			indicies: [0],
-			text: "",
-		},
-	});
-
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -109,7 +81,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			(t: Tweet) => t._id === tweet._id
 		);
 
-		const editedTweet = { ...matchedTweet[0] };
+		const editedTweet: Tweet = { ...matchedTweet[0] };
 
 		adjustRetweetCount(editedTweet);
 
