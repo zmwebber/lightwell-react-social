@@ -27,6 +27,13 @@ function TweetForm(props: any) {
 		_id: "",
 		createdAt: new Date(),
 		user: userProfile ? JSON.stringify(userProfile) : "",
+		// user: {
+		// 	_id: "",
+		// 	screen_name: "",
+		// 	name: "",
+		// 	email: "",
+		// 	token: "",
+		// },
 		text: "",
 		source: "Twitter Clone Web App",
 		truncated: false,

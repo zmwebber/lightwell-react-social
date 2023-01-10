@@ -27,6 +27,7 @@ import {
 	incrementRetweet,
 	decrementRetweet,
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
+import userService from "../../../api/UserApi";
 
 // function checkProfilePicture(tweet: Tweet) {
 // 	if (tweet.profilePicture === "") {
@@ -46,7 +47,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	const store = useStore();
 	const state: any = store.getState();
-	// @TODO: create mapping function
 	// https://codepen.io/GeorgeWL/pen/yLeGGMw
 
 	const handleDelete = (tweet: Tweet) => {
@@ -74,12 +74,15 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			store.dispatch(decrementRetweet(tweet));
 		}
 	}
+
 	const handleRetweet = (tweet: Tweet) => {
 		console.log("retweet button pressed");
 
 		const matchedTweet = state.feed.Tweets.filter(
 			(t: Tweet) => t._id === tweet._id
 		);
+
+		console.log(matchedTweet[0].user.name);
 
 		const editedTweet: Tweet = { ...matchedTweet[0] };
 
@@ -127,9 +130,18 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
+	// TODO
+	function parseUserJSON(tweet: Tweet): any {
+		const parsed = JSON.parse(tweet.user);
+		return parsed[1];
+		// return username;
+	}
+
 	// checkProfilePicture(tweet);
 	return (
-		<Card>
+		<Card
+			sx={{ gap: 2, borderRadius: 2, backgroundColor: "black", color: "white" }}
+		>
 			<CardHeader
 				avatar={
 					<img
@@ -149,7 +161,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							aria-expanded={open ? "true" : undefined}
 							onClick={handleClick}
 						>
-							<MoreVertIcon />
+							<MoreVertIcon sx={{ color: "white" }} />
 						</IconButton>
 						<Menu
 							id="demo-positioned-menu"
@@ -184,7 +196,10 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						</Menu>
 					</div>
 				}
-				title={`user.name user.handle ` + timeCalculator(tweet.createdAt)}
+				title={
+					// `${tweet.user}` +
+					parseUserJSON(tweet) + timeCalculator(tweet.createdAt)
+				}
 				subheader=""
 			/>
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
@@ -197,11 +212,13 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			{/** @TODO: toggle reply count */}
 			{/* @TODO: retweet logic - what should happen when a user retweets? */}
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
-
-			<CardActions>
+			{/* <CardActions disableSpacing className="icon-parents"> 
+			For whatever reason, material UI CardActions doesn't allow for respacing betwixt nested buttons*/}
+			<div style={{ display: "flex", justifyContent: "space-around" }}>
 				<ReplyButton reply_count={tweet.reply_count} />
 
 				<Button
+					className="icons"
 					onClick={() => {
 						handleRetweet(tweet);
 					}}
@@ -212,18 +229,22 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				>{`${tweet.retweet_count}`}</Button>
 
 				<Button
+					className="icon"
 					onClick={() => {
 						handleFavorited(tweet);
 					}}
 					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
 					startIcon={<FavoriteIcon />}
 				>{`${tweet.favorite_count}`}</Button>
+				{/* 
+			
 				{/** Why can't I pass the full tweet here? */}
 
 				{/* <IconButton aria-label="share">
 					<ShareIcon />
 				</IconButton> */}
-			</CardActions>
+			</div>
+			{/* </CardActions> */}
 		</Card>
 	);
 }
