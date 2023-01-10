@@ -46,3 +46,7 @@
         animation: pulse 0.6s 0.3s forwards;
     }
 } */
+
+img.profile-picture:hover {
+    cursor: pointer;
+}

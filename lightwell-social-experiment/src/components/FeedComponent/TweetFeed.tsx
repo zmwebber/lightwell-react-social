@@ -10,7 +10,7 @@ import {
 import { useAppSelector } from "../../app/hooks/hooks";
 
 const TweetFeed = () => {
-	const store = useStore();
+	//const store = useStore();
 	const feed = useAppSelector(selectFeed);
 	const dispatch = useDispatch();
 
@@ -23,6 +23,13 @@ const TweetFeed = () => {
 			initFetch();
 		}
 	}, [initFetch]);
+
+	// Url should end in the user profile property name whereby the user's tweets are filtered by name.
+	//"http://localhost:3000/"
+	// code below checks if there is a username appended to the localhost:3000 url.
+	if (window.location.href.length > 30) {
+		return <h1>HELLO</h1>;
+	}
 
 	return (
 		// if user clicks on another user, display that users tweets. else, show all.

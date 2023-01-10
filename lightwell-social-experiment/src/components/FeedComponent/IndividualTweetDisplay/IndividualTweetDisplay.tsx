@@ -21,13 +21,14 @@ import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ReplyButton } from "../../../app/shared/buttons";
+import "./individualTweetDisplayStyle.css";
 import {
 	incrementFavorite,
 	decrementFavorite,
 	incrementRetweet,
 	decrementRetweet,
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
-import userService from "../../../api/UserApi";
+import ShareIcon from "@mui/icons-material/Share";
 
 // function checkProfilePicture(tweet: Tweet) {
 // 	if (tweet.profilePicture === "") {
@@ -130,10 +131,17 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
-	// TODO
+	// @TODO
+	const redirectToProfile = (tweet: Tweet): any => {
+		console.log("redirect button pressed");
+		window.location.href = "http://localhost:3000/profile";
+		// + `${tweet.user}`;
+	};
+
+	// @TODO
 	function parseUserJSON(tweet: Tweet): any {
 		const parsed = JSON.parse(tweet.user);
-		return parsed[1];
+		return parsed.screen_name;
 		// return username;
 	}
 
@@ -156,6 +164,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						alt="profile-pic"
 						src={defaultProfilePic}
 						style={{ width: "5vw", height: "5vh" }}
+						onClick={() => redirectToProfile(tweet)}
 					></img>
 				}
 				action={
@@ -205,7 +214,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				}
 				title={
 					// `${tweet.user}` +
-					parseUserJSON(tweet) + timeCalculator(tweet.createdAt)
+					parseUserJSON(tweet) + " " + timeCalculator(tweet.createdAt)
 				}
 				subheader=""
 			/>
@@ -243,6 +252,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
 					startIcon={<FavoriteIcon />}
 				>{`${tweet.favorite_count}`}</Button>
+
+				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
 				{/* 
 			
 				{/** Why can't I pass the full tweet here? */}
