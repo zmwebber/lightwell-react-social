@@ -18,10 +18,6 @@ function HomePage() {
 			</div>
 
 			<div className="center">
-				<div id="center" className="profile-position">
-					<Profile />
-				</div>
-
 				<div id="center" className="tweetForm-position">
 					<TweetForm />
 				</div>

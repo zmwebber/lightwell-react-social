@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: row;
     
-    
 }
 
 .navbar-position {
@@ -37,10 +36,16 @@
     order: 2;
     flex-direction: column;
     width: 65%;
+    
 }
 
 
 
-#id {
-    flex-direction: column;
+#center {
+    border-bottom: solid gray;
+    border-bottom-width: thin;
+    border-right: solid gray;
+    border-right-width: thin;
+    border-left: solid gray;
+        border-left-width: thin;
 }

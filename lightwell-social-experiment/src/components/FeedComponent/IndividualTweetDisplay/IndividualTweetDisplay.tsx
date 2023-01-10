@@ -140,7 +140,14 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	// checkProfilePicture(tweet);
 	return (
 		<Card
-			sx={{ gap: 2, borderRadius: 2, backgroundColor: "black", color: "white" }}
+			sx={{
+				gap: 2,
+				backgroundColor: "black",
+				color: "white",
+				borderRadius: 0,
+				borderBottom: " solid gray",
+				borderBottomWidth: "thin",
+			}}
 		>
 			<CardHeader
 				avatar={
