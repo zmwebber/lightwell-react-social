@@ -134,15 +134,16 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	// @TODO
 	const redirectToProfile = (tweet: Tweet): any => {
 		console.log("redirect button pressed");
-		window.location.href = "http://localhost:3000/profile";
+		const parsedUser = JSON.parse(tweet.user);
+		window.location.href =
+			"http://localhost:3000/profile/" + parsedUser.screen_name;
 		// + `${tweet.user}`;
 	};
 
 	// @TODO
 	function parseUserJSON(tweet: Tweet): any {
 		const parsed = JSON.parse(tweet.user);
-		return parsed.screen_name;
-		// return username;
+		return parsed.screen_name + " " + "@" + parsed.name;
 	}
 
 	// checkProfilePicture(tweet);

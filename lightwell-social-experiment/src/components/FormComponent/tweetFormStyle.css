@@ -1,8 +1,8 @@
-.title {
+/* .title {
     display: flex;
     align-items: center;
     
-}
+} */
 
 .tweet-form {
     /* width: 100vw;
@@ -12,4 +12,14 @@
 
 /* .container {
     border-bottom: solid gray;
+} */
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+/* .tweet-button {
+    display: flex;
+    justify-content:center;
 } */

@@ -11,6 +11,10 @@ import { useAppSelector } from "../../app/hooks/hooks";
 import type {} from "redux-thunk/extend-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import defaultProfilePic from "../../app/images/default-profile-pic.jpeg";
+import "./tweetFormStyle.css";
+import { TweetButton } from "../../app/shared/buttons";
+import { styled } from "@mui/system";
 // @TODO: Data validation -- user shouldn't be allowed to insert empty string.
 // user shouldn't be allowed to submit a tweet of only spaces.
 // https://mongoosejs.com/docs/validation.html
@@ -87,17 +91,27 @@ function TweetForm(props: any) {
 	};
 
 	return (
-		<div className="tweet-form" style={{ backgroundColor: "white" }}>
+		<div className="tweet-form" style={{ backgroundColor: "black" }}>
 			<form onSubmit={tweetSuccess}>
-				<Grid container direction="column" className="container">
+				<Grid container direction="row" className="container">
 					<Grid item>
+						<img
+							className="profile-picture"
+							alt="profile-pic"
+							src={defaultProfilePic}
+							style={{ width: "5vw", height: "5vh" }}
+						></img>
+					</Grid>
+					<Grid item xs>
 						<TextField
+							sx={{ input: { color: "white" } }}
 							name="tweet"
 							type="text"
 							id="tweet-content"
 							placeholder="What's Happening?"
 							fullWidth={true}
 							margin="normal"
+							variant="standard"
 							onChange={(e) => setTweetContent(e.target.value)}
 							error={tweetContent === "" && submitted === "true"}
 							helperText={
@@ -107,8 +121,15 @@ function TweetForm(props: any) {
 							}
 						/>
 					</Grid>
-					<Button type="submit">Send Tweet</Button>
 				</Grid>
+
+				<TweetButton
+					type="submit"
+					className="tweet-button"
+					style={{ backgroundColor: "deepskyblue", color: "white" }}
+				>
+					TWEET
+				</TweetButton>
 			</form>
 		</div>
 	);
