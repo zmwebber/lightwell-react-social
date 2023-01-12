@@ -1,10 +1,15 @@
-//import actionTypes from "../redux/ducks/tweetDuck/TweetActionTypes";
-//shouldnt have to do this -- lets talk about it -- Zac
 
 export type Tweet = {
     _id?: string | null,
     createdAt:  Date,
     user: string,
+    // user: {
+    //  _id: string,
+    //  screen_name: string,
+    //  name: string,
+    //  email: string,
+    //  token: string,
+    // }
     text: string,
     source: string,
     truncated: boolean,

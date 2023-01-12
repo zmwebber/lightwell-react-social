@@ -1,12 +1,11 @@
-import React from "react";
+import TweetFeed from "../../components/FeedComponent/TweetFeed";
 import NavBar from "../../components/NavbarComponent/NavBar";
 import Profile from "../../components/ProfileComponent/Profile";
-import TweetFeed from "../../components/FeedComponent/TweetFeed";
-import TweetForm from "../../components/FormComponent/TweetForm";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
-import "./homePageStyle.css";
 
-function HomePage() {
+export function ProfilePage() {
+	// @TODO: Remove <Profile/> from HomePage.tsx
+
 	return (
 		<div className="home-page">
 			<div id="left" className="navbar-position">
@@ -18,18 +17,14 @@ function HomePage() {
 			</div>
 
 			<div className="center">
-				<div id="center" className="tweetForm-position">
-					<TweetForm />
+				<div id="center" className="profile-position">
+					<Profile />
 				</div>
 
 				<div id="center" className="tweetFeed-position">
 					<TweetFeed />
 				</div>
 			</div>
-
-			{/* Card Component Goes Here */}
 		</div>
 	);
 }
-
-export default HomePage;

@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import "./navBarStyle.css";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { TweetButton } from "../../app/shared/buttons";
 //import { TwitterBlue } from "../../colorConstants";
 
 // TODO: Make text bigger
@@ -27,14 +28,6 @@ const CustomNavLink: any = styled(NavLink)({
 	flexWrap: "wrap",
 	margin: "10px",
 });
-
-const TweetButton: any = styled(Button)`
-	font-weight: bold;
-	border-radius: 20px;
-	padding: 8px 18px;
-	width: 120px;
-	shape = RoundedCornerShape(50, 50, 50, 50);
-`;
 
 const TwitterButton = () => {
 	return (

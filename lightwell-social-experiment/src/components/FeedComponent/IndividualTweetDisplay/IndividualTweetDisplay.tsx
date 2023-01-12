@@ -21,12 +21,14 @@ import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ReplyButton } from "../../../app/shared/buttons";
+import "./individualTweetDisplayStyle.css";
 import {
 	incrementFavorite,
 	decrementFavorite,
 	incrementRetweet,
 	decrementRetweet,
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
+import ShareIcon from "@mui/icons-material/Share";
 
 // function checkProfilePicture(tweet: Tweet) {
 // 	if (tweet.profilePicture === "") {
@@ -35,34 +37,6 @@ import {
 // }
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
-	const [editedTweet, setEditedTweet] = useState<Tweet>({
-		_id: null,
-		createdAt: new Date(),
-		user: "",
-		text: "",
-		source: "Twitter Clone Web App",
-		truncated: false,
-		is_reply_status: false,
-		in_reply_to_status_id: "",
-		in_reply_to_user_id: "",
-		reply_count: 0,
-		is_quote_status: false,
-		quoted_status_id: "",
-		is_retweeted_status: false,
-		retweet_count: 0,
-		favorite_count: 0,
-		favorited: false,
-		links: {
-			indicies: [0],
-			url: "",
-			text: "",
-		},
-		hashtags: {
-			indicies: [0],
-			text: "",
-		},
-	});
-
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -74,28 +48,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	const store = useStore();
 	const state: any = store.getState();
-	// @TODO: create mapping function
 	// https://codepen.io/GeorgeWL/pen/yLeGGMw
-
-	function setTweetForUpdate(tweet: any) {
-		editedTweet._id = tweet._id;
-		editedTweet.user = tweet.user;
-		editedTweet.createdAt = tweet.createdAt;
-		editedTweet.text = tweet.text;
-		editedTweet.favorited = tweet.favorited;
-		editedTweet.truncated = tweet.truncated;
-		editedTweet.favorite_count = tweet.favorite_count;
-		editedTweet.source = tweet.source;
-		editedTweet.is_reply_status = tweet.is_reply_status;
-		editedTweet.in_reply_to_status_id = tweet.in_reply_to_status_id;
-		editedTweet.reply_count = tweet.reply_count;
-		editedTweet.is_quote_status = tweet.is_quote_status;
-		editedTweet.quoted_status_id = tweet.quoted_status_id;
-		editedTweet.is_retweeted_status = tweet.is_retweeted_status;
-		editedTweet.retweet_count = tweet.retweet_count;
-		editedTweet.links = tweet.links;
-		editedTweet.hashtags = tweet.hashtags;
-	}
 
 	const handleDelete = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
@@ -122,6 +75,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			store.dispatch(decrementRetweet(tweet));
 		}
 	}
+
 	const handleRetweet = (tweet: Tweet) => {
 		console.log("retweet button pressed");
 
@@ -129,9 +83,9 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			(t: Tweet) => t._id === tweet._id
 		);
 
-		setTweetForUpdate(matchedTweet[0]);
+		console.log(matchedTweet[0].user.name);
 
-		//setEditedTweet({ ...matchedTweet[0] });
+		const editedTweet: Tweet = { ...matchedTweet[0] };
 
 		adjustRetweetCount(editedTweet);
 
@@ -161,7 +115,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			(t: Tweet) => t._id === tweet._id
 		);
 
-		setTweetForUpdate(matchedTweet[0]);
+		const editedTweet = { ...matchedTweet[0] };
 
 		adjustFavoriteCount(editedTweet);
 
@@ -177,9 +131,33 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
+	// @TODO
+	const redirectToProfile = (tweet: Tweet): any => {
+		console.log("redirect button pressed");
+		const parsedUser = JSON.parse(tweet.user);
+		window.location.href =
+			"http://localhost:3000/profile/" + parsedUser.screen_name;
+		// + `${tweet.user}`;
+	};
+
+	// @TODO
+	function parseUserJSON(tweet: Tweet): any {
+		const parsed = JSON.parse(tweet.user);
+		return parsed.screen_name + " " + "@" + parsed.name;
+	}
+
 	// checkProfilePicture(tweet);
 	return (
-		<Card>
+		<Card
+			sx={{
+				gap: 2,
+				backgroundColor: "black",
+				color: "white",
+				borderRadius: 0,
+				borderBottom: " solid gray",
+				borderBottomWidth: "thin",
+			}}
+		>
 			<CardHeader
 				avatar={
 					<img
@@ -187,6 +165,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						alt="profile-pic"
 						src={defaultProfilePic}
 						style={{ width: "5vw", height: "5vh" }}
+						onClick={() => redirectToProfile(tweet)}
 					></img>
 				}
 				action={
@@ -199,7 +178,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							aria-expanded={open ? "true" : undefined}
 							onClick={handleClick}
 						>
-							<MoreVertIcon />
+							<MoreVertIcon sx={{ color: "white" }} />
 						</IconButton>
 						<Menu
 							id="demo-positioned-menu"
@@ -234,7 +213,10 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						</Menu>
 					</div>
 				}
-				title={`user.name user.handle ` + timeCalculator(tweet.createdAt)}
+				title={
+					// `${tweet.user}` +
+					parseUserJSON(tweet) + " " + timeCalculator(tweet.createdAt)
+				}
 				subheader=""
 			/>
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
@@ -247,11 +229,13 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			{/** @TODO: toggle reply count */}
 			{/* @TODO: retweet logic - what should happen when a user retweets? */}
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
-
-			<CardActions>
+			{/* <CardActions disableSpacing className="icon-parents"> 
+			For whatever reason, material UI CardActions doesn't allow for respacing betwixt nested buttons*/}
+			<div style={{ display: "flex", justifyContent: "space-around" }}>
 				<ReplyButton reply_count={tweet.reply_count} />
 
 				<Button
+					className="icons"
 					onClick={() => {
 						handleRetweet(tweet);
 					}}
@@ -262,18 +246,24 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				>{`${tweet.retweet_count}`}</Button>
 
 				<Button
+					className="icon"
 					onClick={() => {
 						handleFavorited(tweet);
 					}}
 					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
 					startIcon={<FavoriteIcon />}
 				>{`${tweet.favorite_count}`}</Button>
+
+				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
+				{/* 
+			
 				{/** Why can't I pass the full tweet here? */}
 
 				{/* <IconButton aria-label="share">
 					<ShareIcon />
 				</IconButton> */}
-			</CardActions>
+			</div>
+			{/* </CardActions> */}
 		</Card>
 	);
 }

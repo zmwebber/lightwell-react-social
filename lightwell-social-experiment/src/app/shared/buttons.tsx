@@ -1,13 +1,14 @@
 import { Button } from "@mui/material";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
-import RepeatIcon from "@mui/icons-material/Repeat";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useDispatch, useStore } from "react-redux";
-import { getFeed } from "../../api/TweetApi";
-import { Tweet } from "../../models/TweetModel";
-import userFavorited from "../../redux/ducks/post_duck/tweetFormSlice";
-import { updateTweet } from "../../api/TweetApi";
+// import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+// import RepeatIcon from "@mui/icons-material/Repeat";
+// import FavoriteIcon from "@mui/icons-material/Favorite";
+// import { useDispatch, useStore } from "react-redux";
+// import { getFeed } from "../../api/TweetApi";
+// import { Tweet } from "../../models/TweetModel";
+// import userFavorited from "../../redux/ducks/post_duck/tweetFormSlice";
+// import { updateTweet } from "../../api/TweetApi";
+import { styled } from "@mui/system";
 
 interface replyCount {
 	reply_count: number;
@@ -70,3 +71,13 @@ export function ReplyButton({ reply_count }: replyCount) {
 // 		});
 //         )
 //     }
+
+export const TweetButton: any = styled(Button)`
+	font-weight: bold;
+	border-radius: 20px;
+	padding: 8px 18px;
+	width: 120px;
+	shape = RoundedCornerShape(50, 50, 50, 50);
+	margin-bottom: 12px;
+	
+`;

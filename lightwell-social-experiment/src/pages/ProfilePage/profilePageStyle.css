@@ -1,8 +1,6 @@
 .home-page {
-    
     display: flex;
     flex-direction: row;
-    
 }
 
 .navbar-position {
@@ -11,17 +9,11 @@
     order: 1;
 }
 
-.profile-position{
+.profile-position {}
 
-}
+.tweetForm-position {}
 
-.tweetForm-position {
-    
-}
-
-.tweetFeed-position {
-
-}
+.tweetFeed-position {}
 
 .yml-position {
     /* width: 30%;
@@ -36,16 +28,10 @@
     order: 2;
     flex-direction: column;
     width: 65%;
-    
 }
 
 
 
-#center {
-    border-bottom: solid gray;
-    border-bottom-width: thin;
-    border-right: solid gray;
-    border-right-width: thin;
-    border-left: solid gray;
-    border-left-width: thin;
+#id {
+    flex-direction: column;
 }
