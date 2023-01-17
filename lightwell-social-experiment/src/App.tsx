@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import { Counter } from "./components/CounterComponent/Counter";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { NotificationPage } from "./pages/Notifications/NotificationPage";
 import HomePage from "./pages/HomePage/HomePage";
 import { ExplorePage } from "./pages/ExplorePage/ExplorePage";

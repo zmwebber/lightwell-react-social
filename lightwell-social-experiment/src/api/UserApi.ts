@@ -16,7 +16,7 @@ export const login = createAsyncThunk(
         if (response.data) {
             localStorage.setItem('user', JSON.stringify(response.data))
           }        
-        return user
+        return response.data
     } catch (err) {
       // let error: AxiosError = err;  
       //   const message =
