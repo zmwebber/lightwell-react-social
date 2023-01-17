@@ -6,7 +6,7 @@ import { Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, 
 import { createTheme } from '@mui/material/styles';
 import { styled } from "@mui/system";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { redirect } from "react-router";
+import { redirect } from "react-router-dom";
 import "./loginStyle.css";
 
 const LoginButton: any = styled(Button)`
