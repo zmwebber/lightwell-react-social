@@ -46,8 +46,7 @@ export const tweetFormSlice = createSlice({
       state.loading = true;
     },
     [addTweet.fulfilled.type]: (state, action) => {
-      state.loading = false
-      //state.myTweets.unshift(action.payload);
+      state.loading = false;
     },
     [deleteTweet.pending.type]: (state, action) => {
       state.loading = true;
@@ -57,15 +56,8 @@ export const tweetFormSlice = createSlice({
     },
     [updateTweet.pending.type]: (state, action) => {
       state.loading = true;
-      // const id = action.payload.tweet.id;
-      // const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
-      // // favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
-      // favoritedTweet[0].favorited=true;
     },
     [updateTweet.fulfilled.type]: (state, action) => {
-      // const id: string = action.payload.id;
-      // const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
-      // favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
       state.loading = false;
     },
   } 

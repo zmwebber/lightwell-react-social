@@ -2,6 +2,7 @@ import { LensTwoTone } from '@mui/icons-material';
 import { useRadioGroup } from '@mui/material';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import userService, { addUser, login, logout } from '../../../api/UserApi'
+import { RootState } from '../../../app/store';
 import {Profile} from '../../../models/ProfileModel'
 // Get user from localStorage
 
@@ -14,7 +15,6 @@ if (localUser !== '' && localUser !== null)
 else{
   user = undefined;
 }
-
 
 export interface UserState {  
   profile : Profile | null | undefined,
@@ -81,5 +81,10 @@ export const authSlice = createSlice({
   },
 })
 
-export const { reset } = authSlice.actions
+export const { reset } = authSlice.actions;
+
+export const selectUser = (
+		(state: RootState) => state.user.profile
+	);
+
 export default authSlice.reducer

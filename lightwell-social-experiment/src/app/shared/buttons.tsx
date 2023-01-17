@@ -79,5 +79,4 @@ export const TweetButton: any = styled(Button)`
 	width: 120px;
 	shape = RoundedCornerShape(50, 50, 50, 50);
 	margin-bottom: 12px;
-	
 `;

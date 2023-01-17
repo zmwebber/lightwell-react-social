@@ -7,6 +7,11 @@ import { Button } from "@mui/material";
 import image from "../../app/images/corgi.jpg";
 import "./profileStyle.css";
 import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
+import { useSelector } from "react-redux";
+import { Profile } from "../../models/ProfileModel";
+import { useAppSelector } from "../../app/hooks/hooks";
+import { RootState } from "../../app/store";
+import { selectUser } from "../../redux/ducks/user_duck/userSlice";
 
 // Outline: Profile Page should filter out tweets by user.
 // if navigating to a user's profile, all tweets in the tweet feed should be of that user or retweeted by that user.
@@ -24,7 +29,30 @@ const FollowingButton: any = styled(Button)`
 	
 `;
 
-function Profile() {
+// const selectUser = useSelector((state: Profile) => state.name);
+
+const ShowFollowButton = () => {
+	const user = useAppSelector(selectUser);
+	const name = user?.name;
+
+	console.log(name);
+	const url = window.location.href;
+	const userUrl = url + name;
+	if (url === userUrl) {
+		return (
+			<>
+				<PendingOutlinedIcon style={{ color: "white" }} />
+				<NotificationAddOutlinedIcon style={{ color: "white" }} />
+				<FollowingButton variant="contained">
+					Follow ? Following
+				</FollowingButton>
+			</>
+		);
+	}
+	return null;
+};
+
+function ProfileView() {
 	return (
 		<div className="component">
 			<div className="banner">
@@ -37,18 +65,14 @@ function Profile() {
 					className="profile-pic"
 					alt="profile-pic"
 				/>
-				<PendingOutlinedIcon />
-				<NotificationAddOutlinedIcon />
 
 				{/** @TODO: Following Button should be available only if user profile isn't current user.
 				 * A user cannot follow themselves.
 				 */}
-				<FollowingButton variant="contained">
-					Follow ? Following
-				</FollowingButton>
+				<div>{ShowFollowButton()}</div>
 			</div>
 		</div>
 	);
 }
 
-export default Profile;
+export default ProfileView;

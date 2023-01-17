@@ -16,6 +16,8 @@ import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import "./navBarStyle.css";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
+import { Profile } from "../../models/ProfileModel";
+import { useParams } from "react-router-dom";
 //import { TwitterBlue } from "../../colorConstants";
 
 // TODO: Make text bigger
@@ -41,6 +43,10 @@ const TwitterButton = () => {
 
 export default function NavBar() {
 	const dispatch = useDispatch();
+
+	const name = useSelector((state: Profile) => state.name);
+
+	const { username } = useParams();
 
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => {
@@ -95,7 +101,12 @@ export default function NavBar() {
 				</li>
 
 				<li>
-					<CustomNavLink to="/profile">
+					{/** @TODO If user is logged in, show this link
+					 * If user is not logged in, remove link
+					 * If Profile page is clicked, route url to /profile/ + {user.name}
+					 */}
+
+					<CustomNavLink to="/profile/:username">
 						<PermIdentityOutlinedIcon /> Profile
 					</CustomNavLink>
 				</li>

@@ -1,6 +1,6 @@
 import TweetFeed from "../../components/FeedComponent/TweetFeed";
 import NavBar from "../../components/NavbarComponent/NavBar";
-import Profile from "../../components/ProfileComponent/Profile";
+import ProfileView from "../../components/ProfileComponent/Profile";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 
 export function ProfilePage() {
@@ -18,7 +18,7 @@ export function ProfilePage() {
 
 			<div className="center">
 				<div id="center" className="profile-position">
-					<Profile />
+					<ProfileView />
 				</div>
 
 				<div id="center" className="tweetFeed-position">

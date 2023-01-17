@@ -131,19 +131,23 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
-	// @TODO
+	// @TODO https://reactrouter.com/en/main
+	// https://github.com/lagunovsky/redux-react-router
+	// load component, raise action to initialize (get profile data from state or fetch user from url)
+
+	// make query on a like to also .then on update promise, raise an action that adds the tweet id value and user id value.
+	//
 	const redirectToProfile = (tweet: Tweet): any => {
 		console.log("redirect button pressed");
 		const parsedUser = JSON.parse(tweet.user);
 		window.location.href =
 			"http://localhost:3000/profile/" + parsedUser.screen_name;
-		// + `${tweet.user}`;
 	};
 
-	// @TODO
+	// @TODO - flesh out this to include clickable username and reroutes.
 	function parseUserJSON(tweet: Tweet): any {
 		const parsed = JSON.parse(tweet.user);
-		return parsed.screen_name + " " + "@" + parsed.name;
+		return parsed.screen_name + " @" + parsed.name;
 	}
 
 	// checkProfilePicture(tweet);
@@ -235,7 +239,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				<ReplyButton reply_count={tweet.reply_count} />
 
 				<Button
-					className="icons"
 					onClick={() => {
 						handleRetweet(tweet);
 					}}
@@ -246,7 +249,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				>{`${tweet.retweet_count}`}</Button>
 
 				<Button
-					className="icon"
 					onClick={() => {
 						handleFavorited(tweet);
 					}}
