@@ -41,7 +41,7 @@ function Login(props: any) {
 
 		const state: any = store.getState();
 
-		if (state.user.profile.token !== null && state.loading) { // Change eventually from toxen exists -> token is valid and isn't expired
+		if (state.user.profile.token !== null) { // Change eventually from toxen exists -> token is valid and isn't expired
 			navigate("/profile")
 		}
 
