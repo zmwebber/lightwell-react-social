@@ -6,7 +6,7 @@ import { Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, 
 import { createTheme } from '@mui/material/styles';
 import { styled } from "@mui/system";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./loginStyle.css";
 
 const LoginButton: any = styled(Button)`
@@ -20,6 +20,7 @@ const LoginButton: any = styled(Button)`
 const theme = createTheme();
 
 function Login(props: any) {
+	const navigate = useNavigate();
 	const store = useStore();
 
 	const [email, setEmail] = useState("");
@@ -29,22 +30,19 @@ function Login(props: any) {
 		e.preventDefault();
 
 		const user = new User(email, password)
-
 		const action = login(user);
 
 		store
 			.dispatch(action)
 			.unwrap()
-			// .then(() => {
-			// 	redirect('/profile')
-			// })
 			.catch((error: any) => {
 				console.log(error);
 			});
 
 		const state: any = store.getState();
-		if (state.user.profile.token !== null) { // Change eventually from toxen exists -> token is valid and isn't expired
-			redirect('/profile')
+
+		if (state.user.profile.token !== null && state.loading) { // Change eventually from toxen exists -> token is valid and isn't expired
+			navigate("/profile")
 		}
 
 		e.target.reset();
