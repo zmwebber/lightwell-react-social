@@ -52,8 +52,11 @@ function Login(props: any) {
 	};
 
 	function handleRedirect() {
+		console.log("HITTING HANDLE REDIRECT")
+
 		if (state.user.profile.token !== null && state.user.loginSuccess == true) { // Change eventually from toxen exists -> token is valid and isn't expired
-			navigate("/profile")
+			console.log("HITTING HANDLE REDIRECT INSIDE OF IF")
+			navigate("/profile") //fixme: put navigates into state
 		}
 	}
 
