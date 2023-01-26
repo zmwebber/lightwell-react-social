@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useStore } from "react-redux";
 import { login } from "../../api/UserApi";
 import { Profile, User } from "../../models/ProfileModel";
-import { Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, SvgIcon, TextField, ThemeProvider, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, SvgIcon, TextField, ThemeProvider, Typography } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import { styled } from "@mui/system";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useNavigate } from "react-router-dom";
 import "./loginStyle.css";
+import { StaticDatePicker } from "@mui/x-date-pickers";
+import { authSlice } from "../../redux/ducks/user_duck/userSlice";
 
 const LoginButton: any = styled(Button)`
 	font-weight: bold;
@@ -22,9 +24,11 @@ const theme = createTheme();
 function Login(props: any) {
 	const navigate = useNavigate();
 	const store = useStore();
+	const state: any = store.getState();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [loginAttempted, setloginAttempted] = useState(false);
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -35,15 +39,10 @@ function Login(props: any) {
 		store
 			.dispatch(action)
 			.unwrap()
+			.then(handleRedirect)
 			.catch((error: any) => {
-				console.log(error);
+				handleBadLogin(error);
 			});
-
-		const state: any = store.getState();
-
-		if (state.user.profile.token !== null) { // Change eventually from toxen exists -> token is valid and isn't expired
-			navigate("/profile")
-		}
 
 		e.target.reset();
 
@@ -51,6 +50,21 @@ function Login(props: any) {
 			props.handleClose();
 		}
 	};
+
+	function handleRedirect() {
+		if (state.user.profile.token !== null && state.user.loginSuccess == true) { // Change eventually from toxen exists -> token is valid and isn't expired
+			navigate("/profile")
+		}
+	}
+
+	function handleBadLogin(error: any) {
+		setloginAttempted(true)
+		// store.dispatch(authSlice.actions.failedLogin)
+
+		if (error.response.status == 400) {
+			console.log(error);
+		}
+	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -70,6 +84,14 @@ function Login(props: any) {
 					<Typography component="h1" variant="h5">
 						Sign in
 					</Typography>
+
+					{state.user.loginSuccess === false && loginAttempted === true &&
+						<Alert severity="error">
+							<AlertTitle>Error</AlertTitle>
+							{state.user.message}
+						</Alert>
+					}
+
 					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
 						<TextField
 							margin="normal"

@@ -22,6 +22,7 @@ export interface UserState {
   isSuccess: boolean,
   isLoading: boolean,
   message: string,
+  loginSuccess: boolean
   }
 
 const initialState = { 
@@ -30,6 +31,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: '',
+  loginSuccess: false
 }
 
 
@@ -43,40 +45,48 @@ export const authSlice = createSlice({
       state.isSuccess = false
       state.isError = false
       state.message = ''
+      state.loginSuccess = false
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(addUser.pending, (state) => {
         state.isLoading = true
+        state.loginSuccess = false
       })
       .addCase(addUser.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.profile = action.payload
+        state.loginSuccess = false
       })
       .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = "Failed to save user!"
         state.profile = undefined
+        state.loginSuccess = false
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true
+        state.loginSuccess = false
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.profile = action.payload? action.payload : undefined
+        state.loginSuccess = true
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = "Failed to login!"
         state.profile = undefined
+        state.loginSuccess = false
       })
       .addCase(logout.fulfilled, (state) => {
         state.profile = undefined
+        state.loginSuccess = false
       })
   },
 })
