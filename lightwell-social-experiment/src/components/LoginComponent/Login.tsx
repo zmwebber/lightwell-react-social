@@ -89,8 +89,7 @@ function Login(props: any) {
 					</Typography>
 
 					{state.user.loginSuccess === false && loginAttempted === true &&
-						<Alert severity="error">
-							<AlertTitle>Error</AlertTitle>
+						<Alert severity="error" className="error-alert-box">
 							{state.user.message}
 						</Alert>
 					}
