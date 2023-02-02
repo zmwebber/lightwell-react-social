@@ -14,8 +14,8 @@ function App() {
 	return (
 		<div>
 			<Routes>
-				<Route path="/notifications" element={<NotificationPage />} />
 				<Route path="/" element={<HomePage />} />
+				<Route path="/notifications" element={<NotificationPage />} />
 				<Route path="/explore" element={<ExplorePage />} />
 				<Route path="/messages" />
 				<Route path="/bookmarks" />
