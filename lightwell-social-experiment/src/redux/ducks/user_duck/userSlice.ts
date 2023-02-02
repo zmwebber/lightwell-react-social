@@ -71,12 +71,12 @@ export const authSlice = createSlice({
         state.isLoading = true
       })
       .addCase(login.fulfilled, (state, action) => {
+        state.profile = action.payload ? action.payload : undefined
         state.loginSuccess = true
         state.isLoading = false
         state.isError = false
         state.message = "Successfully logged in."
         state.isSuccess = true
-        state.profile = action.payload ? action.payload : undefined
       })
       .addCase(login.rejected, (state, action) => {
         state.loginSuccess = false
@@ -88,7 +88,6 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.profile = undefined
-        state.loginSuccess = false
       })
   },
 })

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import "./loginStyle.css";
 import { StaticDatePicker } from "@mui/x-date-pickers";
 import { authSlice } from "../../redux/ducks/user_duck/userSlice";
+import { selectOptions } from "@testing-library/user-event/dist/types/setup/directApi";
 
 const LoginButton: any = styled(Button)`
 	font-weight: bold;
@@ -52,11 +53,10 @@ function Login(props: any) {
 	};
 
 	function handleRedirect() {
-		console.log("User token: " + state.user.profile.token);
-		console.log("loginSuccess: " + state.user.loginSuccess);
+		const currentState: any = store.getState();
 
-		if (state.user.profile.token !== null && state.user.loginSuccess == true) { // Change eventually from toxen exists -> token is valid and isn't expired
-			console.log("HANDLE REDIRECT INSIDE IF.");
+		if (currentState.user.profile.token !== null && currentState.user.loginSuccess == true) { // Change eventually from toxen exists -> token is valid and isn't expired
+			console.log("HANDLE REDIRECT INSIDE OF IF WORKS.");
 			navigate("/profile") //fixme: put navigates into state
 		}
 	}
