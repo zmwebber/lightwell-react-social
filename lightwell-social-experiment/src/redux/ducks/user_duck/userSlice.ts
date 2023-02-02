@@ -2,31 +2,30 @@ import { LensTwoTone } from '@mui/icons-material';
 import { useRadioGroup } from '@mui/material';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import userService, { addUser, login, logout } from '../../../api/UserApi'
-import {Profile} from '../../../models/ProfileModel'
+import { Profile } from '../../../models/ProfileModel'
 // Get user from localStorage
 
 let localUser = localStorage.getItem('user');
 let user = null;
-if (localUser !== '' && localUser !== null)
-{
+if (localUser !== '' && localUser !== null) {
   user = JSON.parse(localUser) as Profile;
 }
-else{
+else {
   user = undefined;
 }
 
 
-export interface UserState {  
-  profile : Profile | null | undefined,
+export interface UserState {
+  profile: Profile | null | undefined,
   isError: boolean,
   isSuccess: boolean,
   isLoading: boolean,
   message: string,
   loginSuccess: boolean
-  }
+}
 
-const initialState = { 
-  profile : user,
+const initialState = {
+  profile: user,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -68,21 +67,24 @@ export const authSlice = createSlice({
         state.loginSuccess = false
       })
       .addCase(login.pending, (state) => {
-        state.isLoading = true
         state.loginSuccess = false
+        state.isLoading = true
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
-        state.profile = action.payload? action.payload : undefined
         state.loginSuccess = true
+        state.isLoading = false
+        state.isError = false
+        state.message = "Successfully logged in."
+        state.isSuccess = true
+        state.profile = action.payload ? action.payload : undefined
       })
       .addCase(login.rejected, (state, action) => {
+        state.loginSuccess = false
         state.isLoading = false
         state.isError = true
         state.message = "Failed to login!"
+        state.isSuccess = false
         state.profile = undefined
-        state.loginSuccess = false
       })
       .addCase(logout.fulfilled, (state) => {
         state.profile = undefined
