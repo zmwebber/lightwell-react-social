@@ -16,6 +16,7 @@ import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import "./navBarStyle.css";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
+import Logout from "../LogoutComponent/Logout";
 //import { TwitterBlue } from "../../colorConstants";
 
 // TODO: Make text bigger
@@ -106,9 +107,15 @@ export default function NavBar() {
 					</CustomNavLink>
 				</li>
 
+				<li>
+					<CustomNavLink to="/logout">
+						<Logout />
+					</CustomNavLink>
+				</li>
+
 				<div className="tweet-form">
 					<TweetButton
-						style={{ backgroundColor: "deepskyblue", color: "white" }}
+						style={{ backgroundColor: "deepskyblue", color: "white", marginTop: "12px" }}
 						onClick={handleOpen}
 					>
 						TWEET
@@ -118,7 +125,7 @@ export default function NavBar() {
 						open={open}
 						onClose={handleClose}
 						className="modal"
-						//aria-describedby="parent-modal-description"
+					//aria-describedby="parent-modal-description"
 					>
 						<TweetForm className="modal" handleClose={handleClose} />
 					</Modal>

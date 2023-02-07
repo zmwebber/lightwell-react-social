@@ -13,11 +13,13 @@ import { authSlice } from "../../redux/ducks/user_duck/userSlice";
 import { selectOptions } from "@testing-library/user-event/dist/types/setup/directApi";
 
 const LoginButton: any = styled(Button)`
+	color: #ffffff;
 	font-weight: bold;
 	border-radius: 20px;
 	padding: 8px 18px;
 	width: 520px;
-	shape = RoundedCornerShape(50, 50, 50, 50);
+	margin: 50px;
+	padding: 0px;
 `;
 
 const theme = createTheme();
@@ -147,61 +149,6 @@ function Login(props: any) {
 			</Container>
 		</ThemeProvider>
 	);
-
-
-
-
-
-
-
-
-	// const store = useStore();
-
-	// const [email, setEmail] = useState(props.email);
-	// const [password, setPassword] = useState(props.password);
-
-	// const [profile, setProfile] = useState<Profile>({
-	// 	name: '',
-	// 	screen_name: '',
-	// 	email: '',
-	// 	password: '',
-	// 	dateOfBirth: new Date(),
-	// 	createdAt: new Date(),
-	// 	description: '',
-	// 	url: '',
-	// 	protected: false,
-	// 	followers_count: 0,
-	// 	friends_count: 0,
-	// 	listed_count: 0,
-	// 	favorites_count: 0,
-	// 	verified: false,
-	// 	statuses_count: 0,
-	// 	profile_background_color: '',
-	// 	profile_background_image_url: '',
-	// 	profile_image_url: '',
-	// });
-
-	// const loginSucces = (e: any) => {
-	// 	e.preventDefault();
-
-	// 	profile.email = email;
-	// 	profile.password = password;
-
-	// 	const action = login(profile);
-
-	// 	store.dispatch(action)
-	// 		.unwrap()
-	// 		.catch((error: any) => {
-	// 			console.log(error);
-	// 		});
-	// 	e.target.reset();
-	// };
-
-	// return (
-	// 	<div className="title" style={{ color: "white" }}>
-	// 		Login Page
-	// 	</div>
-	// );
 }
 
 export default Login;
