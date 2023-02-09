@@ -11,7 +11,7 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
 import { Button, Modal, SvgIcon } from "@mui/material";
 import TweetForm from "../FormComponent/TweetForm";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, useStore } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import "./navBarStyle.css";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -34,7 +34,7 @@ const TwitterButton = () => {
 	return (
 		<div>
 			<Button className="twitter-icon">
-				<SvgIcon component={TwitterIcon} />
+				<SvgIcon component={TwitterIcon} style={{ fontSize: 40 }} />
 			</Button>
 		</div>
 	);
@@ -42,6 +42,9 @@ const TwitterButton = () => {
 
 export default function NavBar() {
 	const dispatch = useDispatch();
+	const store = useStore();
+	const state: any = store.getState();
+
 
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => {
@@ -108,11 +111,15 @@ export default function NavBar() {
 				</li>
 
 				<li>
-					<CustomNavLink to="/logout">
-						<Logout />
-					</CustomNavLink>
+					{state.user.loginSuccess === false ?
+						<CustomNavLink to="/login">
+							<PermIdentityOutlinedIcon /> Login
+						</CustomNavLink> :
+						<CustomNavLink to="/">
+							<Logout />
+						</CustomNavLink>
+					}
 				</li>
-
 				<div className="tweet-form">
 					<TweetButton
 						style={{ backgroundColor: "deepskyblue", color: "white", marginTop: "12px" }}

@@ -86,8 +86,17 @@ export const authSlice = createSlice({
         state.isSuccess = false
         state.profile = undefined
       })
+      .addCase(logout.pending, (state) => {
+        state.loginSuccess = false
+        state.isLoading = true
+      })
       .addCase(logout.fulfilled, (state) => {
         state.profile = undefined
+        state.loginSuccess = false
+        state.isLoading = false
+        state.isError = false
+        state.message = "Successfully logged out."
+        state.isSuccess = true
       })
   },
 })
