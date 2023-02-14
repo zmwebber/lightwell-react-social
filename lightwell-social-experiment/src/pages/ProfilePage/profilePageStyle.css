@@ -9,12 +9,6 @@
     order: 1;
 }
 
-.profile-position {}
-
-.tweetForm-position {}
-
-.tweetFeed-position {}
-
 .yml-position {
     /* width: 30%;
     position: relative;
@@ -28,10 +22,31 @@
     order: 2;
     flex-direction: column;
     width: 65%;
+
+    border: 2px;
+    border-style: solid;
+    border-color: red;
+}
+
+.hero {
+    border: 2px;
+    border-style: solid;
+    border-color: blue;
+    /* margin-bottom: 1px; */
+}
+
+.profile-information {
+    border: 2px;
+    border-style: solid;
+    border-color: yellow;
+    color: white
+}
+
+.tab-selector {
+    border: 2px;
+    border-style: solid;
+    border-color: green;
+    color: white
 }
 
 
-
-#id {
-    flex-direction: column;
-}

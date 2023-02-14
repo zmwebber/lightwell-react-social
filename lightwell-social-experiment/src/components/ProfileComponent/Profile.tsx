@@ -4,7 +4,7 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
-import image from "../../app/images/corgi.jpg";
+import image from "../../app/images/banner-blur.jpg";
 import "./profileStyle.css";
 import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
 
