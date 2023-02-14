@@ -99,9 +99,11 @@ export default function NavBar() {
 				</li>
 
 				<li>
-					<CustomNavLink to="/profile">
-						<PermIdentityOutlinedIcon /> Profile
-					</CustomNavLink>
+					{state.user.loginSuccess &&
+						<CustomNavLink to="/profile">
+							<PermIdentityOutlinedIcon /> Profile
+						</CustomNavLink>
+					}
 				</li>
 
 				<li>
