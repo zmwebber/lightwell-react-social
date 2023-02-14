@@ -151,8 +151,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		<Card
 			sx={{
 				gap: 2,
-				backgroundColor: "black",
-				color: "white",
+				backgroundColor: "white",
+				color: "black",
 				borderRadius: 0,
 				borderBottom: " solid gray",
 				borderBottomWidth: "thin",
@@ -178,7 +178,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							aria-expanded={open ? "true" : undefined}
 							onClick={handleClick}
 						>
-							<MoreVertIcon sx={{ color: "white" }} />
+							<MoreVertIcon sx={{ color: "black" }} />
 						</IconButton>
 						<Menu
 							id="demo-positioned-menu"

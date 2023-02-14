@@ -21,8 +21,8 @@ export function ProfilePage() {
 			</div>
 
 			<div className="center">
-				<h2 style={{ color: 'white', marginBottom: '5px' }}>{state.user.profile.name}</h2>
-				<p style={{ color: 'white', marginTop: '0px' }}>{state.user.profile.statuses_count} tweet(s)</p>
+				<h2 style={{ marginBottom: '5px' }}>{state.user.profile.name}</h2>
+				<p style={{ marginTop: '0px' }}>{state.user.profile.statuses_count} tweet(s)</p>
 
 				<div className="hero">
 					<Profile />

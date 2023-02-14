@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import "./tweetFormStyle.css";
 import { addTweet, getFeed } from "../../api/TweetApi";
 import { useAppSelector } from "../../app/hooks/hooks";
-import type {} from "redux-thunk/extend-redux";
+import type { } from "redux-thunk/extend-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import defaultProfilePic from "../../app/images/default-profile-pic.jpeg";
@@ -91,7 +91,7 @@ function TweetForm(props: any) {
 	};
 
 	return (
-		<div className="tweet-form" style={{ backgroundColor: "black" }}>
+		<div className="tweet-form" style={{ backgroundColor: "white" }}>
 			<form onSubmit={tweetSuccess}>
 				<Grid container direction="row" className="container">
 					<Grid item>
@@ -104,7 +104,7 @@ function TweetForm(props: any) {
 					</Grid>
 					<Grid item xs>
 						<TextField
-							sx={{ input: { color: "white" } }}
+							sx={{ input: { color: "black" } }}
 							name="tweet"
 							type="text"
 							id="tweet-content"
