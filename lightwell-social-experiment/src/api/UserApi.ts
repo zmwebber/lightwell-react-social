@@ -52,17 +52,11 @@ export const addUser = createAsyncThunk(
 // Logout user
 export const logout = createAsyncThunk(
   "users/logout",
-  async (user: Profile) => {
+  async () => {
     try {
       localStorage.removeItem('user')
       return null;
     } catch (err) {
-      // let error: AxiosError = err;  
-      //   const message =
-      //     (err.response && err.response.data && err.response.data.message) ||
-      //     err.message ||
-      //     err.toString()
-      //   return BaseThunk.rejectWithValue(message)
       console.log(err);
     }
   })

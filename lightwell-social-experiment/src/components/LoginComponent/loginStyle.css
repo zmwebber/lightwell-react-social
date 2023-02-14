@@ -9,3 +9,12 @@
 .error-alert-box {
     margin-top: 15px;
 }
+
+#login-div {
+    /* outline: auto;
+    outline-color: rgba(0, 0, 0, 0.1); */
+    min-height: 30rem;
+    min-width: 45rem;
+    background-color: white;
+    border-radius: 20px;
+}
