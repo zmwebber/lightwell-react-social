@@ -17,6 +17,7 @@ import "./navBarStyle.css";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
 import Logout from "../LogoutComponent/Logout";
+import { Profile } from "../../models/ProfileModel";
 //import { TwitterBlue } from "../../colorConstants";
 
 // TODO: Make text bigger
@@ -63,9 +64,11 @@ export default function NavBar() {
 					<CustomNavLink to="/">{TwitterButton()}</CustomNavLink>
 				</li>
 				<li>
-					<CustomNavLink to="/">
-						<HomeOutlinedIcon /> Home
-					</CustomNavLink>
+					{state.user.loginSuccess === true &&
+						<CustomNavLink to="/">
+							<HomeOutlinedIcon /> Home
+						</CustomNavLink>
+					}
 				</li>
 
 				<li>
@@ -75,27 +78,35 @@ export default function NavBar() {
 				</li>
 
 				<li>
-					<CustomNavLink to="/notifications">
-						<NotificationsNoneOutlinedIcon /> Notifications
-					</CustomNavLink>
+					{state.user.loginSuccess === true &&
+						<CustomNavLink to="/notifications">
+							<NotificationsNoneOutlinedIcon /> Notifications
+						</CustomNavLink>
+					}
 				</li>
 
 				<li>
-					<CustomNavLink to="/messages">
-						<EmailOutlinedIcon /> Messages
-					</CustomNavLink>
+					{state.user.loginSuccess === true &&
+						<CustomNavLink to="/messages">
+							<EmailOutlinedIcon /> Messages
+						</CustomNavLink>
+					}
 				</li>
 
 				<li>
-					<CustomNavLink to="/bookmarks">
-						<BookmarkBorderOutlinedIcon /> Bookmarks
-					</CustomNavLink>
+					{state.user.loginSuccess === true &&
+						<CustomNavLink to="/bookmarks">
+							<BookmarkBorderOutlinedIcon /> Bookmarks
+						</CustomNavLink>
+					}
 				</li>
 
 				<li>
-					<CustomNavLink to="/lists">
-						<ListAltOutlinedIcon /> Lists
-					</CustomNavLink>
+					{state.user.loginSuccess === true &&
+						<CustomNavLink to="/lists">
+							<ListAltOutlinedIcon /> Lists
+						</CustomNavLink>
+					}
 				</li>
 
 				<li>
@@ -104,12 +115,6 @@ export default function NavBar() {
 							<PermIdentityOutlinedIcon /> Profile
 						</CustomNavLink>
 					}
-				</li>
-
-				<li>
-					<CustomNavLink to="/more">
-						<PendingOutlinedIcon /> More
-					</CustomNavLink>
 				</li>
 
 				<li>
@@ -122,6 +127,13 @@ export default function NavBar() {
 						</CustomNavLink>
 					}
 				</li>
+
+				<li>
+					<CustomNavLink to="/more">
+						<PendingOutlinedIcon /> More
+					</CustomNavLink>
+				</li>
+
 				<div className="tweet-form">
 					<TweetButton
 						style={{ backgroundColor: "deepskyblue", color: "white", marginTop: "12px" }}
