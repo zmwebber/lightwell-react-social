@@ -13,11 +13,13 @@ import { authSlice } from "../../redux/ducks/user_duck/userSlice";
 import { selectOptions } from "@testing-library/user-event/dist/types/setup/directApi";
 
 const LoginButton: any = styled(Button)`
+	color: #ffffff;
 	font-weight: bold;
 	border-radius: 20px;
 	padding: 8px 18px;
 	width: 520px;
-	shape = RoundedCornerShape(50, 50, 50, 50);
+	margin: 50px;
+	padding: 0px;
 `;
 
 const theme = createTheme();
@@ -70,138 +72,85 @@ function Login(props: any) {
 	}
 
 	return (
-		<ThemeProvider theme={theme}>
-			<Container component="main" maxWidth="xs">
-				<CssBaseline />
-				<Box
-					sx={{
-						marginTop: 8,
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-					}}
-				>
-					<div className="twitter-icon">
-						<SvgIcon component={TwitterIcon} />
-					</div>
-					<Typography component="h1" variant="h5">
-						Sign in
-					</Typography>
+		<div id="login-div">
+			<ThemeProvider theme={theme}>
+				<Container component="main" maxWidth="xs">
+					<Box
+						sx={{
+							marginTop: 8,
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+						}}
+					>
+						<div className="twitter-icon">
+							<SvgIcon component={TwitterIcon} style={{ fontSize: 40 }} />
+						</div>
+						<Typography component="h1" variant="h5">
+							Sign in
+						</Typography>
 
-					{state.user.loginSuccess === false && loginAttempted === true &&
-						<Alert severity="error" className="error-alert-box">
-							{state.user.message}
-						</Alert>
-					}
+						{state.user.loginSuccess === false && loginAttempted === true &&
+							<Alert severity="error" className="error-alert-box">
+								{state.user.message}
+							</Alert>
+						}
 
-					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-						<TextField
-							margin="normal"
-							required
-							fullWidth
-							id="email"
-							label="Email Address"
-							name="email"
-							autoComplete="email"
-							autoFocus
-							onChange={(e) => setEmail(e.target.value)}
-						/>
-						<TextField
-							margin="normal"
-							required
-							fullWidth
-							name="password"
-							label="Password"
-							type="password"
-							id="password"
-							autoComplete="current-password"
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-						<FormControlLabel
-							control={<Checkbox value="remember" color="primary" />}
-							label="Remember me"
-						/>
-						<LoginButton
-							type="submit"
-							fullWidth
-							variant="contained"
-							sx={{ mt: 3, mb: 2 }}
-							id="login-button"
-						>
-							Sign In
-						</LoginButton>
-						<Grid container>
-							<Grid item xs>
-								<Link href="#" variant="body2">
-									Forgot password?
-								</Link>
+						<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+							<TextField
+								margin="normal"
+								required
+								fullWidth
+								id="email"
+								label="Email Address"
+								name="email"
+								autoComplete="email"
+								autoFocus
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+							<TextField
+								margin="normal"
+								required
+								fullWidth
+								name="password"
+								label="Password"
+								type="password"
+								id="password"
+								autoComplete="current-password"
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+							<FormControlLabel
+								control={<Checkbox value="remember" color="primary" />}
+								label="Remember me"
+							/>
+							<LoginButton
+								type="submit"
+								fullWidth
+								variant="contained"
+								sx={{ mt: 3, mb: 3, padding: 1, width: 300 }}
+								id="login-button"
+							>
+								Sign In
+							</LoginButton>
+							<Grid container>
+								<Grid item xs>
+									<Link href="#" variant="body2">
+										Forgot password?
+									</Link>
+								</Grid>
+								<Grid item>
+									<Link href="#" variant="body2">
+										{"Don't have an account? Sign Up"}
+									</Link>
+								</Grid>
 							</Grid>
-							<Grid item>
-								<Link href="#" variant="body2">
-									{"Don't have an account? Sign Up"}
-								</Link>
-							</Grid>
-						</Grid>
+						</Box>
 					</Box>
-				</Box>
-			</Container>
-		</ThemeProvider>
+				</Container>
+			</ThemeProvider>
+		</div>
+
 	);
-
-
-
-
-
-
-
-
-	// const store = useStore();
-
-	// const [email, setEmail] = useState(props.email);
-	// const [password, setPassword] = useState(props.password);
-
-	// const [profile, setProfile] = useState<Profile>({
-	// 	name: '',
-	// 	screen_name: '',
-	// 	email: '',
-	// 	password: '',
-	// 	dateOfBirth: new Date(),
-	// 	createdAt: new Date(),
-	// 	description: '',
-	// 	url: '',
-	// 	protected: false,
-	// 	followers_count: 0,
-	// 	friends_count: 0,
-	// 	listed_count: 0,
-	// 	favorites_count: 0,
-	// 	verified: false,
-	// 	statuses_count: 0,
-	// 	profile_background_color: '',
-	// 	profile_background_image_url: '',
-	// 	profile_image_url: '',
-	// });
-
-	// const loginSucces = (e: any) => {
-	// 	e.preventDefault();
-
-	// 	profile.email = email;
-	// 	profile.password = password;
-
-	// 	const action = login(profile);
-
-	// 	store.dispatch(action)
-	// 		.unwrap()
-	// 		.catch((error: any) => {
-	// 			console.log(error);
-	// 		});
-	// 	e.target.reset();
-	// };
-
-	// return (
-	// 	<div className="title" style={{ color: "white" }}>
-	// 		Login Page
-	// 	</div>
-	// );
 }
 
 export default Login;
