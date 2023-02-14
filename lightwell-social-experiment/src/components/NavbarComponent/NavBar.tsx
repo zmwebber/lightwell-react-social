@@ -22,7 +22,7 @@ import { TweetButton } from "../../app/shared/buttons";
 // TODO: Give space between text and icon
 
 const CustomNavLink: any = styled(NavLink)({
-	color: "white",
+	color: "black",
 	textDecoration: "none",
 	display: "flex",
 	flexWrap: "wrap",
@@ -118,7 +118,7 @@ export default function NavBar() {
 						open={open}
 						onClose={handleClose}
 						className="modal"
-						//aria-describedby="parent-modal-description"
+					//aria-describedby="parent-modal-description"
 					>
 						<TweetForm className="modal" handleClose={handleClose} />
 					</Modal>
