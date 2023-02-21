@@ -1,7 +1,10 @@
 import { useStore } from "react-redux";
 import TweetFeed from "../../components/FeedComponent/TweetFeed";
 import NavBar from "../../components/NavbarComponent/NavBar";
-import Profile from "../../components/ProfileComponent/Profile";
+import ProfileHeroComponent from "../../components/ProfileComponent/ProfileHeroComponent";
+import Profile from "../../components/ProfileComponent/ProfileHeroComponent";
+import ProfileHeaderComponent from "../../components/ProfileHeaderComponent/ProfileHeaderComponent";
+import ProfileInformationComponent from "../../components/ProfileInformationComponent/ProfileInformationComponent";
 import TabsComponent from "../../components/TabsComponent/TabsComponent";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import "./profilePageStyle.css";
@@ -22,21 +25,21 @@ export function ProfilePage() {
 			</div>
 
 			<div className="center">
-				<h2 style={{ marginBottom: '5px' }}>{state.user.profile.name}</h2>
-				<p style={{ marginTop: '0px' }}>{state.user.profile.statuses_count} tweet(s)</p>
 
-				<div className="hero">
-					<Profile />
-				</div>
+				<ProfileHeaderComponent
+					name={state.user.profile.name}
+					statuses_count={state.user.profile.statuses_count}
+				/>
 
-				<div className="profile-information">
-					{/* <ProfileInformation /> */}
-					{state.user.profile.name} <br />
-					@{state.user.profile.screen_name} <br />
-					Joined: {state.user.profile.createdAt} <br />
-					{state.user.profile.friends_count} Following <br />
-					{state.user.profile.followers_count} Followers <br />
-				</div>
+				<ProfileHeroComponent />
+
+				<ProfileInformationComponent
+					name={state.user.profile.name}
+					screen_name={state.user.profile.screen_name}
+					date_joined={state.user.profile.createdAt}
+					following={state.user.profile.friends_count}
+					followers={state.user.profile.followers_count}
+				/>
 
 				<TabsComponent />
 

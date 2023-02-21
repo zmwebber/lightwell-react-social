@@ -38,7 +38,7 @@ function a11yProps(index: number) {
     };
 }
 
-export default function BasicTabs() {
+export default function TabsComponent() {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -55,7 +55,7 @@ export default function BasicTabs() {
                     <Tab label="Likes" {...a11yProps(3)} />
                 </Tabs>
             </Box>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0}> {/* Create generic component to render instead of the TabPanels */}
                 Tweets
             </TabPanel>
             <TabPanel value={value} index={1}>

@@ -27,18 +27,3 @@
     border-style: solid;
     border-color: red;
 }
-
-.hero {
-    border: 2px;
-    border-style: solid;
-    border-color: blue;
-    /* margin-bottom: 1px; */
-}
-
-.profile-information {
-    border: 2px;
-    border-style: solid;
-    border-color: yellow;
-}
-
-

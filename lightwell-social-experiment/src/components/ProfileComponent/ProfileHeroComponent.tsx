@@ -5,7 +5,7 @@ import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutl
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
 import image from "../../app/images/banner-blur.jpg";
-import "./profileStyle.css";
+import "./profileHeroComponentStyle.css";
 import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
 
 // Outline: Profile Page should filter out tweets by user.
@@ -24,9 +24,9 @@ const FollowingButton: any = styled(Button)`
 	
 `;
 
-function Profile() {
+function ProfileHeroComponent() {
 	return (
-		<div className="component">
+		<div className="profile-hero-div">
 			<div className="banner">
 				<img src={image} className="profile-image" alt="banner-pic" />
 			</div>
@@ -51,4 +51,4 @@ function Profile() {
 	);
 }
 
-export default Profile;
+export default ProfileHeroComponent;
