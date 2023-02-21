@@ -5,7 +5,12 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import { IconButton } from "@mui/material";
 import React, { useState } from "react";
 import { useStore } from "react-redux";
-import { deleteTweet, updateTweet } from "../../../api/TweetApi";
+import {
+	deleteTweet,
+	updateGlobalTweetLikes,
+	deleteGlobalTweetLikes,
+	updateTweet,
+} from "../../../api/TweetApi";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -29,6 +34,7 @@ import {
 	decrementRetweet,
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
 import ShareIcon from "@mui/icons-material/Share";
+import { Interaction } from "../../../models/InteractionModel";
 
 // function checkProfilePicture(tweet: Tweet) {
 // 	if (tweet.profilePicture === "") {
@@ -101,6 +107,13 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
+	// function adjustGlobalFavoriteRetweetCommentCount(
+	// 	tweet: Tweet,
+	// 	userId: string
+	// ) {
+	// 	store.dispatch(updateTweetLikes(tweet, userId));
+	// }
+
 	function adjustFavoriteCount(tweet: Tweet) {
 		if (tweet.favorited === false) {
 			store.dispatch(incrementFavorite(tweet));
@@ -120,6 +133,40 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		adjustFavoriteCount(editedTweet);
 
 		const action = updateTweet(editedTweet);
+
+		store
+			.dispatch(action)
+			.then(() => {
+				store.dispatch(getFeed());
+			})
+			.catch((error: any) => {
+				console.log(error);
+			});
+	};
+
+	const updateFavorited = (tweet: Tweet, userId: string) => {
+		console.log("favorite button pressed");
+		// const matchedTweet = state.feed.Tweets.filter(
+		// 	(t: Tweet) => t._id === tweet._id
+		// );
+
+		// const editedTweet: Tweet = { ...matchedTweet[0] };
+		// const editedTweetId: string | null | undefined = editedTweet._id;
+
+		const favorited = "favorited";
+
+		const globalTweetLikeModel = {
+			tweet_id: tweet._id,
+			user_id: userId,
+			interaction: favorited,
+		};
+
+		let action = null;
+		if (tweet.favorited === false) {
+			action = updateGlobalTweetLikes(globalTweetLikeModel);
+		} else {
+			action = deleteGlobalTweetLikes(globalTweetLikeModel);
+		}
 
 		store
 			.dispatch(action)
@@ -251,6 +298,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				<Button
 					onClick={() => {
 						handleFavorited(tweet);
+						updateFavorited(tweet, state.user.profile._id);
 					}}
 					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
 					startIcon={<FavoriteIcon />}

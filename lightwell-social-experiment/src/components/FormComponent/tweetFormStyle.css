@@ -7,7 +7,8 @@
 .tweet-form {
     /* width: 100vw;
     height: 100vh; */
-    /* border-radius: 5px; */
+    /* border-radius: 5px;
+    background-color: red !important; */
 }
 
 /* .container {
@@ -18,6 +19,7 @@
     display: flex;
     align-items: center;
 }
+
 
 /* .tweet-button {
     display: flex;

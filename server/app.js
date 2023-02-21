@@ -9,7 +9,7 @@ import SourceMapSupport from 'source-map-support';
 import todoRoutes from './routes/todo.server.route';
 import tweetRoutes from './routes/tweet.route';
 import userRoutes from './routes/users.route';
-import tweetLike from './routes/tweetLike.route'
+import tweetLike from './routes/tweetLike.route';
 // define our app using express
 const app = express();
 // allow-cors

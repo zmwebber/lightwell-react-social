@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 //import models
 import Tweets from '../models/tweet.model';
+
 export const getTweets = (req,res) => {
     Tweets.find().exec((err,tweets) => {
     if(err){

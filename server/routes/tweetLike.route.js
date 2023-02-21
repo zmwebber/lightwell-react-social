@@ -3,12 +3,14 @@ import express from 'express';
 import * as tweetLikeController from '../controllers/tweetLikes.controller';
 // get an instance of express router
 const router = express.Router();
-router.route('/tweetLikes/')
-     .get(tweetLikeController.getTweetLikes)
-     .post(tweetLikeController.addLikes);
+router.route('/globalTweetLikes/')
+     .get(tweetLikeController.getGlobalLikes)
+     .post(tweetLikeController.addGlobalLikes)
+     .delete(tweetLikeController.deleteGlobalLikes);
      
-router.route('/tweetLikes/:id')
-      .put(tweetLikeController.updateLikes)
-      .get(tweetLikeController.getTweetLikes)
-      //.delete(tweetLikesController.deleteTweet);
+// router.route('/globalTweetLikes/')
+//       //.put(tweetLikeController.updateGlobalLikes)
+//       .get(tweetLikeController.getGlobalLikes)
+//       // .post(tweetLikeController.addGlobalLikes);
+//       .delete(tweetLikeController.deleteGlobalLikes);
 export default router;
