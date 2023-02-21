@@ -2,6 +2,7 @@ import { useStore } from "react-redux";
 import TweetFeed from "../../components/FeedComponent/TweetFeed";
 import NavBar from "../../components/NavbarComponent/NavBar";
 import Profile from "../../components/ProfileComponent/Profile";
+import TabsComponent from "../../components/TabsComponent/TabsComponent";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import "./profilePageStyle.css";
 
@@ -37,12 +38,7 @@ export function ProfilePage() {
 					{state.user.profile.followers_count} Followers <br />
 				</div>
 
-				<div className="tab-selector">
-					<span>Tweets tab</span>&nbsp;&nbsp;&nbsp;
-					<span>Tweets & replies tab</span>&nbsp;&nbsp;&nbsp;
-					<span>Media tab</span>&nbsp;&nbsp;&nbsp;
-					<span>Likes tab</span>&nbsp;&nbsp;&nbsp;
-				</div>
+				<TabsComponent />
 
 				<div className="tweetFeed-position">
 					<TweetFeed />
