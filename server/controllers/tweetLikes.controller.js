@@ -42,7 +42,7 @@ export const getGlobalLikes = (req,res) => {
 // When a tweet is deleted, it's ID should be removed from this collection.
 
 export const deleteGlobalLikes = (req,res) => {
-  console.log("Tweet_ID " + req.params.tweet_id + " User_id: " + req.params.user_id + " interaction: " + req.params.interaction);
+  console.log("Tweet_ID: " + req.params.tweet_id + " User_id: " + req.params.user_id + " interaction: " + req.params.interaction);
   console.log("Body: " + req.body.tweet_id);
 
     TweetLikes.findOneAndDelete(({tweet_id:{$eq:req.params.tweet_id}, user_id:{$eq:req.params.user_id}, interaction:{$eq:req.params.interaction}}), (err) => {
