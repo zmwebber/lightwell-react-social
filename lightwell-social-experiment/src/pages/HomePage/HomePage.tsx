@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../../components/NavbarComponent/NavBar";
-import Profile from "../../components/ProfileComponent/ProfileHeroComponent";
+import Profile from "../../components/ProfileHeroComponent/ProfileHeroComponent";
 import TweetFeed from "../../components/FeedComponent/TweetFeed";
 import TweetForm from "../../components/FormComponent/TweetForm";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";

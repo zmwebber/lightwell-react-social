@@ -16,7 +16,12 @@ export default function ProfileInformationComponent(props: ProfileInformationPro
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <h2 className="user-name">{props.name}</h2>
                 <p className="user-handle-subtext">@{props.screen_name}</p>
-                <p className="user-joined-date"><DateRangeIcon /> Joined {props.date_joined}</p>
+
+                <div className="user-joined-container">
+                    <DateRangeIcon className="date-icon" />
+                    <span className="user-joined-date"> Joined {props.date_joined}</span>
+                </div>
+
                 <div className="user-follow-container">
                     <span className="user-following"><strong>{props.following}</strong> Following</span>
                     <span className="user-followers"><strong>{props.followers}</strong> Followers</span>

@@ -1,8 +1,8 @@
 import { useStore } from "react-redux";
 import TweetFeed from "../../components/FeedComponent/TweetFeed";
 import NavBar from "../../components/NavbarComponent/NavBar";
-import ProfileHeroComponent from "../../components/ProfileComponent/ProfileHeroComponent";
-import Profile from "../../components/ProfileComponent/ProfileHeroComponent";
+import ProfileHeroComponent from "../../components/ProfileHeroComponent/ProfileHeroComponent";
+import Profile from "../../components/ProfileHeroComponent/ProfileHeroComponent";
 import ProfileHeaderComponent from "../../components/ProfileHeaderComponent/ProfileHeaderComponent";
 import ProfileInformationComponent from "../../components/ProfileInformationComponent/ProfileInformationComponent";
 import TabsComponent from "../../components/TabsComponent/TabsComponent";

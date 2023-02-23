@@ -13,20 +13,28 @@
     color: #555;
 }
 
-.user-joined-date {
-    margin: 0px;
+.user-joined-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-top: 10px;
+}
+
+.date-icon {
     color: #555;
+}
+
+.user-joined-date {
+    color: #555;
+    margin-left: 5px;
 }
 
 .user-follow-container {
     margin: 0px;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .user-following {
     margin-right: 10px;
-}
-
-.user-followers {
 }
