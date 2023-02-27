@@ -27,14 +27,7 @@ const tweetFeedSlice = createSlice({
         .addCase(getFeed.fulfilled, (state, action: IActionModel) =>{
             state.loading = false;
             state.Tweets = action.payload;
-        })
-        .addCase(getProfileFeed.pending, (state, action) =>{
-            state.loading = true;          
-        })
-        .addCase(getProfileFeed.fulfilled, (state, action: IActionModel) =>{
-          state.loading = false;
-          state.Tweets = action.payload;
-      })
+        })        
       .addCase(getFeed.pending, (state, action) =>{
           state.loading = true;          
       })

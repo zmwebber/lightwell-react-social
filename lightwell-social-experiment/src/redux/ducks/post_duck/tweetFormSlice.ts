@@ -45,7 +45,7 @@ export const tweetFormSlice = createSlice({
     },
     [addTweet.fulfilled.type]: (state, action) => {
       state.loading = false
-      //state.myTweets.unshift(action.payload);
+      state.myTweets.push(action.payload.tweet);
     },
     [deleteTweet.pending.type]: (state, action) => {
       state.loading = true;
