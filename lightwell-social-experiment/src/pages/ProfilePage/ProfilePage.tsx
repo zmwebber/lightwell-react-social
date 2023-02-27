@@ -5,7 +5,7 @@ import ProfileHeroComponent from "../../components/ProfileHeroComponent/ProfileH
 import Profile from "../../components/ProfileHeroComponent/ProfileHeroComponent";
 import ProfileHeaderComponent from "../../components/ProfileHeaderComponent/ProfileHeaderComponent";
 import ProfileInformationComponent from "../../components/ProfileInformationComponent/ProfileInformationComponent";
-import TabsComponent from "../../components/TabsComponent/TabsComponent";
+import TabsComponent from "../../components/ProfileTabsComponent/ProfileTabsComponent";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import "./profilePageStyle.css";
 
@@ -43,9 +43,7 @@ export function ProfilePage() {
 
 				<TabsComponent />
 
-				<div className="tweetFeed-position">
-					<TweetFeed />
-				</div>
+				
 			</div>
 		</div>
 	);

@@ -30,12 +30,6 @@ import {
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
 import ShareIcon from "@mui/icons-material/Share";
 
-// function checkProfilePicture(tweet: Tweet) {
-// 	if (tweet.profilePicture === "") {
-// 		tweet.profilePicture = defaultProfilePic;
-// 	}
-// }
-
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
@@ -48,7 +42,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	const store = useStore();
 	const state: any = store.getState();
-	// https://codepen.io/GeorgeWL/pen/yLeGGMw
 
 	const handleDelete = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
@@ -133,17 +126,15 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	// @TODO
 	const redirectToProfile = (tweet: Tweet): any => {
-		console.log("redirect button pressed");
-		const parsedUser = JSON.parse(tweet.user);
+		console.log("redirect button pressed");		
 		window.location.href =
-			"http://localhost:3000/profile/" + parsedUser.screen_name;
+			"http://localhost:3000/profile/" + tweet.user.screen_name;
 		// + `${tweet.user}`;
 	};
 
 	// @TODO
 	function parseUserJSON(tweet: Tweet): any {
-		const parsed = JSON.parse(tweet.user);
-		return parsed.screen_name + " " + "@" + parsed.name;
+		return tweet.user.name + " " + "@" +  tweet.user.screen_name ;
 	}
 
 	// checkProfilePicture(tweet);

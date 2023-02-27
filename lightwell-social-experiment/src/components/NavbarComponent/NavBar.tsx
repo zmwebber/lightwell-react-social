@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -18,10 +18,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
 import Logout from "../LogoutComponent/Logout";
 import { Profile } from "../../models/ProfileModel";
-//import { TwitterBlue } from "../../colorConstants";
 
-// TODO: Make text bigger
-// TODO: Give space between text and icon
 
 const CustomNavLink: any = styled(NavLink)({
 	color: "black",
@@ -146,7 +143,7 @@ export default function NavBar() {
 						open={open}
 						onClose={handleClose}
 						className="modal"
-					//aria-describedby="parent-modal-description"
+						closeAfterTransition
 					>
 						<TweetForm className="modal" handleClose={handleClose} />
 					</Modal>

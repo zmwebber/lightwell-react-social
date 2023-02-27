@@ -4,7 +4,10 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import "./tabsComponentStyle.css";
-
+import { useSelector, useDispatch, useStore } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
+import { getProfileFeed } from '../../api/TweetApi';
+import IndividualTweetDisplay from "../FeedComponent/IndividualTweetDisplay/IndividualTweetDisplay";
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -13,6 +16,7 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
+   
 
     return (
         <div
@@ -39,12 +43,34 @@ function a11yProps(index: number) {
 }
 
 export default function TabsComponent() {
-    const [value, setValue] = React.useState(0);
-
+    const [value, setValue] = React.useState(0);    
+    const store = useStore();
+    const feed = useAppSelector((state) => state.myTweets);
+    const user = useAppSelector((state) => state.user.profile);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
+    const [isInitialized, setInitialized] = React.useState(false);
+    React.useEffect(() => {
+        if (!isInitialized && user ) {
+            const action = getProfileFeed(user);            
+          store
+              .dispatch(action)
+              .unwrap()
+              .then(handleInit)              
+              .catch((error: any) => { 
+                console.log(error)               
+              });
+        }
+      }, [isInitialized]);
+      function handleInit() {
+		const currentState: any = store.getState();
 
+		if (currentState.myTweets.myTweets.length > 0 ) {
+			console.log("My feed refreshed.");
+			setInitialized(true);
+		}
+	}
     return (
         <Box sx={{ width: '100%' }} className="tab-box">
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -56,7 +82,16 @@ export default function TabsComponent() {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}> {/* Create generic component to render instead of the TabPanels */}
-                Tweets
+                <>
+                {!feed.loading &&
+				feed.myTweets &&
+				feed.myTweets.map((tweet, index) => (
+					<div className={"tweet " + index} key={index}>
+						<IndividualTweetDisplay {...tweet} />
+					</div>
+				))}
+                </>
+
             </TabPanel>
             <TabPanel value={value} index={1}>
                 Tweets & Replies

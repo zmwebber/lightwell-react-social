@@ -22,7 +22,6 @@ import { styled } from "@mui/system";
 function TweetForm(props: any) {
 	const store = useStore();
 	const userState = useSelector((state: RootState) => state.user);
-	//const feed = useAppSelector(myTweets);
 	const userProfile = userState.profile;
 	const [submitted, setSubmitted] = React.useState("");
 	const [tweetContent, setTweetContent] = useState("");
@@ -30,14 +29,11 @@ function TweetForm(props: any) {
 	const [tweet, setTweet] = useState<Tweet>({
 		_id: "",
 		createdAt: new Date(),
-		user: userProfile ? JSON.stringify(userProfile) : "",
-		// user: {
-		// 	_id: "",
-		// 	screen_name: "",
-		// 	name: "",
-		// 	email: "",
-		// 	token: "",
-		// },
+		user: {
+			_id: userProfile?._id ?? '',
+			name: userProfile?.name ?? '',
+			screen_name: userProfile?.screen_name ?? ''
+		},
 		text: "",
 		source: "Twitter Clone Web App",
 		truncated: false,
