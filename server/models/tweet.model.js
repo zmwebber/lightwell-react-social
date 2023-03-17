@@ -2,7 +2,11 @@ import mongoose from 'mongoose';
 // https://mongoosejs.com/docs/guide.html
 var Schema = mongoose.Schema({
     createdAt: Date,
-    user: String,
+    user: {        
+        _id:  { type: String},
+        name:  { type: String},
+        screen_name:  { type: String}
+    },
     text: String,
     source: String,
     truncated: Boolean,

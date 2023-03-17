@@ -3,9 +3,7 @@ import { RootState, AppThunk } from '../../../app/store';
 import { fetchCount } from '../../../app/functions/counterAPI';
 import { Tweet } from '../../../models/TweetModel';
 import { IActionModel } from '../../../models/ActionModel';
-import { Action } from '@remix-run/router';
-import { addTweet, deleteTweet, updateTweet } from '../../../api/TweetApi';
-
+import { addTweet, deleteTweet, updateTweet, getProfileFeed } from '../../../api/TweetApi';
 export interface TweetFormState {
   myTweets: Tweet[];
   loading: boolean;
@@ -47,7 +45,7 @@ export const tweetFormSlice = createSlice({
     },
     [addTweet.fulfilled.type]: (state, action) => {
       state.loading = false
-      //state.myTweets.unshift(action.payload);
+      state.myTweets.push(action.payload.tweet);
     },
     [deleteTweet.pending.type]: (state, action) => {
       state.loading = true;
@@ -67,6 +65,13 @@ export const tweetFormSlice = createSlice({
       // const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
       // favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
       state.loading = false;
+    },
+    [getProfileFeed.pending.type]: (state, action) =>{
+      state.loading = true;          
+    },
+    [getProfileFeed.fulfilled.type]: (state, action) =>{
+      state.loading = false;
+      state.myTweets = action.payload;
     },
   } 
 });

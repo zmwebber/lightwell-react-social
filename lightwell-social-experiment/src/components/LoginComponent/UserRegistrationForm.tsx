@@ -25,7 +25,7 @@ function UserRegistrationForm(props: any) {
 		dayjs("2014-08-18T21:11:54")
 	);
 	// const [tweetPicture, setTweetPicture] = useState("");
-	const [profile, setProfile] = useState<Profile>({
+	const [profile, setProfile] = useState<Profile>({		
 		name: "",
 		screen_name: "",
 		email: "",

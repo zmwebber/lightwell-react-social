@@ -2,14 +2,11 @@
 export type Tweet = {
     _id?: string | null,
     createdAt:  Date,
-    user: string,
-    // user: {
-    //  _id: string,
-    //  screen_name: string,
-    //  name: string,
-    //  email: string,
-    //  token: string,
-    // }
+    user: {
+        _id: string,
+        name: string,
+        screen_name: string,
+    }
     text: string,
     source: string,
     truncated: boolean,

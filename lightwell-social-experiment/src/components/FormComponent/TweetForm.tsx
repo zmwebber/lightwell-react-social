@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import "./tweetFormStyle.css";
 import { addTweet, getFeed } from "../../api/TweetApi";
 import { useAppSelector } from "../../app/hooks/hooks";
-import type {} from "redux-thunk/extend-redux";
+import type { } from "redux-thunk/extend-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import defaultProfilePic from "../../app/images/default-profile-pic.jpeg";
@@ -22,7 +22,6 @@ import { styled } from "@mui/system";
 function TweetForm(props: any) {
 	const store = useStore();
 	const userState = useSelector((state: RootState) => state.user);
-	//const feed = useAppSelector(myTweets);
 	const userProfile = userState.profile;
 	const [submitted, setSubmitted] = React.useState("");
 	const [tweetContent, setTweetContent] = useState("");
@@ -30,14 +29,11 @@ function TweetForm(props: any) {
 	const [tweet, setTweet] = useState<Tweet>({
 		_id: "",
 		createdAt: new Date(),
-		user: userProfile ? JSON.stringify(userProfile) : "",
-		// user: {
-		// 	_id: "",
-		// 	screen_name: "",
-		// 	name: "",
-		// 	email: "",
-		// 	token: "",
-		// },
+		user: {
+			_id: userProfile?._id ?? '',
+			name: userProfile?.name ?? '',
+			screen_name: userProfile?.screen_name ?? ''
+		},
 		text: "",
 		source: "Twitter Clone Web App",
 		truncated: false,
@@ -91,7 +87,7 @@ function TweetForm(props: any) {
 	};
 
 	return (
-		<div className="tweet-form" style={{ backgroundColor: "black" }}>
+		<div className="tweet-form" style={{ backgroundColor: "white" }}>
 			<form onSubmit={tweetSuccess}>
 				<Grid container direction="row" className="container">
 					<Grid item>
@@ -104,7 +100,7 @@ function TweetForm(props: any) {
 					</Grid>
 					<Grid item xs>
 						<TextField
-							sx={{ input: { color: "white" } }}
+							sx={{ input: { color: "black" } }}
 							name="tweet"
 							type="text"
 							id="tweet-content"

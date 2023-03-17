@@ -1,3 +1,4 @@
+//TODO: Refactor - remove this model, not needed here, goes in redux or not at all
 import { Tweet } from "./TweetModel";
 
 export interface ITweetFormSubmitted {
