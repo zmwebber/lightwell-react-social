@@ -4,30 +4,28 @@ import Profile from "../../components/ProfileHeroComponent/ProfileHeroComponent"
 import TweetFeed from "../../components/FeedComponent/TweetFeed";
 import TweetForm from "../../components/FormComponent/TweetForm";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
-import "./homePageStyle.css";
+import HomePageStyle from "./homePageStyle.module.scss";
 
 function HomePage() {
 	return (
-		<div className="home-page">
-			<div id="left" className="navbar-position">
+		<div className={HomePageStyle.homepage}>
+			<div id="left" className={HomePageStyle.navbar}>
 				<NavBar />
 			</div>
 
-			<div id="right" className="yml-position">
+			<div id="right" className={HomePageStyle.youMightLike}>
 				<YouMightLike />
 			</div>
 
-			<div className="center">
-				<div id="center" className="tweetForm-position">
+			<div className={HomePageStyle.centerContent}>
+				<div className={HomePageStyle.tweetForm}>
 					<TweetForm />
 				</div>
 
-				<div id="center" className="tweetFeed-position">
+				<div className={HomePageStyle.tweedFeed}>
 					<TweetFeed />
 				</div>
 			</div>
-
-			{/* Card Component Goes Here */}
 		</div>
 	);
 }
