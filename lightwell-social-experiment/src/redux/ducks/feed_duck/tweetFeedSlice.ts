@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../../app/store';
 import { Tweet } from '../../../models/TweetModel';
 import { IActionModel } from '../../../models/ActionModel';
-import { getFeed } from '../../../api/TweetApi';
+import { getFeed, getProfileFeed } from '../../../api/TweetApi';
 
 export interface TweetFeedState {
   Tweets: Tweet[] | undefined;
@@ -27,10 +27,10 @@ const tweetFeedSlice = createSlice({
         .addCase(getFeed.fulfilled, (state, action: IActionModel) =>{
             state.loading = false;
             state.Tweets = action.payload;
-        })
-        .addCase(getFeed.pending, (state, action) =>{
-            state.loading = true;          
-        })
+        })        
+      .addCase(getFeed.pending, (state, action) =>{
+          state.loading = true;          
+      })
         .addDefaultCase((state, action) => {})
     }, 
   });

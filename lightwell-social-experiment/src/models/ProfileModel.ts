@@ -20,6 +20,7 @@ export type Profile = {
 }
 
 export class User implements Profile {
+    _id;
     name;
     screen_name;
     email;
@@ -40,6 +41,7 @@ export class User implements Profile {
     profile_image_url;
 
     constructor(email: string, password: string) {
+        this._id = ""
         this.name = ""
         this.screen_name = ""
         this.email = email

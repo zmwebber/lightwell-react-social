@@ -6,10 +6,11 @@ import * as tweetController from '../controllers/tweet.controller';
 const router = express.Router();
 router.route('/tweets/')
      .get(tweetController.getTweets)
-     .post(tweetController.addTweet);
-     
-router.route('/tweets/:id')
+     .post(tweetController.addTweet);     
+router.route('/tweets/byId/:id')
       .put(tweetController.updateTweet)
       .get(tweetController.getTweet)
       .delete(tweetController.deleteTweet);
+router.route('/tweets/byUser/:userId?')
+      .get(tweetController.getTweetsByUser);
 export default router;

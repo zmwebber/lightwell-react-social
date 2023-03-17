@@ -4,8 +4,8 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
-import image from "../../app/images/corgi.jpg";
-import "./profileStyle.css";
+import image from "../../app/images/banner-blur.jpg";
+import "./profileHeroComponentStyle.css";
 import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
 
 // Outline: Profile Page should filter out tweets by user.
@@ -14,19 +14,23 @@ import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
 // user's name should be passed as props and filter DB of tweets to show only the respective users tweets.
 // profile page should include banner & user info
 
-const FollowingButton: any = styled(Button)`
+const EditProfileButton: any = styled(Button)`
 	font-weight: bold;
 	border-radius: 20px;
 	padding: 8px 18px;
 	shape = RoundedCornerShape(
 		50,50,50,50
 	);
-	
+	background-color: white;
+	outline: auto;
+	outline-style: solid;
+	outline-width: 2px;
+    border-color: #555;
 `;
 
-function Profile() {
+function ProfileHeroComponent() {
 	return (
-		<div className="component">
+		<div className="profile-hero-div">
 			<div className="banner">
 				<img src={image} className="profile-image" alt="banner-pic" />
 			</div>
@@ -37,18 +41,13 @@ function Profile() {
 					className="profile-pic"
 					alt="profile-pic"
 				/>
-				<PendingOutlinedIcon />
-				<NotificationAddOutlinedIcon />
 
-				{/** @TODO: Following Button should be available only if user profile isn't current user.
-				 * A user cannot follow themselves.
-				 */}
-				<FollowingButton variant="contained">
-					Follow ? Following
-				</FollowingButton>
+				<EditProfileButton className="edit-profile-button" variant="contained">
+					Edit Profile
+				</EditProfileButton>
 			</div>
 		</div>
 	);
 }
 
-export default Profile;
+export default ProfileHeroComponent;

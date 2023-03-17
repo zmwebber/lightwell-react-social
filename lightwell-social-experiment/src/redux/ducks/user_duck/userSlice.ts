@@ -2,13 +2,13 @@ import { LensTwoTone } from '@mui/icons-material';
 import { useRadioGroup } from '@mui/material';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import userService, { addUser, login, logout } from '../../../api/UserApi'
-import { Profile } from '../../../models/ProfileModel'
+import { Profile, User } from '../../../models/ProfileModel'
 // Get user from localStorage
 
 let localUser = localStorage.getItem('user');
 let user = null;
 if (localUser !== '' && localUser !== null) {
-  user = JSON.parse(localUser) as Profile;
+  user = JSON.parse(localUser) as User;
 }
 else {
   user = undefined;
@@ -16,7 +16,7 @@ else {
 
 
 export interface UserState {
-  profile: Profile | null | undefined,
+  profile: User | null | undefined,
   isError: boolean,
   isSuccess: boolean,
   isLoading: boolean,
