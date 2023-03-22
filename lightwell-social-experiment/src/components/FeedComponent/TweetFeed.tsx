@@ -8,6 +8,7 @@ import {
 	TweetFeedState,
 } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
+import TweedFeedStyle from "./tweetFeedStyle.module.scss"
 
 const TweetFeed = () => {
 	//const store = useStore();

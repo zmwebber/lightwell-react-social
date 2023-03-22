@@ -1,0 +1,9 @@
+.profilePicture {
+    display: flex;
+    height: 60px;
+    clip-path: circle();
+}
+
+.profilePicture:hover {
+    cursor: pointer;
+}

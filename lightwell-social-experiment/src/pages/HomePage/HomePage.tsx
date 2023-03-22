@@ -8,7 +8,7 @@ import HomePageStyle from "./homePageStyle.module.scss";
 
 function HomePage() {
 	return (
-		<div className={HomePageStyle.homepage}>
+		<div className={HomePageStyle.homepageContainer}>
 			<div id="left" className={HomePageStyle.navbar}>
 				<NavBar />
 			</div>

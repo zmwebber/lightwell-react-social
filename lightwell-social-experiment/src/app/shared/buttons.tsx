@@ -15,8 +15,6 @@ export function ReplyButton({ reply_count }: replyCount) {
 	);
 }
 
-
-
 export const TweetButton: any = styled(Button)`
 	font-weight: bold;
 	border-radius: 20px;
@@ -24,5 +22,15 @@ export const TweetButton: any = styled(Button)`
 	width: 120px;
 	shape = RoundedCornerShape(50, 50, 50, 50);
 	margin-bottom: 12px;
-	
+`;
+
+export const FollowButton: any = styled(Button)`
+	color: black;
+	background-color: white;
+	font-weight: bold;
+	border-radius: 20px;
+	padding: 8px 18px;
+	width: 120px;
+	shape = RoundedCornerShape(50, 50, 50, 50);
+	margin-bottom: 12px;
 `;
