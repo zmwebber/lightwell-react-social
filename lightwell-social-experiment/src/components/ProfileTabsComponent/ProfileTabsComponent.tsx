@@ -3,11 +3,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import "./tabsComponentStyle.css";
 import { useSelector, useDispatch, useStore } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
 import { getProfileFeed } from '../../api/TweetApi';
 import IndividualTweetDisplay from "../FeedComponent/IndividualTweetDisplay/IndividualTweetDisplay";
+import TabsComponentStyle from "./tabsComponentStyle.module.scss";
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -16,7 +17,7 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
-   
+
 
     return (
         <div
@@ -43,7 +44,7 @@ function a11yProps(index: number) {
 }
 
 export default function TabsComponent() {
-    const [value, setValue] = React.useState(0);    
+    const [value, setValue] = React.useState(0);
     const store = useStore();
     const feed = useAppSelector((state) => state.myTweets);
     const user = useAppSelector((state) => state.user.profile);
@@ -52,27 +53,27 @@ export default function TabsComponent() {
     };
     const [isInitialized, setInitialized] = React.useState(false);
     React.useEffect(() => {
-        if (!isInitialized && user ) {
-            const action = getProfileFeed(user);            
-          store
-              .dispatch(action)
-              .unwrap()
-              .then(handleInit)              
-              .catch((error: any) => { 
-                console.log(error)               
-              });
+        if (!isInitialized && user) {
+            const action = getProfileFeed(user);
+            store
+                .dispatch(action)
+                .unwrap()
+                .then(handleInit)
+                .catch((error: any) => {
+                    console.log(error)
+                });
         }
-      }, [isInitialized]);
-      function handleInit() {
-		const currentState: any = store.getState();
+    }, [isInitialized]);
+    function handleInit() {
+        const currentState: any = store.getState();
 
-		if (currentState.myTweets.myTweets.length > 0 ) {
-			console.log("My feed refreshed.");
-			setInitialized(true);
-		}
-	}
+        if (currentState.myTweets.myTweets.length > 0) {
+            console.log("My feed refreshed.");
+            setInitialized(true);
+        }
+    }
     return (
-        <Box sx={{ width: '100%' }} className="tab-box">
+        <Box sx={{ width: '100%' }} className={TabsComponentStyle.tabBox}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Tweets" {...a11yProps(0)} />
@@ -83,13 +84,13 @@ export default function TabsComponent() {
             </Box>
             <TabPanel value={value} index={0}> {/* Create generic component to render instead of the TabPanels */}
                 <>
-                {!feed.loading &&
-				feed.myTweets &&
-				feed.myTweets.map((tweet, index) => (
-					<div className={"tweet " + index} key={index}>
-						<IndividualTweetDisplay {...tweet} />
-					</div>
-				))}
+                    {!feed.loading &&
+                        feed.myTweets &&
+                        feed.myTweets.map((tweet, index) => (
+                            <div className={"tweet " + index} key={index}>
+                                <IndividualTweetDisplay {...tweet} />
+                            </div>
+                        ))}
                 </>
 
             </TabPanel>

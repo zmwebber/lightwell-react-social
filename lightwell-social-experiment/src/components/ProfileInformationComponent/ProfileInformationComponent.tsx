@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import DateRangeIcon from '@mui/icons-material/DateRange';
-import "./profileInformationComponentStyle.css";
+import ProfileInformationComponentStyle from "./profileInformationComponentStyle.module.scss";
 
 interface ProfileInformationProps {
     name: string;
@@ -12,19 +12,19 @@ interface ProfileInformationProps {
 
 export default function ProfileInformationComponent(props: ProfileInformationProps) {
     return (
-        <Box sx={{ width: '100%' }} className="profile-information-box">
+        <Box sx={{ width: '100%' }} className={ProfileInformationComponentStyle.profileInformationBox}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <h2 className="user-name">{props.name}</h2>
-                <p className="user-handle-subtext">@{props.screen_name}</p>
+                <h2 className={ProfileInformationComponentStyle.userName}>{props.name}</h2>
+                <p className={ProfileInformationComponentStyle.userHandleSubtext}>@{props.screen_name}</p>
 
-                <div className="user-joined-container">
-                    <DateRangeIcon className="date-icon" />
-                    <span className="user-joined-date"> Joined {props.date_joined}</span>
+                <div className={ProfileInformationComponentStyle.userJoinedContainer}>
+                    <DateRangeIcon className={ProfileInformationComponentStyle.dateIcon} />
+                    <span className={ProfileInformationComponentStyle.userJoinedDate}> Joined {props.date_joined}</span>
                 </div>
 
-                <div className="user-follow-container">
-                    <span className="user-following"><strong>{props.following}</strong> Following</span>
-                    <span className="user-followers"><strong>{props.followers}</strong> Followers</span>
+                <div className={ProfileInformationComponentStyle.userFollowContainer}>
+                    <span className={ProfileInformationComponentStyle.userFollowing}><strong>{props.following}</strong> Following</span>
+                    <span className={ProfileInformationComponentStyle.userFollowers}><strong>{props.followers}</strong> Followers</span>
                 </div>
             </Box>
         </Box>

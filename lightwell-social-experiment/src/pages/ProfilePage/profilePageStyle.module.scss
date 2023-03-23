@@ -1,19 +1,15 @@
-.registration-page {
-    
+.profilePageContainer {
     display: flex;
     flex-direction: row;
-    
-    
 }
 
-.navbar-position {
+.navbarPosition {
     width: 15%;
     position: relative;
     order: 1;
 }
 
-
-.yml-position {
+.ymlPosition {
     /* width: 30%;
     position: relative;
     margin: 10px; */
@@ -22,14 +18,12 @@
     padding-left: 25px;
 }
 
-.center {
+.profilePageContent {
     order: 2;
     flex-direction: column;
     width: 65%;
-}
 
-
-
-#id {
-    flex-direction: column;
+    border: 2px;
+    border-style: solid;
+    border-color: #ccc;
 }

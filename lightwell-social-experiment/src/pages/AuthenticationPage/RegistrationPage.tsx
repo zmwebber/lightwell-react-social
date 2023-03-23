@@ -1,20 +1,17 @@
 import React from "react";
 import NavBar from "../../components/NavbarComponent/NavBar";
 import UserRegistrationForm from "../../components/LoginComponent/UserRegistrationForm"
-import "./registrationPageStyle.css";
+import RegistrationPageStyle from "./registrationPageStyle.module.scss";
 
 function RegistrationPage() {
 	return (
-		<div className="home-page">
-			<div id="left" className="navbar-position">
+		<div className={RegistrationPageStyle.registrationPageContainer}>
+			<div className={RegistrationPageStyle.navbarPosition}>
 				<NavBar />
 			</div>
 
-			<div className="center">			
-
-				<div id="center">
-					<UserRegistrationForm />
-				</div>
+			<div className={RegistrationPageStyle.registrationPageContent}>			
+				<UserRegistrationForm />
 			</div>
 		</div>
 	);

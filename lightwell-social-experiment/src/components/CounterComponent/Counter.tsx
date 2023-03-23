@@ -9,7 +9,7 @@ import {
   incrementIfOdd,
   selectCount,
 } from '../../redux/ducks/counter_duck/counterSlice';
-import styles from './Counter.module.css';
+import CounterStyle from './counterStyle.module.scss';
 
 export function Counter() {
   const count = useAppSelector(selectCount);
@@ -20,44 +20,44 @@ export function Counter() {
 
   return (
     <div>
-      <div className={styles.row}>
+      <div className={CounterStyle.row}>
         <button
-          className={styles.button}
+          className={CounterStyle.button}
           aria-label="Decrement value"
           onClick={() => dispatch(decrement())}
         >
           -
         </button>
-        <span className={styles.value}>{count}</span>
+        <span className={CounterStyle.value}>{count}</span>
         <button
-          className={styles.button}
+          className={CounterStyle.button}
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
         >
           +
         </button>
       </div>
-      <div className={styles.row}>
+      <div className={CounterStyle.row}>
         <input
-          className={styles.textbox}
+          className={CounterStyle.textbox}
           aria-label="Set increment amount"
           value={incrementAmount}
           onChange={(e) => setIncrementAmount(e.target.value)}
         />
         <button
-          className={styles.button}
+          className={CounterStyle.button}
           onClick={() => dispatch(incrementByAmount(incrementValue))}
         >
           Add Amount
         </button>
         <button
-          className={styles.asyncButton}
+          className={CounterStyle.asyncButton}
           onClick={() => dispatch(incrementAsync(incrementValue))}
         >
           Add Async
         </button>
         <button
-          className={styles.button}
+          className={CounterStyle.button}
           onClick={() => dispatch(incrementIfOdd(incrementValue))}
         >
           Add If Odd

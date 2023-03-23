@@ -5,13 +5,14 @@ import { useStore } from "react-redux";
 import { Profile } from "../../models/ProfileModel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import "./userRegistrationFormStyle.css";
 import { addUser } from "../../api/UserApi";
 import { useAppSelector } from "../../app/hooks/hooks";
-import type {} from "redux-thunk/extend-redux";
+import type { } from "redux-thunk/extend-redux";
 import dayjs, { Dayjs } from "dayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import UserRegistrationFormStyle from "./userRegistrationFormStyle.module.scss";
+
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 function UserRegistrationForm(props: any) {
 	const store = useStore();
@@ -25,7 +26,7 @@ function UserRegistrationForm(props: any) {
 		dayjs("2014-08-18T21:11:54")
 	);
 	// const [tweetPicture, setTweetPicture] = useState("");
-	const [profile, setProfile] = useState<Profile>({		
+	const [profile, setProfile] = useState<Profile>({
 		name: "",
 		screen_name: "",
 		email: "",
@@ -75,10 +76,10 @@ function UserRegistrationForm(props: any) {
 	};
 
 	return (
-		<div className="tweet-form" style={{ backgroundColor: "white" }}>
+		<div className={UserRegistrationFormStyle.tweetForm}>
 			<form onSubmit={profileSuccess}>
 				<LocalizationProvider dateAdapter={AdapterDayjs}>
-					<Grid container direction="column" className="container">
+					<Grid container direction="column" className={UserRegistrationFormStyle.gridContainer}>
 						<Grid item>
 							<TextField
 								name="Name"
@@ -108,12 +109,17 @@ function UserRegistrationForm(props: any) {
 								placeholder="Strong Password"
 								onChange={(e) => setPassword(e.target.value)}
 							/>
+						</Grid>
+					</Grid>
+					<Grid container direction="column" className={UserRegistrationFormStyle.gridContainer}>
+						<Grid item>
 							<DesktopDatePicker
 								label="Date desktop"
 								inputFormat="MM/DD/YYYY"
 								value={birthday}
 								onChange={handleChange}
 								renderInput={(params: any) => <TextField {...params} />}
+								className={UserRegistrationFormStyle.datePicker}
 							/>
 						</Grid>
 						<Button type="submit">Register User</Button>

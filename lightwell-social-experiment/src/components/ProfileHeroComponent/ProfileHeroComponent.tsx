@@ -5,8 +5,8 @@ import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutl
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
 import image from "../../app/images/banner-blur.jpg";
-import "./profileHeroComponentStyle.css";
 import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
+import ProfileHeroComponentStyle from "./profileHeroComponentStyle.module.scss";
 
 // Outline: Profile Page should filter out tweets by user.
 // if navigating to a user's profile, all tweets in the tweet feed should be of that user or retweeted by that user.
@@ -30,19 +30,19 @@ const EditProfileButton: any = styled(Button)`
 
 function ProfileHeroComponent() {
 	return (
-		<div className="profile-hero-div">
-			<div className="banner">
-				<img src={image} className="profile-image" alt="banner-pic" />
+		<div className={ProfileHeroComponentStyle.profileHeroContainer}>
+			<div className={ProfileHeroComponentStyle.banner}>
+				<img src={image} className={ProfileHeroComponentStyle.bannerImage} alt="banner-pic" />
 			</div>
 
-			<div className="notification-bar">
+			<div className={ProfileHeroComponentStyle.notificationBar}>
 				<img
 					src={profilePicDefault}
-					className="profile-pic"
+					className={ProfileHeroComponentStyle.profilePicture}
 					alt="profile-pic"
 				/>
 
-				<EditProfileButton className="edit-profile-button" variant="contained">
+				<EditProfileButton className={ProfileHeroComponentStyle.editProfileButton} variant="contained">
 					Edit Profile
 				</EditProfileButton>
 			</div>
