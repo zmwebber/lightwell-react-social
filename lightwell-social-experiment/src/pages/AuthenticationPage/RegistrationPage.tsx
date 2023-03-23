@@ -10,7 +10,7 @@ function RegistrationPage() {
 				<NavBar />
 			</div>
 
-			<div className={RegistrationPageStyle.registrationPageContent}>			
+			<div className={RegistrationPageStyle.registrationPageContent}>
 				<UserRegistrationForm />
 			</div>
 		</div>
