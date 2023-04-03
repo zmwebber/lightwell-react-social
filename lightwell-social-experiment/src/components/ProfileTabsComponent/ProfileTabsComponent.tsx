@@ -47,7 +47,6 @@ export default function TabsComponent() {
     const store = useStore();
     const feed = useAppSelector((state) => state.myTweets);
     const user = useAppSelector((state) => state.user.profile);
-    const media = useAppSelector((state) => state.media.Media);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
