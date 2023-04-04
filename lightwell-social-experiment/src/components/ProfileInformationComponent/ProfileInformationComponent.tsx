@@ -1,6 +1,9 @@
 import Box from '@mui/material/Box';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import ProfileInformationComponentStyle from "./profileInformationComponentStyle.module.scss";
+import { Button } from "@mui/material";
+import { styled } from "@mui/system";
+
 
 interface ProfileInformationProps {
     name: string;
@@ -10,10 +13,23 @@ interface ProfileInformationProps {
     followers: number;
 }
 
+const EditProfileButton: any = styled(Button)`
+	color: #1DA1F2;
+	font-weight: bold;
+	border-radius: 20px;
+	padding: 8px 18px;
+	background-color: white;
+	outline: auto;
+	outline-style: solid;
+	outline-width: 2px;
+    margin-top: 1%;
+    margin-right: 2%;
+`;
+
 export default function ProfileInformationComponent(props: ProfileInformationProps) {
     return (
         <Box sx={{ width: '100%' }} className={ProfileInformationComponentStyle.profileInformationBox}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Box>
                 <h2 className={ProfileInformationComponentStyle.userName}>{props.name}</h2>
                 <p className={ProfileInformationComponentStyle.userHandleSubtext}>@{props.screen_name}</p>
 
@@ -27,6 +43,10 @@ export default function ProfileInformationComponent(props: ProfileInformationPro
                     <span className={ProfileInformationComponentStyle.userFollowers}><strong>{props.followers}</strong> Followers</span>
                 </div>
             </Box>
+
+            <EditProfileButton className={ProfileInformationComponentStyle.editProfileButton} variant="contained">
+                Edit Profile
+            </EditProfileButton>
         </Box>
     );
 }

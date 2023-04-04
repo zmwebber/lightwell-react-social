@@ -1,7 +1,9 @@
+@import "../../sassStyles/variables";
+
 .ymlCard {
     width: 100%;
     display: flex;
-    background: rgb(0, 0, 0);
+    background: black;
     flex-direction: column;
     justify-content: space-around;
     right: 1vw;
@@ -33,7 +35,7 @@
 }
 
 .username {
-    color: rgb(192, 187, 187);
+    color: $secondary-subtext-color;
     margin: 2px;
 }
 
@@ -54,6 +56,6 @@
 }
 
 .showMore {
-    color: #fff;
+    color: white;
     padding-left: 30px;
 }

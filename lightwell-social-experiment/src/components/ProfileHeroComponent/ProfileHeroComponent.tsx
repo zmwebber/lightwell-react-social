@@ -14,20 +14,6 @@ import ProfileHeroComponentStyle from "./profileHeroComponentStyle.module.scss";
 // user's name should be passed as props and filter DB of tweets to show only the respective users tweets.
 // profile page should include banner & user info
 
-const EditProfileButton: any = styled(Button)`
-	font-weight: bold;
-	border-radius: 20px;
-	padding: 8px 18px;
-	shape = RoundedCornerShape(
-		50,50,50,50
-	);
-	background-color: white;
-	outline: auto;
-	outline-style: solid;
-	outline-width: 2px;
-    border-color: #555;
-`;
-
 function ProfileHeroComponent() {
 	return (
 		<div className={ProfileHeroComponentStyle.profileHeroContainer}>
@@ -41,10 +27,6 @@ function ProfileHeroComponent() {
 					className={ProfileHeroComponentStyle.profilePicture}
 					alt="profile-pic"
 				/>
-
-				<EditProfileButton className={ProfileHeroComponentStyle.editProfileButton} variant="contained">
-					Edit Profile
-				</EditProfileButton>
 			</div>
 		</div>
 	);

@@ -1,3 +1,5 @@
+@import '../../sassStyles/variables';
+
 .profilePageContainer {
     display: flex;
     flex-direction: row;
@@ -16,14 +18,14 @@
     width: 25%;
     order: 3;
     padding-left: 25px;
+    padding-right: 25px;
 }
 
 .profilePageContent {
     order: 2;
     flex-direction: column;
     width: 65%;
-
-    border: 2px;
-    border-style: solid;
-    border-color: #ccc;
+    border: $primary-border-size;
+    border-style: $primary-border-style;
+    border-color: $primary-border-color;
 }

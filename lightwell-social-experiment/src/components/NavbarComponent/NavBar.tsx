@@ -28,6 +28,15 @@ const CustomNavLink: any = styled(NavLink)({
 	margin: "10px",
 });
 
+const TweetModal: any = styled(Modal)({
+	overflow: "visible",
+	maxWidth: "50%",
+	maxHeight: "25%",
+	border: "2px solid #000",
+	borderRadius: "15px",
+	textAlign: "center"
+})
+
 const NavbarTwitterIconButton = () => {
 	return (
 		<div>
@@ -139,14 +148,14 @@ export default function NavBar() {
 						TWEET
 					</TweetButton>
 
-					<Modal
+					<TweetModal
 						open={open}
 						onClose={handleClose}
-						className={TweetFormStyle.modal}
+						className={NavBarStyle.modal}
 						closeAfterTransition
 					>
-						<TweetForm className={TweetFormStyle.modal} handleClose={handleClose} />
-					</Modal>
+						<TweetForm className={TweetFormStyle.tweetForm} handleClose={handleClose} />
+					</TweetModal>
 				</div>
 			</ul>
 		</div>
