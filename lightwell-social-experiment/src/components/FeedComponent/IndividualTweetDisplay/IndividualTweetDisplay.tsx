@@ -28,7 +28,12 @@ import {
 	incrementRetweet,
 	decrementRetweet,
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
+import {
+	addNewInteraction,
+	deleteInteraction,
+} from "../../../api/InteractionsApi";
 import ShareIcon from "@mui/icons-material/Share";
+import { Interaction } from "../../../models/InteractionsModel";
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -94,6 +99,37 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
+	const handleFavoritedInteraction = (tweet: Tweet) => {
+		const matchedTweet = state.feed.Tweets.filter(
+			(t: Tweet) => t._id === tweet._id
+		);
+
+		const editedTweet: Tweet = { ...matchedTweet[0] };
+		let interaction: Interaction = {
+			tweetId: editedTweet._id,
+			userId: editedTweet.user._id,
+			favorited: !editedTweet.favorited,
+			retweeted: editedTweet.is_retweeted_status,
+		};
+
+		let action = null;
+
+		if (interaction.favorited === true) {
+			action = addNewInteraction(interaction);
+		} else {
+			action = deleteInteraction(interaction.tweetId);
+		}
+
+		store
+			.dispatch(action)
+			// .then(() => {
+			// 	store.dispatch(getFeed());
+			// })
+			.catch((error: any) => {
+				console.log(error);
+			});
+	};
+
 	function adjustFavoriteCount(tweet: Tweet) {
 		if (tweet.favorited === false) {
 			store.dispatch(incrementFavorite(tweet));
@@ -126,7 +162,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	// @TODO
 	const redirectToProfile = (tweet: Tweet): any => {
-		console.log("redirect button pressed");		
+		console.log("redirect button pressed");
 		window.location.href =
 			"http://localhost:3000/profile/" + tweet.user.screen_name;
 		// + `${tweet.user}`;
@@ -134,7 +170,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	// @TODO
 	function parseUserJSON(tweet: Tweet): any {
-		return tweet.user.name + " " + "@" +  tweet.user.screen_name ;
+		return tweet.user.name + " " + "@" + tweet.user.screen_name;
 	}
 
 	// checkProfilePicture(tweet);
@@ -240,6 +276,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					className="icon"
 					onClick={() => {
 						handleFavorited(tweet);
+						handleFavoritedInteraction(tweet);
 					}}
 					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
 					startIcon={<FavoriteIcon />}

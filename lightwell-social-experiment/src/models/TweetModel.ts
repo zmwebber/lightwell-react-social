@@ -28,4 +28,5 @@ export type Tweet = {
     hashtags: {
         indicies: [number],
         text: string
-}}
+    }
+}

@@ -9,6 +9,7 @@ import SourceMapSupport from 'source-map-support';
 import todoRoutes from './routes/todo.server.route';
 import tweetRoutes from './routes/tweet.route';
 import userRoutes from './routes/users.route';
+import interactionRoutes from './routes/interactions.route';
 // define our app using express
 const app = express();
 // allow-cors
@@ -35,6 +36,7 @@ SourceMapSupport.install();
 app.use('/api', todoRoutes);
 app.use('/api', tweetRoutes);
 app.use('/api', userRoutes);
+app.use('/api', interactionRoutes);
 app.get('/', (req,res) => {
   return res.end('Api working');
 })
