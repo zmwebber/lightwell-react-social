@@ -13,18 +13,21 @@ interface ProfileInformationProps {
     followers: number;
 }
 
-const EditProfileButton: any = styled(Button)`
-	color: #1DA1F2;
-	font-weight: bold;
-	border-radius: 20px;
-	padding: 8px 18px;
-	background-color: white;
-	outline: auto;
-	outline-style: solid;
-	outline-width: 2px;
-    margin-top: 1%;
-    margin-right: 2%;
-`;
+const EditProfileButton: any = styled(Button)({
+    color: "#1DA1F2",
+    fontWeight: "bold",
+    borderRadius: "20px",
+    padding: "8px 18px",
+    backgroundColor: "white",
+    outline: "auto",
+    outlineStyle: "solid",
+    outlineWidth: "2px",
+    marginTop: "1%",
+    marginRight: "2%",
+    '&:hover': {
+        backgroundColor: '#fff'
+    }
+});
 
 export default function ProfileInformationComponent(props: ProfileInformationProps) {
     return (
