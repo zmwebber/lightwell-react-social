@@ -27,6 +27,7 @@ export default function ProfileInformationComponent(props: ProfileInformationPro
                     <span className="user-following"><strong>{props.following}</strong> Following</span>
                     <span className="user-followers"><strong>{props.followers}</strong> Followers</span>
                 </div>
+                <Media />
             </Box>
         </Box>
     );

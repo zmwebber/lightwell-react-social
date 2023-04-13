@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { getMedia } from '../../api/MediaApi';
+import { addMedia, getMedia } from '../../api/MediaApi';
 
 export default function Media() {
-  const [media, setMedia] = useState([]);
+  const [media, setMedia] = useState(null);
 
-  async function fetchData() {
-    let x = await getMedia();
-    setMedia(x.data.media);
+  function handleChange(event: any) {
+    setMedia(event.target.value);
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  function handleSubmit(event: any) {
+    event.preventDefault();
+    addMedia(event.target.value)
+    // console.log(media)
+  }
 
   return (
     <>
-      {JSON.stringify(media)}
+      <form onSubmit={handleSubmit}>
+        <label className="form-label" htmlFor="customFile"></label>
+        <input type="file" onChange={handleChange} className="form-control" id="customFile" />
+        <input type="submit" value="Submit" />
+      </form>
     </>
   );
 }
