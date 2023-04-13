@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import "./profileInformationComponentStyle.css";
+import Media from '../MediaComponent/Media';
 
 interface ProfileInformationProps {
     name: string;
