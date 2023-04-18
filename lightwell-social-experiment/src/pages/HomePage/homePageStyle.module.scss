@@ -1,19 +1,15 @@
-.registration-page {
-    
+.homepageContainer {
     display: flex;
     flex-direction: row;
-    
-    
 }
 
-.navbar-position {
+.navbar {
     width: 15%;
     position: relative;
     order: 1;
 }
 
-
-.yml-position {
+.youMightLike {
     /* width: 30%;
     position: relative;
     margin: 10px; */
@@ -22,14 +18,17 @@
     padding-left: 25px;
 }
 
-.center {
+.centerContent {
     order: 2;
     flex-direction: column;
     width: 65%;
+    
 }
 
+.tweetForm {
 
+}
 
-#id {
-    flex-direction: column;
+.tweetFeed {
+
 }

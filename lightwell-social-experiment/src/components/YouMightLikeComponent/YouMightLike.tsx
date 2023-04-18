@@ -1,72 +1,54 @@
 import React from "react";
 import { ButtonUnstyled } from "@mui/base";
+import { FollowButton } from "../../app/shared/buttons";
 import { styled } from "@mui/system";
-import "./youMightLikeCard.css";
-
-//https://mui.com/base/react-button/
-const CustomButton: any = styled(ButtonUnstyled)`
-	font-weight: bold;
-	background-color: ${"#FFFFFF"};
-	color: black;
-	border-radius: 20px;
-	padding: 8px 18px;
-	shape = RoundedCornerShape(
-		50,50,50,50
-	);
-	
-	&:hover {
-		background-color: ${"#dcdcdc"};
-	}
-`;
+import AppStyle from "../../App.module.scss"
+import YouMightLikeStyle from "./youMightLikeStyle.module.scss";
 
 //TODO: extract You Might Like & Show More to bookend entire YML card such that they aren't repeated with every new card produced.
 
 function YouMightLike() {
 	return (
-		<div className="yml-card">
-			<header className="yml-header">
+		<div className={YouMightLikeStyle.ymlCard}>
+			<header className={YouMightLikeStyle.ymlHeader}>
 				<h3>You might like</h3>
 			</header>
 
-			<div className="yml-card-contents">
-				<div className="items">
-					<div className="image">
+			<div className={YouMightLikeStyle.ymlCardContents}>
+				<div className={YouMightLikeStyle.items}>
 						<img
 							src="https://th.bing.com/th/id/R.19121048bd3e6595c24b348d9c79afaf?rik=qUxJZyLVWVcH1A&pid=ImgRaw&r=0"
 							alt=""
-							className="profile-picture"
+							className={AppStyle.profilePicture}
 						></img>
-					</div>
-					<div className="names">
-						<h5 className="real-name">Name</h5>
-						<h5 className="username">Username</h5>
+					<div className={YouMightLikeStyle.names}>
+						<h5 className={YouMightLikeStyle.realName}>Name</h5>
+						<h5 className={YouMightLikeStyle.username}>Username</h5>
 					</div>
 				</div>
-				<div className="follow-button">
-					<CustomButton type="submit">Follow</CustomButton>
+				<div className={YouMightLikeStyle.followButton}>
+					<FollowButton type="submit">Follow</FollowButton>
 				</div>
 			</div>
 
-			<div className="yml-card-contents">
-				<div className="items">
-					<div className="image">
+			<div className={YouMightLikeStyle.ymlCardContents}>
+				<div className={YouMightLikeStyle.items}>
 						<img
 							src="https://th.bing.com/th/id/R.19121048bd3e6595c24b348d9c79afaf?rik=qUxJZyLVWVcH1A&pid=ImgRaw&r=0"
 							alt=""
-							className="profile-picture"
+							className={AppStyle.profilePicture}
 						></img>
-					</div>
-					<div className="names">
-						<h5 className="real-name">Name</h5>
-						<h5 className="username">Username</h5>
+					<div className={YouMightLikeStyle.names}>
+						<h5 className={YouMightLikeStyle.realName}>Name</h5>
+						<h5 className={YouMightLikeStyle.username}>Username</h5>
 					</div>
 				</div>
-				<div className="follow-button">
-					<CustomButton type="submit">Follow</CustomButton>
+				<div className={YouMightLikeStyle.followButton}>
+					<FollowButton type="submit">Follow</FollowButton>
 				</div>
 			</div>
 
-			<footer className="show-more">
+			<footer className={YouMightLikeStyle.showMore}>
 				<h5>Show more</h5>
 			</footer>
 		</div>

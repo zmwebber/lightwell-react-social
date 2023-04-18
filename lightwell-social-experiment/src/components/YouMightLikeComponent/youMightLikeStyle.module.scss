@@ -1,0 +1,61 @@
+@import "../../sassStyles/variables";
+
+.ymlCard {
+    width: 100%;
+    display: flex;
+    background: black;
+    flex-direction: column;
+    justify-content: space-around;
+    right: 1vw;
+    top: 10vh;
+    border-radius: 20px;
+}
+
+.ymlHeader {
+    color: white;
+    padding-left: 12px;
+}
+
+.ymlCardContents {
+    height: 80px;
+    width: 480px;
+    display: flex;
+    padding-left: 12px;
+}
+
+.profilePicture {
+    display: flex;
+    height: 60px;
+    clip-path: circle();
+}
+
+
+.names {
+
+}
+
+.username {
+    color: $secondary-subtext-color;
+    margin: 2px;
+}
+
+.realName {
+    color: white;
+    margin: 2px;
+}
+
+.followButton {
+    display: flex;
+    align-items: center;
+    padding-left: 100px;
+}
+
+.items {
+    display: flex;
+    align-items: center;
+}
+
+.showMore {
+    color: white;
+    padding-left: 30px;
+}

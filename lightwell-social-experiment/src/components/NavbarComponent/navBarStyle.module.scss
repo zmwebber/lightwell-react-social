@@ -1,0 +1,28 @@
+@import '../../sassStyles/variables';
+
+.icons{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.icons:hover > :not(:hover){
+    opacity: .6;
+}
+
+.modal{
+
+}
+
+.tweetForm{
+
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    font-weight: $heavy-font-weight;
+    font-size: $large-font-size;
+}

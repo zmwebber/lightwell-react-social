@@ -13,12 +13,12 @@ import { Button, Modal, SvgIcon } from "@mui/material";
 import TweetForm from "../FormComponent/TweetForm";
 import { useSelector, useDispatch, useStore } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
-import "./navBarStyle.css";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
 import Logout from "../LogoutComponent/Logout";
 import { Profile } from "../../models/ProfileModel";
-
+import NavBarStyle from "./navBarStyle.module.scss";
+import TweetFormStyle from "../FormComponent/tweetFormStyle.module.scss";
 
 const CustomNavLink: any = styled(NavLink)({
 	color: "black",
@@ -28,10 +28,19 @@ const CustomNavLink: any = styled(NavLink)({
 	margin: "10px",
 });
 
-const TwitterButton = () => {
+const TweetModal: any = styled(Modal)({
+	overflow: "visible",
+	maxWidth: "50%",
+	maxHeight: "25%",
+	border: "2px solid #000",
+	borderRadius: "15px",
+	textAlign: "center"
+})
+
+const NavbarTwitterIconButton = () => {
 	return (
 		<div>
-			<Button className="twitter-icon">
+			<Button>
 				<SvgIcon component={TwitterIcon} style={{ fontSize: 40 }} />
 			</Button>
 		</div>
@@ -55,10 +64,10 @@ export default function NavBar() {
 	};
 
 	return (
-		<div className="navbar">
-			<ul className="icons">
+		<div className={NavBarStyle.navbarContainer}>
+			<ul className={NavBarStyle.icons}>
 				<li>
-					<CustomNavLink to="/">{TwitterButton()}</CustomNavLink>
+					<CustomNavLink to="/">{NavbarTwitterIconButton()}</CustomNavLink>
 				</li>
 				<li>
 					{state.user.loginSuccess === true &&
@@ -131,7 +140,7 @@ export default function NavBar() {
 					</CustomNavLink>
 				</li>
 
-				<div className="tweet-form">
+				<div className={TweetFormStyle.tweetForm}>
 					<TweetButton
 						style={{ backgroundColor: "deepskyblue", color: "white", marginTop: "12px" }}
 						onClick={handleOpen}
@@ -139,14 +148,14 @@ export default function NavBar() {
 						TWEET
 					</TweetButton>
 
-					<Modal
+					<TweetModal
 						open={open}
 						onClose={handleClose}
-						className="modal"
+						className={NavBarStyle.modal}
 						closeAfterTransition
 					>
-						<TweetForm className="modal" handleClose={handleClose} />
-					</Modal>
+						<TweetForm className={TweetFormStyle.tweetForm} handleClose={handleClose} />
+					</TweetModal>
 				</div>
 			</ul>
 		</div>

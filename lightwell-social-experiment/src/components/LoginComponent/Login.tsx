@@ -7,13 +7,14 @@ import { createTheme } from '@mui/material/styles';
 import { styled } from "@mui/system";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useNavigate } from "react-router-dom";
-import "./loginStyle.css";
 import { StaticDatePicker } from "@mui/x-date-pickers";
 import { authSlice } from "../../redux/ducks/user_duck/userSlice";
 import { selectOptions } from "@testing-library/user-event/dist/types/setup/directApi";
+import LoginStyle from "./loginStyle.module.scss";
 
 const LoginButton: any = styled(Button)`
 	color: #ffffff;
+	background-color: #1DA1F2;
 	font-weight: bold;
 	border-radius: 20px;
 	padding: 8px 18px;
@@ -72,7 +73,7 @@ function Login(props: any) {
 	}
 
 	return (
-		<div id="login-div">
+		<div className={LoginStyle.loginContainer}>
 			<ThemeProvider theme={theme}>
 				<Container component="main" maxWidth="xs">
 					<Box
@@ -83,7 +84,7 @@ function Login(props: any) {
 							alignItems: 'center',
 						}}
 					>
-						<div className="twitter-icon">
+						<div className={LoginStyle.twitterIcon}>
 							<SvgIcon component={TwitterIcon} style={{ fontSize: 40 }} />
 						</div>
 						<Typography component="h1" variant="h5">
@@ -91,7 +92,7 @@ function Login(props: any) {
 						</Typography>
 
 						{state.user.loginSuccess === false && loginAttempted === true &&
-							<Alert severity="error" className="error-alert-box">
+							<Alert severity="error" className={LoginStyle.errorAlertBox}>
 								{state.user.message}
 							</Alert>
 						}
@@ -128,7 +129,6 @@ function Login(props: any) {
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 3, padding: 1, width: 300 }}
-								id="login-button"
 							>
 								Sign In
 							</LoginButton>

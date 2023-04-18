@@ -7,7 +7,7 @@ import ProfileHeaderComponent from "../../components/ProfileHeaderComponent/Prof
 import ProfileInformationComponent from "../../components/ProfileInformationComponent/ProfileInformationComponent";
 import TabsComponent from "../../components/ProfileTabsComponent/ProfileTabsComponent";
 import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
-import "./profilePageStyle.css";
+import ProfilePageStyle from "./profilePageStyle.module.scss";
 
 export function ProfilePage() {
 	// @TODO: Remove <Profile/> from HomePage.tsx
@@ -15,17 +15,16 @@ export function ProfilePage() {
 	const state: any = store.getState();
 
 	return (
-		<div className="home-page">
-			<div id="left" className="navbar-position">
+		<div className={ProfilePageStyle.profilePageContainer}>
+			<div className={ProfilePageStyle.navbarPosition}>
 				<NavBar />
 			</div>
 
-			<div id="right" className="yml-position">
+			<div className={ProfilePageStyle.ymlPosition}>
 				<YouMightLike />
 			</div>
 
-			<div className="center">
-
+			<div className={ProfilePageStyle.profilePageContent}>
 				<ProfileHeaderComponent
 					name={state.user.profile.name}
 					statuses_count={state.user.profile.statuses_count}

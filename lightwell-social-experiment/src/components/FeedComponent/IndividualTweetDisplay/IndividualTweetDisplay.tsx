@@ -21,7 +21,9 @@ import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ReplyButton } from "../../../app/shared/buttons";
-import "./individualTweetDisplayStyle.css";
+import AppStyle from "../../../App.module.scss"
+import IndividualTweetDisplayStyle from "./individualTweetDisplayStyle.module.scss";
+
 import {
 	incrementFavorite,
 	decrementFavorite,
@@ -152,7 +154,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			<CardHeader
 				avatar={
 					<img
-						className="profile-picture"
+						className={AppStyle.profilePicture}
 						alt="profile-pic"
 						src={defaultProfilePic}
 						style={{ width: "5vw", height: "5vh" }}
@@ -226,7 +228,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				<ReplyButton reply_count={tweet.reply_count} />
 
 				<Button
-					className="icons"
 					onClick={() => {
 						handleRetweet(tweet);
 					}}
@@ -237,7 +238,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				>{`${tweet.retweet_count}`}</Button>
 
 				<Button
-					className="icon"
 					onClick={() => {
 						handleFavorited(tweet);
 					}}
