@@ -31,9 +31,13 @@ import {
 import {
 	addNewFavoritedInteraction,
 	deleteFavoritedInteraction,
-} from "../../../api/InteractionsApi";
+} from "../../../api/FavoritesApi";
 import ShareIcon from "@mui/icons-material/Share";
 import { Interaction } from "../../../models/InteractionsModel";
+import {
+	addNewRetweetInteraction,
+	deleteRetweetInteraction,
+} from "../../../api/RetweetsApi";
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -136,10 +140,10 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 		let action = null;
 
-		if (editedTweet.favorited === true) {
-			action = addNewFavoritedInteraction(interaction);
+		if (editedTweet.is_retweeted_status === true) {
+			action = deleteRetweetInteraction(interaction);
 		} else {
-			action = deleteFavoritedInteraction(interaction);
+			action = addNewRetweetInteraction(interaction);
 		}
 
 		store.dispatch(action).catch((error: any) => {
