@@ -1,0 +1,44 @@
+.profile-information-box {
+    /* border: 2px;
+    border-style: solid;
+    border-color: yellow; */
+}
+
+.user-name {
+    margin: 0px;
+    margin-left: 10px;
+}
+
+.user-handle-subtext {
+    margin: 0px;
+    color: #555;
+    margin-left: 10px;
+}
+
+.user-joined-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 12px;
+    margin-left: 8px;
+}
+
+.date-icon {
+    color: #555;
+}
+
+.user-joined-date {
+    color: #555;
+    margin-left: 5px;
+}
+
+.user-follow-container {
+    margin: 0px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.user-following {
+    margin-right: 10px;
+}

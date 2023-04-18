@@ -45,9 +45,9 @@ li {
 /* glow */
 Button::before {
     content: "";
-    background: linear-gradient(45deg,
+    /* background: linear-gradient(45deg,
             #FF0000, #002BFF, #FF00C8, #002BFF,
-            #FF0000, #002BFF, #FF00C8, #002BFF);
+            #FF0000, #002BFF, #FF00C8, #002BFF); */
     position: absolute;
     top: -2px;
     left: -2px;

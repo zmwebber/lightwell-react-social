@@ -9,12 +9,6 @@
     order: 1;
 }
 
-.profile-position {}
-
-.tweetForm-position {}
-
-.tweetFeed-position {}
-
 .yml-position {
     /* width: 30%;
     position: relative;
@@ -28,10 +22,8 @@
     order: 2;
     flex-direction: column;
     width: 65%;
-}
 
-
-
-#id {
-    flex-direction: column;
+    border: 2px;
+    border-style: solid;
+    border-color: #ccc;
 }

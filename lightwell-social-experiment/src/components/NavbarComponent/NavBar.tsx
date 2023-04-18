@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -11,20 +11,16 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
 import { Button, Modal, SvgIcon } from "@mui/material";
 import TweetForm from "../FormComponent/TweetForm";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, useStore } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import "./navBarStyle.css";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
+import Logout from "../LogoutComponent/Logout";
 import { Profile } from "../../models/ProfileModel";
-import { useParams } from "react-router-dom";
-//import { TwitterBlue } from "../../colorConstants";
-
-// TODO: Make text bigger
-// TODO: Give space between text and icon
 
 const CustomNavLink: any = styled(NavLink)({
-	color: "white",
+	color: "black",
 	textDecoration: "none",
 	display: "flex",
 	flexWrap: "wrap",
@@ -35,7 +31,7 @@ const TwitterButton = () => {
 	return (
 		<div>
 			<Button className="twitter-icon">
-				<SvgIcon component={TwitterIcon} />
+				<SvgIcon component={TwitterIcon} style={{ fontSize: 40 }} />
 			</Button>
 		</div>
 	);
@@ -43,10 +39,8 @@ const TwitterButton = () => {
 
 export default function NavBar() {
 	const dispatch = useDispatch();
-
-	const name = useSelector((state: Profile) => state.name);
-
-	const { username } = useParams();
+	const store = useStore();
+	const state: any = store.getState();
 
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => {
@@ -65,9 +59,11 @@ export default function NavBar() {
 					<CustomNavLink to="/">{TwitterButton()}</CustomNavLink>
 				</li>
 				<li>
-					<CustomNavLink to="/">
-						<HomeOutlinedIcon /> Home
-					</CustomNavLink>
+					{state.user.loginSuccess === true && (
+						<CustomNavLink to="/">
+							<HomeOutlinedIcon /> Home
+						</CustomNavLink>
+					)}
 				</li>
 
 				<li>
@@ -77,38 +73,55 @@ export default function NavBar() {
 				</li>
 
 				<li>
-					<CustomNavLink to="/notifications">
-						<NotificationsNoneOutlinedIcon /> Notifications
-					</CustomNavLink>
+					{state.user.loginSuccess === true && (
+						<CustomNavLink to="/notifications">
+							<NotificationsNoneOutlinedIcon /> Notifications
+						</CustomNavLink>
+					)}
 				</li>
 
 				<li>
-					<CustomNavLink to="/messages">
-						<EmailOutlinedIcon /> Messages
-					</CustomNavLink>
+					{state.user.loginSuccess === true && (
+						<CustomNavLink to="/messages">
+							<EmailOutlinedIcon /> Messages
+						</CustomNavLink>
+					)}
 				</li>
 
 				<li>
-					<CustomNavLink to="/bookmarks">
-						<BookmarkBorderOutlinedIcon /> Bookmarks
-					</CustomNavLink>
+					{state.user.loginSuccess === true && (
+						<CustomNavLink to="/bookmarks">
+							<BookmarkBorderOutlinedIcon /> Bookmarks
+						</CustomNavLink>
+					)}
 				</li>
 
 				<li>
-					<CustomNavLink to="/lists">
-						<ListAltOutlinedIcon /> Lists
-					</CustomNavLink>
+					{state.user.loginSuccess === true && (
+						<CustomNavLink to="/lists">
+							<ListAltOutlinedIcon /> Lists
+						</CustomNavLink>
+					)}
 				</li>
 
 				<li>
-					{/** @TODO If user is logged in, show this link
-					 * If user is not logged in, remove link
-					 * If Profile page is clicked, route url to /profile/ + {user.name}
-					 */}
+					{state.user.loginSuccess && (
+						<CustomNavLink to="/profile">
+							<PermIdentityOutlinedIcon /> Profile
+						</CustomNavLink>
+					)}
+				</li>
 
-					<CustomNavLink to="/profile/:username">
-						<PermIdentityOutlinedIcon /> Profile
-					</CustomNavLink>
+				<li>
+					{state.user.loginSuccess === false ? (
+						<CustomNavLink to="/login">
+							<PermIdentityOutlinedIcon /> Login
+						</CustomNavLink>
+					) : (
+						<CustomNavLink to="/">
+							<Logout />
+						</CustomNavLink>
+					)}
 				</li>
 
 				<li>
@@ -119,7 +132,11 @@ export default function NavBar() {
 
 				<div className="tweet-form">
 					<TweetButton
-						style={{ backgroundColor: "deepskyblue", color: "white" }}
+						style={{
+							backgroundColor: "deepskyblue",
+							color: "white",
+							marginTop: "12px",
+						}}
 						onClick={handleOpen}
 					>
 						TWEET
@@ -129,7 +146,7 @@ export default function NavBar() {
 						open={open}
 						onClose={handleClose}
 						className="modal"
-						//aria-describedby="parent-modal-description"
+						closeAfterTransition
 					>
 						<TweetForm className="modal" handleClose={handleClose} />
 					</Modal>

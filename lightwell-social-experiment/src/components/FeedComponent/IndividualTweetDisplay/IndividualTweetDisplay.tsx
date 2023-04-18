@@ -5,12 +5,7 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import { IconButton } from "@mui/material";
 import React, { useState } from "react";
 import { useStore } from "react-redux";
-import {
-	deleteTweet,
-	updateGlobalTweetLikes,
-	deleteGlobalTweetLikes,
-	updateTweet,
-} from "../../../api/TweetApi";
+import { deleteTweet, updateTweet } from "../../../api/TweetApi";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -33,14 +28,17 @@ import {
 	incrementRetweet,
 	decrementRetweet,
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
+import {
+	addNewFavoritedInteraction,
+	deleteFavoritedInteraction,
+} from "../../../api/FavoritesApi";
 import ShareIcon from "@mui/icons-material/Share";
-import { Interaction } from "../../../models/InteractionModel";
 
-// function checkProfilePicture(tweet: Tweet) {
-// 	if (tweet.profilePicture === "") {
-// 		tweet.profilePicture = defaultProfilePic;
-// 	}
-// }
+import { Interaction } from "../../../models/InteractionsModel";
+import {
+	addNewRetweetInteraction,
+	deleteRetweetInteraction,
+} from "../../../api/RetweetsApi";
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -54,7 +52,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	const store = useStore();
 	const state: any = store.getState();
-	// https://codepen.io/GeorgeWL/pen/yLeGGMw
 
 	const handleDelete = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
@@ -107,12 +104,53 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
-	// function adjustGlobalFavoriteRetweetCommentCount(
-	// 	tweet: Tweet,
-	// 	userId: string
-	// ) {
-	// 	store.dispatch(updateTweetLikes(tweet, userId));
-	// }
+	const handleFavoritedInteraction = (tweet: Tweet) => {
+		const matchedTweet = state.feed.Tweets.filter(
+			(t: Tweet) => t._id === tweet._id
+		);
+
+		const editedTweet: Tweet = { ...matchedTweet[0] };
+		let interaction: Interaction = {
+			tweetId: editedTweet._id,
+			userId: editedTweet.user._id,
+		};
+
+		let action = null;
+
+		if (editedTweet.favorited === true) {
+			action = deleteFavoritedInteraction(interaction);
+		} else {
+			action = addNewFavoritedInteraction(interaction);
+		}
+
+		store.dispatch(action).catch((error: any) => {
+			console.log(error);
+		});
+	};
+
+	const handleRetweetInteraction = (tweet: Tweet) => {
+		const matchedTweet = state.feed.Tweets.filter(
+			(t: Tweet) => t._id === tweet._id
+		);
+
+		const editedTweet: Tweet = { ...matchedTweet[0] };
+		let interaction: Interaction = {
+			tweetId: editedTweet._id,
+			userId: editedTweet.user._id,
+		};
+
+		let action = null;
+
+		if (editedTweet.is_retweeted_status === true) {
+			action = deleteRetweetInteraction(interaction);
+		} else {
+			action = addNewRetweetInteraction(interaction);
+		}
+
+		store.dispatch(action).catch((error: any) => {
+			console.log(error);
+		});
+	};
 
 	function adjustFavoriteCount(tweet: Tweet) {
 		if (tweet.favorited === false) {
@@ -144,39 +182,39 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
-	const updateFavorited = (tweet: Tweet, userId: string) => {
-		console.log("favorite button pressed");
-		// const matchedTweet = state.feed.Tweets.filter(
-		// 	(t: Tweet) => t._id === tweet._id
-		// );
+	// const updateFavorited = (tweet: Tweet, userId: string) => {
+	// 	console.log("favorite button pressed");
+	// 	// const matchedTweet = state.feed.Tweets.filter(
+	// 	// 	(t: Tweet) => t._id === tweet._id
+	// 	// );
 
-		// const editedTweet: Tweet = { ...matchedTweet[0] };
-		// const editedTweetId: string | null | undefined = editedTweet._id;
+	// 	// const editedTweet: Tweet = { ...matchedTweet[0] };
+	// 	// const editedTweetId: string | null | undefined = editedTweet._id;
 
-		const favorited = "favorited";
+	// 	const favorited = "favorited";
 
-		const globalTweetLikeModel = {
-			tweet_id: tweet._id,
-			user_id: userId,
-			interaction: favorited,
-		};
+	// 	const globalTweetLikeModel = {
+	// 		tweet_id: tweet._id,
+	// 		user_id: userId,
+	// 		interaction: favorited,
+	// 	};
 
-		let action = null;
-		if (tweet.favorited === false) {
-			action = updateGlobalTweetLikes(globalTweetLikeModel);
-		} else {
-			action = deleteGlobalTweetLikes(globalTweetLikeModel);
-		}
+	// 	let action = null;
+	// 	if (tweet.favorited === false) {
+	// 		action = updateGlobalTweetLikes(globalTweetLikeModel);
+	// 	} else {
+	// 		action = deleteGlobalTweetLikes(globalTweetLikeModel);
+	// 	}
 
-		store
-			.dispatch(action)
-			.then(() => {
-				store.dispatch(getFeed());
-			})
-			.catch((error: any) => {
-				console.log(error);
-			});
-	};
+	// 	store
+	// 		.dispatch(action)
+	// 		.then(() => {
+	// 			store.dispatch(getFeed());
+	// 		})
+	// 		.catch((error: any) => {
+	// 			console.log(error);
+	// 		});
+	// };
 
 	// @TODO https://reactrouter.com/en/main
 	// https://github.com/lagunovsky/redux-react-router
@@ -186,15 +224,14 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	//
 	const redirectToProfile = (tweet: Tweet): any => {
 		console.log("redirect button pressed");
-		const parsedUser = JSON.parse(tweet.user);
 		window.location.href =
-			"http://localhost:3000/profile/" + parsedUser.screen_name;
+			"http://localhost:3000/profile/" + tweet.user.screen_name;
+		// + `${tweet.user}`;
 	};
 
 	// @TODO - flesh out this to include clickable username and reroutes.
 	function parseUserJSON(tweet: Tweet): any {
-		const parsed = JSON.parse(tweet.user);
-		return parsed.screen_name + " @" + parsed.name;
+		return tweet.user.name + " " + "@" + tweet.user.screen_name;
 	}
 
 	// checkProfilePicture(tweet);
@@ -202,8 +239,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		<Card
 			sx={{
 				gap: 2,
-				backgroundColor: "black",
-				color: "white",
+				backgroundColor: "white",
+				color: "black",
 				borderRadius: 0,
 				borderBottom: " solid gray",
 				borderBottomWidth: "thin",
@@ -229,7 +266,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							aria-expanded={open ? "true" : undefined}
 							onClick={handleClick}
 						>
-							<MoreVertIcon sx={{ color: "white" }} />
+							<MoreVertIcon sx={{ color: "black" }} />
 						</IconButton>
 						<Menu
 							id="demo-positioned-menu"
@@ -288,6 +325,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				<Button
 					onClick={() => {
 						handleRetweet(tweet);
+						handleRetweetInteraction(tweet);
 					}}
 					sx={{
 						color: tweet.is_retweeted_status === true ? "#7EC542" : "grey",
@@ -298,20 +336,13 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				<Button
 					onClick={() => {
 						handleFavorited(tweet);
-						updateFavorited(tweet, state.user.profile._id);
+						handleFavoritedInteraction(tweet);
 					}}
 					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
 					startIcon={<FavoriteIcon />}
 				>{`${tweet.favorite_count}`}</Button>
 
 				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
-				{/* 
-			
-				{/** Why can't I pass the full tweet here? */}
-
-				{/* <IconButton aria-label="share">
-					<ShareIcon />
-				</IconButton> */}
 			</div>
 			{/* </CardActions> */}
 		</Card>
