@@ -1,13 +1,13 @@
 import express from 'express';
 //import controller file
-import * as interactions from '../controllers/interactions.controller';
+import * as favorites from '../controllers/interactions.controller';
 // get an instance of express router
 const router = express.Router();
-router.route('/interactions/')
+router.route('/favorites/')
     // .delete(interactions.deleteInteraction);
     // .get(interactions.getInteractions);
-    .post(interactions.addInteraction);
-router.route('/interactions/:id')
-    .delete(interactions.deleteInteraction);
+    .post(favorites.addFavoritedInteraction);
+router.route('/favorites/:tweetId/:userId')
+    .delete(favorites.deleteFavoritedInteraction);
 
 export default router;

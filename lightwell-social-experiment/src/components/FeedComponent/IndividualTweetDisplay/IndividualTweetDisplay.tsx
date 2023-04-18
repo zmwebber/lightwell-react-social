@@ -29,8 +29,8 @@ import {
 	decrementRetweet,
 } from "../../../redux/ducks/post_duck/tweetFormSlice";
 import {
-	addNewInteraction,
-	deleteInteraction,
+	addNewFavoritedInteraction,
+	deleteFavoritedInteraction,
 } from "../../../api/InteractionsApi";
 import ShareIcon from "@mui/icons-material/Share";
 import { Interaction } from "../../../models/InteractionsModel";
@@ -108,26 +108,43 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		let interaction: Interaction = {
 			tweetId: editedTweet._id,
 			userId: editedTweet.user._id,
-			favorited: !editedTweet.favorited,
-			retweeted: editedTweet.is_retweeted_status,
 		};
 
 		let action = null;
 
-		if (interaction.favorited === true) {
-			action = addNewInteraction(interaction);
+		if (editedTweet.favorited === true) {
+			action = deleteFavoritedInteraction(interaction);
 		} else {
-			action = deleteInteraction(interaction.tweetId);
+			action = addNewFavoritedInteraction(interaction);
 		}
 
-		store
-			.dispatch(action)
-			// .then(() => {
-			// 	store.dispatch(getFeed());
-			// })
-			.catch((error: any) => {
-				console.log(error);
-			});
+		store.dispatch(action).catch((error: any) => {
+			console.log(error);
+		});
+	};
+
+	const handleRetweetInteraction = (tweet: Tweet) => {
+		const matchedTweet = state.feed.Tweets.filter(
+			(t: Tweet) => t._id === tweet._id
+		);
+
+		const editedTweet: Tweet = { ...matchedTweet[0] };
+		let interaction: Interaction = {
+			tweetId: editedTweet._id,
+			userId: editedTweet.user._id,
+		};
+
+		let action = null;
+
+		if (editedTweet.favorited === true) {
+			action = addNewFavoritedInteraction(interaction);
+		} else {
+			action = deleteFavoritedInteraction(interaction);
+		}
+
+		store.dispatch(action).catch((error: any) => {
+			console.log(error);
+		});
 	};
 
 	function adjustFavoriteCount(tweet: Tweet) {
@@ -265,6 +282,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					className="icons"
 					onClick={() => {
 						handleRetweet(tweet);
+						handleRetweetInteraction(tweet);
 					}}
 					sx={{
 						color: tweet.is_retweeted_status === true ? "#7EC542" : "grey",
@@ -283,13 +301,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				>{`${tweet.favorite_count}`}</Button>
 
 				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
-				{/* 
-			
-				{/** Why can't I pass the full tweet here? */}
-
-				{/* <IconButton aria-label="share">
-					<ShareIcon />
-				</IconButton> */}
 			</div>
 			{/* </CardActions> */}
 		</Card>
