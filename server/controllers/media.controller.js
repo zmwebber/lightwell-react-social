@@ -21,20 +21,16 @@ export const getAllMedia = asyncHandler(async (req, res) => {
   }
 });
 
-// RATHER THAN THE CODE BELOW, IMPLEMENT SIMILAR TO USER.CONTROLLER.JS LINE 32 AND BELOW
+export const addMedia = asyncHandler(async (req, res) => {
+  const newMedia = req.body;
+  const userResponse = await Media.create(newMedia);
 
-// export const addMedia = asyncHandler(async (req, res) => {
-//   console.log("addMedia");
-//   const newMedia = new Media(req.body);
-
-//   newMedia.save((err, media) => {
-//     if (err) {
-//       return res.json({ success: false, message: "addMedia error: " + err });
-//     }
-//     return res.json({
-//       success: true,
-//       message: "Media added successfully",
-//       media,
-//     });
-//   });
-// });19870
+  if (userResponse) {
+    res.status(201).json({
+      media: userResponse,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data.");
+  }
+});

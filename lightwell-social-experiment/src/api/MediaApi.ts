@@ -10,8 +10,7 @@ export async function getMedia() {
 }
 
 export async function addMedia(media: any) {
-    console.log(media);
+    let response = await API.post(API_URL, media)
 
-    // let response = await API.post(API_URL, media);
-    // return response.data;
+    return response
 }
