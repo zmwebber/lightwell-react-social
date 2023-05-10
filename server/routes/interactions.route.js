@@ -8,5 +8,8 @@ router.route('/favorites/')
     .post(favorites.addFavoritedInteraction);
 router.route('/favorites/:tweetId/:userId')
     .delete(favorites.deleteFavoritedInteraction);
+router.route('/favorites/byId/:tweetId/:userId')
+    .get(favorites.getFavoritedInteractionsByTweetId);
+
 
 export default router;
