@@ -3,7 +3,7 @@ import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStore } from "react-redux";
 import { deleteTweet, updateTweet } from "../../../api/TweetApi";
 import Card from "@mui/material/Card";
@@ -31,6 +31,7 @@ import {
 import {
 	addNewFavoritedInteraction,
 	deleteFavoritedInteraction,
+	getFavoritedInteractionsByTweetId,
 } from "../../../api/FavoritesApi";
 import ShareIcon from "@mui/icons-material/Share";
 
@@ -42,16 +43,20 @@ import {
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const [favoriteCount, setFavoriteCount] = React.useState<number>();
+	const [likedByUser, setLikedByUser] = React.useState<boolean>(false);
+	const [color, setColor] = React.useState<string>("grey");
 	const open = Boolean(anchorEl);
+
+	const store = useStore();
+	const state: any = store.getState();
+
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
-
-	const store = useStore();
-	const state: any = store.getState();
 
 	const handleDelete = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
@@ -117,7 +122,9 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 		let action = null;
 
-		if (editedTweet.favorited === true) {
+		// if userId / user.profile._id are the same AND Interaction object doesn't exist on the mongo tweetLikes collection, then addNewFavoritedInteraction
+		// if userId / user.profile._id are the same AND Interaction does exist, then delete
+		if (interaction.userId === state.user._id && likedByUser) {
 			action = deleteFavoritedInteraction(interaction);
 		} else {
 			action = addNewFavoritedInteraction(interaction);
@@ -152,23 +159,24 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		});
 	};
 
-	function adjustFavoriteCount(tweet: Tweet) {
-		if (tweet.favorited === false) {
-			store.dispatch(incrementFavorite(tweet));
-		} else if (tweet.favorited === true) {
-			store.dispatch(decrementFavorite(tweet));
-		}
-	}
+	// function adjustFavoriteCount(tweet: Tweet) {
+	// 	if (tweet.user._id === state.user.profile._id) {
+	// 		store.dispatch(incrementFavorite(tweet));
+	// 	} else if (tweet.favorited === true) {
+	// 		store.dispatch(decrementFavorite(tweet));
+	// 	}
+	// }
 
 	const handleFavorited = (tweet: Tweet) => {
 		console.log("favorite button pressed");
+		console.log("UserID: " + state.user.profile._id + " TweetID: " + tweet.user._id);
 		const matchedTweet = state.feed.Tweets.filter(
 			(t: Tweet) => t._id === tweet._id
 		);
 
 		const editedTweet = { ...matchedTweet[0] };
 
-		adjustFavoriteCount(editedTweet);
+		//adjustFavoriteCount(editedTweet);
 
 		const action = updateTweet(editedTweet);
 
@@ -182,39 +190,21 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
-	// const updateFavorited = (tweet: Tweet, userId: string) => {
-	// 	console.log("favorite button pressed");
-	// 	// const matchedTweet = state.feed.Tweets.filter(
-	// 	// 	(t: Tweet) => t._id === tweet._id
-	// 	// );
+	// Alternative to inline sx ternary operator.
 
-	// 	// const editedTweet: Tweet = { ...matchedTweet[0] };
-	// 	// const editedTweetId: string | null | undefined = editedTweet._id;
+	async function getFavoritedInteractions() {
+		let res = await getFavoritedInteractionsByTweetId(tweet._id, state.user.profile._id);
+		console.log("LikedByUser: " + res.likedByUser)
+		setFavoriteCount(res.count);
+		console.log("getFavoritedInteractions method hit - TweetID: " + tweet._id + " UserID: " + state.user.profile._id);
+		setLikedByUser(res.likedByUser);
+		setColor("red");
+	
+	}
 
-	// 	const favorited = "favorited";
-
-	// 	const globalTweetLikeModel = {
-	// 		tweet_id: tweet._id,
-	// 		user_id: userId,
-	// 		interaction: favorited,
-	// 	};
-
-	// 	let action = null;
-	// 	if (tweet.favorited === false) {
-	// 		action = updateGlobalTweetLikes(globalTweetLikeModel);
-	// 	} else {
-	// 		action = deleteGlobalTweetLikes(globalTweetLikeModel);
-	// 	}
-
-	// 	store
-	// 		.dispatch(action)
-	// 		.then(() => {
-	// 			store.dispatch(getFeed());
-	// 		})
-	// 		.catch((error: any) => {
-	// 			console.log(error);
-	// 		});
-	// };
+	useEffect(() => {
+		getFavoritedInteractions();
+	});
 
 	// @TODO https://reactrouter.com/en/main
 	// https://github.com/lagunovsky/redux-react-router
@@ -226,7 +216,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		console.log("redirect button pressed");
 		window.location.href =
 			"http://localhost:3000/profile/" + tweet.user.screen_name;
-		// + `${tweet.user}`;
 	};
 
 	// @TODO - flesh out this to include clickable username and reroutes.
@@ -301,10 +290,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						</Menu>
 					</div>
 				}
-				title={
-					// `${tweet.user}` +
-					parseUserJSON(tweet) + " " + timeCalculator(tweet.createdAt)
-				}
+				title={parseUserJSON(tweet) + " " + timeCalculator(tweet.createdAt)}
 				subheader=""
 			/>
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
@@ -315,7 +301,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			</CardContent>
 
 			{/** @TODO: toggle reply count */}
-			{/* @TODO: retweet logic - what should happen when a user retweets? */}
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
 			{/* <CardActions disableSpacing className="icon-parents"> 
 			For whatever reason, material UI CardActions doesn't allow for respacing betwixt nested buttons*/}
@@ -338,9 +323,15 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						handleFavorited(tweet);
 						handleFavoritedInteraction(tweet);
 					}}
-					sx={{ color: tweet.favorited === true ? "red" : "grey" }}
+					
+					
+					
+					sx={{ color: color }}
+					
 					startIcon={<FavoriteIcon />}
-				>{`${tweet.favorite_count}`}</Button>
+				>
+					{ favoriteCount }
+				</Button>
 
 				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
 			</div>
