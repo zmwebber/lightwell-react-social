@@ -51,30 +51,30 @@ export const getFavoritedInteractionsByTweetId = asyncHandler(async (req, res) =
   const params = req.params
   console.log("GetFavoritesByTweetId for _id: " + params.tweetId + " userId: " + params.userId)
 
-  let x = await Favorites.count({ 'tweetId': { $eq: params.tweetId } });
+  let favoritesCount = await Favorites.count({ 'tweetId': { $eq: params.tweetId } });
   let userHasLiked = await Favorites.count({ 'tweetId': { $eq: params.tweetId }, 'userId': { $eq: params.userId } })
 
-  console.log("Favorite Count: " + x)
+  console.log("Favorite Count: " + favoritesCount)
   console.log("Response from getUserHasLiked method: " + userHasLiked);
 
-  if (x > 0) {
+  if (favoritesCount > 0) {
     if (userHasLiked > 0) {
 
       res.status(201).json({
-        'count': x,
+        'count': favoritesCount,
         'likedByUser': "true",
         'message': 'success',
       })
     } else if (userHasLiked == 0) {
       res.status(201).json({
-        'count': x,
+        'count': favoritesCount,
         'likedByUser': "false",
         'message': 'success',
       })
     }
-  } else if (x == 0) {
+  } else if (favoritesCount == 0) {
     res.status(201).json({
-      'count': x,
+      'count': favoritesCount,
       'likedByUser': "false",
       'message': 'success',
     })

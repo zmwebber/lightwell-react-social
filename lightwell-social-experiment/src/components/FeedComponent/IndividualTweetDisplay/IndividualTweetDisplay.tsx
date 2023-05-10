@@ -21,25 +21,13 @@ import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ReplyButton } from "../../../app/shared/buttons";
-import "./individualTweetDisplayStyle.css";
-import {
-	incrementFavorite,
-	decrementFavorite,
-	incrementRetweet,
-	decrementRetweet,
-} from "../../../redux/ducks/post_duck/tweetFormSlice";
-import {
-	addNewFavoritedInteraction,
-	deleteFavoritedInteraction,
-	getFavoritedInteractionsByTweetId,
-} from "../../../api/FavoritesApi";
+import {incrementFavorite,	decrementFavorite,	incrementRetweet,	decrementRetweet} from "../../../redux/ducks/post_duck/tweetFormSlice";
+import {addNewFavoritedInteraction,	deleteFavoritedInteraction,	getFavoritedInteractionsByTweetId} from "../../../api/FavoritesApi";
 import ShareIcon from "@mui/icons-material/Share";
 
 import { Interaction } from "../../../models/InteractionsModel";
-import {
-	addNewRetweetInteraction,
-	deleteRetweetInteraction,
-} from "../../../api/RetweetsApi";
+import {addNewRetweetInteraction,deleteRetweetInteraction} from "../../../api/RetweetsApi";
+import styles from "./individualTweetDisplayStyle.module.css";
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -194,17 +182,23 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	async function getFavoritedInteractions() {
 		let res = await getFavoritedInteractionsByTweetId(tweet._id, state.user.profile._id);
-		console.log("LikedByUser: " + res.likedByUser)
+		console.log("LikedByUser: " + res.likedByUser + '   ' + typeof(res.likedByUser))
+		let x = (res.likedByUser === 'true');
 		setFavoriteCount(res.count);
 		console.log("getFavoritedInteractions method hit - TweetID: " + tweet._id + " UserID: " + state.user.profile._id);
-		setLikedByUser(res.likedByUser);
-		setColor("red");
+		setLikedByUser(x);
+		if ( x )
+		{
+			console.log("Liked, change color to red")
+			setColor("red")
+		}
+
 	
 	}
 
 	useEffect(() => {
 		getFavoritedInteractions();
-	});
+	}, [likedByUser]);
 
 	// @TODO https://reactrouter.com/en/main
 	// https://github.com/lagunovsky/redux-react-router
@@ -320,15 +314,15 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 				<Button
 					onClick={() => {
-						handleFavorited(tweet);
-						handleFavoritedInteraction(tweet);
-					}}
-					
-					
-					
-					sx={{ color: color }}
-					
+						// handleFavorited(tweet);
+						// handleFavoritedInteraction(tweet);
+						console.log("Favorite Button clicked for tweet: " + tweet._id )
+						console.log("Favorite Button color: " + color )
+					}}	
 					startIcon={<FavoriteIcon />}
+					className={color === "red" ? styles.red : styles.grey}
+					
+					
 				>
 					{ favoriteCount }
 				</Button>
