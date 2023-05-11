@@ -182,15 +182,25 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	async function getFavoritedInteractions() {
 		let res = await getFavoritedInteractionsByTweetId(tweet._id, state.user.profile._id);
-		console.log("LikedByUser: " + res.likedByUser + '   ' + typeof(res.likedByUser))
-		let x = (res.likedByUser === 'true');
-		setFavoriteCount(res.count);
-		console.log("getFavoritedInteractions method hit - TweetID: " + tweet._id + " UserID: " + state.user.profile._id);
-		setLikedByUser(x);
-		if ( x )
-		{
-			console.log("Liked, change color to red")
-			setColor("red")
+		console.log(res)
+
+		try {
+			let x = res.likedByUser
+			console.log("LikedByUser: " + res.likedByUser + '   ' + typeof(res.likedByUser) + " X: " + x)
+		
+			setFavoriteCount(res.count);
+			console.log("getFavoritedInteractions method hit - TweetID: " + tweet._id + " UserID: " + state.user.profile._id);
+			if (x === "true")
+			{
+				console.log("Liked, change color to red")
+				setColor("red")
+			} else
+			{
+				console.log("not liked, change color to grey")
+				setColor("grey")
+			}
+		} catch(e){
+			console.log(e);
 		}
 
 	
@@ -316,6 +326,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					onClick={() => {
 						// handleFavorited(tweet);
 						// handleFavoritedInteraction(tweet);
+						setLikedByUser(!likedByUser)
 						console.log("Favorite Button clicked for tweet: " + tweet._id )
 						console.log("Favorite Button color: " + color )
 					}}	
