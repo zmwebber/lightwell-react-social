@@ -4,82 +4,52 @@ import { Media } from "../../models/MediaModel";
 
 export default function MediaComponent() {
   let x = new Media();
-
-  const [mediaData, setMediaData] = useState<string | ArrayBuffer | null>("");
   const [mediaProps, setMediaProps] = useState<Media>(x);
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState("");  
+  const fileReader = new FileReader();
+
+  function addListeners() {
+
+    fileReader.addEventListener("loadend", handleComplete);    
+    fileReader.addEventListener("error", handleComplete);
+  }
+
+  function handleComplete(event: any){
+    console.log(event + "Event")
+    
+    if( event.type === "loadend"){
+      console.log("Complete! Res = "+ fileReader.result)
+      x.data = fileReader.result; 
+             
+    }
+    else if (event.type === "error")   
+    {
+      x.data = "Error";
+    }  
+    setMediaProps(x);
+
+      console.log("Props: " + JSON.stringify(mediaProps));
+  }
 
   function handleChange(event: any) {
     const file = event.target.files[0];
-
     if (file) {
-      x.data = convertImgToBinary(file);
+      addListeners();
+      convertImgToBinary(file);  
       x.fileName = file.name;
       x.contentType = file.type;
-      x.createdAt = file.lastModifiedDate;
-
-      setMediaProps(x);
+      x.createdAt = file.lastModifiedDate;    
     }
+    console.log("Change Happened");
 
-    console.log("MEDIA PROPS BELOW:");
-    console.log(mediaProps);
-
-    // setPreview(URL.createObjectURL(event.target.files[0]))
-    // console.log(preview)
   }
 
   function handleSubmit(event: any) {
-    // event.preventDefault();
-    // let media = new MediaConstructed()
-    // console.log("BELOW IS THE NEW MEDIA 1");
-    // console.log(event.target.files[0]);
-
-
-    // media = {
-    //   _id: mediaProps._id,
-    //   data: mediaData,
-    //   fileName: mediaProps.name,
-    //   contentType: mediaProps.type,
-    //   createdAt: mediaProps.lastModified
-    // }
-
-    // // setMediaProps(media)
-    // console.log("BELOW IS THE NEW MEDIA 2");
-    // console.log(media);
-    // addMedia(media)
-
-
-
-
-
-
-
-    //let x = new Media;
-    //map props 
-
-    //     Media = {
-    //     _id?: string | null,
-    //     data: Buffer,
-    //     fileName: String,
-    //     contentType: String,
-    //     createdAt: Date,
-    // }
-    //x.data = media
-    //x.fileName = mediaProps
-    //call API function
-    //addMedia(x)
+    addMedia(mediaProps);
   }
 
-  function convertImgToBinary(file: any): string | ArrayBuffer | null {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      console.log("Image Binary: " + reader.result)
-    }
-
-    reader.readAsBinaryString(file)
-
-    return reader.result;
+  function convertImgToBinary(file: any){
+    fileReader.readAsBinaryString(file)  
   }
 
   return (

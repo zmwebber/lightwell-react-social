@@ -24,9 +24,10 @@ app.use(function (req, res, next) {
 });
 // configure app
 app.use(logger("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
 // set the port
 const port = process.env.PORT || 5000;
 // connect to database

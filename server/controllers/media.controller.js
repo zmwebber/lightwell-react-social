@@ -22,6 +22,7 @@ export const getAllMedia = asyncHandler(async (req, res) => {
 });
 
 export const addMedia = asyncHandler(async (req, res) => {
+  
   const newMedia = req.body;
   const userResponse = await Media.create(newMedia);
 
