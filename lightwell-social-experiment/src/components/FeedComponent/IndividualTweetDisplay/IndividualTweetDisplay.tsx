@@ -34,6 +34,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [favoriteCount, setFavoriteCount] = React.useState<number>();
 	const [likedByUser, setLikedByUser] = React.useState<boolean>(false);
 	const [color, setColor] = React.useState<string>("grey");
+	const [refresh, setRefresh] = React.useState<boolean>(false);
 	const open = Boolean(anchorEl);
 
 	const store = useStore();
@@ -101,24 +102,28 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		const matchedTweet = state.feed.Tweets.filter(
 			(t: Tweet) => t._id === tweet._id
 		);
+		
+		console.log("Entered handleFavorited method. LikedByUser var = " + likedByUser);
 
 		const editedTweet: Tweet = { ...matchedTweet[0] };
 		let interaction: Interaction = {
 			tweetId: editedTweet._id,
-			userId: editedTweet.user._id,
+			userId: state.user.profile._id,
 		};
 
 		let action = null;
 
-		// if userId / user.profile._id are the same AND Interaction object doesn't exist on the mongo tweetLikes collection, then addNewFavoritedInteraction
-		// if userId / user.profile._id are the same AND Interaction does exist, then delete
-		if (interaction.userId === state.user._id && likedByUser) {
+		if (likedByUser) {
 			action = deleteFavoritedInteraction(interaction);
 		} else {
 			action = addNewFavoritedInteraction(interaction);
 		}
 
-		store.dispatch(action).catch((error: any) => {
+		store.dispatch(action)
+			.then(() => {
+				setRefresh(true)
+			})
+			.catch((error: any) => {
 			console.log(error);
 		});
 	};
@@ -131,7 +136,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		const editedTweet: Tweet = { ...matchedTweet[0] };
 		let interaction: Interaction = {
 			tweetId: editedTweet._id,
-			userId: editedTweet.user._id,
+			userId: state.user.profile._id,
 		};
 
 		let action = null;
@@ -147,36 +152,26 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		});
 	};
 
-	// function adjustFavoriteCount(tweet: Tweet) {
-	// 	if (tweet.user._id === state.user.profile._id) {
-	// 		store.dispatch(incrementFavorite(tweet));
-	// 	} else if (tweet.favorited === true) {
-	// 		store.dispatch(decrementFavorite(tweet));
-	// 	}
-	// }
+	// const handleFavorited = (tweet: Tweet) => {
+	// 	console.log("favorite button pressed");
+	// 	console.log("UserID: " + state.user.profile._id + " TweetID: " + tweet.user._id);
+	// 	const matchedTweet = state.feed.Tweets.filter(
+	// 		(t: Tweet) => t._id === tweet._id
+	// 	);
 
-	const handleFavorited = (tweet: Tweet) => {
-		console.log("favorite button pressed");
-		console.log("UserID: " + state.user.profile._id + " TweetID: " + tweet.user._id);
-		const matchedTweet = state.feed.Tweets.filter(
-			(t: Tweet) => t._id === tweet._id
-		);
+	// 	const editedTweet = { ...matchedTweet[0] };
 
-		const editedTweet = { ...matchedTweet[0] };
+	// 	const action = updateTweet(editedTweet);
 
-		//adjustFavoriteCount(editedTweet);
-
-		const action = updateTweet(editedTweet);
-
-		store
-			.dispatch(action)
-			.then(() => {
-				store.dispatch(getFeed());
-			})
-			.catch((error: any) => {
-				console.log(error);
-			});
-	};
+	// 	store
+	// 		.dispatch(action)
+	// 		.then(() => {
+	// 			store.dispatch(getFeed());
+	// 		})
+	// 		.catch((error: any) => {
+	// 			console.log(error);
+	// 		});
+	// };
 
 	// Alternative to inline sx ternary operator.
 
@@ -190,14 +185,18 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		
 			setFavoriteCount(res.count);
 			console.log("getFavoritedInteractions method hit - TweetID: " + tweet._id + " UserID: " + state.user.profile._id);
+
+			
 			if (x === "true")
 			{
 				console.log("Liked, change color to red")
-				setColor("red")
+				setColor("red")		
+				setLikedByUser(true);	
 			} else
 			{
 				console.log("not liked, change color to grey")
 				setColor("grey")
+				setLikedByUser(false);
 			}
 		} catch(e){
 			console.log(e);
@@ -208,7 +207,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	useEffect(() => {
 		getFavoritedInteractions();
-	}, [likedByUser]);
+		setRefresh(false)
+	}, [refresh]);
 
 	// @TODO https://reactrouter.com/en/main
 	// https://github.com/lagunovsky/redux-react-router
@@ -324,9 +324,9 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 				<Button
 					onClick={() => {
-						// handleFavorited(tweet);
-						// handleFavoritedInteraction(tweet);
-						setLikedByUser(!likedByUser)
+						//handleFavorited(tweet)
+						handleFavoritedInteraction(tweet)
+						//setLikedByUser(!likedByUser)
 						console.log("Favorite Button clicked for tweet: " + tweet._id )
 						console.log("Favorite Button color: " + color )
 					}}	
