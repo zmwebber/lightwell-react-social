@@ -1,7 +1,7 @@
 
 export class Media {
     _id?: string | null;
-    data: string | ArrayBuffer | null;
+    data: string | undefined;
     fileName: string;
     contentType: string;
     createdAt: Date;

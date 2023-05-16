@@ -15,7 +15,15 @@ export default function MediaComponent() {
 
   function handleComplete(event: any) {
     if (event.type === "loadend") {
-      x.data = fileReader.result;
+      if(fileReader.result)
+      {
+        let stringResult = fileReader.result.toString();
+        let b64 = btoa(stringResult);
+        console.log("Result: " + stringResult)
+        console.log("Base64: "+ b64)
+        x.data = b64;
+      }
+      
     }
     else if (event.type === "error") {
       x.data = "Error.";
@@ -41,35 +49,35 @@ export default function MediaComponent() {
   function handleSubmit(event: any) {
     event.preventDefault();
 
-    addMedia(mediaProps);
+    addMedia(mediaProps).then(() => {
+      alert("Media Uploaded! ")
+    });
 
-    getMedia().then((val) => {
-      console.log(val.data.media[0].data.data);
+  }
 
-      let buf = val.data.media[0].data.data.toString('base64')
+  function convertImgToBinary(file: any) {
+    fileReader.readAsBinaryString(file)
+  }
+
+  function loadPreview(){
+    
+    getMedia().then((res) => {
+      let length  = res.data.media.length -1;
+      let buf = res.data.media[length].data
       let src = 'data:image/png;base64,' + buf;
 
       console.log(src);
       setPreview(buf);
     });
-
-    // Take data and convert it into an image format the UI can handle
-
-    // console.log(getMediaVariable);
-    // setPreview(URL.createObjectURL(getMediaVariable));
   }
-
-  function convertImgToBinary(file: any) {
-    fileReader.readAsText(file)
-  }
-
   return (
     <>
+    <button onClick={loadPreview}> Click for Preview Latest Upload</button>
       <form onSubmit={handleSubmit}>
         <label className="form-label" htmlFor="customFile"></label>
         <input type="file" onChange={handleChange} className="form-control" id="customFile" accept="image/*" />
         <input type="submit" value="Submit" />
-        <img src={`data:image/png;base64,${preview}`} alt="preview"></img>
+        <img src={"data:image/png;base64," + preview} alt="preview"></img>
       </form>
     </>
   );
