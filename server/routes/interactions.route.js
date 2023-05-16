@@ -11,5 +11,4 @@ router.route('/favorites/:tweetId/:userId')
 router.route('/favorites/byId/:tweetId/:userId')
     .get(favorites.getFavoritedInteractionsByTweetId);
 
-
 export default router;

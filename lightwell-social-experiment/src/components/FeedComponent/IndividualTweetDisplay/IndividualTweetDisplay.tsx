@@ -152,29 +152,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		});
 	};
 
-	// const handleFavorited = (tweet: Tweet) => {
-	// 	console.log("favorite button pressed");
-	// 	console.log("UserID: " + state.user.profile._id + " TweetID: " + tweet.user._id);
-	// 	const matchedTweet = state.feed.Tweets.filter(
-	// 		(t: Tweet) => t._id === tweet._id
-	// 	);
-
-	// 	const editedTweet = { ...matchedTweet[0] };
-
-	// 	const action = updateTweet(editedTweet);
-
-	// 	store
-	// 		.dispatch(action)
-	// 		.then(() => {
-	// 			store.dispatch(getFeed());
-	// 		})
-	// 		.catch((error: any) => {
-	// 			console.log(error);
-	// 		});
-	// };
-
-	// Alternative to inline sx ternary operator.
-
 	async function getFavoritedInteractions() {
 		let res = await getFavoritedInteractionsByTweetId(tweet._id, state.user.profile._id);
 		console.log(res)
@@ -185,13 +162,12 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		
 			setFavoriteCount(res.count);
 			console.log("getFavoritedInteractions method hit - TweetID: " + tweet._id + " UserID: " + state.user.profile._id);
-
 			
 			if (x === "true")
 			{
 				console.log("Liked, change color to red")
 				setColor("red")		
-				setLikedByUser(true);	
+				setLikedByUser(true);
 			} else
 			{
 				console.log("not liked, change color to grey")
@@ -201,8 +177,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		} catch(e){
 			console.log(e);
 		}
-
-	
 	}
 
 	useEffect(() => {
@@ -214,20 +188,16 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	// https://github.com/lagunovsky/redux-react-router
 	// load component, raise action to initialize (get profile data from state or fetch user from url)
 
-	// make query on a like to also .then on update promise, raise an action that adds the tweet id value and user id value.
-	//
 	const redirectToProfile = (tweet: Tweet): any => {
 		console.log("redirect button pressed");
 		window.location.href =
 			"http://localhost:3000/profile/" + tweet.user.screen_name;
 	};
 
-	// @TODO - flesh out this to include clickable username and reroutes.
 	function parseUserJSON(tweet: Tweet): any {
 		return tweet.user.name + " " + "@" + tweet.user.screen_name;
 	}
 
-	// checkProfilePicture(tweet);
 	return (
 		<Card
 			sx={{
@@ -304,7 +274,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				<Typography variant="body2">{tweet.text}</Typography>
 			</CardContent>
 
-			{/** @TODO: toggle reply count */}
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
 			{/* <CardActions disableSpacing className="icon-parents"> 
 			For whatever reason, material UI CardActions doesn't allow for respacing betwixt nested buttons*/}
@@ -324,16 +293,11 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 				<Button
 					onClick={() => {
-						//handleFavorited(tweet)
 						handleFavoritedInteraction(tweet)
-						//setLikedByUser(!likedByUser)
 						console.log("Favorite Button clicked for tweet: " + tweet._id )
-						console.log("Favorite Button color: " + color )
 					}}	
 					startIcon={<FavoriteIcon />}
 					className={color === "red" ? styles.red : styles.grey}
-					
-					
 				>
 					{ favoriteCount }
 				</Button>

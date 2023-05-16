@@ -30,7 +30,6 @@ export const deleteFavoritedInteraction = createAsyncThunk(
 export async function getFavoritedInteractionsByTweetId(tweetId: any, userId: any) {
 
     let response = await API.get(`/favorites/byId/${tweetId}/${userId}`)
-    console.log(response.data)
     return response.data
 
 }

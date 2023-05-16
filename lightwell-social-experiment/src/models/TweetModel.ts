@@ -10,6 +10,7 @@ export type Tweet = {
     text: string,
     source: string,
     truncated: boolean,
+    // Reply Status
     is_reply_status: boolean,
     in_reply_to_status_id: string,
     in_reply_to_user_id: string,
