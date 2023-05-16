@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 // https://mongoosejs.com/docs/guide.html
 var Schema = mongoose.Schema({
-  data: Buffer,
+  data: String,
   fileName: String,
   contentType: String,
   createdAt: Date,

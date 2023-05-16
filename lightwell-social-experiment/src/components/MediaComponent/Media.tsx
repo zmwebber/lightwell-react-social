@@ -5,51 +5,62 @@ import { Media } from "../../models/MediaModel";
 export default function MediaComponent() {
   let x = new Media();
   const [mediaProps, setMediaProps] = useState<Media>(x);
-  const [preview, setPreview] = useState("");  
+  const [preview, setPreview] = useState("");
   const fileReader = new FileReader();
 
   function addListeners() {
-
-    fileReader.addEventListener("loadend", handleComplete);    
+    fileReader.addEventListener("loadend", handleComplete);
     fileReader.addEventListener("error", handleComplete);
   }
 
-  function handleComplete(event: any){
-    console.log(event + "Event")
-    
-    if( event.type === "loadend"){
-      console.log("Complete! Res = "+ fileReader.result)
-      x.data = fileReader.result; 
-             
+  function handleComplete(event: any) {
+    if (event.type === "loadend") {
+      x.data = fileReader.result;
     }
-    else if (event.type === "error")   
-    {
-      x.data = "Error";
-    }  
-    setMediaProps(x);
+    else if (event.type === "error") {
+      x.data = "Error.";
+    }
 
-      console.log("Props: " + JSON.stringify(mediaProps));
+    setMediaProps(x);
+    console.log(mediaProps);
   }
 
   function handleChange(event: any) {
     const file = event.target.files[0];
+
     if (file) {
       addListeners();
-      convertImgToBinary(file);  
+      convertImgToBinary(file);
+
       x.fileName = file.name;
       x.contentType = file.type;
-      x.createdAt = file.lastModifiedDate;    
+      x.createdAt = file.lastModifiedDate;
     }
-    console.log("Change Happened");
-
   }
 
   function handleSubmit(event: any) {
+    event.preventDefault();
+
     addMedia(mediaProps);
+
+    getMedia().then((val) => {
+      console.log(val.data.media[0].data.data);
+
+      let buf = val.data.media[0].data.data.toString('base64')
+      let src = 'data:image/png;base64,' + buf;
+
+      console.log(src);
+      setPreview(buf);
+    });
+
+    // Take data and convert it into an image format the UI can handle
+
+    // console.log(getMediaVariable);
+    // setPreview(URL.createObjectURL(getMediaVariable));
   }
 
-  function convertImgToBinary(file: any){
-    fileReader.readAsBinaryString(file)  
+  function convertImgToBinary(file: any) {
+    fileReader.readAsText(file)
   }
 
   return (
@@ -58,8 +69,7 @@ export default function MediaComponent() {
         <label className="form-label" htmlFor="customFile"></label>
         <input type="file" onChange={handleChange} className="form-control" id="customFile" accept="image/*" />
         <input type="submit" value="Submit" />
-        <img src={preview} alt="preview"></img>
-
+        <img src={`data:image/png;base64,${preview}`} alt="preview"></img>
       </form>
     </>
   );
