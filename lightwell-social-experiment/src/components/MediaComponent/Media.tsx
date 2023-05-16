@@ -72,12 +72,15 @@ export default function MediaComponent() {
   }
   return (
     <>
-    <button onClick={loadPreview}> Click for Preview Latest Upload</button>
+      <div>
+        <button onClick={loadPreview}> Click for Preview Latest Upload</button>
+        <img src={"data:image/png;base64," + preview} width="300px" height="auto" alt="preview"/>
+      </div>
       <form onSubmit={handleSubmit}>
         <label className="form-label" htmlFor="customFile"></label>
         <input type="file" onChange={handleChange} className="form-control" id="customFile" accept="image/*" />
         <input type="submit" value="Submit" />
-        <img src={"data:image/png;base64," + preview} alt="preview"></img>
+        
       </form>
     </>
   );
