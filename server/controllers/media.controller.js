@@ -8,6 +8,11 @@ export const getAllMedia = asyncHandler(async (req, res) => {
   const media = await Media.find();
 
   if (media) {
+    console.log(typeof media[0].data);
+
+    // const base64Data = Buffer.from(media[0].data, "binary").toString("base64");
+    // media[0].data = base64Data;
+
     res.status(201).json({
       success: true,
       message: "Media retrieved successfully.",
@@ -22,9 +27,7 @@ export const getAllMedia = asyncHandler(async (req, res) => {
 });
 
 export const addMedia = asyncHandler(async (req, res) => {
-  
-  const newMedia = req.body;
-  const userResponse = await Media.create(newMedia);
+  const userResponse = await Media.create(req.body);
 
   if (userResponse) {
     res.status(201).json({
