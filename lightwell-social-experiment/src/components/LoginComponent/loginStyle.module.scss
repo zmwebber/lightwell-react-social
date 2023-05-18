@@ -1,16 +1,14 @@
-.twitter-icon{
-    color: #1DA1F2;
+@import "../../sassStyles/variables";
+
+.twitterIcon {
+    color: $primary-blue;
 }
 
-#login-button {
-    background-color: #1DA1F2;
-}
-
-.error-alert-box {
+.errorAlertBox {
     margin-top: 15px;
 }
 
-#login-div {
+.loginContainer {
     /* outline: auto;
     outline-color: rgba(0, 0, 0, 0.1); */
     min-height: 30rem;

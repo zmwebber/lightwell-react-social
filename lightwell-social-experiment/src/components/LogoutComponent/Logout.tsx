@@ -5,7 +5,6 @@ import { Profile, User } from "../../models/ProfileModel";
 import { Button, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import "./LogoutStyle.css";
 import { StaticDatePicker } from "@mui/x-date-pickers";
 import { authSlice } from "../../redux/ducks/user_duck/userSlice";
 import { selectOptions } from "@testing-library/user-event/dist/types/setup/directApi";

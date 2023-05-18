@@ -5,22 +5,18 @@ import QueryString from 'qs';
 
 const asyncHandler = require('express-async-handler')
 
-// create a remove interaction method
-// deleteOneById -> pass in _id
-// conditional front end logic - if user has already liked, then run delete method. Otherwise, add Interaction.
-
 export const addFavoritedInteraction = asyncHandler(async (req, res) => {
   const options = { upsert: true };
   console.log('added favorited')
   delete req.body._id;
   const newInteraction = req.body;
-  let x = await Favorites.updateOne(newInteraction, newInteraction, options);
+  let tweetFound = await Favorites.updateOne(newInteraction, newInteraction, options);
   //strip _id from tweet, let mongo generate it.
-  if (x) {
+  if (tweetFound) {
     res.status(201).json({
-      id: x._id,
-      tweetId: x.tweetId,
-      userId: x.userId
+      id: tweetFound._id,
+      tweetId: tweetFound.tweetId,
+      userId: tweetFound.userId
     })
   } else {
     res.status(400)
@@ -29,12 +25,9 @@ export const addFavoritedInteraction = asyncHandler(async (req, res) => {
 })
 
 export const deleteFavoritedInteraction = asyncHandler(async (req, res) => {
-  console.log('deleted favorited')
-  delete req.body._id;
-  const newInteraction = req.body;
-  let x = await Favorites.deleteOne(newInteraction._id, newInteraction.userId);
-  //strip _id from tweet, let mongo generate it.
-  if (x) {
+  const newInteraction = req.params;
+  let foundTweet = await Favorites.findOneAndDelete({ "tweetId": newInteraction.tweetId, "userId": newInteraction.userId });
+  if (foundTweet) {
     res.status(201).json({
       id: x._id,
       tweetId: x.tweetId,
@@ -53,9 +46,6 @@ export const getFavoritedInteractionsByTweetId = asyncHandler(async (req, res) =
 
   let favoritesCount = await Favorites.count({ 'tweetId': { $eq: params.tweetId } });
   let userHasLiked = await Favorites.count({ 'tweetId': { $eq: params.tweetId }, 'userId': { $eq: params.userId } })
-
-  console.log("Favorite Count: " + favoritesCount)
-  console.log("Response from getUserHasLiked method: " + userHasLiked);
 
   if (favoritesCount > 0) {
     if (userHasLiked > 0) {
@@ -86,20 +76,3 @@ export const getFavoritedInteractionsByTweetId = asyncHandler(async (req, res) =
   }
 
 })
-
-// export const getUserHasLiked = asyncHandler(async (req, res) => {
-//   const qs = QueryString.parse(req.query)
-//   console.log("getUserHasLiked method hit: " + qs.userId + " TweetID: " + qs.tweetId);
-//   let x = await Favorites.count({ 'tweetId': { $eq: qs.tweetId }, 'userId': { $eq: qs.userId } })
-//   console.log("Response from getUserHasLiked method: " + x);
-//   if (x > 0) {
-//     res.status(201).json({
-//       'likedByUser': "true"
-//     })
-//   } else {
-//     res.status(204).json({
-//       'likedByUser': "false"
-//     })
-//   }
-// })
-

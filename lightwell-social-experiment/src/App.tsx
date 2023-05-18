@@ -7,8 +7,8 @@ import HomePage from "./pages/HomePage/HomePage";
 import { ExplorePage } from "./pages/ExplorePage/ExplorePage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
-import "./App.css";
 import RegistrationPage from "./pages/AuthenticationPage/RegistrationPage";
+import "./App.module.scss";
 
 function App() {
 	return (

@@ -1,11 +1,11 @@
 import React from "react";
-import "./exploreStyle.css";
+import "./exploreStyle.module.scss";
 
 function Explore() {
 	return (
-		<div className="title" style={{ color: "white" }}>
+		<>
 			Explore Page
-		</div>
+		</>
 	);
 }
 

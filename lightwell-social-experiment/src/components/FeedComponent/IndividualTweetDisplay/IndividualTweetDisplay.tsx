@@ -21,8 +21,16 @@ import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ReplyButton } from "../../../app/shared/buttons";
-import {incrementFavorite,	decrementFavorite,	incrementRetweet,	decrementRetweet} from "../../../redux/ducks/post_duck/tweetFormSlice";
 import {addNewFavoritedInteraction,	deleteFavoritedInteraction,	getFavoritedInteractionsByTweetId} from "../../../api/FavoritesApi";
+import AppStyle from "../../../App.module.scss"
+import IndividualTweetDisplayStyle from "./individualTweetDisplayStyle.module.scss";
+
+import {
+	incrementFavorite,
+	decrementFavorite,
+	incrementRetweet,
+	decrementRetweet,
+} from "../../../redux/ducks/post_duck/tweetFormSlice";
 import ShareIcon from "@mui/icons-material/Share";
 
 import { Interaction } from "../../../models/InteractionsModel";
@@ -80,8 +88,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			(t: Tweet) => t._id === tweet._id
 		);
 
-		console.log(matchedTweet[0].user.name);
-
 		const editedTweet: Tweet = { ...matchedTweet[0] };
 
 		adjustRetweetCount(editedTweet);
@@ -102,8 +108,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		const matchedTweet = state.feed.Tweets.filter(
 			(t: Tweet) => t._id === tweet._id
 		);
-		
-		console.log("Entered handleFavorited method. LikedByUser var = " + likedByUser);
 
 		const editedTweet: Tweet = { ...matchedTweet[0] };
 		let interaction: Interaction = {
@@ -154,23 +158,17 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	async function getFavoritedInteractions() {
 		let res = await getFavoritedInteractionsByTweetId(tweet._id, state.user.profile._id);
-		console.log(res)
 
 		try {
-			let x = res.likedByUser
-			console.log("LikedByUser: " + res.likedByUser + '   ' + typeof(res.likedByUser) + " X: " + x)
-		
+			let isTweetLikedByUser = res.likedByUser	
 			setFavoriteCount(res.count);
-			console.log("getFavoritedInteractions method hit - TweetID: " + tweet._id + " UserID: " + state.user.profile._id);
-			
-			if (x === "true")
+		
+			if (isTweetLikedByUser === "true")
 			{
-				console.log("Liked, change color to red")
 				setColor("red")		
 				setLikedByUser(true);
 			} else
 			{
-				console.log("not liked, change color to grey")
 				setColor("grey")
 				setLikedByUser(false);
 			}
@@ -212,7 +210,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			<CardHeader
 				avatar={
 					<img
-						className="profile-picture"
+						className={AppStyle.profilePicture}
 						alt="profile-pic"
 						src={defaultProfilePic}
 						style={{ width: "5vw", height: "5vh" }}
@@ -294,7 +292,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				<Button
 					onClick={() => {
 						handleFavoritedInteraction(tweet)
-						console.log("Favorite Button clicked for tweet: " + tweet._id )
 					}}	
 					startIcon={<FavoriteIcon />}
 					className={color === "red" ? styles.red : styles.grey}
