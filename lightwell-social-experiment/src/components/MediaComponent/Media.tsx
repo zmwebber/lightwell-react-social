@@ -64,6 +64,7 @@ export default function MediaComponent() {
     getMedia().then((res) => {
       let length  = res.data.media.length -1;
       let buf = res.data.media[length].data
+      //need to replace the static image/png with the correct mime/type from the res.data.media[x].contentType
       let src = 'data:image/png;base64,' + buf;
 
       console.log(src);
