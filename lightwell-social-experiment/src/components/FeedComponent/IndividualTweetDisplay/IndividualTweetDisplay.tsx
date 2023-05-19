@@ -21,27 +21,24 @@ import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ReplyButton } from "../../../app/shared/buttons";
-import {addNewFavoritedInteraction,	deleteFavoritedInteraction,	getFavoritedInteractionsByTweetId} from "../../../api/FavoritesApi";
+import { addNewFavoritedInteraction,	deleteFavoritedInteraction,	getFavoritedInteractionsByTweetId } from "../../../api/FavoritesApi";
+
 import AppStyle from "../../../App.module.scss"
 import IndividualTweetDisplayStyle from "./individualTweetDisplayStyle.module.scss";
-
-import {
-	incrementFavorite,
-	decrementFavorite,
-	incrementRetweet,
-	decrementRetweet,
-} from "../../../redux/ducks/post_duck/tweetFormSlice";
 import ShareIcon from "@mui/icons-material/Share";
 
 import { Interaction } from "../../../models/InteractionsModel";
-import {addNewRetweetInteraction,deleteRetweetInteraction} from "../../../api/RetweetsApi";
+import { addNewRetweetInteraction, deleteRetweetInteraction, getRetweetInteractionsByTweetId } from "../../../api/RetweetsApi";
 import styles from "./individualTweetDisplayStyle.module.css";
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const [favoriteCount, setFavoriteCount] = React.useState<number>();
+	const [retweetCount, setRetweetCount] = React.useState<number>();
 	const [likedByUser, setLikedByUser] = React.useState<boolean>(false);
+	const [retweetedByUser, setRetweetedByUser] = React.useState<boolean>(false);
 	const [color, setColor] = React.useState<string>("grey");
+	const [retweetColor, setRetweetColor] = React.useState<string>("grey");
 	const [refresh, setRefresh] = React.useState<boolean>(false);
 	const open = Boolean(anchorEl);
 
@@ -73,36 +70,36 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			});
 	};
 
-	function adjustRetweetCount(tweet: Tweet) {
-		if (tweet.is_retweeted_status === false) {
-			store.dispatch(incrementRetweet(tweet));
-		} else if (tweet.is_retweeted_status === true) {
-			store.dispatch(decrementRetweet(tweet));
-		}
-	}
+	// function adjustRetweetCount(tweet: Tweet) {
+	// 	if (tweet.is_retweeted_status === false) {
+	// 		store.dispatch(incrementRetweet(tweet));
+	// 	} else if (tweet.is_retweeted_status === true) {
+	// 		store.dispatch(decrementRetweet(tweet));
+	// 	}
+	// }
 
-	const handleRetweet = (tweet: Tweet) => {
-		console.log("retweet button pressed");
+	// const handleRetweet = (tweet: Tweet) => {
+	// 	console.log("retweet button pressed");
 
-		const matchedTweet = state.feed.Tweets.filter(
-			(t: Tweet) => t._id === tweet._id
-		);
+	// 	const matchedTweet = state.feed.Tweets.filter(
+	// 		(t: Tweet) => t._id === tweet._id
+	// 	);
 
-		const editedTweet: Tweet = { ...matchedTweet[0] };
+	// 	const editedTweet: Tweet = { ...matchedTweet[0] };
 
-		adjustRetweetCount(editedTweet);
+		
 
-		const action = updateTweet(editedTweet);
+	// 	const action = updateTweet(editedTweet);
 
-		store
-			.dispatch(action)
-			.then(() => {
-				store.dispatch(getFeed());
-			})
-			.catch((error: any) => {
-				console.log(error);
-			});
-	};
+	// 	store
+	// 		.dispatch(action)
+	// 		.then(() => {
+	// 			store.dispatch(getFeed());
+	// 		})
+	// 		.catch((error: any) => {
+	// 			console.log(error);
+	// 		});
+	// };
 
 	const handleFavoritedInteraction = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
@@ -116,6 +113,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		};
 
 		let action = null;
+
+		console.log("likedByUser = " + likedByUser)
 
 		if (likedByUser) {
 			action = deleteFavoritedInteraction(interaction);
@@ -145,20 +144,26 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 		let action = null;
 
-		if (editedTweet.is_retweeted_status === true) {
+		console.log("retweetedByUser = " + retweetedByUser)
+
+		if (retweetedByUser === true) {
 			action = deleteRetweetInteraction(interaction);
 		} else {
 			action = addNewRetweetInteraction(interaction);
 		}
 
-		store.dispatch(action).catch((error: any) => {
+		store.dispatch(action)
+			.then(() => {
+				setRefresh(true)
+			})
+			.catch((error: any) => {
 			console.log(error);
 		});
 	};
 
 	async function getFavoritedInteractions() {
 		let res = await getFavoritedInteractionsByTweetId(tweet._id, state.user.profile._id);
-
+		console.log(res)
 		try {
 			let isTweetLikedByUser = res.likedByUser	
 			setFavoriteCount(res.count);
@@ -166,18 +171,42 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			if (isTweetLikedByUser === "true")
 			{
 				setColor("red")		
-				setLikedByUser(true);
+				setLikedByUser(true)
 			} else
 			{
 				setColor("grey")
-				setLikedByUser(false);
+				setLikedByUser(false)
 			}
 		} catch(e){
 			console.log(e);
 		}
-	}
+	};
+
+	async function getRetweetInteractions() {
+		console.log("Entering getRetweetInteraction method")
+		let res = await getRetweetInteractionsByTweetId(tweet._id, state.user.profile._id);
+		console.log(res)
+		try {
+			let isTweetRetweetedByUser = res.retweetedByUser
+			setRetweetCount(res.count)
+
+			if (isTweetRetweetedByUser === "true")
+			{
+				setRetweetColor("green")
+				setRetweetedByUser(true);
+			} else 
+			{
+				setRetweetColor("grey")
+				setRetweetedByUser(false)
+			}
+		} catch(e){
+			console.log(e);
+		}
+	};
 
 	useEffect(() => {
+		
+		getRetweetInteractions();
 		getFavoritedInteractions();
 		setRefresh(false)
 	}, [refresh]);
@@ -280,14 +309,13 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 				<Button
 					onClick={() => {
-						handleRetweet(tweet);
 						handleRetweetInteraction(tweet);
 					}}
 					sx={{
-						color: tweet.is_retweeted_status === true ? "#7EC542" : "grey",
+						color: retweetColor,
 					}}
 					startIcon={<RepeatIcon />}
-				>{`${tweet.retweet_count}`}</Button>
+				> { retweetCount } </Button>
 
 				<Button
 					onClick={() => {
@@ -295,9 +323,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					}}	
 					startIcon={<FavoriteIcon />}
 					className={color === "red" ? styles.red : styles.grey}
-				>
-					{ favoriteCount }
-				</Button>
+				> { favoriteCount } </Button>
 
 				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
 			</div>

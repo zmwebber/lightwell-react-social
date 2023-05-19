@@ -2,13 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Tweet } from "../models/TweetModel";
 import { Interaction } from "../models/InteractionsModel"
 import API from "./apiConfig";
-import { useStore } from "react-redux";
 
 export const addNewFavoritedInteraction = createAsyncThunk(
     "favorites/add",
     async (interaction: Interaction) => {
         try {
             const response = await API.post("/favorites/", interaction)
+            console.log(response.data)
             return response.data
         } catch (error) {
             console.log(error)

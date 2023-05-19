@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import Tweets from '../models/tweet.model';
 import Favorites from '../models/favorites.model';
-import QueryString from 'qs';
 
 const asyncHandler = require('express-async-handler')
 
