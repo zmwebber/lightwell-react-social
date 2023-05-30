@@ -2,7 +2,7 @@
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import RepeatIcon from "@mui/icons-material/Repeat";
-import { IconButton } from "@mui/material";
+import { Box, IconButton, Modal } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useStore } from "react-redux";
 import { deleteTweet, updateTweet } from "../../../api/TweetApi";
@@ -14,6 +14,7 @@ import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutline"
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import { getFeed } from "../../../api/TweetApi";
 import timeCalculator from "../../../app/shared/timeConverter";
@@ -22,6 +23,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ReplyButton } from "../../../app/shared/buttons";
 import { addNewFavoritedInteraction,	deleteFavoritedInteraction,	getFavoritedInteractionsByTweetId } from "../../../api/FavoritesApi";
+import TweetForm from "../../FormComponent/TweetForm";
+import Comment from "../../CommentComponent/Comment";
 
 import AppStyle from "../../../App.module.scss"
 import IndividualTweetDisplayStyle from "./individualTweetDisplayStyle.module.scss";
@@ -35,15 +38,29 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const [favoriteCount, setFavoriteCount] = React.useState<number>();
 	const [retweetCount, setRetweetCount] = React.useState<number>();
+	const [commentCount, setCommentCount] = React.useState<number>();
 	const [likedByUser, setLikedByUser] = React.useState<boolean>(false);
 	const [retweetedByUser, setRetweetedByUser] = React.useState<boolean>(false);
 	const [color, setColor] = React.useState<string>("grey");
 	const [retweetColor, setRetweetColor] = React.useState<string>("grey");
 	const [refresh, setRefresh] = React.useState<boolean>(false);
+	const [modalOpen, setModalOpen] = React.useState(false);
 	const open = Boolean(anchorEl);
 
 	const store = useStore();
 	const state: any = store.getState();
+
+	const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -51,6 +68,14 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	const handleCommentModalOpen = () => {
+		setModalOpen(true);
+	}
+
+	const handleCommentModalClose = () => {
+		setModalOpen(false);
+	}
 
 	const handleDelete = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
@@ -69,37 +94,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				console.log(error);
 			});
 	};
-
-	// function adjustRetweetCount(tweet: Tweet) {
-	// 	if (tweet.is_retweeted_status === false) {
-	// 		store.dispatch(incrementRetweet(tweet));
-	// 	} else if (tweet.is_retweeted_status === true) {
-	// 		store.dispatch(decrementRetweet(tweet));
-	// 	}
-	// }
-
-	// const handleRetweet = (tweet: Tweet) => {
-	// 	console.log("retweet button pressed");
-
-	// 	const matchedTweet = state.feed.Tweets.filter(
-	// 		(t: Tweet) => t._id === tweet._id
-	// 	);
-
-	// 	const editedTweet: Tweet = { ...matchedTweet[0] };
-
-		
-
-	// 	const action = updateTweet(editedTweet);
-
-	// 	store
-	// 		.dispatch(action)
-	// 		.then(() => {
-	// 			store.dispatch(getFeed());
-	// 		})
-	// 		.catch((error: any) => {
-	// 			console.log(error);
-	// 		});
-	// };
 
 	const handleFavoritedInteraction = (tweet: Tweet) => {
 		const matchedTweet = state.feed.Tweets.filter(
@@ -305,8 +299,21 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			{/* <CardActions disableSpacing className="icon-parents"> 
 			For whatever reason, material UI CardActions doesn't allow for respacing betwixt nested buttons*/}
 			<div style={{ display: "flex", justifyContent: "space-around" }}>
-				<ReplyButton reply_count={tweet.reply_count} />
-
+				
+			<div>
+      <Button onClick={handleCommentModalOpen} startIcon={<ChatBubbleOutlineRoundedIcon />}>{commentCount}</Button>
+      <Modal
+        open={modalOpen}
+        onClose={handleCommentModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+					<Comment/>
+          <TweetForm isReplyStatus={true} statusId={"statusId"} userId={"123"}/>
+        </Box>
+      </Modal>
+    	</div>
 				<Button
 					onClick={() => {
 						handleRetweetInteraction(tweet);

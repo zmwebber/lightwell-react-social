@@ -41,7 +41,7 @@ const NavbarTwitterIconButton = () => {
 	return (
 		<div>
 			<Button>
-				<SvgIcon component={TwitterIcon} style={{ fontSize: 40 }} />
+				<SvgIcon component={ TwitterIcon } style={{ fontSize: 40 }} />
 			</Button>
 		</div>
 	);
