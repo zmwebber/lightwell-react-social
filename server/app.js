@@ -9,6 +9,8 @@ import SourceMapSupport from 'source-map-support';
 import todoRoutes from './routes/todo.server.route';
 import tweetRoutes from './routes/tweet.route';
 import userRoutes from './routes/users.route';
+import interactionRoutes from './routes/interactions.route';
+import retweetRoutes from './routes/retweets.route';
 // define our app using express
 const app = express();
 // allow-cors
@@ -29,12 +31,14 @@ const port = process.env.PORT || 5000;
 mongoose.Promise = global.Promise;
 // Shared mongo database
  mongoose.connect('mongodb+srv://twitter-clone:TwitterCloneAdmin!23@twitterclonecluster.ebs6r7m.mongodb.net/Social?retryWrites=true&w=majority');
- //mongoose.connect('mongodb+srv://username:lbQL8fruhna37x6m@atlascluster.mx3cskk.mongodb.net/?retryWrites=true&w=majority')
+ // mongoose.connect('mongodb+srv://username:lbQL8fruhna37x6m@atlascluster.mx3cskk.mongodb.net/?retryWrites=true&w=majority')
 // add Source Map Support
 SourceMapSupport.install();
 app.use('/api', todoRoutes);
 app.use('/api', tweetRoutes);
 app.use('/api', userRoutes);
+app.use('/api', interactionRoutes);
+app.use('/api', retweetRoutes);
 app.get('/', (req,res) => {
   return res.end('Api working');
 })
@@ -50,5 +54,5 @@ app.listen(port,() => {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
-  console.log("Connected successfully");
+  console.log("Mongoose connected successfully");
 });

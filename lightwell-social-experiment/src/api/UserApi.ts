@@ -48,7 +48,6 @@ export const addUser = createAsyncThunk(
     }
   })
 
-
 // Logout user
 export const logout = createAsyncThunk(
   "users/logout",
@@ -60,8 +59,6 @@ export const logout = createAsyncThunk(
       console.log(err);
     }
   })
-
-
 
 const userService = {
   addUser,

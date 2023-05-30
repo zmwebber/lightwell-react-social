@@ -34,6 +34,7 @@ const TweetFeed = () => {
 
 	return (
 		// if user clicks on another user, display that users tweets. else, show all.
+		//.filter(tweet => tweet.is_reply_status === false)
 		<>
 			{!feed.loading &&
 				feed.Tweets &&

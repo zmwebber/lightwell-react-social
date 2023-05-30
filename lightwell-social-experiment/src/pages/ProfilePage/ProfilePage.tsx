@@ -41,8 +41,6 @@ export function ProfilePage() {
 				/>
 
 				<TabsComponent />
-
-				
 			</div>
 		</div>
 	);
