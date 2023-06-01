@@ -45,7 +45,6 @@ app.use("/api", todoRoutes);
 app.use("/api", tweetRoutes);
 app.use("/api", userRoutes);
 app.use("/api", mediaRoutes);
-app.get("/", (req, res) => {
 app.use('/api', interactionRoutes);
 app.use('/api', retweetRoutes);
 app.get('/', (req,res) => {
