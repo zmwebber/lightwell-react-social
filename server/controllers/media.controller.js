@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { mongo } from "mongoose";
 import Media from "../models/media.model";
 import QueryString from "qs";
 import asyncHandler from "express-async-handler";
@@ -22,11 +23,19 @@ export const getAllMedia = asyncHandler(async (req, res) => {
 });
 
 export const addMedia = asyncHandler(async (req, res) => {
-  const userResponse = await Media.create(req.body);
-
+  var id = mongoose.Types.ObjectId();
+  console.log("req.body before" + JSON.stringify(req.body))
+  var reqJSON = JSON.parse(JSON.stringify(req.body))
+  reqJSON._id = id;
+  console.log("req.body after" + JSON.stringify(reqJSON))
+  const userResponse = await Media.create(reqJSON)
+  console.log(JSON.stringify(userResponse))
   if (userResponse) {
-    res.status(201).json({
-      media: userResponse,
+    var resJSON = JSON.parse(JSON.stringify(userResponse))
+    resJSON._id = id;
+    console.log("res json: " + JSON.stringify(resJSON))
+    res.status(201).json({    
+      media: resJSON,
     });
   } else {
     res.status(400);
