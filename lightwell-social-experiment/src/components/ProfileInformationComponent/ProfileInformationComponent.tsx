@@ -3,6 +3,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import ProfileInformationComponentStyle from "./profileInformationComponentStyle.module.scss";
 import Media from '../MediaComponent/Media';
 import { styled } from "@mui/system";
+import Button from '@mui/material/Button';
 
 
 interface ProfileInformationProps {
