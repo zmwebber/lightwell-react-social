@@ -7,10 +7,10 @@ export class Media {
     createdAt: Date;
 
     constructor() {
-        this._id = null
-        this.data = ""
-        this.fileName = ""
-        this.contentType = ""
-        this.createdAt = new Date()
+        this._id = null;
+        this.data = "";
+        this.fileName = "";
+        this.contentType = "";
+        this.createdAt = new Date();
     }
 }
