@@ -1,4 +1,3 @@
-// ./express-server/routes/tweet.route.js
 import express from 'express';
 //import controller file
 import * as tweetController from '../controllers/tweet.controller';

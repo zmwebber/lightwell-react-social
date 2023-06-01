@@ -14,7 +14,6 @@ else {
   user = undefined;
 }
 
-
 export interface UserState {
   profile: User | null | undefined,
   isError: boolean,
@@ -101,5 +100,6 @@ export const authSlice = createSlice({
   },
 })
 
-export const { reset } = authSlice.actions
+export const { reset } = authSlice.actions;
+
 export default authSlice.reducer

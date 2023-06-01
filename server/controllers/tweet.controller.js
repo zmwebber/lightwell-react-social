@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import Tweets from "../models/tweet.model";
-import QueryString from "qs";
+
+import QueryString from 'qs';
+
 
 export const getTweets = (req, res) => {
   console.log("getTweets");

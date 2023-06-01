@@ -10,6 +10,8 @@ import todoRoutes from "./routes/todo.server.route";
 import tweetRoutes from "./routes/tweet.route";
 import userRoutes from "./routes/users.route";
 import mediaRoutes from "./routes/media.route";
+import interactionRoutes from './routes/interactions.route';
+import retweetRoutes from './routes/retweets.route';
 // define our app using express
 const app = express();
 // allow-cors
@@ -44,8 +46,11 @@ app.use("/api", tweetRoutes);
 app.use("/api", userRoutes);
 app.use("/api", mediaRoutes);
 app.get("/", (req, res) => {
-  return res.end("Api working");
-});
+app.use('/api', interactionRoutes);
+app.use('/api', retweetRoutes);
+app.get('/', (req,res) => {
+  return res.end('Api working');
+})
 // catch 404
 app.use((req, res, next) => {
   res.status(404).send("<h2 align=center>Page Not Found!</h2>");
@@ -58,5 +63,5 @@ app.listen(port, () => {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
-  console.log("Connected successfully");
+  console.log("Mongoose connected successfully");
 });

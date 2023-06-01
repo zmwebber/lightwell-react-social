@@ -5,16 +5,16 @@ import { useStore } from "react-redux";
 import { Tweet } from "../../models/TweetModel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import "./tweetFormStyle.css";
 import { addTweet, getFeed } from "../../api/TweetApi";
 import { useAppSelector } from "../../app/hooks/hooks";
 import type { } from "redux-thunk/extend-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import defaultProfilePic from "../../app/images/default-profile-pic.jpeg";
-import "./tweetFormStyle.css";
 import { TweetButton } from "../../app/shared/buttons";
 import { styled } from "@mui/system";
+import AppStyle from "../../App.module.scss"
+import TweetFormStyle from "./tweetFormStyle.module.scss";
 // @TODO: Data validation -- user shouldn't be allowed to insert empty string.
 // user shouldn't be allowed to submit a tweet of only spaces.
 // https://mongoosejs.com/docs/validation.html
@@ -37,9 +37,9 @@ function TweetForm(props: any) {
 		text: "",
 		source: "Twitter Clone Web App",
 		truncated: false,
-		is_reply_status: false,
-		in_reply_to_status_id: "",
-		in_reply_to_user_id: "",
+		is_reply_status: props.isReplyStatus,
+		in_reply_to_status_id: props.statusId,
+		in_reply_to_user_id: props.userId,
 		reply_count: 0,
 		is_quote_status: false,
 		quoted_status_id: "",
@@ -87,12 +87,12 @@ function TweetForm(props: any) {
 	};
 
 	return (
-		<div className="tweet-form" style={{ backgroundColor: "white" }}>
+		<div className={TweetFormStyle.tweetForm} style={{ backgroundColor: "white" }}>
 			<form onSubmit={tweetSuccess}>
-				<Grid container direction="row" className="container">
+				<Grid container direction="row" className={TweetFormStyle.container}>
 					<Grid item>
 						<img
-							className="profile-picture"
+							className={AppStyle.profilePicture}
 							alt="profile-pic"
 							src={defaultProfilePic}
 							style={{ width: "5vw", height: "5vh" }}
@@ -121,7 +121,7 @@ function TweetForm(props: any) {
 
 				<TweetButton
 					type="submit"
-					className="tweet-button"
+					className={TweetFormStyle.tweetButton}
 					style={{ backgroundColor: "deepskyblue", color: "white" }}
 				>
 					TWEET

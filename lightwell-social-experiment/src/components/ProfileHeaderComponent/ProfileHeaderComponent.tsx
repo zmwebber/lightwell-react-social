@@ -1,4 +1,4 @@
-import "./profileHeaderComponentStyle.css";
+import ProfileHeaderComponentStyle from "./profileHeaderComponentStyle.module.scss";
 
 interface ProfileHeaderProps {
     name: string;
@@ -8,8 +8,8 @@ interface ProfileHeaderProps {
 function ProfileHeaderComponent(props: ProfileHeaderProps) {
     return (
         <>
-            <h2 className="profile-header-name" style={{ marginBottom: '5px' }}>{props.name}</h2>
-            <p className="profile-header-tweets" style={{ marginTop: '0px' }}>{props.statuses_count} tweet(s)</p>
+            <h2 className={ProfileHeaderComponentStyle.profileHeaderName} style={{ marginBottom: '5px' }}>{props.name}</h2>
+            <p className={ProfileHeaderComponentStyle.profileHeaderTweets} style={{ marginTop: '0px' }}>{props.statuses_count} tweet(s)</p>
         </>
     );
 }

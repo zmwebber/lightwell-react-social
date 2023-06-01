@@ -1,0 +1,9 @@
+.red{
+    color:red !important;
+}
+.grey{
+    color:grey !important;
+}
+img.profile-picture:hover {
+    cursor: pointer;
+}

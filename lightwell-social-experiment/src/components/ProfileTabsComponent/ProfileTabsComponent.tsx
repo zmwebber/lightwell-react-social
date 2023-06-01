@@ -3,11 +3,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import "./tabsComponentStyle.css";
 import { useSelector, useDispatch, useStore } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
 import { getProfileFeed } from '../../api/TweetApi';
 import IndividualTweetDisplay from "../FeedComponent/IndividualTweetDisplay/IndividualTweetDisplay";
+import TabsComponentStyle from "./tabsComponentStyle.module.scss";
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -72,7 +73,7 @@ export default function TabsComponent() {
         }
     }
     return (
-        <Box sx={{ width: '100%' }} className="tab-box">
+        <Box sx={{ width: '100%' }} className={TabsComponentStyle.tabBox}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Tweets" {...a11yProps(0)} />

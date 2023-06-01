@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../../app/store';
-import { fetchCount } from '../../../app/functions/counterAPI';
 import { Tweet } from '../../../models/TweetModel';
 import { IActionModel } from '../../../models/ActionModel';
 import { addTweet, deleteTweet, updateTweet, getProfileFeed } from '../../../api/TweetApi';
@@ -55,15 +54,8 @@ export const tweetFormSlice = createSlice({
     },
     [updateTweet.pending.type]: (state, action) => {
       state.loading = true;
-      // const id = action.payload.tweet.id;
-      // const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
-      // // favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
-      // favoritedTweet[0].favorited=true;
     },
     [updateTweet.fulfilled.type]: (state, action) => {
-      // const id: string = action.payload.id;
-      // const favoritedTweet = state.myTweets.filter((tweet: Tweet) => tweet.id === id);
-      // favoritedTweet[0].favorited=!favoritedTweet[0].favorited;
       state.loading = false;
     },
     [getProfileFeed.pending.type]: (state, action) =>{
@@ -82,7 +74,6 @@ export const { toggleLoading, incrementFavorite, decrementFavorite, incrementRet
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 
-//export const myTweets = useSelector((state: RootState) => state.myTweets.myTweets);
 export const myTweets = (state: RootState) => state.myTweets;
 
 export default tweetFormSlice.reducer;

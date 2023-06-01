@@ -8,6 +8,7 @@ import {
 	TweetFeedState,
 } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
+import TweedFeedStyle from "./tweetFeedStyle.module.scss"
 
 const TweetFeed = () => {
 	//const store = useStore();
@@ -33,6 +34,7 @@ const TweetFeed = () => {
 
 	return (
 		// if user clicks on another user, display that users tweets. else, show all.
+		//.filter(tweet => tweet.is_reply_status === false)
 		<>
 			{!feed.loading &&
 				feed.Tweets &&

@@ -4,11 +4,10 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { theme } from "./colorConstants";
 import { ThemeProvider } from "@emotion/react";
-import "./index.css";
+import "./index.module.scss";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
