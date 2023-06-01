@@ -42,9 +42,9 @@ export default function ProfileInformationComponent(props: ProfileInformationPro
                     <span className={ProfileInformationComponentStyle.userJoinedDate}> Joined {props.date_joined}</span>
                 </div>
 
-                <div className="user-follow-container">
-                    <span className="user-following"><strong>{props.following}</strong> Following</span>
-                    <span className="user-followers"><strong>{props.followers}</strong> Followers</span>
+                <div className={ProfileInformationComponentStyle.userFollowContainer}>
+                    <span className={ProfileInformationComponentStyle.userFollowing}><strong>{props.following}</strong> Following</span>
+                    <span><strong>{props.followers}</strong> Followers</span>
                 </div>
                 <Media />
             </Box>

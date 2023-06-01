@@ -55,8 +55,8 @@ function ProfileHeroComponent() {
 			</div>
 
 			<div className={ProfileHeroComponentStyle.notificationBar}>
-				<img src={"data:image/png;base64," + preview} className="profile-pic" width="300px" height="auto" alt="preview" />
-				<EditProfileButton className="edit-profile-button" variant="contained">
+				<img src={"data:image/png;base64," + preview} className={ProfileHeroComponentStyle.profilePicture} width="300px" height="auto" alt="preview" />
+				<EditProfileButton variant="contained">
 					Edit Profile
 				</EditProfileButton>
 			</div>
