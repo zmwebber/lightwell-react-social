@@ -9,6 +9,7 @@ import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
 import { getMedia } from "../../api/MediaApi";
 import ProfileHeroComponentStyle from "./profileHeroComponentStyle.module.scss";
 import UserRegistrationForm from "../LoginComponent/UserRegistrationForm";
+import Media from "../MediaComponent/Media";
 
 // Outline: Profile Page should filter out tweets by user.
 // if navigating to a user's profile, all tweets in the tweet feed should be of that user or retweeted by that user.
@@ -84,7 +85,8 @@ function ProfileHeroComponent() {
 						aria-describedby="modal-modal-description"
 					>
 						<Box sx={style}>
-							<UserRegistrationForm />
+							Update profile picture
+							<Media />
 						</Box>
 					</Modal>
 				}

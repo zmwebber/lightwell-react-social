@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import ProfileInformationComponentStyle from "./profileInformationComponentStyle.module.scss";
-import Media from '../MediaComponent/Media';
 import { styled } from "@mui/system";
 import Button from '@mui/material/Button';
 
@@ -45,7 +44,6 @@ export default function ProfileInformationComponent(props: ProfileInformationPro
                     <span className={ProfileInformationComponentStyle.userFollowing}><strong>{props.following}</strong> Following</span>
                     <span><strong>{props.followers}</strong> Followers</span>
                 </div>
-                <Media />
             </Box>
         </Box>
     );
