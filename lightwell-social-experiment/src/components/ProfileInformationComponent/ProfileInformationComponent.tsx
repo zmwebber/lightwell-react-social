@@ -36,7 +36,6 @@ export default function ProfileInformationComponent(props: ProfileInformationPro
             <Box>
                 <h2 className={ProfileInformationComponentStyle.userName}>{props.name}</h2>
                 <p className={ProfileInformationComponentStyle.userHandleSubtext}>@{props.screen_name}</p>
-
                 <div className={ProfileInformationComponentStyle.userJoinedContainer}>
                     <DateRangeIcon className={ProfileInformationComponentStyle.dateIcon} />
                     <span className={ProfileInformationComponentStyle.userJoinedDate}> Joined {props.date_joined}</span>
