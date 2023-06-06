@@ -1,11 +1,11 @@
 import { Button, Input } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { myTweets } from "../../redux/ducks/post_duck/tweetFormSlice";
-import { useStore } from "react-redux";
-import { Profile } from "../../models/ProfileModel";
+import { useSelector, useStore } from "react-redux";
+import { Profile, User } from "../../models/ProfileModel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import { addUser } from "../../api/UserApi";
+import { addUser, editUser } from "../../api/UserApi";
 import { useAppSelector } from "../../app/hooks/hooks";
 import type { } from "redux-thunk/extend-redux";
 import dayjs, { Dayjs } from "dayjs";
@@ -14,9 +14,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import UserRegistrationFormStyle from "./userRegistrationFormStyle.module.scss";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import Media from "../MediaComponent/Media";
 function UserRegistrationForm(props: any) {
 	const store = useStore();
+	const state: any = store.getState();
+
 	const feed = useAppSelector(myTweets);
+	const user = useSelector((state: any) => state.user.profile)
 
 	const [name, setName] = useState("");
 	const [handle, setHandle] = useState("");
@@ -25,45 +29,59 @@ function UserRegistrationForm(props: any) {
 	const [birthday, setBirthday] = React.useState<Dayjs | null>(
 		dayjs("2014-08-18T21:11:54")
 	);
-	// const [tweetPicture, setTweetPicture] = useState("");
-	const [profile, setProfile] = useState<Profile>({
-		name: "",
-		screen_name: "",
-		email: "",
-		password: "",
-		dateOfBirth: new Date(),
-		createdAt: new Date(),
-		description: "",
-		url: "",
-		protected: false,
-		followers_count: 0,
-		friends_count: 0,
-		listed_count: 0,
-		favorites_count: 0,
-		verified: false,
-		statuses_count: 0,
-		profile_background_color: "",
-		profile_background_image_url: "",
-		profile_image_url: "",
-	});
+
+	const [profile, setProfile] = useState<User>();
+
+	const initializeUser = () => {
+		console.log("BEFORE IF!");
+
+		let newUser = new User("", "");
+
+		if (user) {
+			newUser = user;
+			console.log("NEW USER: " + typeof (newUser));
+			setProfile(newUser);
+			console.log("USER EXISTS USER: " + JSON.stringify(user));
+			console.log("USER EXISTS PROFILE: " + JSON.stringify(profile));
+		} else {
+			console.log("NEW USER: " + JSON.stringify(profile));
+			setProfile(newUser);
+		}
+	}
+
+	useEffect(() => {
+		initializeUser();
+	}, []);
+
 	const profileSuccess = (e: any) => {
 		e.preventDefault();
-		if (birthday !== null) {
-			profile.dateOfBirth = new Date(birthday.toString());
+		let action = null;
+
+		if (profile) {
+			if (birthday !== null) {
+				profile.dateOfBirth = new Date(birthday.toString());
+			}
+			profile.name = name;
+			profile.screen_name = handle;
+			profile.email = email;
+			profile.password = password;
+
+			if (props.profileStatus === "edit") {
+				console.log("EDIT")
+				action = editUser(profile);
+			} else {
+				console.log("CREATE")
+				action = addUser(profile);
+			}
+
+			store
+				.dispatch(action)
+				.unwrap()
+				.catch((error: any) => {
+					console.log(error);
+				});
 		}
-		profile.name = name;
-		profile.screen_name = handle;
-		profile.email = email;
-		profile.password = password;
 
-		const action = addUser(profile);
-
-		store
-			.dispatch(action)
-			.unwrap()
-			.catch((error: any) => {
-				console.log(error);
-			});
 		e.target.reset();
 
 		if (props.className == "modal") {
@@ -86,6 +104,7 @@ function UserRegistrationForm(props: any) {
 								type="text"
 								id="name"
 								placeholder="FirstName LastName"
+								defaultValue={profile?.name || ""}
 								onChange={(e) => setName(e.target.value)}
 							/>
 							<TextField
@@ -109,6 +128,9 @@ function UserRegistrationForm(props: any) {
 								placeholder="Strong Password"
 								onChange={(e) => setPassword(e.target.value)}
 							/>
+							{
+								props.profileStatus === "edit" ? <Media /> : null
+							}
 						</Grid>
 					</Grid>
 					<Grid container direction="column" className={UserRegistrationFormStyle.gridContainer}>
@@ -122,7 +144,9 @@ function UserRegistrationForm(props: any) {
 								className={UserRegistrationFormStyle.datePicker}
 							/>
 						</Grid>
-						<Button type="submit">Register User</Button>
+						{
+							props.profileStatus === "edit" ? <Button type="submit">Update User</Button> : <Button type="submit">Register User</Button>
+						}
 					</Grid>
 				</LocalizationProvider>
 			</form>
