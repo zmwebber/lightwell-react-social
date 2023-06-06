@@ -20,11 +20,11 @@ function UserRegistrationForm(props: any) {
 	const state: any = store.getState();	
 	const user : User = useSelector((state: any) => state.user.profile)
 	const [password, setPassword] = useState("");
-	const [name, setName] = useState("");
-	const [handle, setHandle] = useState("");
-	const [email, setEmail] = useState("");	
+	const [name, setName] = useState(user?.name ?? "");
+	const [handle, setHandle] = useState(user?.screen_name ?? "");
+	const [email, setEmail] = useState(user?.email ?? "");	
 	const [birthday, setBirthday] = React.useState<Dayjs | null>(
-		dayjs("2014-08-18T21:11:54")
+		dayjs(user?.dateOfBirth)
 	);
 
 	const profileSuccess = (e: any) => {

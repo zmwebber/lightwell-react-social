@@ -56,7 +56,7 @@ export const addUser = createAsyncThunk(
         if (response.data) {
           localStorage.setItem('user', JSON.stringify(response.data))
         }
-        return response.data
+        return response.data.profile
       } catch (err) {
         // let error: AxiosError = err;  
         //   const message =

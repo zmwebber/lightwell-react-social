@@ -61,12 +61,11 @@ export const editUser = asyncHandler(async (req, res) => {
   const userResponse = await User.findOneAndUpdate(filter, user);
 
   if (userResponse) {
+    userResponse["token"] = generateToken(userResponse._id)
+    console.log("Updated User: " + userResponse)
+    //TODO - figure out why this is not returning the updated value --- changed name, returning original name before change
     res.status(201).json({
-      _id: userResponse.id,
-      screen_name: userResponse.screen_name,
-      name: userResponse.name,
-      email: userResponse.email,
-      token: generateToken(userResponse._id), // generate JWT
+     profile: userResponse
     });
   } else {
     res.status(400);
