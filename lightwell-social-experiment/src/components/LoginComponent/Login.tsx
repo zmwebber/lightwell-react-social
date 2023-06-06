@@ -36,8 +36,9 @@ function Login(props: any) {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-
-		const user = new User(email, password)
+		let user = new User()
+		user.email = email;
+		user.password = password;		
 		const action = login(user);
 
 		store

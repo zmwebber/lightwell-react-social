@@ -20,7 +20,7 @@ function UserRegistrationForm(props: any) {
 	const state: any = store.getState();
 
 	const feed = useAppSelector(myTweets);
-	const user = useSelector((state: any) => state.user.profile)
+	const user : User = useSelector((state: any) => state.user.profile)
 
 	const [name, setName] = useState("");
 	const [handle, setHandle] = useState("");
@@ -30,48 +30,31 @@ function UserRegistrationForm(props: any) {
 		dayjs("2014-08-18T21:11:54")
 	);
 
-	const [profile, setProfile] = useState<User>();
 
-	const initializeUser = () => {
-		console.log("BEFORE IF!");
-
-		let newUser = new User("", "");
-
-		if (user) {
-			newUser = user;
-			console.log("NEW USER: " + typeof (newUser));
-			setProfile(newUser);
-			console.log("USER EXISTS USER: " + JSON.stringify(user));
-			console.log("USER EXISTS PROFILE: " + JSON.stringify(profile));
-		} else {
-			console.log("NEW USER: " + JSON.stringify(profile));
-			setProfile(newUser);
-		}
-	}
 
 	useEffect(() => {
-		initializeUser();
+
 	}, []);
 
 	const profileSuccess = (e: any) => {
 		e.preventDefault();
 		let action = null;
 
-		if (profile) {
+		if (user) {
 			if (birthday !== null) {
-				profile.dateOfBirth = new Date(birthday.toString());
+				user.dateOfBirth = new Date(birthday.toString());
 			}
-			profile.name = name;
-			profile.screen_name = handle;
-			profile.email = email;
-			profile.password = password;
+			user.name = name;
+			user.screen_name = handle;
+			user.email = email;
+			user.password = password;
 
 			if (props.profileStatus === "edit") {
 				console.log("EDIT")
-				action = editUser(profile);
+				action = editUser(user);
 			} else {
 				console.log("CREATE")
-				action = addUser(profile);
+				action = addUser(user);
 			}
 
 			store
@@ -104,7 +87,7 @@ function UserRegistrationForm(props: any) {
 								type="text"
 								id="name"
 								placeholder="FirstName LastName"
-								defaultValue={profile?.name || ""}
+								defaultValue={user?.name || ""}
 								onChange={(e) => setName(e.target.value)}
 							/>
 							<TextField
@@ -112,6 +95,7 @@ function UserRegistrationForm(props: any) {
 								type="text"
 								id="userName"
 								placeholder="Handle"
+								defaultValue={user?.screen_name || ""}
 								onChange={(e) => setHandle(e.target.value)}
 							/>
 							<TextField
@@ -119,13 +103,14 @@ function UserRegistrationForm(props: any) {
 								type="text"
 								id="email"
 								placeholder="someone@example.com"
+								defaultValue={user?.email || ""}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 							<TextField
 								name="Password"
 								type="text"
 								id="password"
-								placeholder="Strong Password"
+								placeholder="Strong Password"								
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 							{

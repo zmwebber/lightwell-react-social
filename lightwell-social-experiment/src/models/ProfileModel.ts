@@ -40,25 +40,27 @@ export class User implements Profile {
     profile_background_image_url;
     profile_image_url;
 
-    constructor(email: string, password: string) {
-        this._id = ""
-        this.name = ""
-        this.screen_name = ""
-        this.email = email
-        this.password = password
-        this.dateOfBirth = new Date()
-        this.createdAt = new Date()
-        this.description = ""
-        this.url = ""
-        this.protected = false
-        this.followers_count = 0
-        this.friends_count = 0
-        this.listed_count = 0
-        this.favorites_count = 0
-        this.verified = false
-        this.statuses_count = 0
-        this.profile_background_color = ""
-        this.profile_background_image_url = ""
-        this.profile_image_url = ""
+    constructor();
+    constructor(profile?: Profile, id?: string)
+    {
+        this._id = id ?? ""
+        this.name = profile?.name ?? ""
+        this.screen_name = profile?.screen_name ?? ""
+        this.email = profile?.email ?? ""
+        this.password = profile?.password ?? ""
+        this.dateOfBirth = profile?.dateOfBirth ?? new Date()
+        this.createdAt = profile?.createdAt ?? new Date()
+        this.description = profile?.description ?? ""
+        this.url = profile?.url ?? ""
+        this.protected = profile?.protected ?? false
+        this.followers_count = profile?.followers_count ?? 0
+        this.friends_count = profile?.friends_count ?? 0
+        this.listed_count = profile?.listed_count ?? 0
+        this.favorites_count =profile?.favorites_count ?? 0
+        this.verified = profile?.verified ?? false
+        this.statuses_count = profile?.statuses_count ?? 0
+        this.profile_background_color = profile?.profile_background_color ?? ""
+        this.profile_background_image_url = profile?.profile_background_color ?? ""
+        this.profile_image_url = profile?.profile_image_url ?? ""
     }
 }
