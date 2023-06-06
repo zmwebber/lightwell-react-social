@@ -20,6 +20,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.8.0",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.22",
     "qs": "^6.11.0",
     "source-map-support": "^0.5.21"
   }

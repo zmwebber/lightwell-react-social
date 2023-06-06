@@ -1,7 +1,7 @@
 import { LensTwoTone } from '@mui/icons-material';
 import { useRadioGroup } from '@mui/material';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import userService, { addUser, login, logout } from '../../../api/UserApi'
+import userService, { addUser, editUser, login, logout } from '../../../api/UserApi'
 import { Profile, User } from '../../../models/ProfileModel'
 // Get user from localStorage
 
@@ -59,6 +59,23 @@ export const authSlice = createSlice({
         state.loginSuccess = false
       })
       .addCase(addUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = "Failed to save user!"
+        state.profile = undefined
+        state.loginSuccess = false
+      })
+      .addCase(editUser.pending, (state) => {
+        state.isLoading = true
+        state.loginSuccess = false
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.profile = action.payload
+        state.loginSuccess = false
+      })
+      .addCase(editUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = "Failed to save user!"

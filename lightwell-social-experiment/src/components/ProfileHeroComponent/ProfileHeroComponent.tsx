@@ -86,7 +86,7 @@ function ProfileHeroComponent() {
 					>
 						<Box sx={style}>
 							Update profile picture
-							<Media />
+							<UserRegistrationForm profileStatus="edit" />
 						</Box>
 					</Modal>
 				}

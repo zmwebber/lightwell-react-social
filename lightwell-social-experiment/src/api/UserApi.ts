@@ -48,6 +48,26 @@ export const addUser = createAsyncThunk(
     }
   })
 
+  export const editUser = createAsyncThunk(
+    "users/edit",
+    async (user: Profile) => {
+      try {
+        const response = await API.post(API_URL + 'edit', user)
+        if (response.data) {
+          localStorage.setItem('user', JSON.stringify(response.data))
+        }
+        return response.data
+      } catch (err) {
+        // let error: AxiosError = err;  
+        //   const message =
+        //     (err.response && err.response.data && err.response.data.message) ||
+        //     err.message ||
+        //     err.toString()
+        //   return BaseThunk.rejectWithValue(message)
+        console.log(err);
+      }
+    })
+
 // Logout user
 export const logout = createAsyncThunk(
   "users/logout",
