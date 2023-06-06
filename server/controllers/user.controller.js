@@ -4,7 +4,8 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user.model");
 require("dotenv").config();
-import mongoose from "mongoose";
+var mongoose = require('mongoose');
+import { ObjectId } from 'mongodb'
 // @desc    Register new user
 // @route   POST /api/users/add
 // @access  Public
@@ -47,16 +48,16 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 export const editUser = asyncHandler(async (req, res) => {
   const user = req.body;
+  delete user['token'];
+  let id = req.body._id; 
+  console.log("ID : "+ id)
+  
+  let objectId = new ObjectId(id);
+  console.log("Object : "+ objectId)
   let filter = {
-    _id: req.body._id,
+    _id: objectId
   };
 
-  // Hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(user.password, salt);
-  user.password = hashedPassword;
-
-  // Create user
   const userResponse = await User.findOneAndUpdate(filter, user);
 
   if (userResponse) {
