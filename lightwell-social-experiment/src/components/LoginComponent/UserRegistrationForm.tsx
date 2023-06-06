@@ -17,44 +17,63 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import Media from "../MediaComponent/Media";
 function UserRegistrationForm(props: any) {
 	const store = useStore();
-	const state: any = store.getState();
-
-	const feed = useAppSelector(myTweets);
+	const state: any = store.getState();	
 	const user : User = useSelector((state: any) => state.user.profile)
-
+	const [password, setPassword] = useState("");
 	const [name, setName] = useState("");
 	const [handle, setHandle] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("");	
 	const [birthday, setBirthday] = React.useState<Dayjs | null>(
 		dayjs("2014-08-18T21:11:54")
 	);
 
-
-
-	useEffect(() => {
-
-	}, []);
-
 	const profileSuccess = (e: any) => {
 		e.preventDefault();
 		let action = null;
+		console.log("Submit User Registration:  " + JSON.stringify(user))
+		if (user) {		
+			console.log('profile exists')
+			
+			//create a copy of the state profile
+			var info : User = {...user};					
+			// see what has changed from the user profile	
 
-		if (user) {
-			if (birthday !== null) {
-				user.dateOfBirth = new Date(birthday.toString());
+			if( info.name !== name)
+			{
+				console.log('name changed')
+				console.log('profile.name: ' + user.name)
+				console.log('form Name: ' + name)
+				info.name = name;
 			}
-			user.name = name;
-			user.screen_name = handle;
-			user.email = email;
-			user.password = password;
-
+			if( info.screen_name !== handle)
+			{
+				console.log('handle changed')
+				console.log('profile.email: ' + info.screen_name)
+				console.log('form handle: ' + handle)
+				info.screen_name = handle;
+			}
+			if( info.email !== email)
+			{
+				console.log('email changed')
+				console.log('profile.email: ' + user.email)
+				console.log('form email: ' + email)
+				info.email = email;
+			}
+			if( ! dayjs(info.dateOfBirth).isSame(birthday) && birthday)
+			{
+				console.log('dateOfBirth changed')
+				console.log('profile.dateOfBirth: ' + dayjs(user.dateOfBirth).toDate())
+				console.log('form dateOfBirth: ' + birthday?.toDate())
+				info.dateOfBirth = birthday?.toDate();
+			}		
+			
 			if (props.profileStatus === "edit") {
-				console.log("EDIT")
-				action = editUser(user);
+				console.log("EDIT User " + JSON.stringify(info))
+				action = editUser(info);
 			} else {
-				console.log("CREATE")
-				action = addUser(user);
+				info.password = password;
+				console.log("CREATE User " + JSON.stringify(info))
+				action = addUser(info);
 			}
 
 			store
@@ -106,16 +125,16 @@ function UserRegistrationForm(props: any) {
 								defaultValue={user?.email || ""}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
-							<TextField
+							{props.profileStatus !== "edit" && 
+							
+								<TextField
 								name="Password"
 								type="text"
 								id="password"
 								placeholder="Strong Password"								
-								onChange={(e) => setPassword(e.target.value)}
-							/>
-							{
-								props.profileStatus === "edit" ? <Media /> : null
-							}
+								onChange={(e) => setPassword(e.target.value)}/>
+							 
+							}	
 						</Grid>
 					</Grid>
 					<Grid container direction="column" className={UserRegistrationFormStyle.gridContainer}>

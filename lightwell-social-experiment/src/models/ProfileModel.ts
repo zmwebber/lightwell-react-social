@@ -43,7 +43,7 @@ export class User implements Profile {
     constructor();
     constructor(profile?: Profile, id?: string)
     {
-        this._id = id ?? ""
+        this._id = id ?? null
         this.name = profile?.name ?? ""
         this.screen_name = profile?.screen_name ?? ""
         this.email = profile?.email ?? ""

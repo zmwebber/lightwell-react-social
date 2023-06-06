@@ -11,7 +11,7 @@ if (localUser !== '' && localUser !== null) {
   user = JSON.parse(localUser) as User;
 }
 else {
-  user = undefined;
+  user = new User();
 }
 
 export interface UserState {
@@ -62,7 +62,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isError = true
         state.message = "Failed to save user!"
-        state.profile = undefined
+        state.profile = initialState.profile
         state.loginSuccess = false
       })
       .addCase(editUser.pending, (state) => {
@@ -79,7 +79,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isError = true
         state.message = "Failed to save user!"
-        state.profile = undefined
+        state.profile = initialState.profile
         state.loginSuccess = false
       })
       .addCase(login.pending, (state) => {
@@ -100,14 +100,14 @@ export const authSlice = createSlice({
         state.isError = true
         state.message = "Failed to login!"
         state.isSuccess = false
-        state.profile = undefined
+        state.profile = initialState.profile
       })
       .addCase(logout.pending, (state) => {
         state.loginSuccess = false
         state.isLoading = true
       })
       .addCase(logout.fulfilled, (state) => {
-        state.profile = undefined
+        state.profile = initialState.profile
         state.loginSuccess = false
         state.isLoading = false
         state.isError = false
