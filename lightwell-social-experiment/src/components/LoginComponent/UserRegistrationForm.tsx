@@ -17,8 +17,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import Media from "../MediaComponent/Media";
 function UserRegistrationForm(props: any) {
 	const store = useStore();
-	const state: any = store.getState();	
-	const user : User = useSelector((state: any) => state.user.profile)
+	const user : User = useAppSelector(state => state.user.profile)
 	const [password, setPassword] = useState("");
 	const [name, setName] = useState(user?.name ?? "");
 	const [handle, setHandle] = useState(user?.screen_name ?? "");
@@ -27,8 +26,12 @@ function UserRegistrationForm(props: any) {
 		dayjs(user?.dateOfBirth)
 	);
 
-	const profileSuccess = (e: any) => {
-		e.preventDefault();
+	useEffect(() => {		
+		alert("refreshed")
+	  }, [user]); // Only re-run the effect if user changes
+	
+	  const profileSuccess = (e: any) => {	
+			
 		let action = null;
 		console.log("Submit User Registration:  " + JSON.stringify(user))
 		if (user) {		
@@ -78,17 +81,11 @@ function UserRegistrationForm(props: any) {
 
 			store
 				.dispatch(action)
-				.unwrap()
+				.unwrap()				
 				.catch((error: any) => {
 					console.log(error);
-				});
-		}
-
-		e.target.reset();
-
-		if (props.className == "modal") {
-			props.handleClose();
-		}
+				});				
+		}	
 	};
 
 	const handleChange = (newValue: Dayjs | null) => {

@@ -66,14 +66,14 @@ export const authSlice = createSlice({
         state.loginSuccess = false
       })
       .addCase(editUser.pending, (state) => {
-        state.isLoading = true
-        state.loginSuccess = false
+        state.isLoading = true        
+        state.loginSuccess = true
       })
       .addCase(editUser.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.profile = action.payload
-        state.loginSuccess = false
+        state.loginSuccess = true
       })
       .addCase(editUser.rejected, (state, action) => {
         state.isLoading = false
@@ -87,7 +87,7 @@ export const authSlice = createSlice({
         state.isLoading = true
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.profile = action.payload ? action.payload : undefined
+        state.profile = action.payload 
         state.loginSuccess = true
         state.isLoading = false
         state.isError = false

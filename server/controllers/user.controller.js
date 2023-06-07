@@ -58,12 +58,11 @@ export const editUser = asyncHandler(async (req, res) => {
     _id: objectId
   };
 
-  const userResponse = await User.findOneAndUpdate(filter, user);
+  const userResponse = await User.findOneAndUpdate(filter, user, {new: true});
 
   if (userResponse) {
     userResponse["token"] = generateToken(userResponse._id)
-    console.log("Updated User: " + userResponse)
-    //TODO - figure out why this is not returning the updated value --- changed name, returning original name before change
+    console.log("Updated User: " + userResponse)    
     res.status(201).json({
      profile: userResponse
     });

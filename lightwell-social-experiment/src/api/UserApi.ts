@@ -53,17 +53,8 @@ export const addUser = createAsyncThunk(
     async (user: Profile) => {
       try {
         const response = await API.post(API_URL + 'edit', user)
-        if (response.data) {
-          localStorage.setItem('user', JSON.stringify(response.data))
-        }
         return response.data.profile
-      } catch (err) {
-        // let error: AxiosError = err;  
-        //   const message =
-        //     (err.response && err.response.data && err.response.data.message) ||
-        //     err.message ||
-        //     err.toString()
-        //   return BaseThunk.rejectWithValue(message)
+      } catch (err) {        
         console.log(err);
       }
     })
