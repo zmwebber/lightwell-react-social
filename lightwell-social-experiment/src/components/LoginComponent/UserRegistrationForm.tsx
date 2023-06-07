@@ -1,8 +1,7 @@
-import { Button, Input } from "@mui/material";
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { myTweets } from "../../redux/ducks/post_duck/tweetFormSlice";
-import { useSelector, useStore } from "react-redux";
-import { Profile, User } from "../../models/ProfileModel";
+import {  useStore } from "react-redux";
+import {  User } from "../../models/ProfileModel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { addUser, editUser } from "../../api/UserApi";
@@ -14,7 +13,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import UserRegistrationFormStyle from "./userRegistrationFormStyle.module.scss";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import Media from "../MediaComponent/Media";
+
 function UserRegistrationForm(props: any) {
 	const store = useStore();
 	const user : User = useAppSelector(state => state.user.profile)

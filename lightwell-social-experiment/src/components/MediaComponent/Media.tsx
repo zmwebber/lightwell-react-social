@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { addMedia, getMedia } from '../../api/MediaApi';
+import { useState } from 'react';
+import { addMedia } from '../../api/MediaApi';
 import { Media } from "../../models/MediaModel";
 
 export default function MediaComponent(props: any) {
@@ -55,23 +55,9 @@ export default function MediaComponent(props: any) {
     fileReader.readAsBinaryString(file)
   }
 
-  // function loadPreview() {
-  //   getMedia().then((res) => {
-  //     let length = res.data.media.length - 1;
-  //     let buf = res.data.media[length].data
-  //     //need to replace the static image/png with the correct mime/type from the res.data.media[x].contentType
-  //     let src = 'data:image/png;base64,' + buf;
-
-  //     console.log(src);
-  //     setPreview(buf);
-  //   });
-  // }
+  
   return (
     <>
-      {/* <div>
-        <button onClick={loadPreview}> Click for Preview Latest Upload</button>
-        <img src={"data:image/png;base64," + preview} width="300px" height="auto" alt="preview" />
-      </div> */}
       <form onSubmit={handleSubmit}>
         <label className="form-label" htmlFor="customFile"></label>
         <input type="file" onChange={handleChange} className="form-control" id="customFile" accept="image/*" />

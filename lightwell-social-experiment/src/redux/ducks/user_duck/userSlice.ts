@@ -1,8 +1,7 @@
-import { LensTwoTone } from '@mui/icons-material';
-import { useRadioGroup } from '@mui/material';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import userService, { addUser, editUser, login, logout } from '../../../api/UserApi'
-import { Profile, User } from '../../../models/ProfileModel'
+
+import { createSlice } from '@reduxjs/toolkit'
+import { addUser, editUser, login, logout } from '../../../api/UserApi'
+import { User } from '../../../models/ProfileModel'
 // Get user from localStorage
 
 let localUser = localStorage.getItem('user');

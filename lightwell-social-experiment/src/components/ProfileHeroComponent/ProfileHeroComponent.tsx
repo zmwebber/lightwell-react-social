@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
 import { styled } from "@mui/system";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import image from "../../app/images/banner-blur.jpg";
-import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
 import { getMedia } from "../../api/MediaApi";
 import ProfileHeroComponentStyle from "./profileHeroComponentStyle.module.scss";
 import UserRegistrationForm from "../LoginComponent/UserRegistrationForm";

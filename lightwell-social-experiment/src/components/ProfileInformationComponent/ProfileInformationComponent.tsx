@@ -1,9 +1,6 @@
 import Box from '@mui/material/Box';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import ProfileInformationComponentStyle from "./profileInformationComponentStyle.module.scss";
-import { styled } from "@mui/system";
-import Button from '@mui/material/Button';
-import { useStore } from 'react-redux';
 import { useAppSelector } from '../../app/hooks/hooks';
 import { useEffect } from 'react';
 import { User } from '../../models/ProfileModel';
@@ -11,7 +8,6 @@ import { User } from '../../models/ProfileModel';
 
 //We do not use props for data that can be tied to state. or that would need to be updated from changes to state
 export default function ProfileInformationComponent() {
-    const store = useStore();
 	const user : User = useAppSelector(state => state.user.profile)
     useEffect(() => {
 		
