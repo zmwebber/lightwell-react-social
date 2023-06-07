@@ -29,7 +29,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: '',
-  loginSuccess: false
+  loginSuccess: user._id? true: false 
 }
 
 
@@ -39,11 +39,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.isLoading = false
-      state.isSuccess = false
-      state.isError = false
-      state.message = ''
-      state.loginSuccess = false
+      state.isLoading = initialState.isLoading
+      state.isSuccess = initialState.isSuccess
+      state.isError = initialState.isError
+      state.message = initialState.message
+      state.loginSuccess = initialState.loginSuccess
+      state.profile = initialState.profile
     },
   },
   extraReducers: (builder) => {
@@ -56,7 +57,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.profile = action.payload
-        state.loginSuccess = false
+        state.loginSuccess = true
       })
       .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false

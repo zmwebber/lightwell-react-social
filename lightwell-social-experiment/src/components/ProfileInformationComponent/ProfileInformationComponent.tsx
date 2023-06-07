@@ -3,46 +3,32 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import ProfileInformationComponentStyle from "./profileInformationComponentStyle.module.scss";
 import { styled } from "@mui/system";
 import Button from '@mui/material/Button';
+import { useStore } from 'react-redux';
+import { useAppSelector } from '../../app/hooks/hooks';
+import { useEffect } from 'react';
+import { User } from '../../models/ProfileModel';
 
 
-interface ProfileInformationProps {
-    name: string;
-    screen_name: string;
-    date_joined: string;
-    following: number;
-    followers: number;
-}
-
-const EditProfileButton: any = styled(Button)({
-    color: "#1DA1F2",
-    fontWeight: "bold",
-    borderRadius: "20px",
-    padding: "8px 18px",
-    backgroundColor: "white",
-    outline: "auto",
-    outlineStyle: "solid",
-    outlineWidth: "2px",
-    marginTop: "1%",
-    marginRight: "2%",
-    '&:hover': {
-        backgroundColor: '#fff'
-    }
-});
-
-export default function ProfileInformationComponent(props: ProfileInformationProps) {
+//We do not use props for data that can be tied to state. or that would need to be updated from changes to state
+export default function ProfileInformationComponent() {
+    const store = useStore();
+	const user : User = useAppSelector(state => state.user.profile)
+    useEffect(() => {
+		
+	  }, [user]); // Only re-run the effect if user changes
     return (
         <Box sx={{ width: '100%' }} className={ProfileInformationComponentStyle.profileInformationBox}>
             <Box>
-                <h2 className={ProfileInformationComponentStyle.userName}>{props.name}</h2>
-                <p className={ProfileInformationComponentStyle.userHandleSubtext}>@{props.screen_name}</p>
+                <h2 className={ProfileInformationComponentStyle.userName}>{user.name}</h2>
+                <p className={ProfileInformationComponentStyle.userHandleSubtext}>@{user.screen_name}</p>
                 <div className={ProfileInformationComponentStyle.userJoinedContainer}>
                     <DateRangeIcon className={ProfileInformationComponentStyle.dateIcon} />
-                    <span className={ProfileInformationComponentStyle.userJoinedDate}> Joined {props.date_joined}</span>
+                    <span className={ProfileInformationComponentStyle.userJoinedDate}> Joined {user.createdAt.toString()}</span>
                 </div>
 
                 <div className={ProfileInformationComponentStyle.userFollowContainer}>
-                    <span className={ProfileInformationComponentStyle.userFollowing}><strong>{props.following}</strong> Following</span>
-                    <span><strong>{props.followers}</strong> Followers</span>
+                    <span className={ProfileInformationComponentStyle.userFollowing}><strong>{user.friends_count}</strong> Following</span>
+                    <span><strong>{user.followers_count}</strong> Followers</span>
                 </div>
             </Box>
         </Box>

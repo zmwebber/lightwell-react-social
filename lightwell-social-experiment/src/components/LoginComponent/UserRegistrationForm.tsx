@@ -27,11 +27,11 @@ function UserRegistrationForm(props: any) {
 	);
 
 	useEffect(() => {		
-		alert("refreshed")
-	  }, [user]); // Only re-run the effect if user changes
+		}, [user]); // Only re-run the effect if user changes
 	
 	  const profileSuccess = (e: any) => {	
-			
+		e.preventDefault();
+		let modalClose = false;
 		let action = null;
 		console.log("Submit User Registration:  " + JSON.stringify(user))
 		if (user) {		
@@ -47,6 +47,7 @@ function UserRegistrationForm(props: any) {
 				console.log('profile.name: ' + user.name)
 				console.log('form Name: ' + name)
 				info.name = name;
+				modalClose = true;
 			}
 			if( info.screen_name !== handle)
 			{
@@ -54,6 +55,7 @@ function UserRegistrationForm(props: any) {
 				console.log('profile.email: ' + info.screen_name)
 				console.log('form handle: ' + handle)
 				info.screen_name = handle;
+				modalClose = true;
 			}
 			if( info.email !== email)
 			{
@@ -61,6 +63,7 @@ function UserRegistrationForm(props: any) {
 				console.log('profile.email: ' + user.email)
 				console.log('form email: ' + email)
 				info.email = email;
+				modalClose = true;
 			}
 			if( ! dayjs(info.dateOfBirth).isSame(birthday) && birthday)
 			{
@@ -68,6 +71,7 @@ function UserRegistrationForm(props: any) {
 				console.log('profile.dateOfBirth: ' + dayjs(user.dateOfBirth).toDate())
 				console.log('form dateOfBirth: ' + birthday?.toDate())
 				info.dateOfBirth = birthday?.toDate();
+				modalClose = true;
 			}		
 			
 			if (props.profileStatus === "edit") {
@@ -78,14 +82,18 @@ function UserRegistrationForm(props: any) {
 				console.log("CREATE User " + JSON.stringify(info))
 				action = addUser(info);
 			}
-
+			if (modalClose) {				
+				props.onClose();
+			}
 			store
 				.dispatch(action)
 				.unwrap()				
 				.catch((error: any) => {
 					console.log(error);
-				});				
+				});	
 		}	
+		
+
 	};
 
 	const handleChange = (newValue: Dayjs | null) => {

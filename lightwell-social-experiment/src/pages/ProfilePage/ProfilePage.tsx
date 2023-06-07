@@ -25,20 +25,11 @@ export function ProfilePage() {
 			</div>
 
 			<div className={ProfilePageStyle.profilePageContent}>
-				<ProfileHeaderComponent
-					name={state.user.profile.name}
-					statuses_count={state.user.profile.statuses_count}
-				/>
+				<ProfileHeaderComponent/>
 
 				<ProfileHeroComponent />
 
-				<ProfileInformationComponent
-					name={state.user.profile.name}
-					screen_name={state.user.profile.screen_name}
-					date_joined={state.user.profile.createdAt}
-					following={state.user.profile.friends_count}
-					followers={state.user.profile.followers_count}
-				/>
+				<ProfileInformationComponent/>
 
 				<TabsComponent />
 			</div>
