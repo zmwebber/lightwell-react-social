@@ -46,16 +46,16 @@ const style = {
 function ProfileHeroComponent() {
 	const [preview, setPreview] = useState("");
 	const [open, setOpen] = React.useState(false);
+	const [openImage, setOpenImage] = React.useState(false);
 
 	function loadPreview() {
 		getMedia().then((res) => {
 			let length = res.data.media.length - 1;
-			let buf = res.data.media[length].data
+			let buf = res.data.media[length].data;
+			let mimeType = res.data.media[length].contentType;
 			//need to replace the static image/png with the correct mime/type from the res.data.media[x].contentType
-			let src = `data:image/png;base64,` + buf;
-
-			console.log(src);
-			setPreview(buf);
+			let src = `data:` + mimeType + `;base64,` + buf;			
+			setPreview(src);
 		});
 	}
 
@@ -65,6 +65,8 @@ function ProfileHeroComponent() {
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
+	const handleMediaOpen = () => setOpenImage(true);
+	const handleMediaClose = () => setOpenImage(false);
 
 	return (
 		<div className={ProfileHeroComponentStyle.profileHeroContainer}>
@@ -73,7 +75,7 @@ function ProfileHeroComponent() {
 			</div>
 
 			<div className={ProfileHeroComponentStyle.notificationBar}>
-				<img src={"data:image/png;base64," + preview} className={ProfileHeroComponentStyle.profilePicture} width="300px" height="auto" alt="preview" />
+				<img src={preview} className={ProfileHeroComponentStyle.profilePicture} width="300px" height="auto" alt="preview" />
 				<EditProfileButton variant="contained" onClick={handleOpen}>
 					Edit Profile
 				</EditProfileButton>
@@ -87,6 +89,22 @@ function ProfileHeroComponent() {
 						<Box sx={style}>
 							Update profile picture
 							<UserRegistrationForm profileStatus="edit" onClose={handleClose} />
+						</Box>
+					</Modal>
+				}
+				<EditProfileButton variant="contained" onClick={handleMediaOpen}>
+					Edit Image
+				</EditProfileButton>
+				{openImage &&
+					<Modal
+						open={openImage}
+						onClose={handleMediaClose}
+						aria-labelledby="modal-modal-title"
+						aria-describedby="modal-modal-description"
+					>
+						<Box sx={style}>
+							Update profile picture
+							<Media onClose={handleMediaClose} />
 						</Box>
 					</Modal>
 				}

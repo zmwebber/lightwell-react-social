@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { addMedia, getMedia } from '../../api/MediaApi';
 import { Media } from "../../models/MediaModel";
 
-export default function MediaComponent() {
+export default function MediaComponent(props: any) {
   let x = new Media();
   const [mediaProps, setMediaProps] = useState<Media>(x);
   const fileReader = new FileReader();
