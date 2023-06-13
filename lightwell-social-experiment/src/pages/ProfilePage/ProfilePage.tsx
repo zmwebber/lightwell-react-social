@@ -10,7 +10,6 @@ import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import ProfilePageStyle from "./profilePageStyle.module.scss";
 
 export function ProfilePage() {
-	// @TODO: Remove <Profile/> from HomePage.tsx
 	const store = useStore();
 	const state: any = store.getState();
 

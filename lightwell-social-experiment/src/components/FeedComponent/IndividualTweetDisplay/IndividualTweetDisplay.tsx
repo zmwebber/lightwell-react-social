@@ -157,7 +157,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	async function getFavoritedInteractions() {
 		let res = await getFavoritedInteractionsByTweetId(tweet._id, state.user.profile._id);
-		console.log(res)
 		try {
 			let isTweetLikedByUser = res.likedByUser	
 			setFavoriteCount(res.count);
@@ -176,10 +175,13 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		}
 	};
 
+	const goToTweetReplies = (tweet: Tweet) => {
+		window.location.href = "http://localhost:3000/replies/" + tweet._id
+	};
+
 	async function getRetweetInteractions() {
-		console.log("Entering getRetweetInteraction method")
 		let res = await getRetweetInteractionsByTweetId(tweet._id, state.user.profile._id);
-		console.log(res)
+		
 		try {
 			let isTweetRetweetedByUser = res.retweetedByUser
 			setRetweetCount(res.count)
@@ -199,7 +201,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	};
 
 	useEffect(() => {
-		
 		getRetweetInteractions();
 		getFavoritedInteractions();
 		setRefresh(false)
@@ -220,7 +221,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	}
 
 	return (
-		<Card
+		<Card 
 			sx={{
 				gap: 2,
 				backgroundColor: "white",
@@ -291,7 +292,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
 				<CardMedia component="img" image={`${tweet.links.url}`} alt="media" />
 			)}
-			<CardContent>
+			<CardContent onClick={() => goToTweetReplies(tweet)}>
 				<Typography variant="body2">{tweet.text}</Typography>
 			</CardContent>
 
@@ -309,8 +310,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-					<Comment/>
-          <TweetForm isReplyStatus={true} statusId={"statusId"} userId={"123"}/>
+          <TweetForm isReplyStatus={true} statusId={tweet._id} userId={tweet.user._id}/>
         </Box>
       </Modal>
     	</div>
