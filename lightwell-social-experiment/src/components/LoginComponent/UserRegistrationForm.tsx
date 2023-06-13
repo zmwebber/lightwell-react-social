@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import {  useStore } from "react-redux";
-import {  User } from "../../models/ProfileModel";
+import { useStore } from "react-redux";
+import { User } from "../../models/ProfileModel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { addUser, editUser } from "../../api/UserApi";
@@ -16,63 +16,60 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 function UserRegistrationForm(props: any) {
 	const store = useStore();
-	const user : User = useAppSelector(state => state.user.profile)
+	const user: User = useAppSelector(state => state.user.profile)
 	const [password, setPassword] = useState("");
 	const [name, setName] = useState(user?.name ?? "");
 	const [handle, setHandle] = useState(user?.screen_name ?? "");
-	const [email, setEmail] = useState(user?.email ?? "");	
+	const [email, setEmail] = useState(user?.email ?? "");
 	const [birthday, setBirthday] = React.useState<Dayjs | null>(
 		dayjs(user?.dateOfBirth)
 	);
 
-	useEffect(() => {		
-		}, [user]); // Only re-run the effect if user changes
-	
-	  const profileSuccess = (e: any) => {	
+	useEffect(() => {
+
+	}, [user]); // Only re-run the effect if user changes
+
+	const profileSuccess = (e: any) => {
 		e.preventDefault();
 		let modalClose = false;
 		let action = null;
 		console.log("Submit User Registration:  " + JSON.stringify(user))
-		if (user) {		
+		if (user) {
 			console.log('profile exists')
-			
+
 			//create a copy of the state profile
-			var info : User = {...user};					
+			var info: User = { ...user };
 			// see what has changed from the user profile	
 
-			if( info.name !== name)
-			{
+			if (info.name !== name) {
 				console.log('name changed')
 				console.log('profile.name: ' + user.name)
 				console.log('form Name: ' + name)
 				info.name = name;
 				modalClose = true;
 			}
-			if( info.screen_name !== handle)
-			{
+			if (info.screen_name !== handle) {
 				console.log('handle changed')
 				console.log('profile.email: ' + info.screen_name)
 				console.log('form handle: ' + handle)
 				info.screen_name = handle;
 				modalClose = true;
 			}
-			if( info.email !== email)
-			{
+			if (info.email !== email) {
 				console.log('email changed')
 				console.log('profile.email: ' + user.email)
 				console.log('form email: ' + email)
 				info.email = email;
 				modalClose = true;
 			}
-			if( ! dayjs(info.dateOfBirth).isSame(birthday) && birthday)
-			{
+			if (!dayjs(info.dateOfBirth).isSame(birthday) && birthday) {
 				console.log('dateOfBirth changed')
 				console.log('profile.dateOfBirth: ' + dayjs(user.dateOfBirth).toDate())
 				console.log('form dateOfBirth: ' + birthday?.toDate())
 				info.dateOfBirth = birthday?.toDate();
 				modalClose = true;
-			}		
-			
+			}
+
 			if (props.profileStatus === "edit") {
 				console.log("EDIT User " + JSON.stringify(info))
 				action = editUser(info);
@@ -81,17 +78,17 @@ function UserRegistrationForm(props: any) {
 				console.log("CREATE User " + JSON.stringify(info))
 				action = addUser(info);
 			}
-			if (modalClose) {				
+			if (modalClose) {
 				props.onClose();
 			}
 			store
 				.dispatch(action)
-				.unwrap()				
+				.unwrap()
 				.catch((error: any) => {
 					console.log(error);
-				});	
-		}	
-		
+				});
+		}
+
 
 	};
 
@@ -129,16 +126,16 @@ function UserRegistrationForm(props: any) {
 								defaultValue={user?.email || ""}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
-							{props.profileStatus !== "edit" && 
-							
+							{props.profileStatus !== "edit" &&
+
 								<TextField
-								name="Password"
-								type="text"
-								id="password"
-								placeholder="Strong Password"								
-								onChange={(e) => setPassword(e.target.value)}/>
-							 
-							}	
+									name="Password"
+									type="text"
+									id="password"
+									placeholder="Strong Password"
+									onChange={(e) => setPassword(e.target.value)} />
+
+							}
 						</Grid>
 					</Grid>
 					<Grid container direction="column" className={UserRegistrationFormStyle.gridContainer}>

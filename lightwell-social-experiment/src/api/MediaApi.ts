@@ -1,5 +1,5 @@
 import API from "./apiConfig";
-import  { Media }  from "../models/MediaModel";
+import { Media } from "../models/MediaModel";
 
 const API_URL = '/media';
 

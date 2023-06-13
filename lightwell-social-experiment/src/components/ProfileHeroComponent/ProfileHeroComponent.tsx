@@ -6,6 +6,8 @@ import { getMedia } from "../../api/MediaApi";
 import ProfileHeroComponentStyle from "./profileHeroComponentStyle.module.scss";
 import UserRegistrationForm from "../LoginComponent/UserRegistrationForm";
 import Media from "../MediaComponent/Media";
+import { User } from "../../models/ProfileModel";
+import { useAppSelector } from "../../app/hooks/hooks";
 
 // Outline: Profile Page should filter out tweets by user.
 // if navigating to a user's profile, all tweets in the tweet feed should be of that user or retweeted by that user.
@@ -43,21 +45,12 @@ function ProfileHeroComponent() {
 	const [preview, setPreview] = useState("");
 	const [open, setOpen] = React.useState(false);
 	const [openImage, setOpenImage] = React.useState(false);
-
-	function loadPreview() {
-		getMedia().then((res) => {
-			let length = res.data.media.length - 1;
-			let buf = res.data.media[length].data;
-			let mimeType = res.data.media[length].contentType;
-			//need to replace the static image/png with the correct mime/type from the res.data.media[x].contentType
-			let src = `data:` + mimeType + `;base64,` + buf;			
-			setPreview(src);
-		});
-	}
+	const user: User = useAppSelector(state => state.user.profile)
 
 	useEffect(() => {
-		loadPreview();
-	}, []);
+		let src = `data:` + user.profile_image?.contentType + `;base64,` + user.profile_image?.data;
+		setPreview(src);
+	}, [user]);
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -83,7 +76,7 @@ function ProfileHeroComponent() {
 						aria-describedby="modal-modal-description"
 					>
 						<Box sx={style}>
-							Update profile picture
+							Update Profile
 							<UserRegistrationForm profileStatus="edit" onClose={handleClose} />
 						</Box>
 					</Modal>

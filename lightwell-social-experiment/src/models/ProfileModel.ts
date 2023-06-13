@@ -1,3 +1,5 @@
+import { Media } from './MediaModel'
+
 export type Profile = {
     name: string,
     screen_name: string,
@@ -16,7 +18,8 @@ export type Profile = {
     statuses_count: number,
     profile_background_color: string,
     profile_background_image_url: string,
-    profile_image_url: string,
+    profile_image_id: string,
+    profile_image: Media | null,
 }
 
 export class User implements Profile {
@@ -38,11 +41,12 @@ export class User implements Profile {
     statuses_count;
     profile_background_color;
     profile_background_image_url;
-    profile_image_url;
+    profile_image_id;
+    profile_image;
+
 
     constructor();
-    constructor(profile?: Profile, id?: string)
-    {
+    constructor(profile?: Profile, id?: string) {
         this._id = id ?? null
         this.name = profile?.name ?? ""
         this.screen_name = profile?.screen_name ?? ""
@@ -56,11 +60,12 @@ export class User implements Profile {
         this.followers_count = profile?.followers_count ?? 0
         this.friends_count = profile?.friends_count ?? 0
         this.listed_count = profile?.listed_count ?? 0
-        this.favorites_count =profile?.favorites_count ?? 0
+        this.favorites_count = profile?.favorites_count ?? 0
         this.verified = profile?.verified ?? false
         this.statuses_count = profile?.statuses_count ?? 0
         this.profile_background_color = profile?.profile_background_color ?? ""
         this.profile_background_image_url = profile?.profile_background_color ?? ""
-        this.profile_image_url = profile?.profile_image_url ?? ""
+        this.profile_image_id = profile?.profile_image_id ?? ""
+        this.profile_image = profile?.profile_image ?? null
     }
 }

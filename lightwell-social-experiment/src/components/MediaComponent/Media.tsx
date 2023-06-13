@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import { addMedia } from '../../api/MediaApi';
 import { Media } from "../../models/MediaModel";
+import { User } from '../../models/ProfileModel';
+import { useAppSelector } from '../../app/hooks/hooks';
+import { store } from '../../app/store';
+import { editUser } from '../../api/UserApi';
 
 export default function MediaComponent(props: any) {
   let x = new Media();
   const [mediaProps, setMediaProps] = useState<Media>(x);
   const fileReader = new FileReader();
+  const user: User = useAppSelector(state => state.user.profile)
 
   function addListeners() {
     fileReader.addEventListener("loadend", handleComplete);
@@ -43,19 +48,34 @@ export default function MediaComponent(props: any) {
     }
   }
 
-  function handleSubmit(event: any) {
+  async function handleSubmit(event: any) {
     event.preventDefault();
+    let action = null;
 
-    addMedia(mediaProps).then(() => {
-      alert("Media Uploaded! ")
-    });
+    let res = await addMedia(mediaProps);
+
+    if (user && res.data.media) {
+      var info: User = { ...user };
+
+      info.profile_image_id = res.data.media._id
+      info.profile_image = res.data.media
+
+      action = editUser(info);
+
+      store
+        .dispatch(action)
+        .unwrap()
+        .catch((error: any) => {
+          console.log(error);
+        });
+    }
   }
 
   function convertImgToBinary(file: any) {
     fileReader.readAsBinaryString(file)
   }
 
-  
+
   return (
     <>
       <form onSubmit={handleSubmit}>
