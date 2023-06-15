@@ -30,8 +30,8 @@ var userSchema = mongoose.Schema({
   favorites_count: Number,
   verified: Boolean,
   statuses_count: Number,
-  profile_background_color: String,
-  profile_background_image_url: String,
+  profile_banner_id: String,
+  profile_banner: Media | null,
   profile_image_id: String,
   profile_image: Media | null,
 });

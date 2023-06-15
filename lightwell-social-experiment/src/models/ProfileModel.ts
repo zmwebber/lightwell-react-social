@@ -16,8 +16,8 @@ export type Profile = {
     favorites_count: number,
     verified: boolean,
     statuses_count: number,
-    profile_background_color: string,
-    profile_background_image_url: string,
+    profile_banner_id: string,
+    profile_banner: Media | null,
     profile_image_id: string,
     profile_image: Media | null,
 }
@@ -39,8 +39,8 @@ export class User implements Profile {
     favorites_count;
     verified;
     statuses_count;
-    profile_background_color;
-    profile_background_image_url;
+    profile_banner_id;
+    profile_banner;
     profile_image_id;
     profile_image;
 
@@ -63,8 +63,8 @@ export class User implements Profile {
         this.favorites_count = profile?.favorites_count ?? 0
         this.verified = profile?.verified ?? false
         this.statuses_count = profile?.statuses_count ?? 0
-        this.profile_background_color = profile?.profile_background_color ?? ""
-        this.profile_background_image_url = profile?.profile_background_color ?? ""
+        this.profile_banner_id = profile?.profile_banner_id ?? ""
+        this.profile_banner = profile?.profile_banner ?? null
         this.profile_image_id = profile?.profile_image_id ?? ""
         this.profile_image = profile?.profile_image ?? null
     }

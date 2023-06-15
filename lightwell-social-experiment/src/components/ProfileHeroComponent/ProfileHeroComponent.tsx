@@ -42,30 +42,39 @@ const style = {
 };
 
 function ProfileHeroComponent() {
-	const [preview, setPreview] = useState("");
+	const [profilePhotoPreview, setProfilePhotoPreview] = useState("");
+	const [bannerPhotoPreview, setBannerPhotoPreview] = useState("");
 	const [open, setOpen] = React.useState(false);
 	const [openImage, setOpenImage] = React.useState(false);
+	const [openBanner, setOpenBanner] = React.useState(false);
 	const user: User = useAppSelector(state => state.user.profile)
 
 	useEffect(() => {
-		let src = `data:` + user.profile_image?.contentType + `;base64,` + user.profile_image?.data;
-		console.log(src)
-		setPreview(src);
+		let profilePhotoSource = `data:` + user.profile_image?.contentType + `;base64,` + user.profile_image?.data;
+		console.log(profilePhotoSource)
+		setProfilePhotoPreview(profilePhotoSource);
+
+		let bannerPhotoSource = `data:` + user.profile_banner?.contentType + `;base64,` + user.profile_banner?.data;
+		console.log(bannerPhotoSource)
+		setBannerPhotoPreview(bannerPhotoSource);
+
 	}, [user]);
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 	const handleMediaOpen = () => setOpenImage(true);
 	const handleMediaClose = () => setOpenImage(false);
+	const handleBannerOpen = () => setOpenBanner(true);
+	const handleBannerClose = () => setOpenBanner(false);
 
 	return (
 		<div className={ProfileHeroComponentStyle.profileHeroContainer}>
 			<div className={ProfileHeroComponentStyle.banner}>
-				<img src={image} className={ProfileHeroComponentStyle.bannerImage} alt="banner-pic" />
+				<img src={bannerPhotoPreview} className={ProfileHeroComponentStyle.bannerImage} alt="banner-pic" />
 			</div>
 
 			<div className={ProfileHeroComponentStyle.notificationBar}>
-				<img src={preview} className={ProfileHeroComponentStyle.profilePicture} width="300px" height="auto" alt="preview" />
+				<img src={profilePhotoPreview} className={ProfileHeroComponentStyle.profilePicture} width="300px" height="auto" alt="preview" />
 				<EditProfileButton variant="contained" onClick={handleOpen}>
 					Edit Profile
 				</EditProfileButton>
@@ -83,7 +92,7 @@ function ProfileHeroComponent() {
 					</Modal>
 				}
 				<EditProfileButton variant="contained" onClick={handleMediaOpen}>
-					Edit Image
+					Edit Profile Image
 				</EditProfileButton>
 				{openImage &&
 					<Modal
@@ -94,10 +103,28 @@ function ProfileHeroComponent() {
 					>
 						<Box sx={style}>
 							Update profile picture
-							<Media onClose={handleMediaClose} />
+							<Media onClose={handleMediaClose} photoType={"profilePhoto"} />
 						</Box>
 					</Modal>
 				}
+
+				<EditProfileButton variant="contained" onClick={handleBannerOpen}>
+					Edit Banner
+				</EditProfileButton>
+				{openBanner &&
+					<Modal
+						open={openBanner}
+						onClose={handleBannerClose}
+						aria-labelledby="modal-modal-title"
+						aria-describedby="modal-modal-description"
+					>
+						<Box sx={style}>
+							Update Banner Image
+							<Media onClose={handleBannerClose} photoType={"bannerPhoto"} />
+						</Box>
+					</Modal>
+				}
+
 			</div>
 		</div>
 	);

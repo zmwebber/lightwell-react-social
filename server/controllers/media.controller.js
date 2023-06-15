@@ -24,17 +24,19 @@ export const getAllMedia = asyncHandler(async (req, res) => {
 
 export const addMedia = asyncHandler(async (req, res) => {
   var id = mongoose.Types.ObjectId();
-  console.log("req.body before" + JSON.stringify(req.body))
-  var reqJSON = JSON.parse(JSON.stringify(req.body))
+  console.log("req.body before" + JSON.stringify(req.body));
+  var reqJSON = JSON.parse(JSON.stringify(req.body));
   reqJSON._id = id;
-  console.log("req.body after" + JSON.stringify(reqJSON))
-  const userResponse = await Media.create(reqJSON)
-  console.log(JSON.stringify(userResponse))
+  console.log("req.body after" + JSON.stringify(reqJSON));
+
+  const userResponse = await Media.create(reqJSON);
+  console.log(JSON.stringify(userResponse));
+
   if (userResponse) {
-    var resJSON = JSON.parse(JSON.stringify(userResponse))
+    var resJSON = JSON.parse(JSON.stringify(userResponse));
     resJSON._id = id;
-    console.log("res json: " + JSON.stringify(resJSON))
-    res.status(201).json({    
+    console.log("res json: " + JSON.stringify(resJSON));
+    res.status(201).json({
       media: resJSON,
     });
   } else {

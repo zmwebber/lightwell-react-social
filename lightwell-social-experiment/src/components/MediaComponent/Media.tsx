@@ -9,6 +9,7 @@ import { editUser } from '../../api/UserApi';
 export default function MediaComponent(props: any) {
   let x = new Media();
   const [mediaProps, setMediaProps] = useState<Media>(x);
+  const [bannerMediaProps, setBannerMediaProps] = useState<Media>(x);
   const fileReader = new FileReader();
   const user: User = useAppSelector(state => state.user.profile)
 
@@ -31,8 +32,13 @@ export default function MediaComponent(props: any) {
       x.data = "Error.";
     }
 
-    setMediaProps(x);
-    console.log(mediaProps);
+    if (props.photoType === "profilePhoto") {
+      setMediaProps(x);
+      console.log(mediaProps);
+    } else if (props.photoType === "bannerPhoto") {
+      setBannerMediaProps(x);
+      console.log(bannerMediaProps);
+    }
   }
 
   function handleChange(event: any) {
@@ -50,21 +56,34 @@ export default function MediaComponent(props: any) {
 
   async function handleSubmit(event: any) {
     event.preventDefault();
+    let modalClose = false;
     let action = null;
+    let res = null;
 
-    let res = await addMedia(mediaProps);
-    console.log("HERE IS RES: " + JSON.stringify(res))
+    if (props.photoType === "profilePhoto") {
+      res = await addMedia(mediaProps);
+    } else if (props.photoType === "bannerPhoto") {
+      res = await addMedia(bannerMediaProps);
+    }
 
-    if (user && res.data) {
+    if (user && res?.data.media) {
       var info: User = { ...user };
 
-      info.profile_image_id = res.data.media._id
-      info.profile_image = res.data.media
-
-      console.log("RES DATA MEDIA ID: " + info.profile_image_id)
-      console.log("RES DATA MEDIA: " + JSON.stringify(info.profile_image))
+      if (props.photoType === "profilePhoto") {
+        info.profile_image_id = res.data.media._id
+        info.profile_image = res.data.media
+      } else if (props.photoType === "bannerPhoto") {
+        info.profile_banner_id = res.data.media._id
+        info.profile_banner = res.data.media
+      }
 
       action = editUser(info);
+
+      modalClose = true;
+
+      if (modalClose) {
+        props.onClose();
+      }
 
       store
         .dispatch(action)
