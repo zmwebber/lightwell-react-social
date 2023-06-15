@@ -8,7 +8,6 @@ export const addNewRetweetInteraction = createAsyncThunk(
     async (interaction: Interaction) => {
         try {
             const response = await API.post("/retweets/", interaction)
-            console.log(response.data)
             return response.data
         } catch (error) {
             console.log(error);

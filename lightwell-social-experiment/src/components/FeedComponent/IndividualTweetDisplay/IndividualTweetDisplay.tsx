@@ -2,7 +2,7 @@
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import RepeatIcon from "@mui/icons-material/Repeat";
-import { Box, IconButton, Modal } from "@mui/material";
+import { Box, IconButton, Modal, Paper } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useStore } from "react-redux";
 import { deleteTweet, updateTweet } from "../../../api/TweetApi";
@@ -32,7 +32,7 @@ import ShareIcon from "@mui/icons-material/Share";
 
 import { Interaction } from "../../../models/InteractionsModel";
 import { addNewRetweetInteraction, deleteRetweetInteraction, getRetweetInteractionsByTweetId } from "../../../api/RetweetsApi";
-import styles from "./individualTweetDisplayStyle.module.css";
+import styles from "./individualTweetDisplayStyle.module.scss";
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -41,30 +41,32 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [commentCount, setCommentCount] = React.useState<number>();
 	const [likedByUser, setLikedByUser] = React.useState<boolean>(false);
 	const [retweetedByUser, setRetweetedByUser] = React.useState<boolean>(false);
-	const [color, setColor] = React.useState<string>("grey");
+	const [favoriteColor, setFavoriteColor] = React.useState<string>("grey");
 	const [retweetColor, setRetweetColor] = React.useState<string>("grey");
 	const [refresh, setRefresh] = React.useState<boolean>(false);
 	const [modalOpen, setModalOpen] = React.useState(false);
+	const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
 	const open = Boolean(anchorEl);
 
 	const store = useStore();
 	const state: any = store.getState();
 
 	const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+		position: 'absolute' as 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: 400,
+		bgcolor: 'background.paper',
+		border: '2px solid #000',
+		boxShadow: 24,
+		p: 4,
+	};
 
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
+
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
@@ -108,8 +110,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 		let action = null;
 
-		console.log("likedByUser = " + likedByUser)
-
 		if (likedByUser) {
 			action = deleteFavoritedInteraction(interaction);
 		} else {
@@ -138,8 +138,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 		let action = null;
 
-		console.log("retweetedByUser = " + retweetedByUser)
-
 		if (retweetedByUser === true) {
 			action = deleteRetweetInteraction(interaction);
 		} else {
@@ -157,18 +155,17 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	async function getFavoritedInteractions() {
 		let res = await getFavoritedInteractionsByTweetId(tweet._id, state.user.profile._id);
-		console.log(res)
 		try {
 			let isTweetLikedByUser = res.likedByUser	
 			setFavoriteCount(res.count);
 		
 			if (isTweetLikedByUser === "true")
 			{
-				setColor("red")		
+				setFavoriteColor("red")		
 				setLikedByUser(true)
 			} else
 			{
-				setColor("grey")
+				setFavoriteColor("grey")
 				setLikedByUser(false)
 			}
 		} catch(e){
@@ -176,10 +173,13 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		}
 	};
 
+	const goToTweetReplies = (tweet: Tweet) => {
+		window.location.href = "http://localhost:3000/replies/" + tweet._id
+	};
+
 	async function getRetweetInteractions() {
-		console.log("Entering getRetweetInteraction method")
 		let res = await getRetweetInteractionsByTweetId(tweet._id, state.user.profile._id);
-		console.log(res)
+		
 		try {
 			let isTweetRetweetedByUser = res.retweetedByUser
 			setRetweetCount(res.count)
@@ -198,11 +198,28 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		}
 	};
 
+	function countComments(tweet: Tweet) {
+		var commentCount = 0;
+		state.feed.Tweets.filter((t:Tweet) => {
+			if(t.in_reply_to_status_id === tweet._id) {
+				commentCount++;
+			}
+		})
+		setCommentCount(commentCount);
+	}
+
+	const userLoggedIn = (tweet: Tweet) => {
+		if(state.user.profile._id === tweet.user._id){
+			setIsLoggedIn(true);
+		}
+	};
+
 	useEffect(() => {
-		
 		getRetweetInteractions();
 		getFavoritedInteractions();
-		setRefresh(false)
+		countComments(tweet);
+		userLoggedIn(tweet);
+		setRefresh(false);
 	}, [refresh]);
 
 	// @TODO https://reactrouter.com/en/main
@@ -220,7 +237,9 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	}
 
 	return (
-		<Card
+		<Paper elevation={4}>
+
+		<Card 
 			sx={{
 				gap: 2,
 				backgroundColor: "white",
@@ -229,7 +248,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				borderBottom: " solid gray",
 				borderBottomWidth: "thin",
 			}}
-		>
+			>
 			<CardHeader
 				avatar={
 					<img
@@ -238,20 +257,20 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						src={defaultProfilePic}
 						style={{ width: "5vw", height: "5vh" }}
 						onClick={() => redirectToProfile(tweet)}
-					></img>
+						></img>
 				}
 				action={
 					<div>
-						<IconButton
+						{isLoggedIn && <IconButton
 							aria-label="settings"
 							id="demo-positioned-button"
 							aria-controls={open ? "demo-positioned-menu" : undefined}
 							aria-haspopup="true"
 							aria-expanded={open ? "true" : undefined}
 							onClick={handleClick}
-						>
+							>
 							<MoreVertIcon sx={{ color: "black" }} />
-						</IconButton>
+						</IconButton>}
 						<Menu
 							id="demo-positioned-menu"
 							aria-labelledby="demo-positioned-button"
@@ -266,7 +285,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 								vertical: "top",
 								horizontal: "right",
 							}}
-						>
+							>
 							<MenuItem>
 								<Button
 									sx={{ color: "red" }}
@@ -274,7 +293,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 									onClick={() => {
 										handleDelete(tweet);
 									}}
-								>
+									>
 									Delete
 								</Button>
 							</MenuItem>
@@ -287,30 +306,28 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				}
 				title={parseUserJSON(tweet) + " " + timeCalculator(tweet.createdAt)}
 				subheader=""
-			/>
+				/>
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
 				<CardMedia component="img" image={`${tweet.links.url}`} alt="media" />
-			)}
-			<CardContent>
+				)}
+
+			<CardContent className={styles.root} onClick={() => goToTweetReplies(tweet)}>
 				<Typography variant="body2">{tweet.text}</Typography>
 			</CardContent>
 
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
-			{/* <CardActions disableSpacing className="icon-parents"> 
-			For whatever reason, material UI CardActions doesn't allow for respacing betwixt nested buttons*/}
 			<div style={{ display: "flex", justifyContent: "space-around" }}>
 				
 			<div>
-      <Button onClick={handleCommentModalOpen} startIcon={<ChatBubbleOutlineRoundedIcon />}>{commentCount}</Button>
+      <Button sx={{color: "grey"}} onClick={handleCommentModalOpen} startIcon={<ChatBubbleOutlineRoundedIcon />}>{ commentCount }</Button>
       <Modal
         open={modalOpen}
         onClose={handleCommentModalClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
+				>
         <Box sx={style}>
-					<Comment/>
-          <TweetForm isReplyStatus={true} statusId={"statusId"} userId={"123"}/>
+          <TweetForm isReplyStatus={true} statusId={tweet._id} userId={tweet.user._id}/>
         </Box>
       </Modal>
     	</div>
@@ -322,19 +339,20 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						color: retweetColor,
 					}}
 					startIcon={<RepeatIcon />}
-				> { retweetCount } </Button>
+					> { retweetCount } </Button>
 
 				<Button
 					onClick={() => {
 						handleFavoritedInteraction(tweet)
 					}}	
 					startIcon={<FavoriteIcon />}
-					className={color === "red" ? styles.red : styles.grey}
-				> { favoriteCount } </Button>
+					className={favoriteColor === "red" ? styles.red : styles.grey}
+					> { favoriteCount } </Button>
 
 				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
 			</div>
 			{/* </CardActions> */}
 		</Card>
+					</Paper>
 	);
 }

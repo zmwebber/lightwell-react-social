@@ -30,7 +30,6 @@ export const deleteTweet = createAsyncThunk(
     "tweets/delete",
     async (id: String) => {
     try {
-		console.log(`You are attempting to delete this tweet. ID: ${id}`);
         await API.delete(`/tweets/byId/${id}`);
         console.log(`Deletion successful!`);
     } catch (error) {
@@ -43,9 +42,8 @@ export const updateTweet = createAsyncThunk(
     async (tweet: any) => {
         const id = tweet._id;
         try {
-            console.log(`You are attempting to update this tweet. ID: ${id}`)  
             await API.put(`/tweets/byId/${id}`, tweet);
-            console.log(`Updated completed!`);
+            console.log(`Update completed!`);
         } catch (error) {
             console.log(error);
         }
