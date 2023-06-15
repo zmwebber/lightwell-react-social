@@ -32,7 +32,7 @@ import ShareIcon from "@mui/icons-material/Share";
 
 import { Interaction } from "../../../models/InteractionsModel";
 import { addNewRetweetInteraction, deleteRetweetInteraction, getRetweetInteractionsByTweetId } from "../../../api/RetweetsApi";
-import styles from "./individualTweetDisplayStyle.module.css";
+import styles from "./individualTweetDisplayStyle.module.scss";
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -310,11 +310,10 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
 				<CardMedia component="img" image={`${tweet.links.url}`} alt="media" />
 				)}
-			<div className="tweet-body">
-				<CardContent onClick={() => goToTweetReplies(tweet)}>
-					<Typography variant="body2">{tweet.text}</Typography>
-				</CardContent>
-			</div>
+
+			<CardContent className={styles.root} onClick={() => goToTweetReplies(tweet)}>
+				<Typography variant="body2">{tweet.text}</Typography>
+			</CardContent>
 
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
 			<div style={{ display: "flex", justifyContent: "space-around" }}>

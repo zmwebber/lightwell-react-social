@@ -4,3 +4,12 @@
 .grey{
     color:grey !important;
 }
+
+.MuiCardContent-root {
+    user-select: none;
+    cursor: pointer;
+    touch-action: manipulation;
+    display: block;
+    background: transparent;
+    border: 0;
+}
