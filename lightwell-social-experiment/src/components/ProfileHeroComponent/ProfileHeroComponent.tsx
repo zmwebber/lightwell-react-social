@@ -49,6 +49,7 @@ function ProfileHeroComponent() {
 
 	useEffect(() => {
 		let src = `data:` + user.profile_image?.contentType + `;base64,` + user.profile_image?.data;
+		console.log(src)
 		setPreview(src);
 	}, [user]);
 

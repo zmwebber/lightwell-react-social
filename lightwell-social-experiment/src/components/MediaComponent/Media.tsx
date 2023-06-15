@@ -53,12 +53,16 @@ export default function MediaComponent(props: any) {
     let action = null;
 
     let res = await addMedia(mediaProps);
+    console.log("HERE IS RES: " + JSON.stringify(res))
 
-    if (user && res.data.media) {
+    if (user && res.data) {
       var info: User = { ...user };
 
       info.profile_image_id = res.data.media._id
       info.profile_image = res.data.media
+
+      console.log("RES DATA MEDIA ID: " + info.profile_image_id)
+      console.log("RES DATA MEDIA: " + JSON.stringify(info.profile_image))
 
       action = editUser(info);
 

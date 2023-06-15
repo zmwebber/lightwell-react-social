@@ -4,8 +4,8 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user.model");
 require("dotenv").config();
-var mongoose = require('mongoose');
-import { ObjectId } from 'mongodb'
+var mongoose = require("mongoose");
+import { ObjectId } from "mongodb";
 // @desc    Register new user
 // @route   POST /api/users/add
 // @access  Public
@@ -48,23 +48,24 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 export const editUser = asyncHandler(async (req, res) => {
   const user = req.body;
-  delete user['token'];
-  let id = req.body._id; 
-  console.log("ID : "+ id)
-  
+  delete user["token"];
+  delete user["password"];
+  let id = req.body._id;
+  console.log("ID : " + id);
+
   let objectId = new ObjectId(id);
-  console.log("Object : "+ objectId)
+  console.log("Object : " + objectId);
   let filter = {
-    _id: objectId
+    _id: objectId,
   };
 
-  const userResponse = await User.findOneAndUpdate(filter, user, {new: true});
+  const userResponse = await User.findOneAndUpdate(filter, user, { new: true });
 
   if (userResponse) {
-    userResponse["token"] = generateToken(userResponse._id)
-    console.log("Updated User: " + userResponse)    
+    userResponse["token"] = generateToken(userResponse._id);
+    console.log("Updated User: " + userResponse);
     res.status(201).json({
-     profile: userResponse
+      profile: userResponse,
     });
   } else {
     res.status(400);
