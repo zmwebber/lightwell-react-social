@@ -6,7 +6,6 @@ const asyncHandler = require('express-async-handler')
 
 export const addFavoritedInteraction = asyncHandler(async (req, res) => {
   const options = { upsert: true };
-  console.log('added favorited')
   delete req.body._id;
   const newInteraction = req.body;
   let tweetFound = await Favorites.updateOne(newInteraction, newInteraction, options);
@@ -41,7 +40,6 @@ export const deleteFavoritedInteraction = asyncHandler(async (req, res) => {
 export const getFavoritedInteractionsByTweetId = asyncHandler(async (req, res) => {
 
   const params = req.params
-  console.log("GetFavoritesByTweetId for _id: " + params.tweetId + " userId: " + params.userId)
 
   let favoritesCount = await Favorites.count({ 'tweetId': { $eq: params.tweetId } });
   let userHasLiked = await Favorites.count({ 'tweetId': { $eq: params.tweetId }, 'userId': { $eq: params.userId } })

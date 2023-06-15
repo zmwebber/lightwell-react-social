@@ -110,8 +110,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 		let action = null;
 
-		console.log("likedByUser = " + likedByUser)
-
 		if (likedByUser) {
 			action = deleteFavoritedInteraction(interaction);
 		} else {
@@ -139,8 +137,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		};
 
 		let action = null;
-
-		console.log("retweetedByUser = " + retweetedByUser)
 
 		if (retweetedByUser === true) {
 			action = deleteRetweetInteraction(interaction);

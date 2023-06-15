@@ -6,7 +6,6 @@ const asyncHandler = require('express-async-handler')
 
 export const addRetweetInteraction = asyncHandler(async (req, res) => {
   const options = { upsert: true };
-  console.log('added retweet')
   delete req.body._id;
   const newInteraction = req.body;
   let x = await Retweets.updateOne(newInteraction, newInteraction, options);
@@ -41,7 +40,6 @@ export const deleteRetweetInteraction = asyncHandler(async (req, res) => {
 export const getRetweetInteractionsByTweetId = asyncHandler(async (req, res) => {
 
   const params = req.params
-  console.log("GetRetweetsByTweetId for _id: " + params.tweetId + " userId: " + params.userId)
 
   let retweetCount = await Retweets.count({ 'tweetId': { $eq: params.tweetId } });
   let userHasRetweeted = await Retweets.count({ 'tweetId': { $eq: params.tweetId }, 'userId': { $eq: params.userId } })
