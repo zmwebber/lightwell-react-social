@@ -2,7 +2,7 @@
 import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import RepeatIcon from "@mui/icons-material/Repeat";
-import { Box, IconButton, Modal } from "@mui/material";
+import { Box, IconButton, Modal, Paper } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useStore } from "react-redux";
 import { deleteTweet, updateTweet } from "../../../api/TweetApi";
@@ -237,6 +237,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	}
 
 	return (
+		<Paper elevation={4}>
+
 		<Card 
 			sx={{
 				gap: 2,
@@ -246,7 +248,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				borderBottom: " solid gray",
 				borderBottomWidth: "thin",
 			}}
-		>
+			>
 			<CardHeader
 				avatar={
 					<img
@@ -255,7 +257,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						src={defaultProfilePic}
 						style={{ width: "5vw", height: "5vh" }}
 						onClick={() => redirectToProfile(tweet)}
-					></img>
+						></img>
 				}
 				action={
 					<div>
@@ -266,7 +268,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							aria-haspopup="true"
 							aria-expanded={open ? "true" : undefined}
 							onClick={handleClick}
-						>
+							>
 							<MoreVertIcon sx={{ color: "black" }} />
 						</IconButton>}
 						<Menu
@@ -283,7 +285,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 								vertical: "top",
 								horizontal: "right",
 							}}
-						>
+							>
 							<MenuItem>
 								<Button
 									sx={{ color: "red" }}
@@ -291,7 +293,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 									onClick={() => {
 										handleDelete(tweet);
 									}}
-								>
+									>
 									Delete
 								</Button>
 							</MenuItem>
@@ -304,13 +306,15 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				}
 				title={parseUserJSON(tweet) + " " + timeCalculator(tweet.createdAt)}
 				subheader=""
-			/>
+				/>
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
 				<CardMedia component="img" image={`${tweet.links.url}`} alt="media" />
-			)}
-			<CardContent className="tweet-body" onClick={() => goToTweetReplies(tweet)}>
-				<Typography variant="body2">{tweet.text}</Typography>
-			</CardContent>
+				)}
+			<div className="tweet-body">
+				<CardContent onClick={() => goToTweetReplies(tweet)}>
+					<Typography variant="body2">{tweet.text}</Typography>
+				</CardContent>
+			</div>
 
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
 			<div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -322,7 +326,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
         onClose={handleCommentModalClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
+				>
         <Box sx={style}>
           <TweetForm isReplyStatus={true} statusId={tweet._id} userId={tweet.user._id}/>
         </Box>
@@ -336,7 +340,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						color: retweetColor,
 					}}
 					startIcon={<RepeatIcon />}
-				> { retweetCount } </Button>
+					> { retweetCount } </Button>
 
 				<Button
 					onClick={() => {
@@ -344,11 +348,12 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					}}	
 					startIcon={<FavoriteIcon />}
 					className={favoriteColor === "red" ? styles.red : styles.grey}
-				> { favoriteCount } </Button>
+					> { favoriteCount } </Button>
 
 				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
 			</div>
 			{/* </CardActions> */}
 		</Card>
+					</Paper>
 	);
 }
