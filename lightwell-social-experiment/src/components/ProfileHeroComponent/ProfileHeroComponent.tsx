@@ -16,6 +16,7 @@ import { useAppSelector } from "../../app/hooks/hooks";
 // profile page should include banner & user info
 
 const EditProfileButton: any = styled(Button)`
+	text-transform: none;
 	font-weight: bold;
 	border-radius: 20px;
 	padding: 8px 18px;
