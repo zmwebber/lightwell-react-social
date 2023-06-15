@@ -100,9 +100,10 @@ export const loginUser = asyncHandler(async (req, res) => {
       favorites_count: user.favorites_count,
       verified: user.verified,
       statuses_count: user.statuses_count,
-      profile_background_color: user.profile_background_color,
-      profile_background_image_url: user.profile_background_image_url,
-      profile_image_url: user.profile_image_url,
+      profile_banner_id: user.profile_banner_id,
+      profile_banner: user.profile_banner,
+      profile_image_id: user.profile_image_id,
+      profile_image: user.profile_image,
     });
   } else {
     res.status(400);
