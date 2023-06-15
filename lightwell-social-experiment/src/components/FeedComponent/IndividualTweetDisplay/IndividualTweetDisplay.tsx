@@ -41,30 +41,32 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [commentCount, setCommentCount] = React.useState<number>();
 	const [likedByUser, setLikedByUser] = React.useState<boolean>(false);
 	const [retweetedByUser, setRetweetedByUser] = React.useState<boolean>(false);
-	const [color, setColor] = React.useState<string>("grey");
+	const [favoriteColor, setFavoriteColor] = React.useState<string>("grey");
 	const [retweetColor, setRetweetColor] = React.useState<string>("grey");
 	const [refresh, setRefresh] = React.useState<boolean>(false);
 	const [modalOpen, setModalOpen] = React.useState(false);
+	const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
 	const open = Boolean(anchorEl);
 
 	const store = useStore();
 	const state: any = store.getState();
 
 	const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+		position: 'absolute' as 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: 400,
+		bgcolor: 'background.paper',
+		border: '2px solid #000',
+		boxShadow: 24,
+		p: 4,
+	};
 
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
+
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
@@ -163,11 +165,11 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		
 			if (isTweetLikedByUser === "true")
 			{
-				setColor("red")		
+				setFavoriteColor("red")		
 				setLikedByUser(true)
 			} else
 			{
-				setColor("grey")
+				setFavoriteColor("grey")
 				setLikedByUser(false)
 			}
 		} catch(e){
@@ -200,10 +202,28 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		}
 	};
 
+	function countComments(tweet: Tweet) {
+		var commentCount = 0;
+		state.feed.Tweets.filter((t:Tweet) => {
+			if(t.in_reply_to_status_id === tweet._id) {
+				commentCount++;
+			}
+		})
+		setCommentCount(commentCount);
+	}
+
+	const userLoggedIn = (tweet: Tweet) => {
+		if(state.user.profile._id === tweet.user._id){
+			setIsLoggedIn(true);
+		}
+	};
+
 	useEffect(() => {
 		getRetweetInteractions();
 		getFavoritedInteractions();
-		setRefresh(false)
+		countComments(tweet);
+		userLoggedIn(tweet);
+		setRefresh(false);
 	}, [refresh]);
 
 	// @TODO https://reactrouter.com/en/main
@@ -243,7 +263,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				}
 				action={
 					<div>
-						<IconButton
+						{isLoggedIn && <IconButton
 							aria-label="settings"
 							id="demo-positioned-button"
 							aria-controls={open ? "demo-positioned-menu" : undefined}
@@ -252,7 +272,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							onClick={handleClick}
 						>
 							<MoreVertIcon sx={{ color: "black" }} />
-						</IconButton>
+						</IconButton>}
 						<Menu
 							id="demo-positioned-menu"
 							aria-labelledby="demo-positioned-button"
@@ -292,17 +312,15 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			{tweet.links.url !== `` && tweet.links.url !== undefined && (
 				<CardMedia component="img" image={`${tweet.links.url}`} alt="media" />
 			)}
-			<CardContent onClick={() => goToTweetReplies(tweet)}>
+			<CardContent className="tweet-body" onClick={() => goToTweetReplies(tweet)}>
 				<Typography variant="body2">{tweet.text}</Typography>
 			</CardContent>
 
 			{/* @TODO: Dropdown on retweet click where it's straight retweet vs retweet with comment. */}
-			{/* <CardActions disableSpacing className="icon-parents"> 
-			For whatever reason, material UI CardActions doesn't allow for respacing betwixt nested buttons*/}
 			<div style={{ display: "flex", justifyContent: "space-around" }}>
 				
 			<div>
-      <Button onClick={handleCommentModalOpen} startIcon={<ChatBubbleOutlineRoundedIcon />}>{commentCount}</Button>
+      <Button sx={{color: "grey"}} onClick={handleCommentModalOpen} startIcon={<ChatBubbleOutlineRoundedIcon />}>{ commentCount }</Button>
       <Modal
         open={modalOpen}
         onClose={handleCommentModalClose}
@@ -329,7 +347,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						handleFavoritedInteraction(tweet)
 					}}	
 					startIcon={<FavoriteIcon />}
-					className={color === "red" ? styles.red : styles.grey}
+					className={favoriteColor === "red" ? styles.red : styles.grey}
 				> { favoriteCount } </Button>
 
 				<Button sx={{ color: "grey" }} startIcon={<ShareIcon />}></Button>
