@@ -48,15 +48,12 @@ export const getRetweetInteractionsByTweetId = asyncHandler(async (req, res) => 
 
   if (retweetCount > 0) {
     if (userHasRetweeted > 0) {
-
-      console.log("----RETWEET COUNT ---- " + retweetCount)
       res.status(201).json({
         'count': retweetCount,
         'retweetedByUser': "true",
         'message': 'success',
       })
     } else if (userHasRetweeted == 0) {
-      console.log("----RETWEET COUNT ---- " + retweetCount)
       res.status(201).json({
         'count': retweetCount,
         'retweetedByUser': "false",
@@ -64,7 +61,6 @@ export const getRetweetInteractionsByTweetId = asyncHandler(async (req, res) => 
       })
     }
   } else if (retweetCount == 0) {
-    console.log("----RETWEET COUNT ---- " + retweetCount)
     res.status(201).json({
       'count': retweetCount,
       'retweetedByUser': "false",
