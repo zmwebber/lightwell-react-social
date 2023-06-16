@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import { ExplorePage } from "./pages/ExplorePage/ExplorePage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
+import { RepliesPage } from "./pages/RepliesPage/RepliesPage";
 import RegistrationPage from "./pages/AuthenticationPage/RegistrationPage";
 import "./App.module.scss";
 
@@ -24,6 +25,7 @@ function App() {
 				<Route path="/more" element={<Counter />} />
 				<Route path="/signup" element={<RegistrationPage />} />
 				<Route path="/login" element={<LoginPage />} />
+				<Route path="/replies/:id" element={<RepliesPage />} />
 			</Routes>
 		</div>
 	);
