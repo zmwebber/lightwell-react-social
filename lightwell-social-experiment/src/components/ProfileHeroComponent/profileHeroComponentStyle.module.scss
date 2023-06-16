@@ -14,10 +14,12 @@
 
 .notificationBar {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding-bottom: 10px;
     padding-left: 10px;
+    margin-right: 20px;
 }
 
 .profilePicture {

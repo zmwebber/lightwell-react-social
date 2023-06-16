@@ -1,12 +1,7 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import { styled } from "@mui/system";
-import { Button } from "@mui/material";
-import image from "../../app/images/banner-blur.jpg";
-import profilePicDefault from "../../app/images/default-profile-pic.jpeg";
+import { useEffect, useState } from "react";
 import ProfileHeroComponentStyle from "./profileHeroComponentStyle.module.scss";
+import { User } from "../../models/ProfileModel";
+import { useAppSelector } from "../../app/hooks/hooks";
 
 // Outline: Profile Page should filter out tweets by user.
 // if navigating to a user's profile, all tweets in the tweet feed should be of that user or retweeted by that user.
@@ -15,18 +10,29 @@ import ProfileHeroComponentStyle from "./profileHeroComponentStyle.module.scss";
 // profile page should include banner & user info
 
 function ProfileHeroComponent() {
+	const [profilePhotoPreview, setProfilePhotoPreview] = useState("");
+	const [bannerPhotoPreview, setBannerPhotoPreview] = useState("");
+	const user: User = useAppSelector(state => state.user.profile)
+
+	useEffect(() => {
+		let profilePhotoSource = `data:` + user.profile_image?.contentType + `;base64,` + user.profile_image?.data;
+		setProfilePhotoPreview(profilePhotoSource);
+
+		let bannerPhotoSource = `data:` + user.profile_banner?.contentType + `;base64,` + user.profile_banner?.data;
+		setBannerPhotoPreview(bannerPhotoSource);
+
+	}, [user]);
+
 	return (
 		<div className={ProfileHeroComponentStyle.profileHeroContainer}>
 			<div className={ProfileHeroComponentStyle.banner}>
-				<img src={image} className={ProfileHeroComponentStyle.bannerImage} alt="banner-pic" />
+				<img src={bannerPhotoPreview} className={ProfileHeroComponentStyle.bannerImage} alt="banner-pic" />
 			</div>
 
 			<div className={ProfileHeroComponentStyle.notificationBar}>
-				<img
-					src={profilePicDefault}
-					className={ProfileHeroComponentStyle.profilePicture}
-					alt="profile-pic"
-				/>
+				<img src={profilePhotoPreview} className={ProfileHeroComponentStyle.profilePicture} width="300px" height="auto" alt="preview" />
+				<div className={ProfileHeroComponentStyle.editButtons}>
+				</div>
 			</div>
 		</div>
 	);

@@ -1,8 +1,7 @@
-import { LensTwoTone } from '@mui/icons-material';
-import { useRadioGroup } from '@mui/material';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import userService, { addUser, login, logout } from '../../../api/UserApi'
-import { Profile, User } from '../../../models/ProfileModel'
+
+import { createSlice } from '@reduxjs/toolkit'
+import { addUser, editUser, login, logout } from '../../../api/UserApi'
+import { User } from '../../../models/ProfileModel'
 // Get user from localStorage
 
 let localUser = localStorage.getItem('user');
@@ -11,7 +10,7 @@ if (localUser !== '' && localUser !== null) {
   user = JSON.parse(localUser) as User;
 }
 else {
-  user = undefined;
+  user = new User();
 }
 
 export interface UserState {
@@ -29,7 +28,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: '',
-  loginSuccess: false
+  loginSuccess: user._id? true: false 
 }
 
 
@@ -39,11 +38,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.isLoading = false
-      state.isSuccess = false
-      state.isError = false
-      state.message = ''
-      state.loginSuccess = false
+      state.isLoading = initialState.isLoading
+      state.isSuccess = initialState.isSuccess
+      state.isError = initialState.isError
+      state.message = initialState.message
+      state.loginSuccess = initialState.loginSuccess
+      state.profile = initialState.profile
     },
   },
   extraReducers: (builder) => {
@@ -56,13 +56,30 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.profile = action.payload
-        state.loginSuccess = false
+        state.loginSuccess = true
       })
       .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = "Failed to save user!"
-        state.profile = undefined
+        state.profile = initialState.profile
+        state.loginSuccess = false
+      })
+      .addCase(editUser.pending, (state) => {
+        state.isLoading = true        
+        state.loginSuccess = true
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.profile = action.payload
+        state.loginSuccess = true
+      })
+      .addCase(editUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = "Failed to save user!"
+        state.profile = initialState.profile
         state.loginSuccess = false
       })
       .addCase(login.pending, (state) => {
@@ -70,7 +87,7 @@ export const authSlice = createSlice({
         state.isLoading = true
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.profile = action.payload ? action.payload : undefined
+        state.profile = action.payload 
         state.loginSuccess = true
         state.isLoading = false
         state.isError = false
@@ -83,14 +100,14 @@ export const authSlice = createSlice({
         state.isError = true
         state.message = "Failed to login!"
         state.isSuccess = false
-        state.profile = undefined
+        state.profile = initialState.profile
       })
       .addCase(logout.pending, (state) => {
         state.loginSuccess = false
         state.isLoading = true
       })
       .addCase(logout.fulfilled, (state) => {
-        state.profile = undefined
+        state.profile = initialState.profile
         state.loginSuccess = false
         state.isLoading = false
         state.isError = false

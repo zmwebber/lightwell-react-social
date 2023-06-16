@@ -68,7 +68,6 @@ export default function TabsComponent() {
         const currentState: any = store.getState();
 
         if (currentState.myTweets.myTweets.length > 0) {
-            console.log("My feed refreshed.");
             setInitialized(true);
         }
     }

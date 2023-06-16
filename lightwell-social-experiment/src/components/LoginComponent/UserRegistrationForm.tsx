@@ -1,11 +1,10 @@
-import { Button, Input } from "@mui/material";
-import React, { useState } from "react";
-import { myTweets } from "../../redux/ducks/post_duck/tweetFormSlice";
+import { Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useStore } from "react-redux";
-import { Profile } from "../../models/ProfileModel";
+import { User } from "../../models/ProfileModel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import { addUser } from "../../api/UserApi";
+import { addUser, editUser } from "../../api/UserApi";
 import { useAppSelector } from "../../app/hooks/hooks";
 import type { } from "redux-thunk/extend-redux";
 import dayjs, { Dayjs } from "dayjs";
@@ -14,61 +13,67 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import UserRegistrationFormStyle from "./userRegistrationFormStyle.module.scss";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
 function UserRegistrationForm(props: any) {
 	const store = useStore();
-	const feed = useAppSelector(myTweets);
-
-	const [name, setName] = useState("");
-	const [handle, setHandle] = useState("");
-	const [email, setEmail] = useState("");
+	const user: User = useAppSelector(state => state.user.profile)
 	const [password, setPassword] = useState("");
+	const [name, setName] = useState(user?.name ?? "");
+	const [handle, setHandle] = useState(user?.screen_name ?? "");
+	const [email, setEmail] = useState(user?.email ?? "");
 	const [birthday, setBirthday] = React.useState<Dayjs | null>(
-		dayjs("2014-08-18T21:11:54")
+		dayjs(user?.dateOfBirth)
 	);
-	// const [tweetPicture, setTweetPicture] = useState("");
-	const [profile, setProfile] = useState<Profile>({
-		name: "",
-		screen_name: "",
-		email: "",
-		password: "",
-		dateOfBirth: new Date(),
-		createdAt: new Date(),
-		description: "",
-		url: "",
-		protected: false,
-		followers_count: 0,
-		friends_count: 0,
-		listed_count: 0,
-		favorites_count: 0,
-		verified: false,
-		statuses_count: 0,
-		profile_background_color: "",
-		profile_background_image_url: "",
-		profile_image_url: "",
-	});
+
+	useEffect(() => {
+
+	}, [user]); // Only re-run the effect if user changes
+
 	const profileSuccess = (e: any) => {
 		e.preventDefault();
-		if (birthday !== null) {
-			profile.dateOfBirth = new Date(birthday.toString());
+		let modalClose = false;
+		let action = null;
+		if (user) {
+
+			//create a copy of the state profile
+			var info: User = { ...user };
+			// see what has changed from the user profile	
+
+			if (info.name !== name) {
+				info.name = name;
+				modalClose = true;
+			}
+			if (info.screen_name !== handle) {
+				info.screen_name = handle;
+				modalClose = true;
+			}
+			if (info.email !== email) {
+				info.email = email;
+				modalClose = true;
+			}
+			if (!dayjs(info.dateOfBirth).isSame(birthday) && birthday) {
+				info.dateOfBirth = birthday?.toDate();
+				modalClose = true;
+			}
+
+			if (props.profileStatus === "edit") {
+				action = editUser(info);
+			} else {
+				info.password = password;
+				action = addUser(info);
+			}
+			if (modalClose) {
+				props.onClose();
+			}
+			store
+				.dispatch(action)
+				.unwrap()
+				.catch((error: any) => {
+					console.log(error);
+				});
 		}
-		profile.name = name;
-		profile.screen_name = handle;
-		profile.email = email;
-		profile.password = password;
 
-		const action = addUser(profile);
 
-		store
-			.dispatch(action)
-			.unwrap()
-			.catch((error: any) => {
-				console.log(error);
-			});
-		e.target.reset();
-
-		if (props.className == "modal") {
-			props.handleClose();
-		}
 	};
 
 	const handleChange = (newValue: Dayjs | null) => {
@@ -86,6 +91,7 @@ function UserRegistrationForm(props: any) {
 								type="text"
 								id="name"
 								placeholder="FirstName LastName"
+								defaultValue={user?.name || ""}
 								onChange={(e) => setName(e.target.value)}
 							/>
 							<TextField
@@ -93,6 +99,7 @@ function UserRegistrationForm(props: any) {
 								type="text"
 								id="userName"
 								placeholder="Handle"
+								defaultValue={user?.screen_name || ""}
 								onChange={(e) => setHandle(e.target.value)}
 							/>
 							<TextField
@@ -100,15 +107,19 @@ function UserRegistrationForm(props: any) {
 								type="text"
 								id="email"
 								placeholder="someone@example.com"
+								defaultValue={user?.email || ""}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
-							<TextField
-								name="Password"
-								type="text"
-								id="password"
-								placeholder="Strong Password"
-								onChange={(e) => setPassword(e.target.value)}
-							/>
+							{props.profileStatus !== "edit" &&
+
+								<TextField
+									name="Password"
+									type="text"
+									id="password"
+									placeholder="Strong Password"
+									onChange={(e) => setPassword(e.target.value)} />
+
+							}
 						</Grid>
 					</Grid>
 					<Grid container direction="column" className={UserRegistrationFormStyle.gridContainer}>
@@ -122,7 +133,9 @@ function UserRegistrationForm(props: any) {
 								className={UserRegistrationFormStyle.datePicker}
 							/>
 						</Grid>
-						<Button type="submit">Register User</Button>
+						{
+							props.profileStatus === "edit" ? <Button type="submit">Update User</Button> : <Button type="submit">Register User</Button>
+						}
 					</Grid>
 				</LocalizationProvider>
 			</form>
