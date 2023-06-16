@@ -34,3 +34,17 @@ export const FollowButton: any = styled(Button)`
 	shape = RoundedCornerShape(50, 50, 50, 50);
 	margin-bottom: 12px;
 `;
+
+export const EditButton: any = styled(Button)`
+	font-weight: bold;
+	color: #1DA1F2;
+	border-radius: 20px;
+	background-color: white;
+	outline: auto;
+	outline-color: #1DA1F2;
+	padding: 7px 15px;
+	transition: 0.3s;
+	@media (max-width: 1351px) {
+		margin-top: 10px;
+	}
+`;
