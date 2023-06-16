@@ -38,7 +38,7 @@ function Login(props: any) {
 		e.preventDefault();
 		let user = new User()
 		user.email = email;
-		user.password = password;		
+		user.password = password;
 		const action = login(user);
 
 		store
@@ -60,7 +60,6 @@ function Login(props: any) {
 		const currentState: any = store.getState();
 
 		if (currentState.user.profile.token !== null && currentState.user.loginSuccess == true) { // Change eventually from toxen exists -> token is valid and isn't expired
-			console.log("HANDLE REDIRECT INSIDE OF IF WORKS.");
 			navigate("/profile") //fixme: put navigates into state
 		}
 	}

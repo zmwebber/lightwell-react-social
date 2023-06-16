@@ -16,11 +16,9 @@ function ProfileHeroComponent() {
 
 	useEffect(() => {
 		let profilePhotoSource = `data:` + user.profile_image?.contentType + `;base64,` + user.profile_image?.data;
-		console.log(profilePhotoSource)
 		setProfilePhotoPreview(profilePhotoSource);
 
 		let bannerPhotoSource = `data:` + user.profile_banner?.contentType + `;base64,` + user.profile_banner?.data;
-		console.log(bannerPhotoSource)
 		setBannerPhotoPreview(bannerPhotoSource);
 
 	}, [user]);

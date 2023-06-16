@@ -48,20 +48,20 @@ export const addUser = createAsyncThunk(
     }
   })
 
-  export const editUser = createAsyncThunk(
-    "users/edit",
-    async (user: Profile) => {
-      try {
-        const response = await API.post(API_URL + 'edit', user)
-        if (response.data) {
-          console.log("Edit user returned: " + JSON.stringify(response.data))
-          localStorage.setItem('user', JSON.stringify(response.data))
-        }
-        return response.data.profile
-      } catch (err) {        
-        console.log(err);
+export const editUser = createAsyncThunk(
+  "users/edit",
+  async (user: Profile) => {
+    try {
+      const response = await API.post(API_URL + 'edit', user)
+      if (response.data) {
+        console.log("Edit user returned: " + JSON.stringify(response.data))
+        localStorage.setItem('user', JSON.stringify(response.data))
       }
-    })
+      return response.data.profile
+    } catch (err) {
+      console.log(err);
+    }
+  })
 
 // Logout user
 export const logout = createAsyncThunk(

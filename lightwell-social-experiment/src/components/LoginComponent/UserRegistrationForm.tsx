@@ -33,49 +33,33 @@ function UserRegistrationForm(props: any) {
 		e.preventDefault();
 		let modalClose = false;
 		let action = null;
-		console.log("Submit User Registration:  " + JSON.stringify(user))
 		if (user) {
-			console.log('profile exists')
 
 			//create a copy of the state profile
 			var info: User = { ...user };
 			// see what has changed from the user profile	
 
 			if (info.name !== name) {
-				console.log('name changed')
-				console.log('profile.name: ' + user.name)
-				console.log('form Name: ' + name)
 				info.name = name;
 				modalClose = true;
 			}
 			if (info.screen_name !== handle) {
-				console.log('handle changed')
-				console.log('profile.email: ' + info.screen_name)
-				console.log('form handle: ' + handle)
 				info.screen_name = handle;
 				modalClose = true;
 			}
 			if (info.email !== email) {
-				console.log('email changed')
-				console.log('profile.email: ' + user.email)
-				console.log('form email: ' + email)
 				info.email = email;
 				modalClose = true;
 			}
 			if (!dayjs(info.dateOfBirth).isSame(birthday) && birthday) {
-				console.log('dateOfBirth changed')
-				console.log('profile.dateOfBirth: ' + dayjs(user.dateOfBirth).toDate())
-				console.log('form dateOfBirth: ' + birthday?.toDate())
 				info.dateOfBirth = birthday?.toDate();
 				modalClose = true;
 			}
 
 			if (props.profileStatus === "edit") {
-				console.log("EDIT User " + JSON.stringify(info))
 				action = editUser(info);
 			} else {
 				info.password = password;
-				console.log("CREATE User " + JSON.stringify(info))
 				action = addUser(info);
 			}
 			if (modalClose) {

@@ -23,8 +23,6 @@ export default function MediaComponent(props: any) {
       if (fileReader.result) {
         let stringResult = fileReader.result.toString();
         let b64 = btoa(stringResult);
-        console.log("Result: " + stringResult)
-        console.log("Base64: " + b64)
         x.data = b64;
       }
     }
@@ -34,10 +32,8 @@ export default function MediaComponent(props: any) {
 
     if (props.photoType === "profilePhoto") {
       setMediaProps(x);
-      console.log(mediaProps);
     } else if (props.photoType === "bannerPhoto") {
       setBannerMediaProps(x);
-      console.log(bannerMediaProps);
     }
   }
 
