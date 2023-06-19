@@ -86,7 +86,10 @@ export default function MediaComponent(props: any) {
       if (modalClose) {
         props.onClose();
       }
-
+      if ( props.photoType === "tweetPhoto")
+      {
+        props.addImage(mediaProps)
+      }
       store
         .dispatch(action)
         .unwrap()

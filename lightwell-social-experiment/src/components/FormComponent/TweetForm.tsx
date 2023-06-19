@@ -15,7 +15,8 @@ import { TweetButton } from "../../app/shared/buttons";
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined'; import { styled } from "@mui/system";
 import AppStyle from "../../App.module.scss"
 import TweetFormStyle from "./tweetFormStyle.module.scss";
-import Media from "../MediaComponent/Media";
+import MediaComponent from "../MediaComponent/Media";
+import { Media } from "../../models/MediaModel";
 // @TODO: Data validation -- user shouldn't be allowed to insert empty string.
 // user shouldn't be allowed to submit a tweet of only spaces.
 // https://mongoosejs.com/docs/validation.html
@@ -34,7 +35,7 @@ const style = {
 
 function TweetForm(props: any) {
 	const store = useStore();
-	const userState = useSelector((state: RootState) => state.user);
+	const userState = useSelector((state: RootState) => state.user);	
 	const userProfile = userState.profile;
 	const [submitted, setSubmitted] = React.useState("");
 	const [tweetContent, setTweetContent] = useState("");
@@ -42,6 +43,8 @@ function TweetForm(props: any) {
 
 	const handleMediaOpen = () => setMediaOpen(true);
 	const handleMediaClose = () => setMediaOpen(false);
+
+	const [tweetImage, setTweetImage] = useState<Media>();
 
 	const [tweet, setTweet] = useState<Tweet>({
 		_id: "",
@@ -75,13 +78,17 @@ function TweetForm(props: any) {
 		},
 		image: null
 	});
+	
 	const tweetSuccess = (e: any) => {
 		e.preventDefault();
 
 		if (tweetContent !== "") {
 			tweet.text = tweetContent;
 			tweet.createdAt = new Date();
-
+			if (tweetImage)
+			{
+				tweet.image = tweetImage
+			}			
 			const action = addTweet(tweet);
 
 			store
@@ -146,7 +153,7 @@ function TweetForm(props: any) {
 						>
 							<Box sx={style}>
 								Upload an Image
-								<Media onClose={handleMediaClose} photoType={"tweetPhoto"}
+								<MediaComponent onClose={handleMediaClose} photoType={"tweetPhoto"} addImage={setTweetImage}
 								/>
 							</Box>
 						</Modal>
