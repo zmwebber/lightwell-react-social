@@ -9,13 +9,13 @@ import HomePageStyle from "./homePageStyle.module.scss";
 function HomePage() {
 	return (
 		<div className={HomePageStyle.homepageContainer}>
-			<div className={HomePageStyle.navbar}>
+			{/* <div className={HomePageStyle.navbar}>
 				<NavBar />
 			</div>
 
 			<div className={HomePageStyle.youMightLike}>
 				<YouMightLike />
-			</div>
+			</div> */}
 
 			<div className={HomePageStyle.centerContent}>
 				<div className={HomePageStyle.tweetForm}>

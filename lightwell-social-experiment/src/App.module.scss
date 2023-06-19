@@ -11,3 +11,26 @@
 .profilePicture:hover {
     cursor: pointer;
 }
+
+.App {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbarLeft {
+    width: 15%;
+    position: relative;
+    order: 1;
+}
+
+.middle {
+    order: 2;
+    flex-direction: column;
+    width: 65%;
+}
+
+.ymlRight {
+    width: 25%;
+    order: 3;
+    padding-left: 25px;
+}

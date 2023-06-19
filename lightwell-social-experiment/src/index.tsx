@@ -4,21 +4,37 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { theme } from "./colorConstants";
 import { ThemeProvider } from "@emotion/react";
 import "./index.module.scss";
+import HomePage from "./pages/HomePage/HomePage";
+import { NotificationPage } from "./pages/Notifications/NotificationPage";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
+
+const router = createBrowserRouter([{
+	path: "",
+	element: <App />,
+	// errorElement:
+	children: [
+		{
+			path: "/",
+			element: <HomePage />
+		},
+		{
+			path: "/notifications",
+			element: <NotificationPage />
+		},
+	]
+}])
 
 root.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
 			<Provider store={store}>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
+				<RouterProvider router={router} />
 			</Provider>
 		</ThemeProvider>
 	</React.StrictMode>

@@ -9,24 +9,41 @@ import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { RepliesPage } from "./pages/RepliesPage/RepliesPage";
 import RegistrationPage from "./pages/AuthenticationPage/RegistrationPage";
-import "./App.module.scss";
+import AppStyle from "./App.module.scss";
+import YouMightLike from "./components/YouMightLikeComponent/YouMightLike";
+import { Outlet } from 'react-router-dom';
+import NavBar from "./components/NavbarComponent/NavBar";
 
 function App() {
 	return (
-		<div>
-			<Routes>
-				<Route path="/" element={<HomePage />} />
-				<Route path="/notifications" element={<NotificationPage />} />
-				<Route path="/explore" element={<ExplorePage />} />
-				<Route path="/messages" />
-				<Route path="/bookmarks" />
-				<Route path="/lists" />
-				<Route path="/profile" element={<ProfilePage />} />
-				<Route path="/more" element={<Counter />} />
-				<Route path="/signup" element={<RegistrationPage />} />
-				<Route path="/login" element={<LoginPage />} />
-				<Route path="/replies/:id" element={<RepliesPage />} />
-			</Routes>
+		// <div>
+		// 	<Routes>
+		// 		<Route path="/" element={<HomePage />} />
+		// 		<Route path="/notifications" element={<NotificationPage />} />
+		// 		<Route path="/explore" element={<ExplorePage />} />
+		// 		<Route path="/messages" />
+		// 		<Route path="/bookmarks" />
+		// 		<Route path="/lists" />
+		// 		<Route path="/profile" element={<ProfilePage />} />
+		// 		<Route path="/more" element={<Counter />} />
+		// 		<Route path="/signup" element={<RegistrationPage />} />
+		// 		<Route path="/login" element={<LoginPage />} />
+		// 		<Route path="/replies/:id" element={<RepliesPage />} />
+		// 	</Routes>
+		// </div>
+
+		<div className={AppStyle.App}>
+			<div className={AppStyle.navBarLeft}>
+				<NavBar />
+			</div>
+
+			<div className={AppStyle.middle}>
+				<Outlet />
+			</div>
+
+			<div className={AppStyle.ymlRight}>
+				<YouMightLike />
+			</div>
 		</div>
 	);
 }
