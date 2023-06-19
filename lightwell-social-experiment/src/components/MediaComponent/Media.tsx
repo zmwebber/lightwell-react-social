@@ -5,11 +5,13 @@ import { User } from '../../models/ProfileModel';
 import { useAppSelector } from '../../app/hooks/hooks';
 import { store } from '../../app/store';
 import { editUser } from '../../api/UserApi';
+import { Tweet } from '../../models/TweetModel';
 
 export default function MediaComponent(props: any) {
   let x = new Media();
   const [mediaProps, setMediaProps] = useState<Media>(x);
   const [bannerMediaProps, setBannerMediaProps] = useState<Media>(x);
+  const [tweetMediaProps, setTweetMediaProps] = useState<Media>(x);
   const fileReader = new FileReader();
   const user: User = useAppSelector(state => state.user.profile)
 
@@ -34,6 +36,8 @@ export default function MediaComponent(props: any) {
       setMediaProps(x);
     } else if (props.photoType === "bannerPhoto") {
       setBannerMediaProps(x);
+    } else if (props.photoType === "tweetPhoto") {
+      setTweetMediaProps(x);
     }
   }
 
@@ -60,6 +64,8 @@ export default function MediaComponent(props: any) {
       res = await addMedia(mediaProps);
     } else if (props.photoType === "bannerPhoto") {
       res = await addMedia(bannerMediaProps);
+    } else if (props.photoType === "tweetPhoto") {
+      res = await addMedia(tweetMediaProps)
     }
 
     if (user && res?.data.media) {
@@ -93,7 +99,6 @@ export default function MediaComponent(props: any) {
   function convertImgToBinary(file: any) {
     fileReader.readAsBinaryString(file)
   }
-
 
   return (
     <>

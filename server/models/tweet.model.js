@@ -1,3 +1,4 @@
+import { Media } from "./media.model";
 import mongoose from 'mongoose';
 // https://mongoosejs.com/docs/guide.html
 var Schema = mongoose.Schema({
@@ -28,6 +29,7 @@ var Schema = mongoose.Schema({
     hashtags: {
         indicies: [Number],
         text: String
-    }
+    },
+    image: Media | null,
 });
 export default mongoose.model('Tweets', Schema);

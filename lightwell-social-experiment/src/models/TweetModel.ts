@@ -1,7 +1,8 @@
+import { Media } from "./MediaModel"
 
 export type Tweet = {
     _id?: string | null,
-    createdAt:  Date,
+    createdAt: Date,
     user: {
         _id: string,
         name: string,
@@ -30,4 +31,5 @@ export type Tweet = {
         indicies: [number],
         text: string
     }
+    image: Media | null,
 }

@@ -13,3 +13,8 @@
     display: flex;
     justify-content:center;
 } 
+
+.imageUploadIcon:hover {
+    opacity: 0.6;
+    transition: 0.3s;
+  }
