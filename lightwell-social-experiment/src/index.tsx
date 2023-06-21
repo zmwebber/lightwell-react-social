@@ -10,6 +10,12 @@ import { ThemeProvider } from "@emotion/react";
 import "./index.module.scss";
 import HomePage from "./pages/HomePage/HomePage";
 import { NotificationPage } from "./pages/Notifications/NotificationPage";
+import { ExplorePage } from "./pages/ExplorePage/ExplorePage";
+import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
+import { Counter } from "./components/CounterComponent/Counter";
+import RegistrationPage from "./pages/AuthenticationPage/RegistrationPage";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
+import { RepliesPage } from "./pages/RepliesPage/RepliesPage";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -18,6 +24,11 @@ const router = createBrowserRouter([{
 	path: "",
 	element: <App />,
 	// errorElement:
+	
+		// 		<Route path="/messages" />
+		// 		<Route path="/bookmarks" />
+		// 		<Route path="/lists" />
+	
 	children: [
 		{
 			path: "/",
@@ -27,8 +38,33 @@ const router = createBrowserRouter([{
 			path: "/notifications",
 			element: <NotificationPage />
 		},
-	]
-}])
+		{
+			path: "/explore",
+			element: <ExplorePage />
+		},
+		{
+			path: "/profile",
+			element: <ProfilePage />
+		},
+		{
+			path: "/more",
+			element: <Counter />
+		},
+		{
+			path: "/replies/:id",
+			element: <RepliesPage />
+		},
+	],
+},
+		{
+			path: "/signup",
+			element: <RegistrationPage />
+		},
+		{
+			path: "/login",
+			element: <LoginPage />
+		},
+])
 
 root.render(
 	<React.StrictMode>

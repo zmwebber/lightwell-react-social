@@ -13,6 +13,7 @@ import AppStyle from "./App.module.scss";
 import YouMightLike from "./components/YouMightLikeComponent/YouMightLike";
 import { Outlet } from 'react-router-dom';
 import NavBar from "./components/NavbarComponent/NavBar";
+import { Grid } from "@mui/material";
 
 function App() {
 	return (
@@ -32,18 +33,34 @@ function App() {
 		// 	</Routes>
 		// </div>
 
-		<div className={AppStyle.App}>
-			<div className={AppStyle.navBarLeft}>
-				<NavBar />
-			</div>
+		// <div className={AppStyle.App}>
+		// 	<div className={AppStyle.navBarLeft}>
+		// 		<NavBar />
+		// 	</div>
 
-			<div className={AppStyle.middle}>
-				<Outlet />
-			</div>
+		// 	<div className={AppStyle.middle}>
+		// 		<Outlet />
+		// 	</div>
 
-			<div className={AppStyle.ymlRight}>
-				<YouMightLike />
-			</div>
+		// 	<div className={AppStyle.ymlRight}>
+		// 		<YouMightLike />
+		// 	</div>
+		// </div>
+
+		<div className="defaultLayout">
+			<Grid container spacing={1.5}>
+				<Grid item xs={0} sm={1.5}>
+					<NavBar />
+				</Grid>
+
+				<Grid item xs={12} sm={7.5}>
+					<Outlet />
+				</Grid>
+
+				<Grid item xs={0} sm={3}>
+					<YouMightLike />
+				</Grid>
+			</Grid>
 		</div>
 	);
 }

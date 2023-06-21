@@ -11,13 +11,6 @@ import ProfilePageStyle from "./profilePageStyle.module.scss";
 export function ProfilePage() {
 	return (
 		<div className={ProfilePageStyle.profilePageContainer}>
-			<div className={ProfilePageStyle.navbarPosition}>
-				<NavBar />
-			</div>
-
-			<div className={ProfilePageStyle.ymlPosition}>
-				<YouMightLike />
-			</div>
 
 			<div className={ProfilePageStyle.profilePageContent}>
 				<ProfileHeaderComponent/>
@@ -25,6 +18,7 @@ export function ProfilePage() {
 				<ProfileInformationComponent/>
 				<TabsComponent />
 			</div>
+			
 		</div>
 	);
 }
