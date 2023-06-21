@@ -35,7 +35,7 @@ const style = {
 
 function TweetForm(props: any) {
 	const store = useStore();
-	const userState = useSelector((state: RootState) => state.user);	
+	const userState = useSelector((state: RootState) => state.user);
 	const userProfile = userState.profile;
 	const [submitted, setSubmitted] = React.useState("");
 	const [tweetContent, setTweetContent] = useState("");
@@ -78,17 +78,17 @@ function TweetForm(props: any) {
 		},
 		image: null
 	});
-	
+
 	const tweetSuccess = (e: any) => {
 		e.preventDefault();
 
-		if (tweetContent !== "") {
+		if (tweetContent !== "" || tweetImage) {
 			tweet.text = tweetContent;
 			tweet.createdAt = new Date();
-			if (tweetImage)
-			{
+			if (tweetImage) {
 				tweet.image = tweetImage
-			}			
+				// console.log("TWEET IMAGE: " + JSON.stringify(tweet.image));
+			}
 			const action = addTweet(tweet);
 
 			store
@@ -135,9 +135,9 @@ function TweetForm(props: any) {
 							margin="normal"
 							variant="standard"
 							onChange={(e) => setTweetContent(e.target.value)}
-							error={tweetContent === "" && submitted === "true"}
+							error={!tweetImage && tweetContent === "" && submitted === "true"}
 							helperText={
-								tweetContent === "" && submitted === "true"
+								!tweetImage && tweetContent === "" && submitted === "true"
 									? "Text is required"
 									: ""
 							}
@@ -158,6 +158,7 @@ function TweetForm(props: any) {
 							</Box>
 						</Modal>
 					}
+
 				</Grid>
 
 				<TweetButton

@@ -71,31 +71,43 @@ export default function MediaComponent(props: any) {
     if (user && res?.data.media) {
       var info: User = { ...user };
 
+      // If a profile photo change
       if (props.photoType === "profilePhoto") {
         info.profile_image_id = res.data.media._id
         info.profile_image = res.data.media
+
+        action = editUser(info);
+        store
+          .dispatch(action)
+          .unwrap()
+          .catch((error: any) => {
+            console.log(error);
+          });
+
+        // If a banner photo change
       } else if (props.photoType === "bannerPhoto") {
         info.profile_banner_id = res.data.media._id
         info.profile_banner = res.data.media
+
+        action = editUser(info);
+        store
+          .dispatch(action)
+          .unwrap()
+          .catch((error: any) => {
+            console.log(error);
+          });
       }
 
-      action = editUser(info);
+      // If a tweet photo
+      else if (props.photoType === "tweetPhoto") {
+        props.addImage(mediaProps)
+      }
 
       modalClose = true;
 
       if (modalClose) {
         props.onClose();
       }
-      if ( props.photoType === "tweetPhoto")
-      {
-        props.addImage(mediaProps)
-      }
-      store
-        .dispatch(action)
-        .unwrap()
-        .catch((error: any) => {
-          console.log(error);
-        });
     }
   }
 

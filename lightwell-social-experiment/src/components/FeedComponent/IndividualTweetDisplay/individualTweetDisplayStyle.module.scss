@@ -13,3 +13,9 @@
     background: transparent;
     border: 0;
 }
+
+
+.tweetBody {
+    display: flex;
+    flex-direction: column;
+}
