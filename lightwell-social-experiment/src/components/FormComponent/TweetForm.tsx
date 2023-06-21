@@ -87,7 +87,6 @@ function TweetForm(props: any) {
 			tweet.createdAt = new Date();
 			if (tweetImage) {
 				tweet.image = tweetImage
-				// console.log("TWEET IMAGE: " + JSON.stringify(tweet.image));
 			}
 			const action = addTweet(tweet);
 
