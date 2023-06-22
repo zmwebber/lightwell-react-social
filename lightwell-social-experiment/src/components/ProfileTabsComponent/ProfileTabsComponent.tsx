@@ -86,18 +86,39 @@ export default function TabsComponent() {
                     {!feed.loading &&
                         feed.myTweets &&
                         feed.myTweets.map((tweet, index) => (
+                            !tweet.is_reply_status &&
                             <div className={"tweet " + index} key={index}>
                                 <IndividualTweetDisplay {...tweet} />
                             </div>
-                        ))}
+                        ))
+                    }
                 </>
-
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Tweets & Replies
+                <>
+                    {!feed.loading &&
+                        feed.myTweets &&
+                        feed.myTweets.map((tweet, index) => (
+                            (!tweet.is_reply_status || tweet.is_reply_status) &&
+                            <div className={"tweet " + index} key={index}>
+                                <IndividualTweetDisplay {...tweet} />
+                            </div>
+                        ))
+                    }
+                </>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Media
+                <>
+                    {!feed.loading &&
+                        feed.myTweets &&
+                        feed.myTweets.map((tweet, index) => (
+                            tweet.image &&
+                            <div className={"tweet " + index} key={index}>
+                                <IndividualTweetDisplay {...tweet} />
+                            </div>
+                        ))
+                    }
+                </>
             </TabPanel>
             <TabPanel value={value} index={3}>
                 Likes
