@@ -234,16 +234,16 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	}
 
 	return (
-		<Paper elevation={4}>
-
+		<Paper sx={{ borderRadius: 4 }} elevation={4}>
 			<Card
 				sx={{
 					gap: 2,
 					backgroundColor: "white",
 					color: "black",
-					borderRadius: 0,
+					borderRadius: 4,
 					borderBottom: " solid gray",
 					borderBottomWidth: "thin",
+					margin: "15px 0px 15px 0px"
 				}}
 			>
 				<CardHeader
@@ -302,7 +302,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 							</Menu>
 						</div>
 					}
-					title={parseUserJSON(tweet) + " " + timeCalculator(tweet.createdAt)}
+					title={parseUserJSON(tweet) + " • " + timeCalculator(tweet.createdAt)}
 					subheader=""
 				/>
 				<div className={styles.tweetBody}>
