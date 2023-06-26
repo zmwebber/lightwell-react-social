@@ -66,14 +66,13 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					}
 				}
 			},
-			MuiPaper: {
-				styleOverrides: {
-					root: {
-						// paddingBottom: "20px"
-						elevation:""
-					}
-				}
-			}
+			// MuiPaper: {
+			// 	styleOverrides: {
+			// 		root: {
+			// 			elevation:""
+			// 		}
+			// 	}
+			// }
 		}		
 	});
 
@@ -269,12 +268,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 			
 		<ThemeProvider theme={cardTheme}>
-
-
-		
-
-		
-
 		<Card 
 			sx={{
 				gap: 2,
@@ -391,9 +384,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			</div>
 			{/* </CardActions> */}
 		</Card>
-		
-				
-
 		</ThemeProvider>
 	 
 	);
