@@ -33,6 +33,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import { Interaction } from "../../../models/InteractionsModel";
 import { addNewRetweetInteraction, deleteRetweetInteraction, getRetweetInteractionsByTweetId } from "../../../api/RetweetsApi";
 import styles from "./individualTweetDisplayStyle.module.scss";
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -50,6 +51,23 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 	const store = useStore();
 	const state: any = store.getState();
+
+	const cardTheme = createTheme({
+		components: {
+			MuiCardContent: {
+				styleOverrides: {
+					root: {
+						userSelect: "none",
+						cursor: "pointer",
+						touchAction: "manipulation",
+						display: "block",
+						background: "transparent",
+						border: 0
+					}
+				}
+			}
+		}		
+	});
 
 	const style = {
 		position: 'absolute' as 'absolute',
@@ -237,7 +255,14 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	}
 
 	return (
-		<Paper elevation={4}>
+		//Wrap this component in <themeProvider theme={customTheme} />
+		// <ThemeProvider theme={style}>
+
+			
+		<ThemeProvider theme={cardTheme}>
+
+
+		
 
 		<Card 
 			sx={{
@@ -245,7 +270,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				backgroundColor: "white",
 				color: "black",
 				borderRadius: 0,
-				borderBottom: " solid gray",
+				borderBottom: "solid gray",
 				borderBottomWidth: "thin",
 			}}
 			>
@@ -353,6 +378,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			</div>
 			{/* </CardActions> */}
 		</Card>
-					</Paper>
+
+		</ThemeProvider>
+	 
 	);
 }
