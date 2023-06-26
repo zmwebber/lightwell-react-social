@@ -13,6 +13,7 @@ import {
 } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
 import TweedFeedStyle from "./tweetFeedStyle.module.scss"
+import { Paper } from '@mui/material';
 
 export function RepliesPage() {
   const feed = useAppSelector(selectFeed);
@@ -29,6 +30,14 @@ export function RepliesPage() {
 			initFetch();
 		}
 	}, [initFetch]);
+
+	const calculateElevation: any = ((input: any) => {
+		if(input < 20) {
+			return input * 3
+		}
+		return 20;
+	});
+
   return (
 		<>
 			{!feed.loading &&
@@ -42,7 +51,10 @@ export function RepliesPage() {
 				feed.Tweets &&
 				feed.Tweets.filter(tweet => tweet.in_reply_to_status_id == tweetId).map((tweet, index) => (
 					<div className={"tweetReply " + index} key={index}>
-						<IndividualTweetDisplay {...tweet} />
+						<Paper elevation={calculateElevation(index)}>
+
+							<IndividualTweetDisplay {...tweet} />
+						</Paper>
 					</div>
 				))}
 		</>

@@ -65,9 +65,18 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 						border: 0
 					}
 				}
+			},
+			MuiPaper: {
+				styleOverrides: {
+					root: {
+						// paddingBottom: "20px"
+						elevation:""
+					}
+				}
 			}
 		}		
 	});
+
 
 	const style = {
 		position: 'absolute' as 'absolute',
@@ -264,6 +273,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 
 		
 
+		
+
 		<Card 
 			sx={{
 				gap: 2,
@@ -272,17 +283,19 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 				borderRadius: 0,
 				borderBottom: "solid gray",
 				borderBottomWidth: "thin",
+				
 			}}
 			>
+
 			<CardHeader
 				avatar={
 					<img
-						className={AppStyle.profilePicture}
-						alt="profile-pic"
-						src={defaultProfilePic}
-						style={{ width: "5vw", height: "5vh" }}
-						onClick={() => redirectToProfile(tweet)}
-						></img>
+					className={AppStyle.profilePicture}
+					alt="profile-pic"
+					src={defaultProfilePic}
+					style={{ width: "5vw", height: "5vh" }}
+					onClick={() => redirectToProfile(tweet)}
+					></img>
 				}
 				action={
 					<div>
@@ -378,6 +391,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			</div>
 			{/* </CardActions> */}
 		</Card>
+		
+				
 
 		</ThemeProvider>
 	 

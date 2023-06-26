@@ -9,6 +9,7 @@ import {
 } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
 import TweedFeedStyle from "./tweetFeedStyle.module.scss"
+import { Paper } from "@mui/material";
 
 const TweetFeed = () => {
 	const feed = useAppSelector(selectFeed);
@@ -31,13 +32,22 @@ const TweetFeed = () => {
 	// 	return <h1>HELLO</h1>;
 	// }
 
+	const calculateElevation: any = ((input: any) => {
+		if(input < 20) {
+			return input + 2
+		}
+		return 20;
+	});
+
 	return (
 		<>
 			{!feed.loading &&
 				feed.Tweets &&
 				feed.Tweets.filter(tweet => tweet.is_reply_status !== true).map((tweet, index) => (
 					<div className={"tweet " + index} key={index}>
-						<IndividualTweetDisplay {...tweet} />
+						<Paper elevation={calculateElevation(index)}>
+							<IndividualTweetDisplay {...tweet} />
+						</Paper>
 					</div>
 				))}
 		</>
