@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useEffect } from "react";
 import logo from "./logo.svg";
 import { Counter } from "./components/CounterComponent/Counter";
 import { Routes, Route } from "react-router-dom";
@@ -14,54 +14,78 @@ import YouMightLike from "./components/YouMightLikeComponent/YouMightLike";
 import { Outlet } from 'react-router-dom';
 import NavBar from "./components/NavbarComponent/NavBar";
 import { Grid } from "@mui/material";
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
+export type Theme = 'light' | 'dark'
 
 function App() {
+
+	const [theme, setTheme] = React.useState<Theme>('light');
+	
+	const toggleTheme = () => {
+		setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light')
+	}
+
+	const dark = createTheme({
+		components: {
+			MuiGrid: {
+				styleOverrides: {
+					root: {
+						backgroundColor: "aliceBlue"
+					}
+				}
+			},
+			// MuiPaper: {
+			// 	styleOverrides: {
+			// 		root: {
+			// 			elevation:""
+			// 		}
+			// 	}
+			// }
+		}		
+	});
+	const light = createTheme({
+		components: {
+			MuiGrid: {
+				styleOverrides: {
+					root: {
+						backgroundColor: "grey"
+					}
+				}
+			},
+			// MuiPaper: {
+			// 	styleOverrides: {
+			// 		root: {
+			// 			elevation:""
+			// 		}
+			// 	}
+			// }
+		}		
+	});
+	
 	return (
-		// <div>
-		// 	<Routes>
-		// 		<Route path="/" element={<HomePage />} />
-		// 		<Route path="/notifications" element={<NotificationPage />} />
-		// 		<Route path="/explore" element={<ExplorePage />} />
-		// 		<Route path="/messages" />
-		// 		<Route path="/bookmarks" />
-		// 		<Route path="/lists" />
-		// 		<Route path="/profile" element={<ProfilePage />} />
-		// 		<Route path="/more" element={<Counter />} />
-		// 		<Route path="/signup" element={<RegistrationPage />} />
-		// 		<Route path="/login" element={<LoginPage />} />
-		// 		<Route path="/replies/:id" element={<RepliesPage />} />
-		// 	</Routes>
-		// </div>
+			
+			<ThemeProvider theme={theme === 'light' ? light : dark}>	
 
-		// <div className={AppStyle.App}>
-		// 	<div className={AppStyle.navBarLeft}>
-		// 		<NavBar />
-		// 	</div>
-
-		// 	<div className={AppStyle.middle}>
-		// 		<Outlet />
-		// 	</div>
-
-		// 	<div className={AppStyle.ymlRight}>
-		// 		<YouMightLike />
-		// 	</div>
-		// </div>
-
-		<div className="defaultLayout">
-			<Grid container spacing={1.5}>
-				<Grid item xs={0} sm={1.5}>
-					<NavBar />
+			<div className="defaultLayout">
+				<Grid item>
+					<button onClick={toggleTheme}>{theme}</button>
 				</Grid>
+				<Grid container spacing={1.5}>
+					<Grid item xs={0} sm={1.5}>
+						<NavBar />
+					</Grid>
 
-				<Grid item xs={12} sm={7.5}>
-					<Outlet />
-				</Grid>
+					<Grid item xs={12} sm={7.5}>
+						<Outlet />
+					</Grid>
 
-				<Grid item xs={0} sm={3}>
-					<YouMightLike />
+					<Grid item xs={0} sm={3}>
+						<YouMightLike />
+					</Grid>
 				</Grid>
-			</Grid>
-		</div>
+				</div>
+			</ThemeProvider>
 	);
 }
 

@@ -25,29 +25,13 @@ const TweetFeed = () => {
 		}
 	}, [initFetch]);
 
-	// Url should end in the user profile property name whereby the user's tweets are filtered by name.
-	//"http://localhost:3000/"
-	// code below checks if there is a username appended to the localhost:3000 url.
-	// if (window.location.href.length > 30) {
-	// 	return <h1>HELLO</h1>;
-	// }
-
-	const calculateElevation: any = ((input: any) => {
-		if(input < 20) {
-			return input + 2
-		}
-		return 20;
-	});
-
 	return (
 		<>
 			{!feed.loading &&
 				feed.Tweets &&
 				feed.Tweets.filter(tweet => tweet.is_reply_status !== true).map((tweet, index) => (
 					<div className={"tweet " + index} key={index}>
-						<Paper elevation={calculateElevation(index)}>
-							<IndividualTweetDisplay {...tweet} />
-						</Paper>
+							<IndividualTweetDisplay {...tweet} />			
 					</div>
 				))}
 		</>

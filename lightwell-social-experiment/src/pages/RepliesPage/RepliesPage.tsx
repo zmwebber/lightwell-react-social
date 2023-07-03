@@ -31,30 +31,21 @@ export function RepliesPage() {
 		}
 	}, [initFetch]);
 
-	const calculateElevation: any = ((input: any) => {
-		if(input < 20) {
-			return input * 3
-		}
-		return 20;
-	});
 
   return (
 		<>
 			{!feed.loading &&
 				feed.Tweets &&
-				feed.Tweets.filter(tweet => tweet._id == tweetId).map((tweet, index) => (
-					<div className={"tweet " + index} key={index}>
-						<IndividualTweetDisplay {...tweet} />
-					</div>
+				feed.Tweets.filter(tweet => tweet._id === tweetId).map((tweet, index) => (
+					// <div className={"tweet " + index} key={index}>
+						<IndividualTweetDisplay {...tweet} key={index}/>
+					// </div>
 				))}
       {!feed.loading &&
 				feed.Tweets &&
-				feed.Tweets.filter(tweet => tweet.in_reply_to_status_id == tweetId).map((tweet, index) => (
-					<div className={"tweetReply " + index} key={index}>
-						<Paper elevation={calculateElevation(index)}>
-
-							<IndividualTweetDisplay {...tweet} />
-						</Paper>
+				feed.Tweets.filter(tweet => tweet.in_reply_to_status_id === tweetId).map((tweet, index) => (
+					<div className={"tweetReply " + index}>
+							<IndividualTweetDisplay {...tweet} key={index} />
 					</div>
 				))}
 		</>

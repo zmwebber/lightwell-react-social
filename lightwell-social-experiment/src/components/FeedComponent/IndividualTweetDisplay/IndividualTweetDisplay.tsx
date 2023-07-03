@@ -76,7 +76,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		}		
 	});
 
-
 	const style = {
 		position: 'absolute' as 'absolute',
 		top: '50%',
@@ -262,21 +261,32 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		return tweet.user.name + " " + "@" + tweet.user.screen_name;
 	}
 
+	const calculateElevation: any = ((tweet: Tweet, hasReplyStatus: Boolean) => {
+		let elevation = 5;
+		if (hasReplyStatus === true && elevation > 0) {
+			elevation -= 3
+			let nextTweetId = tweet.in_reply_to_status_id;
+			let nextTweet: Tweet = state.feed.Tweets.filter((t: Tweet) => t._id === nextTweetId) 
+			calculateElevation(nextTweet, nextTweet.is_reply_status);
+		} 
+			return elevation;
+	});
+
 	return (
 		//Wrap this component in <themeProvider theme={customTheme} />
 		// <ThemeProvider theme={style}>
 
 			
 		<ThemeProvider theme={cardTheme}>
+			<Paper elevation={calculateElevation(tweet, tweet.is_reply_status)}>
+
 		<Card 
 			sx={{
 				gap: 2,
 				backgroundColor: "white",
 				color: "black",
 				borderRadius: 0,
-				borderBottom: "solid gray",
-				borderBottomWidth: "thin",
-				
+				marginBottom: "10px"
 			}}
 			>
 
@@ -384,6 +394,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			</div>
 			{/* </CardActions> */}
 		</Card>
+		</Paper>
 		</ThemeProvider>
 	 
 	);
