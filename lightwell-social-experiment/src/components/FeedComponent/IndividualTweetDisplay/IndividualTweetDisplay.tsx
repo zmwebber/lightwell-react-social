@@ -276,7 +276,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		//Wrap this component in <themeProvider theme={customTheme} />
 		// <ThemeProvider theme={style}>
 
-			
 		<ThemeProvider theme={cardTheme}>
 			<Paper elevation={calculateElevation(tweet, tweet.is_reply_status)}>
 

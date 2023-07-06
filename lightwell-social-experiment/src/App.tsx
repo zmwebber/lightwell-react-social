@@ -26,25 +26,44 @@ function App() {
 		setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light')
 	}
 
-	const dark = createTheme({
-		components: {
-			MuiGrid: {
-				styleOverrides: {
-					root: {
-						backgroundColor: "aliceBlue"
-					}
-				}
-			},
-			// MuiPaper: {
-			// 	styleOverrides: {
-			// 		root: {
-			// 			elevation:""
-			// 		}
-			// 	}
-			// }
-		}		
-	});
 	const light = createTheme({
+	// 	palette: {
+    
+  //   primary: {
+  //     main: '#5893df',
+  //   },
+  //   secondary: {
+  //     main: '#2ec5d3',
+  //   },
+  //   background: {
+  //     default: '#192231',
+  //     paper: '#24344d',
+  //   },
+  // },
+		// components: {
+		// 	MuiGrid: {
+		// 		styleOverrides: {
+		// 			root: {
+		// 				backgroundColor: "aliceBlue"
+		// 			}
+		// 		}
+		// 	},
+			
+		// 	// MuiPaper: {
+		// 	// 	styleOverrides: {
+		// 	// 		root: {
+		// 	// 			elevation:""
+		// 	// 		}
+		// 	// 	}
+		// 	// }
+		// }		
+	});
+	const dark = createTheme({
+		
+	palette: {
+    mode: 'dark',
+  },
+	
 		components: {
 			MuiGrid: {
 				styleOverrides: {
@@ -53,13 +72,13 @@ function App() {
 					}
 				}
 			},
-			// MuiPaper: {
-			// 	styleOverrides: {
-			// 		root: {
-			// 			elevation:""
-			// 		}
-			// 	}
-			// }
+		// 	// MuiPaper: {
+		// 	// 	styleOverrides: {
+		// 	// 		root: {
+		// 	// 			elevation:""
+		// 	// 		}
+		// 	// 	}
+		// 	// }
 		}		
 	});
 	
@@ -68,11 +87,13 @@ function App() {
 			<ThemeProvider theme={theme === 'light' ? light : dark}>	
 
 			<div className="defaultLayout">
-				<Grid item>
-					<button onClick={toggleTheme}>{theme}</button>
-				</Grid>
 				<Grid container spacing={1.5}>
+					
 					<Grid item xs={0} sm={1.5}>
+						<Grid item>
+							<button onClick={toggleTheme}>{theme}</button>
+						</Grid>
+
 						<NavBar />
 					</Grid>
 
