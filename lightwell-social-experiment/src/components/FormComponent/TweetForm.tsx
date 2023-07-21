@@ -87,7 +87,7 @@ function TweetForm(props: any) {
 	};
 
 	return (
-		<div className={TweetFormStyle.tweetForm} style={{ backgroundColor: "white" }}>
+		<div className={TweetFormStyle.tweetForm} >
 			<form onSubmit={tweetSuccess}>
 				<Grid container direction="row" className={TweetFormStyle.container}>
 					<Grid item>

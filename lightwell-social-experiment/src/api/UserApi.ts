@@ -63,6 +63,22 @@ export const editUser = createAsyncThunk(
     }
   })
 
+export const updateUser = createAsyncThunk(
+  "users/update",
+  async (user: Profile) => {
+    try {
+      const response = await API.put(API_URL + 'update', user)
+      if (response.data) {
+        console.log("Update user : " + JSON.stringify(response.data))
+        localStorage.setItem('user', JSON.stringify(response.data))
+      }
+      return response.data.profile
+    } catch (err) {
+      console.log(err);
+    }
+  }
+)
+
 // Logout user
 export const logout = createAsyncThunk(
   "users/logout",

@@ -15,31 +15,63 @@ import { Outlet } from 'react-router-dom';
 import NavBar from "./components/NavbarComponent/NavBar";
 import { Grid } from "@mui/material";
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { useDispatch, useStore } from "react-redux";
+import { Tweet } from "./models/TweetModel";
+import { editUser, updateUser } from "./api/UserApi";
+import { store } from "./app/store";
+import { User } from "./models/ProfileModel";
 
 export type Theme = 'light' | 'dark'
 
 function App() {
 
-	const [theme, setTheme] = React.useState<Theme>('light');
+	const state: any = store.getState();
+
+	const [theme, setTheme] = React.useState<String>(store.getState().user.profile.theme || "light");
+
+	function reverseTheme(theme: String) {
+		if (theme === "light") {
+			return "dark";
+		} else {
+			return "light";
+		}
+	}
 	
 	const toggleTheme = () => {
 		setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light')
+
+		// set current users theme to currentTheme
+		let user: User = {...state.user.profile};
+		user.theme = reverseTheme(theme);
+
+		// if current user is logged in, then edit user to include their theme preference
+		if(state.user !== null) {
+			const action = editUser(user)
+			console.log("Inside the toggleTheme function. Current theme: " + user.theme)
+			console.log(user)
+			store.dispatch(action);
+		}
+
 	}
 
+	// add profile indicator for light / dark theme. Make a mongo call to set that property. 
+	// Make l/d mode a component
+	// add component
+
 	const light = createTheme({
-	// 	palette: {
+		palette: {
     
-  //   primary: {
-  //     main: '#5893df',
-  //   },
-  //   secondary: {
-  //     main: '#2ec5d3',
-  //   },
-  //   background: {
-  //     default: '#192231',
-  //     paper: '#24344d',
-  //   },
-  // },
+    primary: {
+      main: '#5893df',
+    },
+    secondary: {
+      main: '#2ec5d3',
+    },
+    background: {
+      default: '#192231',
+      paper: '#24344d',
+    },
+  },
 		// components: {
 		// 	MuiGrid: {
 		// 		styleOverrides: {
@@ -59,7 +91,7 @@ function App() {
 		// }		
 	});
 	const dark = createTheme({
-		
+	
 	palette: {
     mode: 'dark',
   },
@@ -81,9 +113,11 @@ function App() {
 		// 	// }
 		}		
 	});
+
+
 	
 	return (
-			
+			// check profile user state -> set to corresponding theme
 			<ThemeProvider theme={theme === 'light' ? light : dark}>	
 
 			<div className="defaultLayout">

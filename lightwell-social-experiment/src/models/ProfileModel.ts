@@ -20,6 +20,7 @@ export type Profile = {
     profile_banner: Media | null,
     profile_image_id: string,
     profile_image: Media | null,
+    theme: string
 }
 
 export class User implements Profile {
@@ -43,6 +44,7 @@ export class User implements Profile {
     profile_banner;
     profile_image_id;
     profile_image;
+    theme;
 
 
     constructor();
@@ -67,5 +69,6 @@ export class User implements Profile {
         this.profile_banner = profile?.profile_banner ?? null
         this.profile_image_id = profile?.profile_image_id ?? ""
         this.profile_image = profile?.profile_image ?? null
+        this.theme = profile?.theme ?? "light"
     }
 }

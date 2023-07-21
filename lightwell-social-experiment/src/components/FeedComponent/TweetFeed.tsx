@@ -29,7 +29,7 @@ const TweetFeed = () => {
 		<>
 			{!feed.loading &&
 				feed.Tweets &&
-				feed.Tweets.filter(tweet => tweet.is_reply_status !== true).map((tweet, index) => (
+				feed.Tweets.filter(tweet => tweet.is_reply_status !== true).reverse().map((tweet, index) => (
 					<div className={"tweet " + index} key={index}>
 							<IndividualTweetDisplay {...tweet} />			
 					</div>

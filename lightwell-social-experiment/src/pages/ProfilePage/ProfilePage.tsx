@@ -17,6 +17,7 @@ export function ProfilePage() {
 				<ProfileHeroComponent />
 				<ProfileInformationComponent/>
 				<TabsComponent />
+				
 			</div>
 			
 		</div>

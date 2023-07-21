@@ -104,6 +104,7 @@ export const loginUser = asyncHandler(async (req, res) => {
       profile_banner: user.profile_banner,
       profile_image_id: user.profile_image_id,
       profile_image: user.profile_image,
+      theme: user.theme
     });
   } else {
     res.status(400);
@@ -118,7 +119,25 @@ export const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user);
 });
 
-// Need method to update user information
+export const updateUser = asyncHandler(async (req, res) => {
+  
+  const user = req.body;
+  let id = req.body._id;
+  
+  let filter = {
+    _id: id,
+  };
+
+  const userRes = await User.findOneAndUpdate(filter, user);
+
+  if(userRes) {
+    console.log("User updated")
+    res.status(200)
+  } else {
+    console.log("Error with User update")
+    res.status(400)
+  }
+})
 
 // Generate JWT
 const generateToken = (id) => {

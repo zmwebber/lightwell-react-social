@@ -15,4 +15,4 @@ Social Media sample app designed to replicate Twitter processes.
 > Run 'npm install' to install necessary dependencies
 > Run 'npm start' to begin the application at localhost:3000
 
-> Run 'npm start serve' in \server\ folder to start mongoose server
+> Run 'npm run start' in \server\ folder to start mongoose server
