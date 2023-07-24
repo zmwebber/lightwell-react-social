@@ -19,7 +19,7 @@ import { useDispatch, useStore } from "react-redux";
 import { Tweet } from "./models/TweetModel";
 import { editUser, updateUser } from "./api/UserApi";
 import { store } from "./app/store";
-import { User } from "./models/ProfileModel";
+import { Profile, User } from "./models/ProfileModel";
 
 export type Theme = 'light' | 'dark'
 
@@ -27,8 +27,9 @@ function App() {
 
 	const state: any = store.getState();
 
-	const [theme, setTheme] = React.useState<String>(store.getState().user.profile.theme || "light");
+	const [theme, setTheme] = React.useState<String>("light");
 
+	// @TODO: When user is logged in and page is refreshed, user is logged out.
 	function reverseTheme(theme: String) {
 		if (theme === "light") {
 			return "dark";
@@ -37,11 +38,17 @@ function App() {
 		}
 	}
 	
+	function setThemeOfUser() {
+		if(store.getState().user.profile.theme !== undefined) {
+			setTheme(store.getState().user.profile.theme);
+		}
+	}
+
 	const toggleTheme = () => {
 		setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light')
 
 		// set current users theme to currentTheme
-		let user: User = {...state.user.profile};
+		let user: Profile = {...state.user.profile};
 		user.theme = reverseTheme(theme);
 
 		// if current user is logged in, then edit user to include their theme preference
@@ -114,6 +121,9 @@ function App() {
 		}		
 	});
 
+	useEffect(() => {
+		setThemeOfUser();
+	}, [])
 
 	
 	return (
