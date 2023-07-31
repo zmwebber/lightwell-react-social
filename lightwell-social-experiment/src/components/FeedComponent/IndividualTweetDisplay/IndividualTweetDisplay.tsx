@@ -52,29 +52,29 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const store = useStore();
 	const state: any = store.getState();
 
-	const cardTheme = createTheme({
-		components: {
-			MuiCardContent: {
-				styleOverrides: {
-					root: {
-						userSelect: "none",
-						cursor: "pointer",
-						touchAction: "manipulation",
-						display: "block",
-						background: "transparent",
-						border: 0
-					}
-				}
-			},
-			// MuiPaper: {
-			// 	styleOverrides: {
-			// 		root: {
-			// 			elevation:""
-			// 		}
-			// 	}
-			// }
-		}		
-	});
+	// const cardTheme = createTheme({
+	// 	components: {
+	// 		MuiCardContent: {
+	// 			styleOverrides: {
+	// 				root: {
+	// 					userSelect: "none",
+	// 					cursor: "pointer",
+	// 					touchAction: "manipulation",
+	// 					display: "block",
+	// 					background: "transparent",
+	// 					border: 0
+	// 				}
+	// 			}
+	// 		},
+	// 		MuiPaper: {
+	// 			styleOverrides: {
+	// 				root: {
+	// 					backgroundColor: "black"
+	// 				}
+	// 			}
+	// 		}
+	// 	}		
+	// });
 
 	const style = {
 		position: 'absolute' as 'absolute',
@@ -82,7 +82,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		width: 400,
-		bgcolor: 'background.paper',
+		// bgcolor: 'background.paper',
 		border: '2px solid #000',
 		boxShadow: 24,
 		p: 4,
@@ -258,7 +258,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	};
 
 	function parseUserJSON(tweet: Tweet): any {
-		return tweet.user.name + " " + "@" + tweet.user.screen_name;
+		return tweet.user.name + " @" + tweet.user.screen_name;
 	}
 
 	const calculateElevation: any = ((tweet: Tweet, hasReplyStatus: Boolean) => {
@@ -276,13 +276,12 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		//Wrap this component in <themeProvider theme={customTheme} />
 		// <ThemeProvider theme={style}>
 
-		<ThemeProvider theme={cardTheme}>
+		// <ThemeProvider theme={cardTheme}>
 			<Paper elevation={calculateElevation(tweet, tweet.is_reply_status)}>
 
 		<Card 
 			sx={{
 				gap: 2,
-				backgroundColor: "white",
 				color: "black",
 				borderRadius: 0,
 				marginBottom: "10px"
@@ -394,7 +393,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			{/* </CardActions> */}
 		</Card>
 		</Paper>
-		</ThemeProvider>
+		// </ThemeProvider>
 	 
 	);
 }

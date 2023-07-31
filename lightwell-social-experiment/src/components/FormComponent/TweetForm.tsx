@@ -100,7 +100,6 @@ function TweetForm(props: any) {
 					</Grid>
 					<Grid item xs>
 						<TextField
-							sx={{ input: { color: "black" } }}
 							name="tweet"
 							type="text"
 							id="tweet-content"

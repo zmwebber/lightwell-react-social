@@ -21,7 +21,6 @@ import NavBarStyle from "./navBarStyle.module.scss";
 import TweetFormStyle from "../FormComponent/tweetFormStyle.module.scss";
 
 const CustomNavLink: any = styled(NavLink)({
-	color: "black",
 	textDecoration: "none",
 	display: "flex",
 	flexWrap: "wrap",

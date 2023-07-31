@@ -13,13 +13,14 @@ import AppStyle from "./App.module.scss";
 import YouMightLike from "./components/YouMightLikeComponent/YouMightLike";
 import { Outlet } from 'react-router-dom';
 import NavBar from "./components/NavbarComponent/NavBar";
-import { Grid } from "@mui/material";
+import { CssBaseline, Grid } from "@mui/material";
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useDispatch, useStore } from "react-redux";
 import { Tweet } from "./models/TweetModel";
 import { editUser, updateUser } from "./api/UserApi";
 import { store } from "./app/store";
 import { Profile, User } from "./models/ProfileModel";
+import { text } from "stream/consumers";
 
 export type Theme = 'light' | 'dark'
 
@@ -67,18 +68,22 @@ function App() {
 
 	const light = createTheme({
 		palette: {
-    
-    primary: {
-      main: '#5893df',
-    },
-    secondary: {
-      main: '#2ec5d3',
-    },
-    background: {
-      default: '#192231',
-      paper: '#24344d',
-    },
+			mode: 'light',
   },
+	components: {
+			MuiCardContent: {
+				styleOverrides: {
+					root: {
+						userSelect: "none",
+						cursor: "pointer",
+						touchAction: "manipulation",
+						display: "block",
+						background: "transparent",
+						border: 0
+					}
+				}
+			}
+		}
 		// components: {
 		// 	MuiGrid: {
 		// 		styleOverrides: {
@@ -87,6 +92,16 @@ function App() {
 		// 			}
 		// 		}
 		// 	},
+
+	// 	overrides: {
+  //   MuiPaper: {
+  //     root: {
+  //       padding: '10px',
+  //       marginBottom: '10px'
+  //     },
+  //   },
+  // }
+
 			
 		// 	// MuiPaper: {
 		// 	// 	styleOverrides: {
@@ -98,27 +113,78 @@ function App() {
 		// }		
 	});
 	const dark = createTheme({
-	
-	palette: {
-    mode: 'dark',
-  },
-	
+		palette: {
+			mode: 'dark',
+			primary: {
+				main: '#ffffff',
+				contrastText: '#ffffff'
+			},
+			secondary: {
+				main: '#ffffff',
+			},
+			background: {
+				paper: "#000000",
+				default: '#192231',
+			},
+		
+		},
 		components: {
-			MuiGrid: {
+			MuiCardContent: {
 				styleOverrides: {
 					root: {
-						backgroundColor: "grey"
+						userSelect: "none",
+						cursor: "pointer",
+						touchAction: "manipulation",
+						display: "block",
+						background: "transparent",
+						border: 0
 					}
 				}
 			},
-		// 	// MuiPaper: {
-		// 	// 	styleOverrides: {
-		// 	// 		root: {
-		// 	// 			elevation:""
-		// 	// 		}
-		// 	// 	}
-		// 	// }
-		}		
+			MuiPaper: {
+				styleOverrides: {
+					root: {
+						backgroundColor: "black",
+					}
+				}
+			},
+			MuiTypography: {
+				styleOverrides: {
+					root: {
+						color: "white"
+					}
+				}
+			}
+		},
+		// typography: {
+		// 	color: "white"
+		// }
+
+
+		
+		// overrides: {
+		// 	MuiPaper: {
+		// 		root: {
+		// 			padding: '10px',
+		// 			marginBottom: '10px'
+		// 		},
+		// 	},
+		// },
+		// components: {
+		// 	MuiPaper: {
+		// 		styleOverrides: {
+		// 			root: {
+		// 				backgroundColor: "red"
+		// 			}
+		// 		}
+		// 	}}
+		// 	MuiPaper: {
+		// 		styleOverrides: {
+		// 			elevation: 1
+					
+		// 		}
+		// 	}
+		// }		
 	});
 
 	useEffect(() => {
@@ -127,8 +193,9 @@ function App() {
 
 	
 	return (
-			// check profile user state -> set to corresponding theme
-			<ThemeProvider theme={theme === 'light' ? light : dark}>	
+		<ThemeProvider theme={theme === 'light' ? light : dark}>	
+<CssBaseline>
+
 
 			<div className="defaultLayout">
 				<Grid container spacing={1.5}>
@@ -149,8 +216,11 @@ function App() {
 						<YouMightLike />
 					</Grid>
 				</Grid>
-				</div>
-			</ThemeProvider>
+			</div>
+
+			
+</CssBaseline>
+		</ThemeProvider>
 	);
 }
 

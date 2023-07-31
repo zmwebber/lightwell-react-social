@@ -28,7 +28,8 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: '',
-  loginSuccess: user._id? true: false 
+  loginSuccess: user._id? true: false ,
+  theme: 'light'
 }
 
 
