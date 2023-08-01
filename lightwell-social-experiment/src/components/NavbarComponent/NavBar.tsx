@@ -19,13 +19,36 @@ import Logout from "../LogoutComponent/Logout";
 import { Profile } from "../../models/ProfileModel";
 import NavBarStyle from "./navBarStyle.module.scss";
 import TweetFormStyle from "../FormComponent/tweetFormStyle.module.scss";
+import { store } from "../../app/store";
 
-const CustomNavLink: any = styled(NavLink)({
+
+
+const CustomNavLinkOriginal: any = styled(NavLink)({
 	textDecoration: "none",
 	display: "flex",
 	flexWrap: "wrap",
 	margin: "10px",
+	
 });
+
+// const CustomNavLink: any = styled(NavLink)({
+// 	textDecoration: "none",
+// 	display: "flex",
+// 	flexWrap: "wrap",
+// 	margin: "10px",
+	
+// });
+
+// const CustomNavLink: any = styled(NavLink)((props) => ({
+// 	textDecoration: "none",
+// 	display: "flex",
+// 	flexWrap: "wrap",
+// 	margin: "10px",
+// 	color: (props.userTheme === "light") ? "white" : "black"
+// 	// color: (props.userTheme === "dark") ? "white" : "black"
+// 	// color: (store.getState().user?.profile?.theme === "dark") ? "black" : "white"
+// 	// color: textColor
+// }));
 
 const TweetModal: any = styled(Modal)({
 	overflow: "visible",
@@ -46,10 +69,19 @@ const NavbarTwitterIconButton = () => {
 	);
 };
 
-export default function NavBar() {
+export default function NavBar(props: {userTheme: any}) {
 	const dispatch = useDispatch();
 	const store = useStore();
 	const state: any = store.getState();
+	
+	const CustomNavLink: any = styled(NavLink)({
+		textDecoration: "none",
+		display: "flex",
+		flexWrap: "wrap",
+		margin: "10px",
+		color: (props.userTheme === "light") ? "black" : "white"
+	});
+
 
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => {

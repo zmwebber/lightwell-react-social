@@ -40,7 +40,7 @@ function App() {
 	}
 	
 	function setThemeOfUser() {
-		if(store.getState().user.profile.theme !== undefined) {
+		if(store.getState()?.user?.profile.theme !== undefined) {
 			setTheme(store.getState().user.profile.theme);
 		}
 	}
@@ -69,21 +69,21 @@ function App() {
 	const light = createTheme({
 		palette: {
 			mode: 'light',
-  },
-	components: {
-			MuiCardContent: {
-				styleOverrides: {
-					root: {
-						userSelect: "none",
-						cursor: "pointer",
-						touchAction: "manipulation",
-						display: "block",
-						background: "transparent",
-						border: 0
+		},
+		components: {
+				MuiCardContent: {
+					styleOverrides: {
+						root: {
+							userSelect: "none",
+							cursor: "pointer",
+							touchAction: "manipulation",
+							display: "block",
+							background: "transparent",
+							border: 0
+						}
 					}
 				}
 			}
-		}
 		// components: {
 		// 	MuiGrid: {
 		// 		styleOverrides: {
@@ -154,7 +154,8 @@ function App() {
 						color: "white"
 					}
 				}
-			}
+			},
+			
 		},
 		// typography: {
 		// 	color: "white"
@@ -205,7 +206,7 @@ function App() {
 							<button onClick={toggleTheme}>{theme}</button>
 						</Grid>
 
-						<NavBar />
+						<NavBar userTheme={theme}/>
 					</Grid>
 
 					<Grid item xs={12} sm={7.5}>
