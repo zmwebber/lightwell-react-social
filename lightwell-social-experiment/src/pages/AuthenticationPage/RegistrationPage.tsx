@@ -7,7 +7,7 @@ function RegistrationPage() {
 	return (
 		<div className={RegistrationPageStyle.registrationPageContainer}>
 			<div className={RegistrationPageStyle.navbarPosition}>
-				<NavBar />
+				<NavBar userTheme={"light"}/>
 			</div>
 
 			<div className={RegistrationPageStyle.registrationPageContent}>

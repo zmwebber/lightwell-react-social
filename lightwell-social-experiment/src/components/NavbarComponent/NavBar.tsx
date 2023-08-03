@@ -21,35 +21,6 @@ import NavBarStyle from "./navBarStyle.module.scss";
 import TweetFormStyle from "../FormComponent/tweetFormStyle.module.scss";
 import { store } from "../../app/store";
 
-
-
-const CustomNavLinkOriginal: any = styled(NavLink)({
-	textDecoration: "none",
-	display: "flex",
-	flexWrap: "wrap",
-	margin: "10px",
-	
-});
-
-// const CustomNavLink: any = styled(NavLink)({
-// 	textDecoration: "none",
-// 	display: "flex",
-// 	flexWrap: "wrap",
-// 	margin: "10px",
-	
-// });
-
-// const CustomNavLink: any = styled(NavLink)((props) => ({
-// 	textDecoration: "none",
-// 	display: "flex",
-// 	flexWrap: "wrap",
-// 	margin: "10px",
-// 	color: (props.userTheme === "light") ? "white" : "black"
-// 	// color: (props.userTheme === "dark") ? "white" : "black"
-// 	// color: (store.getState().user?.profile?.theme === "dark") ? "black" : "white"
-// 	// color: textColor
-// }));
-
 const TweetModal: any = styled(Modal)({
 	overflow: "visible",
 	maxWidth: "50%",
@@ -82,7 +53,6 @@ export default function NavBar(props: {userTheme: any}) {
 		color: (props.userTheme === "light") ? "black" : "white"
 	});
 
-
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => {
 		dispatch(toggleLoading(true));
@@ -100,7 +70,7 @@ export default function NavBar(props: {userTheme: any}) {
 					<CustomNavLink to="/">{NavbarTwitterIconButton()}</CustomNavLink>
 				</li>
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/">
 							<HomeOutlinedIcon /> Home
 						</CustomNavLink>
@@ -114,7 +84,7 @@ export default function NavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/notifications">
 							<NotificationsNoneOutlinedIcon /> Notifications
 						</CustomNavLink>
@@ -122,7 +92,7 @@ export default function NavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/messages">
 							<EmailOutlinedIcon /> Messages
 						</CustomNavLink>
@@ -130,7 +100,7 @@ export default function NavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/bookmarks">
 							<BookmarkBorderOutlinedIcon /> Bookmarks
 						</CustomNavLink>
@@ -138,7 +108,7 @@ export default function NavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/lists">
 							<ListAltOutlinedIcon /> Lists
 						</CustomNavLink>
@@ -146,7 +116,7 @@ export default function NavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{state.user.loginSuccess && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/profile">
 							<PermIdentityOutlinedIcon /> Profile
 						</CustomNavLink>
@@ -154,7 +124,7 @@ export default function NavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{state.user.loginSuccess === false ? (
+					{!localStorage.getItem('user') ? (
 						<CustomNavLink to="/login">
 							<PermIdentityOutlinedIcon /> Login
 						</CustomNavLink>
