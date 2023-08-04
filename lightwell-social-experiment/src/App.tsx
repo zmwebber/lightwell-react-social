@@ -39,13 +39,36 @@ function App() {
 	const toggleTheme = () => {
 		setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light')
 
-		// sets current users theme to currentTheme
-		let user: Profile = {...state.user.profile};
+		// let currentUser: Profile = {...state.user.profile};
+		// 	var user = {
+		// 	name: currentUser.name,
+		// 	screen_name: currentUser.screen_name,
+		// 	email: currentUser.email,
+		// 	password: currentUser.password,
+		// 	dateOfBirth: currentUser.dateOfBirth,
+		// 	createdAt: currentUser.createdAt,
+		// 	description: currentUser.description,
+		// 	url: currentUser.url,
+		// 	protected: currentUser.protected,
+		// 	followers_count: currentUser.followers_count,
+		// 	friends_count: currentUser.friends_count,
+		// 	listed_count: currentUser.listed_count,
+		// 	favorites_count: currentUser.favorites_count,
+		// 	verified: currentUser.verified,
+		// 	statuses_count: currentUser.statuses_count,
+		// 	profile_banner_id: currentUser.profile_banner_id,
+		// 	profile_banner: currentUser.profile_banner,
+		// 	profile_image_id: currentUser.profile_image_id,
+		// 	profile_image: currentUser.profile_image,
+    
+		// 	theme: reverseTheme(theme)
+		// } 
 
-		// thunk / slice / copy + dispatch action
-		user.theme = reverseTheme(theme);
 
 		if(state.user !== null) {
+			let user: Profile = {...state.user.profile};
+			user.theme = reverseTheme(theme);
+
 			const action = editUser(user)
 			console.log("Inside the toggleTheme function. Current theme: " + user.theme)
 			console.log(user)
