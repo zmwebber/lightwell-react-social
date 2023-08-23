@@ -1,4 +1,3 @@
-import { Theme } from '../App';
 import { Media } from './MediaModel'
 
 export type Profile = {
@@ -21,7 +20,7 @@ export type Profile = {
     profile_banner: Media | null,
     profile_image_id: string,
     profile_image: Media | null,
-    theme: String
+    theme: string
 }
 
 export class User implements Profile {

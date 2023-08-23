@@ -10,6 +10,8 @@ import React from 'react';
 import UserRegistrationForm from '../LoginComponent/UserRegistrationForm';
 import Media from '../MediaComponent/Media';
 import { EditButton } from '../../app/shared/buttons';
+import { store } from '../../app/store';
+import { editUser } from '../../api/UserApi';
 
 const style = {
     position: 'absolute' as 'absolute',

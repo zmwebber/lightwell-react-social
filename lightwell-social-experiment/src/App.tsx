@@ -6,14 +6,12 @@ import { CssBaseline, Grid } from "@mui/material";
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useDispatch, useStore } from "react-redux";
 import { Tweet } from "./models/TweetModel";
-import { editUser, updateUser } from "./api/UserApi";
+import { editUser } from "./api/UserApi";
 import { store } from "./app/store";
 import { Profile, User } from "./models/ProfileModel";
 import { text } from "stream/consumers";
 import { dark } from "./theme/dark";
 import { light } from "./theme/light";
-
-export type Theme = 'light' | 'dark'
 
 function App() {
 
@@ -39,34 +37,9 @@ function App() {
 	const toggleTheme = () => {
 		setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light')
 
-		// let currentUser: Profile = {...state.user.profile};
-		// 	var user = {
-		// 	name: currentUser.name,
-		// 	screen_name: currentUser.screen_name,
-		// 	email: currentUser.email,
-		// 	password: currentUser.password,
-		// 	dateOfBirth: currentUser.dateOfBirth,
-		// 	createdAt: currentUser.createdAt,
-		// 	description: currentUser.description,
-		// 	url: currentUser.url,
-		// 	protected: currentUser.protected,
-		// 	followers_count: currentUser.followers_count,
-		// 	friends_count: currentUser.friends_count,
-		// 	listed_count: currentUser.listed_count,
-		// 	favorites_count: currentUser.favorites_count,
-		// 	verified: currentUser.verified,
-		// 	statuses_count: currentUser.statuses_count,
-		// 	profile_banner_id: currentUser.profile_banner_id,
-		// 	profile_banner: currentUser.profile_banner,
-		// 	profile_image_id: currentUser.profile_image_id,
-		// 	profile_image: currentUser.profile_image,
-    
-		// 	theme: reverseTheme(theme)
-		// } 
-
 
 		if(state.user !== null) {
-			let user: Profile = {...state.user.profile};
+			let user: User = {...state.user.profile};
 			user.theme = reverseTheme(theme);
 
 			const action = editUser(user)

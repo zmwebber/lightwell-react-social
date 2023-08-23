@@ -24,12 +24,12 @@ export interface UserState {
 
 const initialState = {
   profile: user,
-  isError: false,
-  isSuccess: false,
+  isError: user._id ? false : true,
+  isSuccess: user._id ? true : false,
   isLoading: false,
-  message: '',
-  loginSuccess: user._id? true: false ,
-  theme: 'light'
+  message: user._id ? "Successfully logged in." : '',
+  loginSuccess: user._id ? true: false,
+  theme: user._id ? user.theme : 'light'
 }
 
 

@@ -55,29 +55,13 @@ export const editUser = createAsyncThunk(
       const response = await API.post(API_URL + 'edit', user)
       if (response.data) {
         console.log("Edit user returned: " + JSON.stringify(response.data))
-        localStorage.setItem('user', JSON.stringify(response.data))
+        localStorage.setItem('user', JSON.stringify(response.data.name))
       }
-      return response.data.profile
+      return response.data.name
     } catch (err) {
       console.log(err);
     }
   })
-
-export const updateUser = createAsyncThunk(
-  "users/update",
-  async (user: Profile) => {
-    try {
-      const response = await API.put(API_URL + 'update', user)
-      if (response.data) {
-        console.log("Update user : " + JSON.stringify(response.data))
-        localStorage.setItem('user', JSON.stringify(response.data))
-      }
-      return response.data.profile
-    } catch (err) {
-      console.log(err);
-    }
-  }
-)
 
 // Logout user
 export const logout = createAsyncThunk(

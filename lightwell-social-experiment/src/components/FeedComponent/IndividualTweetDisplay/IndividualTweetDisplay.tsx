@@ -199,7 +199,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	};
 
 	const goToTweetReplies = (tweet: Tweet) => {
-		window.location.href = "http://localhost:3000/replies/" + tweet._id
+		window.location.href = "/replies/" + tweet._id
 	};
 
 	async function getRetweetInteractions() {
@@ -254,7 +254,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const redirectToProfile = (tweet: Tweet): any => {
 		console.log("redirect button pressed");
 		window.location.href =
-			"http://localhost:3000/profile/" + tweet.user.screen_name;
+			"/profile/" + tweet.user.screen_name;
 	};
 
 	function parseUserJSON(tweet: Tweet): any {
