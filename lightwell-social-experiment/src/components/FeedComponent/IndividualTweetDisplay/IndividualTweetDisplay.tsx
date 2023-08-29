@@ -52,30 +52,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	const store = useStore();
 	const state: any = store.getState();
 
-	// const cardTheme = createTheme({
-	// 	components: {
-	// 		MuiCardContent: {
-	// 			styleOverrides: {
-	// 				root: {
-	// 					userSelect: "none",
-	// 					cursor: "pointer",
-	// 					touchAction: "manipulation",
-	// 					display: "block",
-	// 					background: "transparent",
-	// 					border: 0
-	// 				}
-	// 			}
-	// 		},
-	// 		MuiPaper: {
-	// 			styleOverrides: {
-	// 				root: {
-	// 					backgroundColor: "black"
-	// 				}
-	// 			}
-	// 		}
-	// 	}		
-	// });
-
 	const style = {
 		position: 'absolute' as 'absolute',
 		top: '50%',

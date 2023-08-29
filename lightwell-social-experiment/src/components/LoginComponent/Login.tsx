@@ -59,7 +59,7 @@ function Login(props: any) {
 	function handleRedirect() {
 		const currentState: any = store.getState();
 
-		if (currentState.user.profile.token !== null && currentState.user.loginSuccess == true) { // Change eventually from toxen exists -> token is valid and isn't expired
+		if (currentState.user.profile.token !== null && currentState.user.loginSuccess == true) { // Change eventually from token exists -> token is valid and isn't expired
 			navigate("/profile") //fixme: put navigates into state
 		}
 	}
