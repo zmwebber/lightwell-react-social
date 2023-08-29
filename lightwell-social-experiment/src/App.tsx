@@ -135,23 +135,14 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 						
 						<Grid item xs={0} sm={1.5}>
 							<Grid item>
-								{/* <button onClick={toggleTheme}>{theme}</button> */}
-								{/* <MaterialUISwitch onChange={toggleTheme} /> */}
-
-
-								<MaterialUISwitch /> 
 
 							<FormGroup>
 								<FormControlLabel
 									control={<MaterialUISwitch onChange={toggleTheme} defaultChecked={checked} sx={{ m:1 }} />}
-									label="Mode"
+									label=""
 									/>
 								</FormGroup>
 							</Grid>
-
-
-
-
 
 							<NavBar userTheme={theme}/>
 						</Grid>
