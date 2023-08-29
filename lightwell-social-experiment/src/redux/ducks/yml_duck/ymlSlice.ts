@@ -24,12 +24,13 @@ const ymlSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      
+      .addCase(getYmlTweets.pending, (state, action) => {
+        state.loading = true;
+      })
       .addCase(getYmlTweets.fulfilled, (state, action: IActionModel) => {
         state.loading = false;
         state.ymlTweets = action.payload;
-      })
-      .addCase(getYmlTweets.pending, (state, action) => {
-        state.loading = true;
       })
       .addDefaultCase((state, action) => { })
   },

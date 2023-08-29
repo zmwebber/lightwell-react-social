@@ -42,24 +42,19 @@ export default function YouMightLike() {
 		
 
 			return(
-
 				<>
 				<h2>You Might Like</h2>
-
-				<>
-				{ymlTweetsArray.ymlTweets && ymlTweetsArray.ymlTweets
-				.filter(
-					tweet => tweet.user._id !== user._id 
-					)
-					.map((tweet, index) => (
-					<div>{tweet.user.screen_name}</div>
-					))}
+					<>
+					{ymlTweetsArray.ymlTweets && ymlTweetsArray.ymlTweets
+						.map((tweet, index) => (
+							<>
+								<div>{tweet.user.name}</div>
+								<b>{tweet.user.screen_name}</b>
+							</>
+						))}
+					</>
+					<>
 				</>
-
-				<>
-				
-				</>
-				
 			<div>
 				<h5>Show more</h5>
 			</div>
