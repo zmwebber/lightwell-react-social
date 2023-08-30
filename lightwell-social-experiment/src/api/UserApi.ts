@@ -4,9 +4,13 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 import API from "./apiConfig";
-import { Profile } from "../models/ProfileModel";
+import { Profile, User } from "../models/ProfileModel";
 import { AxiosError } from "axios";
 const API_URL = '/users/'
+
+// TODO
+// 2 methods - editUserTheme. Make copy of user, modify so it just takes id + theme. Hits updateTheme endpoint.
+//
 
 export const login = createAsyncThunk(
   "users/login",
@@ -74,6 +78,23 @@ export const logout = createAsyncThunk(
       console.log(err);
     }
   })
+
+export const editUserTheme = createAsyncThunk(
+  "users/theme",
+  async (user: User) => {
+    try {
+      let body = { 'id': user._id, 'theme': user.theme}
+      const response = await API.post(API_URL + 'editTheme', body)
+      if (response.data) {
+        // set just the theme on the user object
+        // get localstorage and replace item 
+      }
+      return response.data
+    } catch (err) {
+      throw err
+    }
+  }
+)
 
 const userService = {
   addUser,
