@@ -68,11 +68,6 @@ export const getYmlTweets = async(req, res) => {
   const qs = QueryString.parse(req.query)
 
 
-  // rules for aggregate - 
-  // specific size - pass in?
-  // doesn't include current user's ID (optional)
-  // aren't the same
-
   const ymlTweets = await Tweets.aggregate([
     { $match: { "user._id": { $ne: qs.userId } } },
     { $group: { _id: "$user._id", tweets: { $push: "$$ROOT" } } },
@@ -83,13 +78,13 @@ export const getYmlTweets = async(req, res) => {
     if (ymlTweets) {
       res.status(201).json({
         success: true,
-        message: "cards retrieved successfully",
+        message: "Tweets retrieved successfully",
         ymlTweets: ymlTweets,
       });
     } else {
       res.status(400).json({
         success: false,
-        message: "cannot find cards"
+        message: "cannot find tweets"
       });
     }
 

@@ -66,8 +66,8 @@ export const getYmlTweets = createAsyncThunk(
     "tweets/getYmlTweets",
     async (user: User) => {
         try {
+            // body + post method over a get method.
             let response = await API.get('/tweets/youMightLike', { params: { userId: user._id }});
-            // const tweets: Tweet[] = response.data.tweets;
             const tweets: Tweet[] = response.data.ymlTweets;
 
             console.log("From getYmlTweets method")

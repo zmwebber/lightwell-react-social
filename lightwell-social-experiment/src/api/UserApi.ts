@@ -83,13 +83,17 @@ export const editUserTheme = createAsyncThunk(
   "users/theme",
   async (user: User) => {
     try {
-      let body = { 'id': user._id, 'theme': user.theme}
+      let body = { 'id': user._id, 'theme': user.theme }
       const response = await API.post(API_URL + 'editTheme', body)
       if (response.data) {
-        // set just the theme on the user object
-        // get localstorage and replace item 
+
+        // TODO: cookie manipulation in localStorage
+
+        // var item: any = JSON.stringify(localStorage.getItem('user'))
+        // item['theme'] = JSON.stringify(response.data.theme)
+        // localStorage.setItem('user', item)
       }
-      return response.data
+      return response.data.theme
     } catch (err) {
       throw err
     }

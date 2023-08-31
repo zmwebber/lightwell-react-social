@@ -14,6 +14,7 @@ import { store } from '../../app/store';
 import { editUser, editUserTheme } from '../../api/UserApi';
 import { FormControlLabel, Switch, FormGroup } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
+import dayjs, { Dayjs } from "dayjs";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -151,7 +152,7 @@ function setThemeOfUser() {
                 <p className={ProfileInformationComponentStyle.userHandleSubtext}>@{user.screen_name}</p>
                 <div className={ProfileInformationComponentStyle.userJoinedContainer}>
                     <DateRangeIcon className={ProfileInformationComponentStyle.dateIcon} />
-                    <span className={ProfileInformationComponentStyle.userJoinedDate}> Joined {user.createdAt.toString()}</span>
+                    <span className={ProfileInformationComponentStyle.userJoinedDate}> Joined {dayjs(user.createdAt).toString()}</span>
                 </div>
 
                 <div className={ProfileInformationComponentStyle.userFollowContainer}>

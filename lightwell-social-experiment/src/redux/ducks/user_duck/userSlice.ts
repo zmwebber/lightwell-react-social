@@ -130,7 +130,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.loginSuccess = true
-        state.profile = action.payload
+        state.profile.theme = action.payload
       })
   },
 })

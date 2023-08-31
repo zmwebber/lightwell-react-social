@@ -55,7 +55,7 @@ export const editTheme = asyncHandler(async(req, res) => {
   const id = user["id"];
   const theme = user["theme"];
   
-  console.log(id)
+  // console.log(id)
 
   let objectId = new ObjectId(id);
   let filter = {
@@ -65,11 +65,11 @@ export const editTheme = asyncHandler(async(req, res) => {
     theme: theme 
   }
 
-  const response = await User.findOneAndUpdate(filter, update, { new: true });
+  const response = await User.findOneAndUpdate(filter, update, { new: false });
 
   if (response) {
     res.status(201).json({
-      user: response
+      theme: theme
     })
   } else {
     res.status(400);
