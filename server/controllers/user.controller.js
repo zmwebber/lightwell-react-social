@@ -46,6 +46,38 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// 2 methods: edit user theme -- pass theme and ID
+// getUserTheme -- pass ID returns theme
+
+export const editTheme = asyncHandler(async(req, res) => {
+  const user = req.body;
+  // console.log(user)
+  const id = user["id"];
+  const theme = user["theme"];
+  
+  console.log(id)
+
+  let objectId = new ObjectId(id);
+  let filter = {
+    _id: objectId
+  }
+  let update = { 
+    theme: theme 
+  }
+
+  const response = await User.findOneAndUpdate(filter, update, { new: true });
+
+  if (response) {
+    res.status(201).json({
+      user: response
+    })
+  } else {
+    res.status(400);
+    throw new Error("Theme not updated");
+  }
+});
+
+// const id = user["id"] -- findOneAndUpdate
 export const editUser = asyncHandler(async (req, res) => {
   const user = req.body;
   delete user["token"];
@@ -59,13 +91,13 @@ export const editUser = asyncHandler(async (req, res) => {
     _id: objectId,
   };
 
-  const userResponse = await User.findOneAndUpdate(filter, user, { new: true });
+  const userResponse = await User.findOneAndUpdate(filter, theme, { new: true });
 
   if (userResponse) {
     userResponse["token"] = generateToken(userResponse._id);
     console.log("Updated User: " + userResponse);
     res.status(201).json({
-      profile: userResponse,
+      name: userResponse,
     });
   } else {
     res.status(400);
@@ -119,25 +151,6 @@ export const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user);
 });
 
-export const updateUser = asyncHandler(async (req, res) => {
-  
-  const user = req.body;
-  let id = req.body._id;
-  
-  let filter = {
-    _id: id,
-  };
-
-  const userRes = await User.findOneAndUpdate(filter, user);
-
-  if(userRes) {
-    console.log("User updated")
-    res.status(200)
-  } else {
-    console.log("Error with User update")
-    res.status(400)
-  }
-})
 
 // Generate JWT
 const generateToken = (id) => {

@@ -13,6 +13,7 @@ import { selectFeed } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { getFeed } from "../../api/TweetApi";
 import { userInfo } from "os";
 import { selectYmlTweets } from "../../redux/ducks/yml_duck/ymlSlice";
+import { User } from "../../models/ProfileModel";
 
 //TODO: extract You Might Like & Show More to bookend entire YML card such that they aren't repeated with every new card produced.
 
@@ -20,17 +21,13 @@ export default function YouMightLike() {
 
 	const store = useStore();
 	const state: any = store.getState();
-	// const feed = useAppSelector((state) => state.myTweets);
-  const user = useAppSelector((state) => state.user.profile);
-	// const [isInitialized, setInitialized] = React.useState(false);
-
-	const [ymlTweets, setYmlTweets] = React.useState<Tweet[]>([]);
+	const user: User = useAppSelector(state => state.user.profile)
 
 	const ymlTweetsArray = useAppSelector(selectYmlTweets);
 	const dispatch = useDispatch();
 
 	const initFetch = useCallback(() => {
-		dispatch(getYmlTweets())
+		dispatch(getYmlTweets(user))
 	}, [dispatch]);
 
 	useEffect(() => {
@@ -39,8 +36,6 @@ export default function YouMightLike() {
 		}
 	}, [initFetch]);
 
-		
-
 			return(
 				<>
 				<h2>You Might Like</h2>
@@ -48,7 +43,7 @@ export default function YouMightLike() {
 					{ymlTweetsArray.ymlTweets && ymlTweetsArray.ymlTweets
 						.map((tweet, index) => (
 							<>
-								<div>{tweet.user.name}</div>
+								<div key={index}>{tweet.user.name}</div>
 								<b>{tweet.user.screen_name}</b>
 							</>
 						))}

@@ -4,7 +4,8 @@ const {
   registerUser,
   editUser,
   loginUser,
-  getMe
+  getMe,
+  editTheme
 } = require("../controllers/user.controller");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -12,5 +13,6 @@ router.route("/users/add").post(registerUser);
 router.route("/users/edit").post(editUser);
 router.route("/users/login").post(loginUser);
 router.route("/users/me").put(getMe);
+router.route("/users/editTheme").post(editTheme);
 
 export default router;

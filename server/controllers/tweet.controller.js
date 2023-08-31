@@ -5,16 +5,16 @@ import QueryString from 'qs';
 
 
 export const getTweets = (req,res) => {
-    Tweets.find().exec((err,tweets) => {
+    Tweets.find().exec((err, tweets) => {
     if(err){
       return res.json({'success':false,'message':'getTweets error: ' + err});
     }
-    return res.json({'success':true,'message':'Tweets fetched successfully',tweets});
+    return res.json({'success':true,'message':'Tweets fetched successfully', tweets});
   });
 }
 export const addTweet = (req,res) => {
   delete req.body._id;
-  const newTweet= new Tweets(req.body);
+  const newTweet = new Tweets(req.body);
   //strip _id from tweet, let mongo generate it.
   newTweet.save((err,tweet) => {
     if(err){
@@ -49,7 +49,7 @@ export const deleteTweet = (req,res) => {
     if(err){
     return res.json({'success':false,'message':'deleteTweet error: ' + err});
     }
-return res.json({'success':true,'message':tweet._id+' deleted successfully'});
+return res.json({'success':true,'message':tweet._id + ' deleted successfully'});
   })
 }
 export const getTweetsByUser = (req, res) => {
@@ -62,3 +62,32 @@ export const getTweetsByUser = (req, res) => {
   });
 }
 
+export const getYmlTweets = async(req, res) => {
+
+  // i am passing in an id through the req. userId
+  const qs = QueryString.parse(req.query)
+
+
+  // rules for aggregate - 
+  // specific size - pass in?
+  // doesn't include current user's ID (optional)
+  // aren't the same
+
+  const ymlTweets = await Tweets.aggregate([
+    { $match: { "user._id": { $ne: qs.userId } } },
+    { $sample: { size: 2 } }
+  ])
+    if (ymlTweets) {
+      res.status(201).json({
+        success: true,
+        message: "cards retrieved successfully",
+        ymlTweets: ymlTweets,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "cannot find cards"
+      });
+    }
+
+};

@@ -64,9 +64,9 @@ export const getProfileFeed = createAsyncThunk(
 
 export const getYmlTweets = createAsyncThunk(
     "tweets/getYmlTweets",
-    async () => {
+    async (user: User) => {
         try {
-            let response = await API.get('/tweets/youMightLike');
+            let response = await API.get('/tweets/youMightLike', { params: { userId: user._id }});
             // const tweets: Tweet[] = response.data.tweets;
             const tweets: Tweet[] = response.data.ymlTweets;
 
