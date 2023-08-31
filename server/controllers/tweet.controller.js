@@ -75,7 +75,10 @@ export const getYmlTweets = async(req, res) => {
 
   const ymlTweets = await Tweets.aggregate([
     { $match: { "user._id": { $ne: qs.userId } } },
-    { $sample: { size: 2 } }
+    { $group: { _id: "$user._id", tweets: { $push: "$$ROOT" } } },
+    { $sample: { size: 2 } },
+    { $project: { _id: 0, tweet: { $arrayElemAt: ["$tweets", 0] } } },
+    { $replaceRoot: { newRoot: "$tweet" } }
   ])
     if (ymlTweets) {
       res.status(201).json({
