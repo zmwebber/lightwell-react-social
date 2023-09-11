@@ -52,6 +52,18 @@ export const addUser = createAsyncThunk(
     }
   })
 
+export const getUser = createAsyncThunk(
+  "users/getById",
+  async (id: any) => {
+    try {
+      const response = await API.get(API_URL + 'getById/' + id, id)
+      return response.data
+    } catch (err) {
+      throw err
+    }
+  }
+)
+
 export const editUser = createAsyncThunk(
   "users/edit",
   async (user: Profile) => {

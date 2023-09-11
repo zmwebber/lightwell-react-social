@@ -1,13 +1,9 @@
-import React, { useState } from "react";
 import { useStore } from "react-redux";
 import { logout } from "../../api/UserApi";
-import { Profile, User } from "../../models/ProfileModel";
-import { Button, styled } from "@mui/material";
+import { styled, Hidden } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import { StaticDatePicker } from "@mui/x-date-pickers";
-import { authSlice } from "../../redux/ducks/user_duck/userSlice";
-import { selectOptions } from "@testing-library/user-event/dist/types/setup/directApi";
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 
 const LogoutAnchor: any = styled('a')`
     display: flex;
@@ -42,8 +38,14 @@ function Logout(props: any) {
     }
 
     return (
-        <LogoutAnchor onClick={handleLogoutButtonClick}
-        ><PermIdentityOutlinedIcon />Logout</LogoutAnchor>
+        <LogoutAnchor onClick={handleLogoutButtonClick}>
+            <LoginOutlinedIcon />
+            <Hidden lgDown>
+                <div>
+                    Logout
+                </div>
+            </Hidden>
+        </LogoutAnchor>
     );
 }
 

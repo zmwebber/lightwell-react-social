@@ -14,6 +14,7 @@ import { getFeed } from "../../api/TweetApi";
 import { userInfo } from "os";
 import { selectYmlTweets } from "../../redux/ducks/yml_duck/ymlSlice";
 import { User } from "../../models/ProfileModel";
+import { YMLDisplay } from "./YouMightLikeDisplay";
 
 //TODO: extract You Might Like & Show More to bookend entire YML card such that they aren't repeated with every new card produced.
 
@@ -37,24 +38,20 @@ export default function YouMightLike() {
 	}, [initFetch]);
 
 			return(
-				<>
-				<h2>You Might Like</h2>
-					<>
-					{ymlTweetsArray.ymlTweets && ymlTweetsArray.ymlTweets
-						.map((tweet, index) => (
-							<>
-								<div key={index}>{tweet.user.name}</div>
-								<b>{tweet.user.screen_name}</b>
+				<div className="yml-component">
+					<h2>You Might Like</h2>
+						<>
+						{ymlTweetsArray.ymlTweets && ymlTweetsArray.ymlTweets
+							.map((tweet, index) => (
+								// TODO: grab tweet.user._id -> search users for user that matches on id, then return profilePicture
+									<YMLDisplay {...tweet} key={index}/>
+								))}
 							</>
-						))}
-					</>
-					<>
-				</>
-			<div>
-				<h5>Show more</h5>
-			</div>
+					<div>
+						<h5>Show more</h5>
+					</div>
 		
-				</>
+				</div>
 		
 	);
 }

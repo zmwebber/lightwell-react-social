@@ -1,6 +1,6 @@
 
 import { createSlice } from '@reduxjs/toolkit'
-import { addUser, editUser, editUserTheme, login, logout } from '../../../api/UserApi'
+import { addUser, editUser, editUserTheme, getUser, login, logout } from '../../../api/UserApi'
 import { User } from '../../../models/ProfileModel'
 // Get user from localStorage
 
@@ -29,7 +29,7 @@ const initialState = {
   isLoading: false,
   message: user._id ? "Successfully logged in." : '',
   loginSuccess: user._id ? true: false,
-  theme: user._id ? user.theme : 'light'
+  // theme: user._id ? user.theme : 'light'
 }
 
 
@@ -131,6 +131,15 @@ export const authSlice = createSlice({
         state.isSuccess = true
         state.loginSuccess = true
         state.profile.theme = action.payload
+      })
+      .addCase(getUser.pending, (state, action) => {
+        state.isLoading = true
+        state.isSuccess = false
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.profile = action.payload
       })
   },
 })

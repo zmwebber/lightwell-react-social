@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -9,9 +9,9 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
-import { Button, Modal, SvgIcon } from "@mui/material";
+import { Button, Hidden, Modal, SvgIcon } from "@mui/material";
 import TweetForm from "../FormComponent/TweetForm";
-import { useSelector, useDispatch, useStore } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
@@ -44,6 +44,7 @@ export default function NavBar(props: {userTheme: any}) {
 	const dispatch = useDispatch();
 	const store = useStore();
 	const state: any = store.getState();
+	const [showText, setShowText] = useState<boolean>(true);
 	
 	const CustomNavLink: any = styled(NavLink)({
 		textDecoration: "none",
@@ -63,6 +64,22 @@ export default function NavBar(props: {userTheme: any}) {
 		setOpen(false);
 	};
 
+	useEffect(() => {
+		const handleResize = () => {
+			if(window.innerWidth <= 768) {
+				setShowText(false);
+			} else {
+				setShowText(true);
+			}
+		}
+		window.addEventListener('resize', handleResize);
+		handleResize();
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, []);
+
 	return (
 		<div className={NavBarStyle.navbarContainer}>
 			<ul className={NavBarStyle.icons}>
@@ -72,21 +89,36 @@ export default function NavBar(props: {userTheme: any}) {
 				<li>
 					{localStorage.getItem('user') && (
 						<CustomNavLink to="/">
-							<HomeOutlinedIcon /> Home
+							<HomeOutlinedIcon />
+							<Hidden lgDown>
+							<div>
+								Home
+							</div>
+						</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
 
-				<li>
+					<li>
 					<CustomNavLink to="/explore">
-						<TagOutlinedIcon /> Explore
+						<TagOutlinedIcon /> 
+						<Hidden lgDown>
+							<div>
+								Explore
+							</div>
+						</Hidden>
 					</CustomNavLink>
 				</li>
 
 				<li>
 					{localStorage.getItem('user') && (
 						<CustomNavLink to="/notifications">
-							<NotificationsNoneOutlinedIcon /> Notifications
+							<NotificationsNoneOutlinedIcon />
+							<Hidden lgDown>
+							<div>
+								Notifications
+							</div>
+						</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -94,7 +126,12 @@ export default function NavBar(props: {userTheme: any}) {
 				<li>
 					{localStorage.getItem('user') && (
 						<CustomNavLink to="/messages">
-							<EmailOutlinedIcon /> Messages
+							<EmailOutlinedIcon />
+							<Hidden lgDown>
+							<div>
+								Messages
+							</div>
+						</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -102,7 +139,12 @@ export default function NavBar(props: {userTheme: any}) {
 				<li>
 					{localStorage.getItem('user') && (
 						<CustomNavLink to="/bookmarks">
-							<BookmarkBorderOutlinedIcon /> Bookmarks
+							<BookmarkBorderOutlinedIcon />
+							<Hidden lgDown>
+							<div>
+								Bookmarks
+							</div>
+						</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -110,7 +152,12 @@ export default function NavBar(props: {userTheme: any}) {
 				<li>
 					{localStorage.getItem('user') && (
 						<CustomNavLink to="/lists">
-							<ListAltOutlinedIcon /> Lists
+							<ListAltOutlinedIcon />
+							<Hidden lgDown>
+							<div>
+								Lists
+							</div>
+						</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -118,7 +165,12 @@ export default function NavBar(props: {userTheme: any}) {
 				<li>
 					{localStorage.getItem('user') && (
 						<CustomNavLink to="/profile">
-							<PermIdentityOutlinedIcon /> Profile
+							<PermIdentityOutlinedIcon />
+							<Hidden lgDown>
+							<div>
+								Profile
+							</div>
+						</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -126,7 +178,12 @@ export default function NavBar(props: {userTheme: any}) {
 				<li>
 					{!localStorage.getItem('user') ? (
 						<CustomNavLink to="/login">
-							<PermIdentityOutlinedIcon /> Login
+							<PermIdentityOutlinedIcon />
+							<Hidden lgDown>
+							<div>
+								Login
+							</div>
+						</Hidden>
 						</CustomNavLink>
 					) : (
 						<CustomNavLink to="/">
@@ -137,31 +194,38 @@ export default function NavBar(props: {userTheme: any}) {
 
 				<li>
 					<CustomNavLink to="/more">
-						<PendingOutlinedIcon /> More
+						<PendingOutlinedIcon />
+						<Hidden lgDown>
+							<div>
+								More
+							</div>
+						</Hidden>
 					</CustomNavLink>
 				</li>
 
-				<div className={TweetFormStyle.tweetForm}>
-					<TweetButton
-						style={{
-							backgroundColor: "deepskyblue",
-							color: "white",
-							marginTop: "12px",
-						}}
-						onClick={handleOpen}
-					>
-						TWEET
-					</TweetButton>
+				<Hidden lgDown>
+					<div className={TweetFormStyle.tweetForm}>
+						<TweetButton
+							style={{
+								backgroundColor: "deepskyblue",
+								color: "white",
+								marginTop: "12px",
+							}}
+							onClick={handleOpen}
+							>
+							TWEET
+						</TweetButton>
 
-					<TweetModal
-						open={open}
-						onClose={handleClose}
-						className={NavBarStyle.modal}
-						closeAfterTransition
-					>
-						<TweetForm className={TweetFormStyle.tweetForm} handleClose={handleClose} />
-					</TweetModal>
-				</div>
+						<TweetModal
+							open={open}
+							onClose={handleClose}
+							className={NavBarStyle.modal}
+							closeAfterTransition
+							>
+							<TweetForm className={TweetFormStyle.tweetForm} handleClose={handleClose} />
+						</TweetModal>
+					</div>
+				</Hidden>
 			</ul>
 		</div>
 	);

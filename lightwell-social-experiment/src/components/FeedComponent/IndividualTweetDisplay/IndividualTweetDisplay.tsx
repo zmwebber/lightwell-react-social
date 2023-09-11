@@ -270,6 +270,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 					className={AppStyle.profilePicture}
 					alt="profile-pic"
 					src={defaultProfilePic}
+					//TODO: show user's profile picture
 					style={{ width: "5vw", height: "5vh" }}
 					onClick={() => redirectToProfile(tweet)}
 					></img>
