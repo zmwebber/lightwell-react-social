@@ -18,11 +18,11 @@ function App() {
 				<div className="defaultLayout">
 					<Grid container spacing={1.5}>
 						
-						<Grid item xs={2} sm={1.5}>
+						<Grid item xs={2} sm={2}>
 							<NavBar userTheme={user?.theme || "light"} />
 						</Grid>
 
-						<Grid item xs={10} sm={8}>
+						<Grid item xs={10} sm={7.5}>
 							<Outlet />
 						</Grid>
 

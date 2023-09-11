@@ -91,10 +91,10 @@ export default function NavBar(props: {userTheme: any}) {
 						<CustomNavLink to="/">
 							<HomeOutlinedIcon />
 							<Hidden lgDown>
-							<div>
-								Home
-							</div>
-						</Hidden>
+								<div>
+									Home
+								</div>
+							</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -115,10 +115,10 @@ export default function NavBar(props: {userTheme: any}) {
 						<CustomNavLink to="/notifications">
 							<NotificationsNoneOutlinedIcon />
 							<Hidden lgDown>
-							<div>
-								Notifications
-							</div>
-						</Hidden>
+								<div>
+									Notifications
+								</div>
+							</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -128,10 +128,10 @@ export default function NavBar(props: {userTheme: any}) {
 						<CustomNavLink to="/messages">
 							<EmailOutlinedIcon />
 							<Hidden lgDown>
-							<div>
-								Messages
-							</div>
-						</Hidden>
+								<div>
+									Messages
+								</div>
+							</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -141,10 +141,10 @@ export default function NavBar(props: {userTheme: any}) {
 						<CustomNavLink to="/bookmarks">
 							<BookmarkBorderOutlinedIcon />
 							<Hidden lgDown>
-							<div>
-								Bookmarks
-							</div>
-						</Hidden>
+								<div>
+									Bookmarks
+								</div>
+							</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -154,10 +154,10 @@ export default function NavBar(props: {userTheme: any}) {
 						<CustomNavLink to="/lists">
 							<ListAltOutlinedIcon />
 							<Hidden lgDown>
-							<div>
-								Lists
-							</div>
-						</Hidden>
+								<div>
+									Lists
+								</div>
+							</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -167,10 +167,10 @@ export default function NavBar(props: {userTheme: any}) {
 						<CustomNavLink to="/profile">
 							<PermIdentityOutlinedIcon />
 							<Hidden lgDown>
-							<div>
-								Profile
-							</div>
-						</Hidden>
+								<div>
+									Profile
+								</div>
+							</Hidden>
 						</CustomNavLink>
 					)}
 				</li>
@@ -180,10 +180,10 @@ export default function NavBar(props: {userTheme: any}) {
 						<CustomNavLink to="/login">
 							<PermIdentityOutlinedIcon />
 							<Hidden lgDown>
-							<div>
-								Login
-							</div>
-						</Hidden>
+								<div>
+									Login
+								</div>
+							</Hidden>
 						</CustomNavLink>
 					) : (
 						<CustomNavLink to="/">
