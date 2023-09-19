@@ -14,7 +14,7 @@ import { store } from '../../app/store';
 import { editUser, editUserTheme } from '../../api/UserApi';
 import { FormControlLabel, Switch, FormGroup } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -90,8 +90,7 @@ function setThemeOfUser() {
 		}
 	}
 
-	// @TODO: When user is logged in and page is refreshed, user is logged out.
-	function reverseTheme(theme: String) {
+    function reverseTheme(theme: String) {
 		if (theme === "light") {
 			setChecked(true)
 			return "dark";
@@ -160,19 +159,16 @@ function setThemeOfUser() {
                     <span><strong>{user.followers_count}</strong> Followers</span>
                 </div>
             </Box>
-
-<div>
-           
-
-							<FormGroup>
-								<FormControlLabel
-									control={<MaterialUISwitch onChange={toggleTheme} defaultChecked={checked} sx={{ m:1 }} />}
-									label=""
-									/>
-								</FormGroup>
-
-                                    </div>
+        
             <div className={ProfileInformationComponentStyle.editButtons}>
+                <div>
+		    <FormGroup>
+			<FormControlLabel
+				control={<MaterialUISwitch onChange={toggleTheme} defaultChecked={checked} sx={{ m:1 }} />}
+				label=""
+				/>
+			</FormGroup>
+        </div>
                 <EditButton sx={{ marginLeft: 1 }} onClick={handleOpen} className={ProfileInformationComponentStyle.editButton}>
                     Edit Profile
                 </EditButton>

@@ -1,0 +1,48 @@
+@import '../../sassStyles/variables';
+
+
+
+
+.icons:hover> :not(:hover) {
+  opacity: .6;
+}
+
+@media (max-width: $small) {
+
+  .navbarContainer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      // if light mode, if dark mode.
+      background-color: #fff;
+      /* Change this to your desired background color */
+      display: flex;
+      justify-content: space-around;
+      padding: 0px;
+      border-top: 1px solid #ccc;
+      /* Add a border at the top if needed */
+      z-index: 99;
+    }
+
+  .navBarText {
+    display: none;
+    align-items: center;
+  }
+
+  .navbarContainer li {
+    list-style-type: none;
+    flex: 1; /* Equal distribution of space among list items */
+    padding: 0 1rem; /* Add padding between icons if desired */
+  }
+  
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  font-weight: $heavy-font-weight;
+  font-size: $large-font-size;
+}

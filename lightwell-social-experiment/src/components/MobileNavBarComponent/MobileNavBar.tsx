@@ -16,10 +16,7 @@ import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
 import Logout from "../LogoutComponent/Logout";
-import { Profile } from "../../models/ProfileModel";
-import NavBarStyle from "./navBarStyle.module.scss";
-import TweetFormStyle from "../FormComponent/tweetFormStyle.module.scss";
-import { store } from "../../app/store";
+import NavBarStyle from "./mobileNavBarStyle.module.scss";
 
 const TweetModal: any = styled(Modal)({
 	overflow: "visible",
@@ -30,17 +27,7 @@ const TweetModal: any = styled(Modal)({
 	textAlign: "center"
 })
 
-const NavbarTwitterIconButton = () => {
-	return (
-		<div>
-			<Button>
-				<SvgIcon component={ TwitterIcon } style={{ fontSize: 40 }} />
-			</Button>
-		</div>
-	);
-};
-
-export default function NavBar(props: {userTheme: any}) {
+export default function MobileNavBar(props: {userTheme: any}) {
 	const dispatch = useDispatch();
 	
 	const CustomNavLink: any = styled(NavLink)({
@@ -79,10 +66,8 @@ export default function NavBar(props: {userTheme: any}) {
 
 	return (
 		<div className={NavBarStyle.navbarContainer}>
-			<ul className={NavBarStyle.icons}>
-				<li>
-					<CustomNavLink to="/">{NavbarTwitterIconButton()}</CustomNavLink>
-				</li>
+			{/* <ul className={NavBarStyle.icons}> */}
+				
 				<li>
 					{localStorage.getItem('user') && (
 						<CustomNavLink to="/">
@@ -92,15 +77,6 @@ export default function NavBar(props: {userTheme: any}) {
 								</div>
 						</CustomNavLink>
 					)}
-				</li>
-
-					<li className={windowWidth <= 1000 ? "hide-mobile" : ""}>
-					<CustomNavLink to="/explore">
-						<TagOutlinedIcon /> 
-							<div className={NavBarStyle.navBarText}>
-								Explore
-							</div>
-					</CustomNavLink>
 				</li>
 
 				<li>
@@ -120,28 +96,6 @@ export default function NavBar(props: {userTheme: any}) {
 							<EmailOutlinedIcon />
 								<div className={NavBarStyle.navBarText}>
 									Messages
-								</div>
-						</CustomNavLink>
-					)}
-				</li>
-
-				<li>
-					{localStorage.getItem('user') && (
-						<CustomNavLink to="/bookmarks" className="bookmarks">
-							<BookmarkBorderOutlinedIcon />
-								<div className={NavBarStyle.navBarText}>
-									Bookmarks
-								</div>
-						</CustomNavLink>
-					)}
-				</li>
-
-				<li>
-					{localStorage.getItem('user') && (
-						<CustomNavLink to="/lists">
-							<ListAltOutlinedIcon />
-								<div className={NavBarStyle.navBarText} data-hide={window.innerWidth <= 600}>
-									Lists
 								</div>
 						</CustomNavLink>
 					)}
@@ -174,40 +128,7 @@ export default function NavBar(props: {userTheme: any}) {
 						</CustomNavLink>
 					)}
 				</li>
-
-				<li>
-					<CustomNavLink to="/more">
-						<PendingOutlinedIcon />
-							<div className={NavBarStyle.navBarText}>
-								More
-							</div>
-					</CustomNavLink>
-				</li>
-
-				<Hidden lgDown>
-					<div className={TweetFormStyle.tweetForm}>
-						<TweetButton
-							style={{
-								backgroundColor: "deepskyblue",
-								color: "white",
-								marginTop: "12px",
-							}}
-							onClick={handleOpen}
-							>
-							TWEET
-						</TweetButton>
-
-						<TweetModal
-							open={open}
-							onClose={handleClose}
-							className={NavBarStyle.modal}
-							closeAfterTransition
-							>
-							<TweetForm className={TweetFormStyle.tweetForm} handleClose={handleClose} />
-						</TweetModal>
-					</div>
-				</Hidden>
-			</ul>
+			{/* </ul> */}
 		</div>
 	);
 }

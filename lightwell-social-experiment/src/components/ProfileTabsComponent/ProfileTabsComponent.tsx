@@ -3,8 +3,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useSelector, useDispatch, useStore } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
+import { useStore } from 'react-redux';
+import { useAppSelector } from '../../app/hooks/hooks';
 import { getProfileFeed } from '../../api/TweetApi';
 import IndividualTweetDisplay from "../FeedComponent/IndividualTweetDisplay/IndividualTweetDisplay";
 import TabsComponentStyle from "./tabsComponentStyle.module.scss";
@@ -93,6 +93,8 @@ export default function TabsComponent() {
                 </>
 
             </TabPanel>
+            {/* <Hidden xsDown> */}
+
             <TabPanel value={value} index={1}>
                 Tweets & Replies
             </TabPanel>
@@ -102,6 +104,7 @@ export default function TabsComponent() {
             <TabPanel value={value} index={3}>
                 Likes
             </TabPanel>
+            {/* </Hidden> */}
         </Box>
     );
 }

@@ -46,20 +46,6 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// export const getTweet = (req, res) => {
-//   Tweets.find({ _id: req.params._id }).exec((err, tweet) => {
-//     if (err) {
-//       return res.json({ 'success': false, 'message': 'getTweet error: ' + err });
-//     }
-//     if (tweet.length) {
-//       return res.json({ 'success': true, 'message': 'Tweet fetched by id successfully', tweet });
-//     }
-//     else {
-//       return res.json({ 'success': false, 'message': 'Tweet with the given id not found' });
-//     }
-//   })
-// }
-
 export const getUser = (req, res) => {
   User.findOne({ _id: req.body }).exec((err, user) => {
     if (err) {
@@ -74,16 +60,10 @@ export const getUser = (req, res) => {
   })
 }
 
-// 2 methods: edit user theme -- pass theme and ID
-// getUserTheme -- pass ID returns theme
-
 export const editTheme = asyncHandler(async(req, res) => {
   const user = req.body;
-  // console.log(user)
   const id = user["id"];
   const theme = user["theme"];
-  
-  // console.log(id)
 
   let objectId = new ObjectId(id);
   let filter = {
