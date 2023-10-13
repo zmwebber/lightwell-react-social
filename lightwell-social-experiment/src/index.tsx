@@ -43,7 +43,7 @@ const router = createBrowserRouter([{
 			element: <ExplorePage />
 		},
 		{
-			path: "/profile",
+			path: "/profile/:screen_name",
 			element: <ProfilePage />
 		},
 		{

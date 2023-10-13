@@ -17,15 +17,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
 import Logout from "../LogoutComponent/Logout";
 import NavBarStyle from "./mobileNavBarStyle.module.scss";
-
-const TweetModal: any = styled(Modal)({
-	overflow: "visible",
-	maxWidth: "50%",
-	maxHeight: "25%",
-	border: "2px solid #000",
-	borderRadius: "15px",
-	textAlign: "center"
-})
+import { Box } from "@mui/material";
 
 export default function MobileNavBar(props: {userTheme: any}) {
 	const dispatch = useDispatch();
@@ -38,36 +30,12 @@ export default function MobileNavBar(props: {userTheme: any}) {
 		color: (props.userTheme === "light") ? "black" : "white"
 	});
 
-	const [open, setOpen] = useState(false);
-	
-	const handleOpen = () => {
-		dispatch(toggleLoading(true));
-		setOpen(true);
-	};
-	const handleClose = () => {
-		dispatch(toggleLoading(false));
-		setOpen(false);
-	};
-
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    // Update window width when it changes
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const styles = {
+    backgroundColor: (props.userTheme === "light") ? "#f4f4f4" : "black",
+  };
 
 	return (
-		<div className={NavBarStyle.navbarContainer}>
-			{/* <ul className={NavBarStyle.icons}> */}
-				
+		<Box className={NavBarStyle.navbarContainer} sx={styles}>				
 				<li>
 					{localStorage.getItem('user') && (
 						<CustomNavLink to="/">
@@ -122,13 +90,10 @@ export default function MobileNavBar(props: {userTheme: any}) {
 						</CustomNavLink>
 					) : (
 						<CustomNavLink to="/">
-							{/* <div className={NavBarStyle.navBarText}> */}
-								<Logout />
-							{/* </div> */}
+							<Logout />
 						</CustomNavLink>
 					)}
 				</li>
-			{/* </ul> */}
-		</div>
+		</Box>
 	);
 }

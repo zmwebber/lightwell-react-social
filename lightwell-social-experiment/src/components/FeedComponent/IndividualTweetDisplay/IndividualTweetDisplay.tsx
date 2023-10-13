@@ -3,14 +3,13 @@ import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { Box, IconButton, Modal, Paper } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useStore } from "react-redux";
-import { deleteTweet, updateTweet } from "../../../api/TweetApi";
+import { deleteTweet } from "../../../api/TweetApi";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -21,19 +20,13 @@ import timeCalculator from "../../../app/shared/timeConverter";
 import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { ReplyButton } from "../../../app/shared/buttons";
 import { addNewFavoritedInteraction,	deleteFavoritedInteraction,	getFavoritedInteractionsByTweetId } from "../../../api/FavoritesApi";
 import TweetForm from "../../FormComponent/TweetForm";
-import Comment from "../../CommentComponent/Comment";
-
 import AppStyle from "../../../App.module.scss"
-import IndividualTweetDisplayStyle from "./individualTweetDisplayStyle.module.scss";
 import ShareIcon from "@mui/icons-material/Share";
-
 import { Interaction } from "../../../models/InteractionsModel";
 import { addNewRetweetInteraction, deleteRetweetInteraction, getRetweetInteractionsByTweetId } from "../../../api/RetweetsApi";
 import styles from "./individualTweetDisplayStyle.module.scss";
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 export default function IndividualTweetDisplay(tweet: Tweet) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -58,7 +51,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		width: 400,
-		// bgcolor: 'background.paper',
 		border: '2px solid #000',
 		boxShadow: 24,
 		p: 4,
@@ -228,9 +220,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	// load component, raise action to initialize (get profile data from state or fetch user from url)
 
 	const redirectToProfile = (tweet: Tweet): any => {
-		console.log("redirect button pressed");
-		window.location.href =
-			"/profile/" + tweet.user.screen_name;
+		window.location.href = "/profile/" + tweet.user.screen_name;
 	};
 
 	function parseUserJSON(tweet: Tweet): any {
@@ -249,11 +239,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	});
 
 	return (
-		//Wrap this component in <themeProvider theme={customTheme} />
-		// <ThemeProvider theme={style}>
-
-		// <ThemeProvider theme={cardTheme}>
-			<Paper elevation={calculateElevation(tweet, tweet.is_reply_status)}>
+		<Paper elevation={calculateElevation(tweet, tweet.is_reply_status)}>
 
 		<Card 
 			sx={{
@@ -369,8 +355,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			</div>
 			{/* </CardActions> */}
 		</Card>
-		</Paper>
-		// </ThemeProvider>
-	 
+		</Paper>	 
 	);
 }

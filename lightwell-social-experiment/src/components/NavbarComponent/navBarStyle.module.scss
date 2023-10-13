@@ -31,27 +31,6 @@
 }
 
 @media (max-width: $small) {
-    // .navbarContainer {
-    //     position: fixed;
-    //     bottom: 0;
-    //     left: 0;
-    //     right: 0;
-    //     background-color: white;
-    //     /* Adjust background color as needed */
-    //     padding: 10px;
-    //     display: flex;
-    //     justify-content: space-between;
-    //     align-items: center;
-    //     z-index: 999;
-    //     /* Ensure it appears above other content */
-    // }
-    // .icons {
-    //     flex-direction: row;
-    // }
-    // .navBarText.bookmarks,
-    // .navBarText.lists {
-    //     display: none;
-    // }
     .navbarContainer {
         display: none;
     }

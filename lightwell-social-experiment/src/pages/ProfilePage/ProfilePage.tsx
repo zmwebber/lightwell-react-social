@@ -1,14 +1,13 @@
-import { useStore } from "react-redux";
-import TweetFeed from "../../components/FeedComponent/TweetFeed";
-import NavBar from "../../components/NavbarComponent/NavBar";
 import ProfileHeroComponent from "../../components/ProfileHeroComponent/ProfileHeroComponent";
 import ProfileHeaderComponent from "../../components/ProfileHeaderComponent/ProfileHeaderComponent";
 import ProfileInformationComponent from "../../components/ProfileInformationComponent/ProfileInformationComponent";
 import TabsComponent from "../../components/ProfileTabsComponent/ProfileTabsComponent";
-import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import ProfilePageStyle from "./profilePageStyle.module.scss";
+import { useParams } from "react-router-dom";
 
 export function ProfilePage() {
+	const { screen_name } = useParams();
+	console.log(screen_name)
 	return (
 		<div className={ProfilePageStyle.profilePageContainer}>
 
