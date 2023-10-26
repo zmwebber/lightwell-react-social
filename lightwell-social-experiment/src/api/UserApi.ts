@@ -64,6 +64,21 @@ export const getUser = createAsyncThunk(
   }
 )
 
+export const getUserByScreenName = createAsyncThunk(
+  "users/getUserByScreenName",
+  async (screen_name: any) => {
+    try {
+      console.log(screen_name)
+      // ScreenName is coming in correctly. Verified to this point.
+      const response = await API.get(API_URL + `getUserByScreenName/${ screen_name }`)
+      console.log(response)
+      return response.data.user
+    } catch (err) {
+      throw err
+    }
+  }
+)
+
 export const editUser = createAsyncThunk(
   "users/edit",
   async (user: Profile) => {

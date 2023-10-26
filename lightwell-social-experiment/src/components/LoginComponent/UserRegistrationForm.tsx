@@ -33,7 +33,6 @@ function UserRegistrationForm(props: any) {
 		e.preventDefault();
 		let modalClose = false;
 		let action = null;
-		console.log("Inside profileSuccess method")
 		if (user) {
 
 			//create a copy of the state profile
@@ -63,9 +62,6 @@ function UserRegistrationForm(props: any) {
 				info.password = password;
 				action = addUser(info);
 			}
-			// if (modalClose) {
-			// 	props.onClose();
-			// }
 			store
 				.dispatch(action)
 				.unwrap()
@@ -73,8 +69,6 @@ function UserRegistrationForm(props: any) {
 					console.log(error);
 				});
 		}
-
-
 	};
 
 	const handleChange = (newValue: Dayjs | null) => {

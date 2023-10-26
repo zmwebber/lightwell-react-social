@@ -2,18 +2,14 @@ import { useParams } from 'react-router-dom';
 import IndividualTweetDisplay from '../../components/FeedComponent/IndividualTweetDisplay/IndividualTweetDisplay';
 import React, { useState, useEffect, useCallback } from "react";
 import type {} from "redux-thunk/extend-redux";
-import { useDispatch, useSelector } from "react-redux";
-// import { Tweet } from '../../models/TweetModel';
+import { useDispatch } from "react-redux";
 import TweetFeed from "../../components/FeedComponent/TweetFeed";
 import type {} from "redux-thunk/extend-redux";
 import { getFeed } from "../../api/TweetApi";
 import {
-	selectFeed,
-	TweetFeedState,
+	selectFeed
 } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
-import TweedFeedStyle from "./tweetFeedStyle.module.scss"
-import { Paper } from '@mui/material';
 
 export function RepliesPage() {
   const feed = useAppSelector(selectFeed);
@@ -37,9 +33,7 @@ export function RepliesPage() {
 			{!feed.loading &&
 				feed.Tweets &&
 				feed.Tweets.filter(tweet => tweet._id === tweetId).map((tweet, index) => (
-					// <div className={"tweet " + index} key={index}>
 						<IndividualTweetDisplay {...tweet} key={index}/>
-					// </div>
 				))}
       {!feed.loading &&
 				feed.Tweets &&

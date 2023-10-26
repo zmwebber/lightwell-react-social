@@ -60,7 +60,7 @@ function Login(props: any) {
 		const currentState: any = store.getState();
 
 		if (currentState.user.profile.token !== null && currentState.user.loginSuccess == true) { // Change eventually from token exists -> token is valid and isn't expired
-			navigate("/profile") //fixme: put navigates into state
+			navigate("/profile/" + currentState.user.profile.screen_name); 
 		}
 	}
 

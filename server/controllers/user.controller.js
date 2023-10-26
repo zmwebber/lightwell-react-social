@@ -159,6 +159,22 @@ export const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user);
 });
 
+export const getUserByScreenName = (req, res) => {
+  console.log("Request: " + req.params.screenName)
+  User.findOne( {"screen_name": {$eq: req.params.screenName} }).exec((err, user) => {
+    if (err) {
+      return res.json({ 'success': false, 'message': 'getUserByScreenName Error: ' + err });
+    }
+    if (user) {
+      delete user.token
+      delete user.password
+      return res.json({ 'success': true, 'message': 'User fetched by screenName successfully', user });
+    }
+    else {
+      return res.json({ 'success': false, 'message': 'User with the given screenName not found' });
+    }
+  })
+}
 
 // Generate JWT
 const generateToken = (id) => {

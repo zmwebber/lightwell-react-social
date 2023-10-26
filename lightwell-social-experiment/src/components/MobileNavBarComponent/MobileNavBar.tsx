@@ -9,18 +9,11 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
-import { Button, Hidden, Modal, SvgIcon } from "@mui/material";
-import TweetForm from "../FormComponent/TweetForm";
-import { useDispatch, useStore } from "react-redux";
-import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import { TweetButton } from "../../app/shared/buttons";
 import Logout from "../LogoutComponent/Logout";
 import NavBarStyle from "./mobileNavBarStyle.module.scss";
 import { Box } from "@mui/material";
 
 export default function MobileNavBar(props: {userTheme: any}) {
-	const dispatch = useDispatch();
 	
 	const CustomNavLink: any = styled(NavLink)({
 		textDecoration: "none",
@@ -33,6 +26,15 @@ export default function MobileNavBar(props: {userTheme: any}) {
   const styles = {
     backgroundColor: (props.userTheme === "light") ? "#f4f4f4" : "black",
   };
+
+	let name: string = "";
+
+	const userString = localStorage.getItem('user');
+	if (userString) {
+		let userObject = JSON.parse(userString);
+		name = userObject?.screen_name;
+		console.log(name); 
+	}
 
 	return (
 		<Box className={NavBarStyle.navbarContainer} sx={styles}>				
@@ -70,8 +72,9 @@ export default function MobileNavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{localStorage.getItem('user') && (
-						<CustomNavLink to="/profile">
+					{localStorage.getItem('user') && name !== "" && (
+						//@TODO: Fix profile navigation
+						<CustomNavLink to={`/profile/${name}`} >
 							<PermIdentityOutlinedIcon />
 								<div className={NavBarStyle.navBarText}>
 									Profile

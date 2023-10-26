@@ -6,4 +6,14 @@
     border: $primary-border-size;
     border-style: $primary-border-style;
     border-color: $primary-border-color;
+    margin-top: 0;
+    padding-top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .profilePageContent {
+        border: none;
+    }    
 }

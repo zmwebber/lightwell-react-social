@@ -45,6 +45,7 @@ export class User implements Profile {
     profile_image_id;
     profile_image;
     theme;
+	viewedProfile: any;
 
 
     constructor();
