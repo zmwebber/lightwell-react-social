@@ -62,6 +62,14 @@ export default function NavBar(props: {userTheme: any}) {
 		setOpen(false);
 	};
 
+	let screenName: string = "";
+
+	const userString = localStorage.getItem('user');
+	if (userString) {
+		let userObject = JSON.parse(userString);
+		screenName = userObject?.screen_name;
+	}
+
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -148,8 +156,8 @@ export default function NavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{localStorage.getItem('user') && (
-						<CustomNavLink to="/profile">
+					{localStorage.getItem('user') && screenName !== "" && (
+						<CustomNavLink to={`/profile/${screenName}`} >
 							<PermIdentityOutlinedIcon />
 								<div className={NavBarStyle.navBarText}>
 									Profile
