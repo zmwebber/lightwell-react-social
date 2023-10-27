@@ -11,15 +11,13 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
 import { Button, Hidden, Modal, SvgIcon } from "@mui/material";
 import TweetForm from "../FormComponent/TweetForm";
-import { useDispatch, useStore } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
 import Logout from "../LogoutComponent/Logout";
-import { Profile } from "../../models/ProfileModel";
 import NavBarStyle from "./navBarStyle.module.scss";
 import TweetFormStyle from "../FormComponent/tweetFormStyle.module.scss";
-import { store } from "../../app/store";
 
 const TweetModal: any = styled(Modal)({
 	overflow: "visible",
@@ -40,7 +38,7 @@ const NavbarTwitterIconButton = () => {
 	);
 };
 
-export default function NavBar(props: {userTheme: any}) {
+export default function NavBar(props: {userTheme: any, screenName: string}) {
 	const dispatch = useDispatch();
 	
 	const CustomNavLink: any = styled(NavLink)({
@@ -61,14 +59,6 @@ export default function NavBar(props: {userTheme: any}) {
 		dispatch(toggleLoading(false));
 		setOpen(false);
 	};
-
-	let screenName: string = "";
-
-	const userString = localStorage.getItem('user');
-	if (userString) {
-		let userObject = JSON.parse(userString);
-		screenName = userObject?.screen_name;
-	}
 
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -156,8 +146,8 @@ export default function NavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{localStorage.getItem('user') && screenName !== "" && (
-						<CustomNavLink to={`/profile/${screenName}`} >
+					{localStorage.getItem('user') && props.screenName !== "" && (
+						<CustomNavLink to={`/profile/${props.screenName}`} >
 							<PermIdentityOutlinedIcon />
 								<div className={NavBarStyle.navBarText}>
 									Profile

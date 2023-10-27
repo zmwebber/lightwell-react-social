@@ -15,6 +15,14 @@ function App() {
 	const user: User = useAppSelector(state => state.user.profile)
 	const isMobile = useMediaQuery('(max-width: 600px)');
 
+	let screenName: string = "";
+
+	const userString = localStorage.getItem('user');
+	if (userString) {
+		let userObject = JSON.parse(userString);
+		screenName = userObject?.screen_name;
+	}
+
 	return (
 		<ThemeProvider theme={user?.theme === 'dark' ? dark : light}>	
 			<CssBaseline>
@@ -23,13 +31,13 @@ function App() {
 						
 						{!isMobile && (
 						<Grid item xs={0} sm={2}>
-							<NavBar userTheme={user?.theme || "light"} />
+							<NavBar userTheme={user?.theme || "light"} screenName={screenName} />
 						</Grid>)
 						}
 
 						{isMobile && (
 						<Grid item xs={2} sm={2}>
-							<MobileNavBar userTheme={user?.theme || "light"} />
+							<MobileNavBar userTheme={user?.theme || "light"} screenName={screenName}/>
 						</Grid>)
 						}
 

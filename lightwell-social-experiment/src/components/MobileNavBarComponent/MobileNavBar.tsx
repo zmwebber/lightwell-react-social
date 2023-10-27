@@ -8,7 +8,7 @@ import Logout from "../LogoutComponent/Logout";
 import NavBarStyle from "./mobileNavBarStyle.module.scss";
 import { Box } from "@mui/material";
 
-export default function MobileNavBar(props: {userTheme: any}) {
+export default function MobileNavBar(props: {userTheme: any, screenName: string}) {
 	
 	const CustomNavLink: any = styled(NavLink)({
 		textDecoration: "none",
@@ -21,14 +21,6 @@ export default function MobileNavBar(props: {userTheme: any}) {
   const styles = {
     backgroundColor: (props.userTheme === "light") ? "#f4f4f4" : "black",
   };
-
-	let screenName: string = "";
-
-	const userString = localStorage.getItem('user');
-	if (userString) {
-		let userObject = JSON.parse(userString);
-		screenName = userObject?.screen_name;
-	}
 
 	return (
 		<Box className={NavBarStyle.navbarContainer} sx={styles}>				
@@ -66,8 +58,8 @@ export default function MobileNavBar(props: {userTheme: any}) {
 				</li>
 
 				<li>
-					{localStorage.getItem('user') && screenName !== "" && (
-						<CustomNavLink to={`/profile/${screenName}`} >
+					{localStorage.getItem('user') && props.screenName !== "" && (
+						<CustomNavLink to={`/profile/${props.screenName}`} >
 							<PermIdentityOutlinedIcon />
 								<div className={NavBarStyle.navBarText}>
 									Profile
