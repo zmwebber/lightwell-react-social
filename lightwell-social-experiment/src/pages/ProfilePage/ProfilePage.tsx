@@ -10,6 +10,7 @@ import { getUserByScreenName } from "../../api/UserApi";
 import { selectViewedProfile } from "../../redux/ducks/profile_duck/profileSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
 import { User } from "../../models/ProfileModel";
+import { Dna } from "react-loader-spinner";
 
 export function ProfilePage() {
 	const { screen_name } = useParams();
@@ -27,20 +28,26 @@ export function ProfilePage() {
   }, [initFetch, viewedProfile]);
 
 	return (
-		<div className={ProfilePageStyle.profilePageContainer}>
-			<div className={ProfilePageStyle.profilePageContent}>
-				{viewedProfile !== undefined ? (				
-					<>					
-						<ProfileHeaderComponent {...viewedProfile}/>
-						<ProfileHeroComponent {...viewedProfile}/>
-						<ProfileInformationComponent {...viewedProfile}/>
-						<TabsComponent/>
-					</>
-
-					) : (
-						<>Loading ... </>
-					)}
-			</div>
-		</div>
+		<>
+			{viewedProfile !== undefined ? (
+				<div className={ProfilePageStyle.profilePageContainer}>
+					<div className={ProfilePageStyle.profilePageContent}>
+						<ProfileHeaderComponent {...viewedProfile} />
+						<ProfileHeroComponent {...viewedProfile} />
+						<ProfileInformationComponent {...viewedProfile} />
+						<TabsComponent />
+					</div>
+				</div>
+			) : (
+				<Dna
+					visible={true}
+					height="200"
+					width="200"
+					ariaLabel="dna-loading"
+					wrapperStyle={{}}
+					wrapperClass="dna-wrapper"
+				/>
+			)}
+		</>
 	);
 }

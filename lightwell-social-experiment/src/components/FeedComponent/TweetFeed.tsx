@@ -8,8 +8,8 @@ import {
 	TweetFeedState,
 } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
-import TweedFeedStyle from "./tweetFeedStyle.module.scss"
-import { Paper } from "@mui/material";
+import { Dna } from "react-loader-spinner";
+
 
 const TweetFeed = () => {
 	const feed = useAppSelector(selectFeed);
@@ -27,13 +27,28 @@ const TweetFeed = () => {
 
 	return (
 		<>
-			{!feed.loading &&
-				feed.Tweets &&
-				feed.Tweets.filter(tweet => tweet.is_reply_status !== true).reverse().map((tweet, index) => (
-					<div className={"tweet " + index} key={index}>
-							<IndividualTweetDisplay {...tweet} />			
-					</div>
-				))}
+			{!feed.loading ? (
+				feed.Tweets ? (
+					feed.Tweets.filter(tweet => tweet.is_reply_status !== true)
+						.reverse()
+						.map((tweet, index) => (
+							<div className={"tweet " + index} key={index}>
+								<IndividualTweetDisplay {...tweet} />
+							</div>
+						))
+				) : (
+					<h1>No Tweets Available</h1>
+				)
+			) : (
+					<Dna
+						visible={true}
+						height="200"
+						width="200"
+						ariaLabel="dna-loading"
+						wrapperStyle={{}}
+						wrapperClass="dna-wrapper"
+					/>
+			)}
 		</>
 	);
 };
