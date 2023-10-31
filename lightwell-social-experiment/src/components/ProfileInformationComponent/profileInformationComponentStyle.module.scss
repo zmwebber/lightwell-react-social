@@ -29,6 +29,12 @@
     }
 }
 
+@media (min-width: $small) {
+    .editIcon {
+        display: none;
+    }
+}
+
 .userName {
     margin: 0px;
     margin-left: 10px;

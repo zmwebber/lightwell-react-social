@@ -9,11 +9,12 @@ import { Button, Modal } from '@mui/material';
 import React from 'react';
 import UserRegistrationForm from '../LoginComponent/UserRegistrationForm';
 import Media from '../MediaComponent/Media';
-import { EditButton } from '../../app/shared/buttons';
 import { store } from '../../app/store';
 import { editUserTheme } from '../../api/UserApi';
 import { FormControlLabel, Switch, FormGroup } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
+import EditIcon from '@mui/icons-material/Edit';
+
 import dayjs from "dayjs";
 
 const style = {
@@ -158,6 +159,7 @@ export default function ProfileInformationComponent(props: User) {
 			</FormGroup>
         </div>
                 <Button variant="outlined" sx={{ marginLeft: 1, marginTop: 1 }} onClick={handleOpen} className={ProfileInformationComponentStyle.editButton}>
+                    <div className={ProfileInformationComponentStyle.editIcon}><EditIcon /></div>
                     Edit Profile
                 </Button>
                 {open &&
@@ -175,7 +177,7 @@ export default function ProfileInformationComponent(props: User) {
                 }
 
                 <Button variant="outlined" sx={{ marginLeft: 1, marginTop: 1 }} onClick={handleMediaOpen} className={ProfileInformationComponentStyle.editButton}>
-                    Edit Profile Image
+                    Edit Image
                 </Button>
                 {openImage &&
                     <Modal
