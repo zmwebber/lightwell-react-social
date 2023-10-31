@@ -5,7 +5,7 @@ import { useAppSelector } from '../../app/hooks/hooks';
 import { useEffect } from 'react';
 import { User } from '../../models/ProfileModel';
 import styled from '@emotion/styled';
-import { Modal } from '@mui/material';
+import { Button, Modal } from '@mui/material';
 import React from 'react';
 import UserRegistrationForm from '../LoginComponent/UserRegistrationForm';
 import Media from '../MediaComponent/Media';
@@ -152,14 +152,14 @@ export default function ProfileInformationComponent(props: User) {
                 <div>
 		    <FormGroup>
 			<FormControlLabel
-				control={<MaterialUISwitch onChange={toggleTheme} defaultChecked={checked} sx={{ m:1 }} />}
+                                control={<MaterialUISwitch onChange={toggleTheme} defaultChecked={checked} sx={{ marginLeft: 1, marginTop: 1 }} />}
 				label=""
 				/>
 			</FormGroup>
         </div>
-                <EditButton sx={{ marginLeft: 1 }} onClick={handleOpen} className={ProfileInformationComponentStyle.editButton}>
+                <Button variant="outlined" sx={{ marginLeft: 1, marginTop: 1 }} onClick={handleOpen} className={ProfileInformationComponentStyle.editButton}>
                     Edit Profile
-                </EditButton>
+                </Button>
                 {open &&
                     <Modal
                         open={open}
@@ -174,9 +174,9 @@ export default function ProfileInformationComponent(props: User) {
                     </Modal>
                 }
 
-                <EditButton sx={{ marginLeft: 1 }} onClick={handleMediaOpen} className={ProfileInformationComponentStyle.editButton}>
+                <Button variant="outlined" sx={{ marginLeft: 1, marginTop: 1 }} onClick={handleMediaOpen} className={ProfileInformationComponentStyle.editButton}>
                     Edit Profile Image
-                </EditButton>
+                </Button>
                 {openImage &&
                     <Modal
                         open={openImage}
@@ -191,9 +191,9 @@ export default function ProfileInformationComponent(props: User) {
                     </Modal>
                 }
 
-                <EditButton sx={{ marginLeft: 1 }} onClick={handleBannerOpen} className={ProfileInformationComponentStyle.editButton}>
+                <Button variant="outlined" sx={{ marginLeft: 1, marginTop: 1 }} onClick={handleBannerOpen} className={ProfileInformationComponentStyle.editButton}>
                     Edit Banner
-                </EditButton>
+                </Button>
                 {openBanner &&
                     <Modal
                         open={openBanner}
