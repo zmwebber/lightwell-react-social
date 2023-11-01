@@ -6,12 +6,8 @@ import AppStyle from "../../App.module.scss"
 import YouMightLikeStyle from "./youMightLikeStyle.module.scss";
 import defaultProfilePic from "../../app/images/default-profile-pic.jpeg";
 import { useStore, useDispatch } from "react-redux";
-import { Tweet } from "../../models/TweetModel";
 import { useAppSelector } from "../../app/hooks/hooks";
-import { getProfileFeed, getYmlTweets } from "../../api/TweetApi";
-import { selectFeed } from "../../redux/ducks/feed_duck/tweetFeedSlice";
-import { getFeed } from "../../api/TweetApi";
-import { userInfo } from "os";
+import { getYmlTweets } from "../../api/TweetApi";
 import { selectYmlTweets } from "../../redux/ducks/yml_duck/ymlSlice";
 import { User } from "../../models/ProfileModel";
 import { YMLDisplay } from "./YouMightLikeDisplay";

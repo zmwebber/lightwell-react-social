@@ -1,7 +1,5 @@
 import {
-  configureStore,
   createAsyncThunk,
-  createSlice,
 } from '@reduxjs/toolkit';
 import API from "./apiConfig";
 import { Profile, User } from "../models/ProfileModel";
@@ -22,7 +20,6 @@ export const login = createAsyncThunk(
       }
       return response.data
     } catch (err: any) {
-      let error: AxiosError = err;
       const message =
         (err.response && err.response.data && err.response.data.message) ||
         err.message ||
@@ -42,7 +39,6 @@ export const addUser = createAsyncThunk(
       }
       return response.data
     } catch (err) {
-      // let error: AxiosError = err;  
       //   const message =
       //     (err.response && err.response.data && err.response.data.message) ||
       //     err.message ||
@@ -68,10 +64,7 @@ export const getUserByScreenName = createAsyncThunk(
   "users/getUserByScreenName",
   async (screen_name: any) => {
     try {
-      console.log(screen_name)
-      // ScreenName is coming in correctly. Verified to this point.
       const response = await API.get(API_URL + `getUserByScreenName/${ screen_name }`)
-      console.log(response)
       return response.data.user
     } catch (err) {
       throw err

@@ -30,7 +30,7 @@ const tweetFeedSlice = createSlice({
         })        
         .addCase(getFeed.pending, (state, action) =>{
           state.loading = true;          
-      })
+        })
         .addDefaultCase((state, action) => {})
     }, 
   });

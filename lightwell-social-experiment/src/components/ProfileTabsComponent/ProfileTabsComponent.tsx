@@ -53,20 +53,10 @@ export default function TabsComponent() {
     };
     const [isInitialized, setInitialized] = React.useState(false);
     React.useEffect(() => {
-        if (!isInitialized && user) {
-            const action = getProfileFeed(user);
-            store
-                .dispatch(action)
-                .unwrap()
-                .then(handleInit)
-                .catch((error: any) => {
-                    console.log(error)
-                });
-        }
+        handleInit();
     }, [isInitialized]);
     function handleInit() {
         const currentState: any = store.getState();
-
         if (currentState.myTweets.myTweets.length > 0) {
             setInitialized(true);
         }

@@ -11,6 +11,7 @@ import { selectViewedProfile } from "../../redux/ducks/profile_duck/profileSlice
 import { useAppSelector } from "../../app/hooks/hooks";
 import { User } from "../../models/ProfileModel";
 import { Dna } from "react-loader-spinner";
+import { getProfileFeed } from "../../api/TweetApi";
 
 export function ProfilePage() {
 	const { screen_name } = useParams();
@@ -21,11 +22,14 @@ export function ProfilePage() {
     if (screen_name && !viewedProfile) {
       dispatch(getUserByScreenName(screen_name));
     }
+		if (viewedProfile) {
+			dispatch(getProfileFeed(viewedProfile));
+		}
   }, [dispatch, screen_name, viewedProfile]);
 
   useEffect(() => {
     initFetch();
-  }, [initFetch, viewedProfile]);
+  }, [initFetch]);
 
 	return (
 		<>
