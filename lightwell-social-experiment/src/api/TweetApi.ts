@@ -28,7 +28,7 @@ export const addTweet = createAsyncThunk(
 
 export const deleteTweet = createAsyncThunk(
     "tweets/delete",
-    async (id: String) => {
+    async (id: any) => {
     try {
         await API.delete(`/tweets/byId/${id}`);
         console.log(`Deletion successful!`);

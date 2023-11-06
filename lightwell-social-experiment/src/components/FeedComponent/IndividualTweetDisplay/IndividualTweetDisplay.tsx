@@ -91,13 +91,16 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	};
 
 	const handleFavoritedInteraction = (tweet: Tweet) => {
-		const matchedTweet = state.feed.Tweets.filter(
-			(t: Tweet) => t._id === tweet._id
-		);
+		// const matchedTweet = state.feed.Tweets.filter(
+		// 	(t: Tweet) => t._id === tweet._id
+		// );
 
-		const editedTweet: Tweet = { ...matchedTweet[0] };
+		// // @TODO: Why did we do this?
+
+		// const editedTweet: Tweet = { ...matchedTweet[0] };
+
 		let interaction: Interaction = {
-			tweetId: editedTweet._id,
+			tweetId: tweet._id,
 			userId: state.user.profile._id,
 		};
 

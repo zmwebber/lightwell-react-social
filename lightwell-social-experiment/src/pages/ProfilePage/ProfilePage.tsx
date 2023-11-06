@@ -43,6 +43,7 @@ export function ProfilePage() {
 					</div>
 				</div>
 			) : (
+					<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 				<Dna
 					visible={true}
 					height="200"
@@ -51,6 +52,7 @@ export function ProfilePage() {
 					wrapperStyle={{}}
 					wrapperClass="dna-wrapper"
 				/>
+				</div>
 			)}
 		</>
 	);

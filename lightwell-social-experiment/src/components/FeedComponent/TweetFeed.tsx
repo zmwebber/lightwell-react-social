@@ -40,6 +40,7 @@ const TweetFeed = () => {
 					<h1>No Tweets Available</h1>
 				)
 			) : (
+				<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 					<Dna
 						visible={true}
 						height="200"
@@ -47,7 +48,8 @@ const TweetFeed = () => {
 						ariaLabel="dna-loading"
 						wrapperStyle={{}}
 						wrapperClass="dna-wrapper"
-					/>
+						/>
+				</div>
 			)}
 		</>
 	);
