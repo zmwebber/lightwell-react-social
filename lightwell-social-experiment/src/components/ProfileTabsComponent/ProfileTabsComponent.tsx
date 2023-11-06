@@ -8,6 +8,7 @@ import { useAppSelector } from '../../app/hooks/hooks';
 import { getProfileFeed } from '../../api/TweetApi';
 import IndividualTweetDisplay from "../FeedComponent/IndividualTweetDisplay/IndividualTweetDisplay";
 import TabsComponentStyle from "./tabsComponentStyle.module.scss";
+import { Dna } from 'react-loader-spinner';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -73,13 +74,28 @@ export default function TabsComponent() {
             </Box>
             <TabPanel value={value} index={0}> {/* Create generic component to render instead of the TabPanels */}
                 <>
-                    {!feed.loading &&
-                        feed.myTweets &&
-                        feed.myTweets.map((tweet, index) => (
-                            <div className={"tweet " + index} key={index}>
-                                <IndividualTweetDisplay {...tweet} />
-                            </div>
-                        ))}
+                    {!feed.loading ? (
+                        feed.myTweets ? (
+                            feed.myTweets.filter(tweet => tweet.is_reply_status !== true)
+                                .reverse()
+                                .map((tweet, index) => (
+                                    <div className={"tweet " + index} key={index}>
+                                        <IndividualTweetDisplay {...tweet} />
+                                    </div>
+                                ))
+                        ) : (
+                            <h1>No Tweets Available</h1>
+                        )
+                    ) : (
+                        <Dna
+                            visible={true}
+                            height="200"
+                            width="200"
+                            ariaLabel="dna-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="dna-wrapper"
+                        />
+                    )}
                 </>
 
             </TabPanel>

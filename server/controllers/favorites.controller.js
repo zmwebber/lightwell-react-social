@@ -27,13 +27,13 @@ export const deleteFavoritedInteraction = asyncHandler(async (req, res) => {
   let foundTweet = await Favorites.findOneAndDelete({ "tweetId": newInteraction.tweetId, "userId": newInteraction.userId });
   if (foundTweet) {
     res.status(201).json({
-      id: x._id,
-      tweetId: x.tweetId,
-      userId: x.userId
+      id: newInteraction._id,
+      tweetId: newInteraction.tweetId,
+      userId: newInteraction.userId
     })
   } else {
     res.status(400)
-    throw new Error('Delete failed')
+    throw new Error('Delete favorite failed')
   }
 })
 
@@ -46,7 +46,6 @@ export const getFavoritedInteractionsByTweetId = asyncHandler(async (req, res) =
 
   if (favoritesCount > 0) {
     if (userHasLiked > 0) {
-
       res.status(201).json({
         'count': favoritesCount,
         'likedByUser': "true",
