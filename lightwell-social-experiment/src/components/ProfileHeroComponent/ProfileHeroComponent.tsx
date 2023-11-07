@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import ProfileHeroComponentStyle from "./profileHeroComponentStyle.module.scss";
 import { User } from "../../models/ProfileModel";
-import { useAppSelector } from "../../app/hooks/hooks";
-import { selectViewedProfile } from "../../redux/ducks/profile_duck/profileSlice";
+import { getBase64DataUrl } from "../../app/functions/profilePictureBase64Converter";
 
 // Outline: Profile Page should filter out tweets by user.
 // if navigating to a user's profile, all tweets in the tweet feed should be of that user or retweeted by that user.
@@ -11,16 +10,15 @@ import { selectViewedProfile } from "../../redux/ducks/profile_duck/profileSlice
 // profile page should include banner & user info
 
 function ProfileHeroComponent(props: User) {
-	const [profilePhotoPreview, setProfilePhotoPreview] = useState("");
-	const [bannerPhotoPreview, setBannerPhotoPreview] = useState("");
+	const [profilePhotoPreview, setProfilePhotoPreview] = useState<string | undefined>("");
+	const [bannerPhotoPreview, setBannerPhotoPreview] = useState<string | undefined>("");
 
 	useEffect(() => {
-		let profilePhotoSource = `data:` + props.profile_image?.contentType + `;base64,` + props.profile_image?.data;
+		let profilePhotoSource = getBase64DataUrl(props.profile_image);
 		setProfilePhotoPreview(profilePhotoSource);
 
-		let bannerPhotoSource = `data:` + props.profile_banner?.contentType + `;base64,` + props.profile_banner?.data;
+		let bannerPhotoSource = getBase64DataUrl(props.profile_banner);
 		setBannerPhotoPreview(bannerPhotoSource);
-
 	}, []);
 
 	return (

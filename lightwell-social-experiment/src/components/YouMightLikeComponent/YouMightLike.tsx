@@ -39,7 +39,7 @@ export default function YouMightLike() {
 						<>
 						{ymlTweetsArray.ymlTweets && ymlTweetsArray.ymlTweets
 							.map((tweet, index) => (
-								// TODO: grab tweet.user._id -> search users for user that matches on id, then return profilePicture
+								// @TODO: grab tweet.user._id -> search users for user that matches on id, then return profilePicture
 									<YMLDisplay {...tweet} key={index}/>
 								))}
 							</>
