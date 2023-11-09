@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -9,24 +9,15 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { styled } from "@mui/system";
-import { Button, Modal, SvgIcon } from "@mui/material";
+import { Button, Hidden, Modal, SvgIcon } from "@mui/material";
 import TweetForm from "../FormComponent/TweetForm";
-import { useSelector, useDispatch, useStore } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleLoading } from "../../redux/ducks/post_duck/tweetFormSlice";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetButton } from "../../app/shared/buttons";
 import Logout from "../LogoutComponent/Logout";
-import { Profile } from "../../models/ProfileModel";
 import NavBarStyle from "./navBarStyle.module.scss";
 import TweetFormStyle from "../FormComponent/tweetFormStyle.module.scss";
-
-const CustomNavLink: any = styled(NavLink)({
-	color: "black",
-	textDecoration: "none",
-	display: "flex",
-	flexWrap: "wrap",
-	margin: "10px",
-});
 
 const TweetModal: any = styled(Modal)({
 	overflow: "visible",
@@ -47,12 +38,19 @@ const NavbarTwitterIconButton = () => {
 	);
 };
 
-export default function NavBar() {
+export default function NavBar(props: {userTheme: any, screenName: string}) {
 	const dispatch = useDispatch();
-	const store = useStore();
-	const state: any = store.getState();
+	
+	const CustomNavLink: any = styled(NavLink)({
+		textDecoration: "none",
+		display: "flex",
+		flexWrap: "wrap",
+		margin: "10px",
+		color: (props.userTheme === "light") ? "black" : "white"
+	});
 
 	const [open, setOpen] = useState(false);
+	
 	const handleOpen = () => {
 		dispatch(toggleLoading(true));
 		setOpen(true);
@@ -62,6 +60,21 @@ export default function NavBar() {
 		setOpen(false);
 	};
 
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    // Update window width when it changes
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
 	return (
 		<div className={NavBarStyle.navbarContainer}>
 			<ul className={NavBarStyle.icons}>
@@ -69,98 +82,129 @@ export default function NavBar() {
 					<CustomNavLink to="/">{NavbarTwitterIconButton()}</CustomNavLink>
 				</li>
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/">
-							<HomeOutlinedIcon /> Home
+							<HomeOutlinedIcon />
+								<div className={NavBarStyle.navBarText}>
+									Home
+								</div>
 						</CustomNavLink>
 					)}
 				</li>
 
-				<li>
+					<li className={windowWidth <= 1000 ? "hide-mobile" : ""}>
 					<CustomNavLink to="/explore">
-						<TagOutlinedIcon /> Explore
+						<TagOutlinedIcon /> 
+							<div className={NavBarStyle.navBarText}>
+								Explore
+							</div>
 					</CustomNavLink>
 				</li>
 
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/notifications">
-							<NotificationsNoneOutlinedIcon /> Notifications
+							<NotificationsNoneOutlinedIcon />
+								<div className={NavBarStyle.navBarText}>
+									Notifications
+								</div>
 						</CustomNavLink>
 					)}
 				</li>
 
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/messages">
-							<EmailOutlinedIcon /> Messages
+							<EmailOutlinedIcon />
+								<div className={NavBarStyle.navBarText}>
+									Messages
+								</div>
 						</CustomNavLink>
 					)}
 				</li>
 
 				<li>
-					{state.user.loginSuccess === true && (
-						<CustomNavLink to="/bookmarks">
-							<BookmarkBorderOutlinedIcon /> Bookmarks
+					{localStorage.getItem('user') && (
+						<CustomNavLink to="/bookmarks" className="bookmarks">
+							<BookmarkBorderOutlinedIcon />
+								<div className={NavBarStyle.navBarText}>
+									Bookmarks
+								</div>
 						</CustomNavLink>
 					)}
 				</li>
 
 				<li>
-					{state.user.loginSuccess === true && (
+					{localStorage.getItem('user') && (
 						<CustomNavLink to="/lists">
-							<ListAltOutlinedIcon /> Lists
+							<ListAltOutlinedIcon />
+								<div className={NavBarStyle.navBarText} data-hide={window.innerWidth <= 600}>
+									Lists
+								</div>
 						</CustomNavLink>
 					)}
 				</li>
 
 				<li>
-					{state.user.loginSuccess && (
-						<CustomNavLink to="/profile">
-							<PermIdentityOutlinedIcon /> Profile
+					{localStorage.getItem('user') && props.screenName !== "" && (
+						<CustomNavLink to={`/profile/${props.screenName}`} >
+							<PermIdentityOutlinedIcon />
+								<div className={NavBarStyle.navBarText}>
+									Profile
+								</div>
 						</CustomNavLink>
 					)}
 				</li>
 
 				<li>
-					{state.user.loginSuccess === false ? (
+					{!localStorage.getItem('user') ? (
 						<CustomNavLink to="/login">
-							<PermIdentityOutlinedIcon /> Login
+							<PermIdentityOutlinedIcon />
+								<div className={NavBarStyle.navBarText}>
+									Login
+								</div>
 						</CustomNavLink>
 					) : (
 						<CustomNavLink to="/">
-							<Logout />
+							{/* <div className={NavBarStyle.navBarText}> */}
+								<Logout />
+							{/* </div> */}
 						</CustomNavLink>
 					)}
 				</li>
 
 				<li>
 					<CustomNavLink to="/more">
-						<PendingOutlinedIcon /> More
+						<PendingOutlinedIcon />
+							<div className={NavBarStyle.navBarText}>
+								More
+							</div>
 					</CustomNavLink>
 				</li>
 
-				<div className={TweetFormStyle.tweetForm}>
-					<TweetButton
-						style={{
-							backgroundColor: "deepskyblue",
-							color: "white",
-							marginTop: "12px",
-						}}
-						onClick={handleOpen}
-					>
-						TWEET
-					</TweetButton>
+				<Hidden lgDown>
+					<div className={TweetFormStyle.tweetForm}>
+						<TweetButton
+							style={{
+								backgroundColor: "deepskyblue",
+								color: "white",
+								marginTop: "12px",
+							}}
+							onClick={handleOpen}
+							>
+							TWEET
+						</TweetButton>
 
-					<TweetModal
-						open={open}
-						onClose={handleClose}
-						className={NavBarStyle.modal}
-						closeAfterTransition
-					>
-						<TweetForm className={TweetFormStyle.tweetForm} handleClose={handleClose} />
-					</TweetModal>
-				</div>
+						<TweetModal
+							open={open}
+							onClose={handleClose}
+							className={NavBarStyle.modal}
+							closeAfterTransition
+							>
+							<TweetForm className={TweetFormStyle.tweetForm} handleClose={handleClose} />
+						</TweetModal>
+					</div>
+				</Hidden>
 			</ul>
 		</div>
 	);

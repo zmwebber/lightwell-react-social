@@ -3,14 +3,13 @@ import { Tweet } from "../../../models/TweetModel";
 import defaultProfilePic from "../../../app/images/default-profile-pic.jpeg";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { Box, IconButton, Modal, Paper } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useStore } from "react-redux";
-import { deleteTweet, updateTweet } from "../../../api/TweetApi";
+import { deleteTweet } from "../../../api/TweetApi";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -21,15 +20,10 @@ import timeCalculator from "../../../app/shared/timeConverter";
 import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { ReplyButton } from "../../../app/shared/buttons";
 import { addNewFavoritedInteraction,	deleteFavoritedInteraction,	getFavoritedInteractionsByTweetId } from "../../../api/FavoritesApi";
 import TweetForm from "../../FormComponent/TweetForm";
-import Comment from "../../CommentComponent/Comment";
-
 import AppStyle from "../../../App.module.scss"
-import IndividualTweetDisplayStyle from "./individualTweetDisplayStyle.module.scss";
 import ShareIcon from "@mui/icons-material/Share";
-
 import { Interaction } from "../../../models/InteractionsModel";
 import { addNewRetweetInteraction, deleteRetweetInteraction, getRetweetInteractionsByTweetId } from "../../../api/RetweetsApi";
 import styles from "./individualTweetDisplayStyle.module.scss";
@@ -57,7 +51,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		width: 400,
-		bgcolor: 'background.paper',
 		border: '2px solid #000',
 		boxShadow: 24,
 		p: 4,
@@ -98,13 +91,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	};
 
 	const handleFavoritedInteraction = (tweet: Tweet) => {
-		const matchedTweet = state.feed.Tweets.filter(
-			(t: Tweet) => t._id === tweet._id
-		);
-
-		const editedTweet: Tweet = { ...matchedTweet[0] };
 		let interaction: Interaction = {
-			tweetId: editedTweet._id,
+			tweetId: tweet._id,
 			userId: state.user.profile._id,
 		};
 
@@ -126,13 +114,8 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	};
 
 	const handleRetweetInteraction = (tweet: Tweet) => {
-		const matchedTweet = state.feed.Tweets.filter(
-			(t: Tweet) => t._id === tweet._id
-		);
-
-		const editedTweet: Tweet = { ...matchedTweet[0] };
 		let interaction: Interaction = {
-			tweetId: editedTweet._id,
+			tweetId: tweet._id,
 			userId: state.user.profile._id,
 		};
 
@@ -174,7 +157,7 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	};
 
 	const goToTweetReplies = (tweet: Tweet) => {
-		window.location.href = "http://localhost:3000/replies/" + tweet._id
+		window.location.href = "/replies/" + tweet._id
 	};
 
 	async function getRetweetInteractions() {
@@ -227,37 +210,46 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 	// load component, raise action to initialize (get profile data from state or fetch user from url)
 
 	const redirectToProfile = (tweet: Tweet): any => {
-		console.log("redirect button pressed");
-		window.location.href =
-			"http://localhost:3000/profile/" + tweet.user.screen_name;
+		window.location.href = "/profile/" + tweet.user.screen_name;
 	};
 
 	function parseUserJSON(tweet: Tweet): any {
-		return tweet.user.name + " " + "@" + tweet.user.screen_name;
+		return tweet.user.name + " @" + tweet.user.screen_name;
 	}
 
+	const calculateElevation: any = ((tweet: Tweet, hasReplyStatus: Boolean) => {
+		let elevation = 5;
+		if (hasReplyStatus === true && elevation > 0) {
+			elevation -= 3
+			let nextTweetId = tweet.in_reply_to_status_id;
+			let nextTweet: Tweet = state.feed.Tweets.filter((t: Tweet) => t._id === nextTweetId) 
+			calculateElevation(nextTweet, nextTweet.is_reply_status);
+		} 
+			return elevation;
+	});
+
 	return (
-		<Paper elevation={4}>
+		<Paper elevation={calculateElevation(tweet, tweet.is_reply_status)}>
 
 		<Card 
 			sx={{
 				gap: 2,
-				backgroundColor: "white",
 				color: "black",
 				borderRadius: 0,
-				borderBottom: " solid gray",
-				borderBottomWidth: "thin",
+				marginBottom: "10px"
 			}}
 			>
+
 			<CardHeader
 				avatar={
 					<img
-						className={AppStyle.profilePicture}
-						alt="profile-pic"
-						src={defaultProfilePic}
-						style={{ width: "5vw", height: "5vh" }}
-						onClick={() => redirectToProfile(tweet)}
-						></img>
+					className={AppStyle.profilePicture}
+					alt="profile-pic"
+					src={defaultProfilePic}
+					//TODO: show user's profile picture
+					style={{ width: "5vw", height: "5vh" }}
+					onClick={() => redirectToProfile(tweet)}
+					></img>
 				}
 				action={
 					<div>
@@ -353,6 +345,6 @@ export default function IndividualTweetDisplay(tweet: Tweet) {
 			</div>
 			{/* </CardActions> */}
 		</Card>
-					</Paper>
+		</Paper>	 
 	);
 }

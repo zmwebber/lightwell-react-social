@@ -46,6 +46,46 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+export const getUser = (req, res) => {
+  User.findOne({ _id: req.body }).exec((err, user) => {
+    if (err) {
+      return res.json({ 'success': false, 'message': 'getUserError: ' + err});
+    }
+    if(user) {
+      return res.json({ 'success': true, 'message': 'User fetched by ID successfully', user});
+    }
+    else {
+      return res.json({ 'success': false, 'message': 'User with the given id not found' });
+    }
+  })
+}
+
+export const editTheme = asyncHandler(async(req, res) => {
+  const user = req.body;
+  const id = user["id"];
+  const theme = user["theme"];
+
+  let objectId = new ObjectId(id);
+  let filter = {
+    _id: objectId
+  }
+  let update = { 
+    theme: theme 
+  }
+
+  const response = await User.findOneAndUpdate(filter, update, { new: false });
+
+  if (response) {
+    res.status(201).json({
+      theme: theme
+    })
+  } else {
+    res.status(400);
+    throw new Error("Theme not updated");
+  }
+});
+
+// const id = user["id"] -- findOneAndUpdate
 export const editUser = asyncHandler(async (req, res) => {
   const user = req.body;
   delete user["token"];
@@ -59,13 +99,13 @@ export const editUser = asyncHandler(async (req, res) => {
     _id: objectId,
   };
 
-  const userResponse = await User.findOneAndUpdate(filter, user, { new: true });
+  const userResponse = await User.findOneAndUpdate(filter, theme, { new: true });
 
   if (userResponse) {
     userResponse["token"] = generateToken(userResponse._id);
     console.log("Updated User: " + userResponse);
     res.status(201).json({
-      profile: userResponse,
+      name: userResponse,
     });
   } else {
     res.status(400);
@@ -104,6 +144,7 @@ export const loginUser = asyncHandler(async (req, res) => {
       profile_banner: user.profile_banner,
       profile_image_id: user.profile_image_id,
       profile_image: user.profile_image,
+      theme: user.theme
     });
   } else {
     res.status(400);
@@ -118,7 +159,22 @@ export const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user);
 });
 
-// Need method to update user information
+export const getUserByScreenName = (req, res) => {
+  console.log("Request: " + req.params.screenName)
+  User.findOne( {"screen_name": {$eq: req.params.screenName} }).exec((err, user) => {
+    if (err) {
+      return res.json({ 'success': false, 'message': 'getUserByScreenName Error: ' + err });
+    }
+    if (user) {
+      delete user.token
+      delete user.password
+      return res.json({ 'success': true, 'message': 'User fetched by screenName successfully', user });
+    }
+    else {
+      return res.json({ 'success': false, 'message': 'User with the given screenName not found' });
+    }
+  })
+}
 
 // Generate JWT
 const generateToken = (id) => {

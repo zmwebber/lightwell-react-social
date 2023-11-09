@@ -1,8 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../../app/store';
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../../app/store';
 import { Tweet } from '../../../models/TweetModel';
 import { IActionModel } from '../../../models/ActionModel';
 import { addTweet, deleteTweet, updateTweet, getProfileFeed } from '../../../api/TweetApi';
+
 export interface TweetFormState {
   myTweets: Tweet[];
   loading: boolean;

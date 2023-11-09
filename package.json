@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
+    "react-loader-spinner": "^5.4.5",
     "sass": "^1.62.1"
   }
 }

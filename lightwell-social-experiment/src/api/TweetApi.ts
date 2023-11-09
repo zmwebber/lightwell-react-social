@@ -28,7 +28,7 @@ export const addTweet = createAsyncThunk(
 
 export const deleteTweet = createAsyncThunk(
     "tweets/delete",
-    async (id: String) => {
+    async (id: any) => {
     try {
         await API.delete(`/tweets/byId/${id}`);
         console.log(`Deletion successful!`);
@@ -55,9 +55,26 @@ export const getProfileFeed = createAsyncThunk(
     async (profile: User) => {
     try {
         let response = await API.get('/tweets/byUser/',  { params: { userId: profile._id }});
-        const tweets:Tweet[] = response.data.tweets;
+        const tweets: Tweet[] = response.data.tweets;
         return tweets
     } catch (error) {
         console.log(error)
     }
 })
+
+export const getYmlTweets = createAsyncThunk(
+    "tweets/getYmlTweets",
+    async (user: User) => {
+        try {
+            // body + post method over a get method.
+            let response = await API.get('/tweets/youMightLike', { params: { userId: user._id }});
+            const tweets: Tweet[] = response.data.ymlTweets;
+
+            console.log("From getYmlTweets method")
+            console.log(tweets)
+            return tweets
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)

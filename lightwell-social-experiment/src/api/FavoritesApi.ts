@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Tweet } from "../models/TweetModel";
 import { Interaction } from "../models/InteractionsModel"
 import API from "./apiConfig";
 
@@ -18,6 +17,7 @@ export const deleteFavoritedInteraction = createAsyncThunk(
     "favorites/delete",
     async (interaction: Interaction) => {
         try {
+            // @TODO: interaction.tweetId is not being passed
             await API.delete(`/favorites/${interaction.tweetId}/${interaction.userId}`)
         } catch (error) {
             console.log(error);

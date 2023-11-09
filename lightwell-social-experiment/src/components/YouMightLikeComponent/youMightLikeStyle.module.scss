@@ -3,16 +3,17 @@
 .ymlCard {
     width: 100%;
     display: flex;
-    background: black;
+    background: white;
     flex-direction: column;
     justify-content: space-around;
     right: 1vw;
-    top: 10vh;
+    // top: 15vh;
     border-radius: 20px;
+    
 }
 
 .ymlHeader {
-    color: white;
+    color: black;
     padding-left: 12px;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .realName {
-    color: white;
+    color: black;
     margin: 2px;
 }
 
@@ -56,6 +57,6 @@
 }
 
 .showMore {
-    color: white;
+    color: black;
     padding-left: 30px;
 }

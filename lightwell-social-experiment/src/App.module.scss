@@ -1,3 +1,5 @@
+@import './sassStyles/variables';
+
 * {
     font-family: "TwitterChirp", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -10,4 +12,11 @@
 
 .profilePicture:hover {
     cursor: pointer;
+}
+
+@media(max-width: $small) {
+    .sidePadding {
+        // padding-right: .6rem;
+        // padding-left: 6rem;
+    }
 }

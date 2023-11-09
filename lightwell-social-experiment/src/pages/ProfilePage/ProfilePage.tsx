@@ -1,30 +1,59 @@
-import { useStore } from "react-redux";
-import TweetFeed from "../../components/FeedComponent/TweetFeed";
-import NavBar from "../../components/NavbarComponent/NavBar";
 import ProfileHeroComponent from "../../components/ProfileHeroComponent/ProfileHeroComponent";
 import ProfileHeaderComponent from "../../components/ProfileHeaderComponent/ProfileHeaderComponent";
 import ProfileInformationComponent from "../../components/ProfileInformationComponent/ProfileInformationComponent";
 import TabsComponent from "../../components/ProfileTabsComponent/ProfileTabsComponent";
-import YouMightLike from "../../components/YouMightLikeComponent/YouMightLike";
 import ProfilePageStyle from "./profilePageStyle.module.scss";
+import { useParams } from "react-router-dom";
+import { useDispatch, useStore } from "react-redux";
+import { useCallback, useEffect, useState } from 'react';
+import { getUserByScreenName } from "../../api/UserApi";
+import { selectViewedProfile } from "../../redux/ducks/profile_duck/profileSlice";
+import { useAppSelector } from "../../app/hooks/hooks";
+import { User } from "../../models/ProfileModel";
+import { Dna } from "react-loader-spinner";
+import { getProfileFeed } from "../../api/TweetApi";
 
 export function ProfilePage() {
+	const { screen_name } = useParams();
+	const viewedProfile: User = useAppSelector(selectViewedProfile).viewedProfile as User;
+	const dispatch = useDispatch();
+
+	const initFetch = useCallback(() => {
+    if (screen_name && !viewedProfile) {
+      dispatch(getUserByScreenName(screen_name));
+    }
+		if (viewedProfile) {
+			dispatch(getProfileFeed(viewedProfile));
+		}
+  }, [dispatch, screen_name, viewedProfile]);
+
+  useEffect(() => {
+    initFetch();
+  }, [initFetch]);
+
 	return (
-		<div className={ProfilePageStyle.profilePageContainer}>
-			<div className={ProfilePageStyle.navbarPosition}>
-				<NavBar />
-			</div>
-
-			<div className={ProfilePageStyle.ymlPosition}>
-				<YouMightLike />
-			</div>
-
-			<div className={ProfilePageStyle.profilePageContent}>
-				<ProfileHeaderComponent/>
-				<ProfileHeroComponent />
-				<ProfileInformationComponent/>
-				<TabsComponent />
-			</div>
-		</div>
+		<>
+			{viewedProfile !== undefined ? (
+				<div className={ProfilePageStyle.profilePageContainer}>
+					<div className={ProfilePageStyle.profilePageContent}>
+						<ProfileHeaderComponent {...viewedProfile} />
+						<ProfileHeroComponent {...viewedProfile} />
+						<ProfileInformationComponent {...viewedProfile} />
+						<TabsComponent />
+					</div>
+				</div>
+			) : (
+					<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+				<Dna
+					visible={true}
+					height="200"
+					width="200"
+					ariaLabel="dna-loading"
+					wrapperStyle={{}}
+					wrapperClass="dna-wrapper"
+				/>
+				</div>
+			)}
+		</>
 	);
 }

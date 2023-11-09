@@ -3,11 +3,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useSelector, useDispatch, useStore } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
+import { useStore } from 'react-redux';
+import { useAppSelector } from '../../app/hooks/hooks';
 import { getProfileFeed } from '../../api/TweetApi';
 import IndividualTweetDisplay from "../FeedComponent/IndividualTweetDisplay/IndividualTweetDisplay";
 import TabsComponentStyle from "./tabsComponentStyle.module.scss";
+import { Dna } from 'react-loader-spinner';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -53,20 +54,10 @@ export default function TabsComponent() {
     };
     const [isInitialized, setInitialized] = React.useState(false);
     React.useEffect(() => {
-        if (!isInitialized && user) {
-            const action = getProfileFeed(user);
-            store
-                .dispatch(action)
-                .unwrap()
-                .then(handleInit)
-                .catch((error: any) => {
-                    console.log(error)
-                });
-        }
+        handleInit();
     }, [isInitialized]);
     function handleInit() {
         const currentState: any = store.getState();
-
         if (currentState.myTweets.myTweets.length > 0) {
             setInitialized(true);
         }
@@ -83,16 +74,35 @@ export default function TabsComponent() {
             </Box>
             <TabPanel value={value} index={0}> {/* Create generic component to render instead of the TabPanels */}
                 <>
-                    {!feed.loading &&
-                        feed.myTweets &&
-                        feed.myTweets.map((tweet, index) => (
-                            <div className={"tweet " + index} key={index}>
-                                <IndividualTweetDisplay {...tweet} />
-                            </div>
-                        ))}
+                    {!feed.loading ? (
+                        feed.myTweets ? (
+                            feed.myTweets.filter(tweet => tweet.is_reply_status !== true)
+                                .reverse()
+                                .map((tweet, index) => (
+                                    <div className={"tweet " + index} key={index}>
+                                        <IndividualTweetDisplay {...tweet} />
+                                    </div>
+                                ))
+                        ) : (
+                            <h1>No Tweets Available</h1>
+                        )
+                    ) : (
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Dna
+                            visible={true}
+                            height="200"
+                            width="200"
+                            ariaLabel="dna-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="dna-wrapper"
+                        />
+                        </div>
+                    )}
                 </>
 
             </TabPanel>
+            {/* <Hidden xsDown> */}
+
             <TabPanel value={value} index={1}>
                 Tweets & Replies
             </TabPanel>
@@ -102,6 +112,7 @@ export default function TabsComponent() {
             <TabPanel value={value} index={3}>
                 Likes
             </TabPanel>
+            {/* </Hidden> */}
         </Box>
     );
 }

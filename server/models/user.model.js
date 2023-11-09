@@ -34,6 +34,7 @@ var userSchema = mongoose.Schema({
   profile_banner: Media | null,
   profile_image_id: String,
   profile_image: Media | null,
+  theme: String
 });
 
 module.exports = mongoose.model("Users", userSchema);

@@ -1,6 +1,6 @@
 
 import { createSlice } from '@reduxjs/toolkit'
-import { addUser, editUser, login, logout } from '../../../api/UserApi'
+import { addUser, editUser, editUserTheme, getUser, getUserByScreenName, login, logout } from '../../../api/UserApi'
 import { User } from '../../../models/ProfileModel'
 // Get user from localStorage
 
@@ -24,11 +24,11 @@ export interface UserState {
 
 const initialState = {
   profile: user,
-  isError: false,
-  isSuccess: false,
+  isError: user._id ? false : true,
+  isSuccess: user._id ? true : false,
   isLoading: false,
-  message: '',
-  loginSuccess: user._id? true: false 
+  message: user._id ? "Successfully logged in." : '',
+  loginSuccess: user._id ? true: false,
 }
 
 
@@ -113,6 +113,41 @@ export const authSlice = createSlice({
         state.isError = false
         state.message = "Successfully logged out."
         state.isSuccess = true
+      })
+      .addCase(editUserTheme.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = "Failed to save user theme!"
+        state.profile = initialState.profile
+        state.loginSuccess = false
+      })
+      .addCase(editUserTheme.pending, (state, action) => {
+        state.isLoading = true
+        state.loginSuccess = true
+      })
+      .addCase(editUserTheme.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.loginSuccess = true
+        state.profile.theme = action.payload
+      })
+      .addCase(getUser.pending, (state, action) => {
+        state.isLoading = true
+        state.isSuccess = false
+        state.isError = false
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.isError = false
+        state.profile = action.payload
+        state.message = "Get user accepted"
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = false
+        state.isError = true
+        state.message = "Get user rejected"
       })
   },
 })

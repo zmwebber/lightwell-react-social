@@ -8,7 +8,8 @@ import {
 	TweetFeedState,
 } from "../../redux/ducks/feed_duck/tweetFeedSlice";
 import { useAppSelector } from "../../app/hooks/hooks";
-import TweedFeedStyle from "./tweetFeedStyle.module.scss"
+import { Dna } from "react-loader-spinner";
+
 
 const TweetFeed = () => {
 	const feed = useAppSelector(selectFeed);
@@ -24,22 +25,32 @@ const TweetFeed = () => {
 		}
 	}, [initFetch]);
 
-	// Url should end in the user profile property name whereby the user's tweets are filtered by name.
-	//"http://localhost:3000/"
-	// code below checks if there is a username appended to the localhost:3000 url.
-	// if (window.location.href.length > 30) {
-	// 	return <h1>HELLO</h1>;
-	// }
-
 	return (
 		<>
-			{!feed.loading &&
-				feed.Tweets &&
-				feed.Tweets.filter(tweet => tweet.is_reply_status !== true).map((tweet, index) => (
-					<div className={"tweet " + index} key={index}>
-						<IndividualTweetDisplay {...tweet} />
-					</div>
-				))}
+			{!feed.loading ? (
+				feed.Tweets ? (
+					feed.Tweets.filter(tweet => tweet.is_reply_status !== true)
+						.reverse()
+						.map((tweet, index) => (
+							<div className={"tweet " + index} key={index}>
+								<IndividualTweetDisplay {...tweet} />
+							</div>
+						))
+				) : (
+					<h1>No Tweets Available</h1>
+				)
+			) : (
+				<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+					<Dna
+						visible={true}
+						height="200"
+						width="200"
+						ariaLabel="dna-loading"
+						wrapperStyle={{}}
+						wrapperClass="dna-wrapper"
+						/>
+				</div>
+			)}
 		</>
 	);
 };

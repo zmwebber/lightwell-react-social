@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useStore } from "react-redux";
-import { User } from "../../models/ProfileModel";
+import { Profile, User } from "../../models/ProfileModel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { addUser, editUser } from "../../api/UserApi";
@@ -62,9 +62,6 @@ function UserRegistrationForm(props: any) {
 				info.password = password;
 				action = addUser(info);
 			}
-			if (modalClose) {
-				props.onClose();
-			}
 			store
 				.dispatch(action)
 				.unwrap()
@@ -72,8 +69,6 @@ function UserRegistrationForm(props: any) {
 					console.log(error);
 				});
 		}
-
-
 	};
 
 	const handleChange = (newValue: Dayjs | null) => {

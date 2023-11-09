@@ -22,7 +22,7 @@ const tweetFeedSlice = createSlice({
           state.loading = action.payload;
         },   
       }, 
-    extraReducers: (builder) =>{
+    extraReducers: (builder) => {
         builder
         .addCase(getFeed.fulfilled, (state, action: IActionModel) =>{
             state.loading = false;
@@ -30,7 +30,7 @@ const tweetFeedSlice = createSlice({
         })        
         .addCase(getFeed.pending, (state, action) =>{
           state.loading = true;          
-      })
+        })
         .addDefaultCase((state, action) => {})
     }, 
   });

@@ -14,9 +14,28 @@
 
 }
 
-.tweetForm{
+.twitterIcon {
 
 }
+
+@media(max-width: $large) {
+    .navBarText {
+        display: none;
+        align-items: center;
+    }
+    .icons {
+        align-items: center;
+        padding-right: 1rem;
+    }
+    
+}
+
+@media (max-width: $small) {
+    .navbarContainer {
+        display: none;
+    }
+}
+
 
 ul {
     list-style-type: none;
@@ -26,3 +45,4 @@ li {
     font-weight: $heavy-font-weight;
     font-size: $large-font-size;
 }
+

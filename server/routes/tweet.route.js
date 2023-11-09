@@ -12,4 +12,6 @@ router.route('/tweets/byId/:id')
       .delete(tweetController.deleteTweet);
 router.route('/tweets/byUser/:userId?')
       .get(tweetController.getTweetsByUser);
+router.route('/tweets/youMightLike')
+      .get(tweetController.getYmlTweets);
 export default router;

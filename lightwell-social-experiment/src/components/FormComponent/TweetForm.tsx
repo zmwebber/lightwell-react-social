@@ -1,18 +1,14 @@
-import { Button, Input } from "@mui/material";
 import React, { useState } from "react";
-import { myTweets } from "../../redux/ducks/post_duck/tweetFormSlice";
 import { useStore } from "react-redux";
 import { Tweet } from "../../models/TweetModel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { addTweet, getFeed } from "../../api/TweetApi";
-import { useAppSelector } from "../../app/hooks/hooks";
 import type { } from "redux-thunk/extend-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import defaultProfilePic from "../../app/images/default-profile-pic.jpeg";
 import { TweetButton } from "../../app/shared/buttons";
-import { styled } from "@mui/system";
 import AppStyle from "../../App.module.scss"
 import TweetFormStyle from "./tweetFormStyle.module.scss";
 // @TODO: Data validation -- user shouldn't be allowed to insert empty string.
@@ -87,7 +83,7 @@ function TweetForm(props: any) {
 	};
 
 	return (
-		<div className={TweetFormStyle.tweetForm} style={{ backgroundColor: "white" }}>
+		<div className={TweetFormStyle.tweetForm} >
 			<form onSubmit={tweetSuccess}>
 				<Grid container direction="row" className={TweetFormStyle.container}>
 					<Grid item>
@@ -100,7 +96,6 @@ function TweetForm(props: any) {
 					</Grid>
 					<Grid item xs>
 						<TextField
-							sx={{ input: { color: "black" } }}
 							name="tweet"
 							type="text"
 							id="tweet-content"

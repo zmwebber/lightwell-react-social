@@ -1,33 +1,60 @@
-import React from "react";
-import logo from "./logo.svg";
-import { Counter } from "./components/CounterComponent/Counter";
-import { Routes, Route } from "react-router-dom";
-import { NotificationPage } from "./pages/Notifications/NotificationPage";
-import HomePage from "./pages/HomePage/HomePage";
-import { ExplorePage } from "./pages/ExplorePage/ExplorePage";
-import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
-import { RepliesPage } from "./pages/RepliesPage/RepliesPage";
-import RegistrationPage from "./pages/AuthenticationPage/RegistrationPage";
-import "./App.module.scss";
+import YouMightLike from "./components/YouMightLikeComponent/YouMightLike";
+import { Outlet } from 'react-router-dom';
+import NavBar from "./components/NavbarComponent/NavBar";
+import { CssBaseline, Hidden, Grid, useMediaQuery } from "@mui/material";
+import { ThemeProvider } from '@mui/material/styles';
+import {  User } from "./models/ProfileModel";
+import { dark } from "./theme/dark";
+import { light } from "./theme/light";
+import { useAppSelector } from "./app/hooks/hooks";
+import AppStyle from './App.module.scss';
+import MobileNavBar from "./components/MobileNavBarComponent/MobileNavBar";
 
 function App() {
+
+	const user: User = useAppSelector(state => state.user.profile)
+	const isMobile = useMediaQuery('(max-width: 600px)');
+
+	let screenName: string = "";
+
+	const userString = localStorage.getItem('user');
+	if (userString) {
+		let userObject = JSON.parse(userString);
+		screenName = userObject?.screen_name;
+	}
+
 	return (
-		<div>
-			<Routes>
-				<Route path="/" element={<HomePage />} />
-				<Route path="/notifications" element={<NotificationPage />} />
-				<Route path="/explore" element={<ExplorePage />} />
-				<Route path="/messages" />
-				<Route path="/bookmarks" />
-				<Route path="/lists" />
-				<Route path="/profile" element={<ProfilePage />} />
-				<Route path="/more" element={<Counter />} />
-				<Route path="/signup" element={<RegistrationPage />} />
-				<Route path="/login" element={<LoginPage />} />
-				<Route path="/replies/:id" element={<RepliesPage />} />
-			</Routes>
-		</div>
+		<ThemeProvider theme={user?.theme === 'dark' ? dark : light}>	
+			<CssBaseline>
+				<div className="defaultLayout">
+					<Grid container spacing={1.5}>
+						
+						{!isMobile && (
+						<Grid item xs={0} sm={2}>
+							<NavBar userTheme={user?.theme || "light"} screenName={screenName} />
+						</Grid>)
+						}
+
+						{isMobile && (
+						<Grid item xs={2} sm={2}>
+							<MobileNavBar userTheme={user?.theme || "light"} screenName={screenName}/>
+						</Grid>)
+						}
+
+						<Grid item xs={12} sm={7.5} className={AppStyle.sidePadding}>
+							<Outlet />
+						</Grid>
+
+						<Hidden smDown>
+							<Grid item xs={0} sm={2.5}>
+								<YouMightLike />
+							</Grid>
+						</Hidden>
+						
+					</Grid>
+				</div>
+			</CssBaseline>
+		</ThemeProvider>
 	);
 }
 
