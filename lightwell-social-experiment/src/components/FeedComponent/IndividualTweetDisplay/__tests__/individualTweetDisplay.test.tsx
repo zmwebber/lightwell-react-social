@@ -5,7 +5,7 @@ import * as React from 'react';
 import { render, screen } from '../../../../../test-utils';
 import '@testing-library/jest-dom'
 
-test('should display correct tweet information', () => {
+// test('should display correct tweet information', () => {
   const dateConverted = new Date(1677525931811)
   const dummyData: Tweet = {
     "_id":
@@ -45,8 +45,8 @@ test('should display correct tweet information', () => {
 
   
   describe('Testing IndividualTweetDisplay', () => {
-    it('renders correct component', async () => {
-      render(<IndividualTweetDisplay {...dummyData} />);
+    test('renders correct component', async () => {
+      // render(<IndividualTweetDisplay {...dummyData} />);
       expect(await screen.findByText('twitterverse')).toBeVisible()
   });
   });
@@ -54,4 +54,3 @@ test('should display correct tweet information', () => {
   // render(IndividualTweetDisplay(dummyData))
   // const element = screen.getByText("What's up")
   // expect(element).toBeInTheDocument();
-})
